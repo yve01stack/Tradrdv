@@ -1,0 +1,8 @@
+Bonjour {{ username }},
+
+{{body}}
+
+Cliquez sur le lien suivant : {{url}}
+
+Cordialement,
+L'équipe TRADRDV

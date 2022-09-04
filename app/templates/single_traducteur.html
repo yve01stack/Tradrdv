@@ -1,0 +1,82 @@
+{% extends 'header_footer.html' %}
+
+{% block main %}
+
+<!-- banner section -->
+<section class="w3l-banner mainw3 form">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-sm-12 mt-lg-0 mt-4">
+                <span class="title-small">Hello</span>
+                <h1 class="mb-2"> <span>I'm</span> Alexander </h1>
+                <h1 class="mb-4"> a <span class="typed-text"></span><span class="cursor">&nbsp</span></h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, excepturi.
+                    Distinctio accusantium fugit odit? Fugit ipsam. Sed ac fringilla ex. Nam mauris velit, ac
+                    cursus quis, non leo.</p>
+                <div class="mt-sm-5 mt-4">
+                    <a class="btn btn-primary tn-style mr-2" href="contact.html"> Hire Me </a>
+                    <a class="btn btn-outline-primary tn-style mr-2" href="#portfolio"> Portfolio </a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-10 mt-lg-0 mt-4">
+                <div class="img-effect text-lg-center">
+                    <img src="assets/images/photo.png" alt="myphoto" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //banner section -->
+
+<script src="{{ url_for('static', filename='assets/js/js/theme-change.js')}}"></script><!-- theme switch js (light and dark)-->
+
+<!-- <script src="assets/js/jquery-3.3.1.min.js"></script>default jQuery -->
+
+<!-- /typig-text-->
+<script>
+  const typedTextSpan = document.querySelector(".typed-text");
+  const cursorSpan = document.querySelector(".cursor");
+
+  const textArray = ["UI/UX Designer", "Freelancer", "Web developer"];
+  const typingDelay = 200;
+  const erasingDelay = 10;
+  const newTextDelay = 100; // Delay between current and next text
+  let textArrayIndex = 0;
+  let charIndex = 0;
+
+  function type() {
+    if (charIndex < textArray[textArrayIndex].length) {
+      if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+      typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(type, typingDelay);
+    } else {
+      cursorSpan.classList.remove("typing");
+      setTimeout(erase, newTextDelay);
+    }
+  }
+
+  function erase() {
+    if (charIndex > 0) {
+      // add class 'typing' if there's none
+      if (!cursorSpan.classList.contains("typing")) {
+        cursorSpan.classList.add("typing");
+      }
+      typedTextSpan.textContent = textArray[textArrayIndex].substring(0, 0);
+      charIndex--;
+      setTimeout(erase, erasingDelay);
+    } else {
+      cursorSpan.classList.remove("typing");
+      textArrayIndex++;
+      if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+      setTimeout(type, typingDelay);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () { // On DOM Load initiate the effect
+    if (textArray.length) setTimeout(type, newTextDelay + 250);
+  });
+</script>
+<!-- //typig-text-->
+
+{% endblock %}

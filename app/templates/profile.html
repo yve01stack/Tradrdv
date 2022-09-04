@@ -1,0 +1,338 @@
+{% extends 'header_footer.html' %}
+
+{% block main %}
+{{ moment.include_moment() }}
+    {{ moment.locale(g.locale) }}
+<!-- content -->
+<section class="mainw3 form">
+    <div class="container mt-sm-5 pt-sm-5">
+        <div class="row mt-5">
+           <div class="col-sm-6 col-md-4 mb-3">
+                <div class="contact-box shadow-sm bg-white">
+                    <div class="contact-head text-center"><h3>Message</h3></div>
+                    <div class="contact-nav shadow-sm bg-white">
+                        <strong>
+                            <i type="button" class="fa fa-envelope text-center contact-tab" 
+                                style="border-right: 1px solid #eee; width: 50%;" onclick="openMsg()"></i>
+                            <i type="button" class="fa fa-users text-center contact-tab" onclick="closeMsg()" style="width: 48%;"></i>
+                        </strong>
+                    </div>
+                    <div class="contact-container1" id="scroll" style="display: none;">
+
+                    </div>
+                    <div class="contact-container2">
+
+                    </div>
+                    <form method="post" action="{{ url_for('send_message', _external=True) }}" enctype="multipart/form-data" id="msgForm">
+                        <div class="input-container shadow-sm bg-white">
+                            <textarea id="msgText" class="contact-form"></textarea>
+                            <input type="hidden" class="get_message_url" href="{{ url_for('get_message', _external=True) }}">
+                            <input type="hidden" value="" class="receiver_id">
+                            <input type="file" class="d-none" name="msgFile" id="msgFile" oninput="sendfile(this);">
+                            <i type="button" class="fa fa-paperclip icon" onclick="return document.getElementById('msgFile').click();" 
+                                id="file_input" style="transform: rotate(43deg)"></i>
+    
+                            <i type="button" id="text_input" onclick="sendtext()" class="fa fa-check icon"></i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-8">
+                <div class="tab-box shadow-sm bg-white p-2 w-100">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Accords</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Paiements</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-dashboard-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-dashboard" aria-selected="false">Tableau</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content w-100" id="pills-tabContent" style="height: 518px;">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form method="POST" autocomplete='off' action="{{ url_for('update_profile', _external=True) }}" id="update-profile" enctype="multipart/form-data">
+                                        <center>
+                                            <img id="output" onclick="return document.getElementById('image').click();" src="{{ current_user.avatar }}" 
+                                            style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;">
+                                            <input type="file" class="custom-file-input hidden" name="image" id="image" oninput="filesize(this);" onchange="loadFile(event)">
+                                            <input type="hidden"  name="size" id="size"/>  
+                                        </center>
+                                        <div class="form-container">
+                                            <input type="text" 
+                                                {% if current_user.pseudo_com != None %} disabled value="{{ current_user.pseudo_com }}" {% endif %} 
+                                                placeholder="Pseudo du parrain (optionnel)" name="pseudo_com" maxlength="32">
+                                            <input type="text"
+                                                {% if current_user.username != None %} disabled value="{{ current_user.username }}" {% endif %}
+                                                placeholder="Nom d'utilisateur" name="username" required maxlength="32">
+                                            <select name="country" required="">
+                                                <option value="">{{_('Pays')}}</option>
+                                                {% for country in config['COUNTRIES'] %}
+                                                <option {% if current_user.country==country %} selected {% endif %} value="{{ country }}">{{ country }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-container">
+                                        <select name="sex" required="">
+                                            <option value="">{{_('Sexe')}}</option>
+                                            {% for sex in config['SEX'] %}
+                                            <option {% if current_user.sex==sex %} selected {% endif %} value="{{ sex }}">{{ sex }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <input type="password" {% if current_user.google_login %} disabled {% endif %} form="update-profile"  
+                                            placeholder="{{_('Ancien mot de passe')}}" name="old_password">
+                                        <input type="password" {% if current_user.google_login %} disabled {% endif %} form="update-profile"  
+                                            placeholder="{{_('Nouveau mot de passe')}}" name="new_password">
+                                    </div>
+                                    <p><strong>{{_('Nom complet:')}}</strong> {{current_user.fullname}}</p>
+                                    <p><strong>{{_('E-mail:')}}</strong> {{current_user.email}}</p>
+                                    <p><strong>{{_('En ligne:')}}</strong> {{ moment(current_user.last_seen).fromNow()}}</p>
+                                    <p><strong>{{_('Membre depuis:')}}</strong> {{ moment(current_user.timestamp).format('LL')}}</p>
+
+                                    <button type="submit" form="update-profile" class="btn btn-primary">{{_('Modifier')}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>{{_('Photo')}}</th>
+                                        <th>{{_('Détails')}}</th>
+                                        <th>{{_('Trad')}}</th>
+                                        <th>{{_('Compte')}}</th>
+                                        <th>{{_('Statut')}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for deal in deals %}
+                                    <tr>
+                                        <td class="invert-image" rowspan="2">
+                                            <a href="">
+                                                <img src="{{ deal.friend.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                            </a>
+                                        </td>
+                                        <td class="invert">{{deal.motif}}</td>
+                                        <td class="invert">{{deal.friend.username}}</td>
+                                        <td class="invert">{{deal.amount}}da</td>
+                                        <td>
+                                            {% if deal.friend_accept %}
+                                                {% if deal.admin_confirm_bill %}
+                                                    {% if deal.deal_over %}
+                                                    <span class="badge badge-success">{{_('Terminé')}}</span>
+                                                    {% else %}
+                                                    <span class="badge badge-info">{{_('En cours')}}</span>
+                                                    {% endif %}
+                                                {% else %}
+                                                <span class="badge badge-warning">{{_('Va payer')}}</span>
+                                                {% endif %}
+                                            {% else %}
+                                            <span class="badge badge-primary">{{_('Attente')}}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="invert">
+                                            <i>{{deal.timestamp}} </i>
+                                            <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}>| {{deal.deal_over_time}}</i>
+                                        </td>
+                                        <td class="invert">{{deal.friend.country}}</td>
+                                        <td class="invert">ACCOUNT_NUMBER</td>
+                                        <td class="invert"><span class="badge badge-primary">{{_('Docs_trad')}}</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+
+                                    <tr>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="tab-pane fade" id="pills-dashboard" role="tabpanel" aria-labelledby="pills-dashboard-tab">...</div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<!-- //content -->
+
+<!-- JS -->
+<script>
+
+	function filesize(elem){
+		document.getElementById("size").value = `${elem.files[0].size}`
+	}
+	
+    var loadFile = function(event) {
+	    var image = document.getElementById('output');
+	    image.src = URL.createObjectURL(event.target.files[0]);
+	};
+
+    // Msg JS
+    document.addEventListener("DOMContentLoaded", function() {
+        get_message($('.receiver_id').val())    
+        
+    });
+
+    function updateScroll(){
+        var element = document.getElementById("scroll");
+        element.scrollTop = element.scrollHeight;
+    }
+
+    setInterval(updateScroll, 1000);
+    setInterval(get_message($('.receiver_id').val()), 60000);
+    
+
+    function openMsg() {
+        $(".contact-container1").show();
+        $(".contact-container2").hide();
+    }
+
+    function closeMsg() {
+        $(".contact-container1").hide();
+        $(".contact-container2").show();
+    }
+
+    function select_chat(receiver_id){
+        $('.receiver_id').val(receiver_id)
+        openMsg()
+        get_message(receiver_id)
+
+    }
+
+    function sendfile(elem){
+        var size_max = 5 * 1024 * 1024;
+		var file_size = `${elem.files[0].size}`;
+        var receiver_id = $('.receiver_id').val();
+        var object = $('#msgFile')[0].files[0];
+        $('#msgFile').val('');
+
+        if (file_size > size_max){
+            $('#file_input').css({"border-color": "#ffdddd"});
+        }else if(receiver_id==''){
+            closeMsg()        
+        }else{
+            send(object, receiver_id, true )
+        }          
+	}
+
+    function sendtext(){
+        var text = $('#msgText').val();
+        $('#msgText').val('');
+        var receiver_id = $('.receiver_id').val();
+
+        if (text == ''){
+            $('#text_input').css({"border-color": "#ffdddd"});
+        }else if(receiver_id==''){
+            closeMsg()
+        }else{
+            send(text, receiver_id, false )
+        }          
+	}
+
+    async function send(object, receiver_id, file_statut) {
+        var url = $("#msgForm").attr('action');
+        var message = new FormData()
+        if(file_statut==true){
+            message.append('msg_file', object)
+        }else{
+            message.append('msg_text', object)
+        }
+        message.append('receiver_id', receiver_id)
+    	message.append('file_statut', file_statut)
+            
+        await fetch(url, {
+            method: "POST", 
+            body: message
+        });
+        get_message(receiver_id)
+        
+    }
+        
+    function get_message(receiver_id) {
+		var url = $(".get_message_url").attr('href');
+    		$.post(url, { receiver_id: receiver_id }, function(data, status) { 
+                
+                var chats_html=''
+                var i
+                for (i = 0; i < data['chats'].length; i++) {
+                    var online
+                    if(data["chats"][i]["author"]["id"]==data["user"]["id"]){
+
+                        if(data["chats"][i]["receiver"]["is_active"]=="True"){
+                            online = '<small class="fa fa-circle text-success float-right mt-1"></small>';
+                        }else{
+                            online = '<small class="fa fa-circle text-muted float-right mt-1"></small>';
+                        }
+
+                        chats_html = chats_html + '<p class="bg-light p-1 m-1" type="button" style="border-radius: 4px;"'+
+                            'onclick="select_chat('+data["chats"][i]["receiver"]["id"]+')">'+data["chats"][i]["receiver"]["username"]+online+'</p>';
+                    }else{
+                        if(data["chats"][i]["author"]["is_active"]=="True"){
+                            online = '<small class="fa fa-circle text-success float-right mt-1"></small>';
+                        }else{
+                            online = '<small class="fa fa-circle text-muted float-right mt-1"></small>';
+                        }
+                        chats_html = chats_html + '<p class="bg-light p-1 m-1" type="button" style="border-radius: 4px;"'+
+                            'onclick="select_chat('+data["chats"][i]["author"]["id"]+')">'+data["chats"][i]["author"]["username"]+online+'</p>';
+                    }
+                }
+                $(".contact-container2").html(chats_html);
+
+                var messages_html=''
+                var i
+                for (i = 0; i < data['messages'].length; i++) {
+                    var object
+                    if(data["messages"][i]["file_statut"]=="True"){
+                        object = '<i><a href="'+data["messages"][i]["file"]+'" download="pièce jointe">pièce jointe</a></i>';
+                    }else{
+                        object = data["messages"][i]["message"];
+                    }
+
+                    var sender=''
+                    if(data["messages"][i]["author"]["id"]!=data["user"]["id"]){
+                        sender = '<b>'+data["messages"][i]["author"]["username"]+':</b>';
+                    }
+                    messages_html = messages_html + '<p class="bg-light p-1 m-1" type="button" style="border-radius: 4px;">'+
+                        '<small>'+object+'</small><br><small><i>'+sender+''+data["messages"][i]["timestamp"]+'</i></small></p>';
+                }
+                $(".contact-container1").html(messages_html);
+
+            });
+
+    }
+
+
+</script>
+
+{% endblock %}

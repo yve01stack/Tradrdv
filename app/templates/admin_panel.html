@@ -1,0 +1,34 @@
+{% extends 'header_footer.html' %}
+
+{% block main %}
+
+    <!-- Services Start -->
+    <section class="services">
+        <div class="container mt-sm-5 pt-sm-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">Dashboard</a>
+                        <a class="nav-link" id="v-pills-clients-tab" data-toggle="pill" href="#v-pills-clients" role="tab" aria-controls="v-pills-clients" aria-selected="false">Clients</a>
+                        <a class="nav-link" id="v-pills-traducteurs-tab" data-toggle="pill" href="#v-pills-traducteurs" role="tab" aria-controls="v-pills-traducteurs" aria-selected="false">Traducteurs</a>
+                        <a class="nav-link" id="v-pills-testeurs-tab" data-toggle="pill" href="#v-pills-testeurs" role="tab" aria-controls="v-pills-testeurs" aria-selected="false">Testeurs</a>
+                        <a class="nav-link" id="v-pills-messagerie-tab" data-toggle="pill" href="#v-pills-messagerie" role="tab" aria-controls="v-pills-messagerie" aria-selected="false">Messagerie</a>
+                      </div>
+                    </div>
+                    <div class="col-9">
+                      <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">...</div>
+                        <div class="tab-pane fade" id="v-pills-clients" role="tabpanel" aria-labelledby="v-pills-clients-tab">...</div>
+                        <div class="tab-pane fade" id="v-pills-traducteurs" role="tabpanel" aria-labelledby="v-pills-traducteurs-tab">...</div>
+                        <div class="tab-pane fade" id="v-pills-testeurs" role="tabpanel" aria-labelledby="v-pills-testeurs-tab">...</div>
+                        <div class="tab-pane fade" id="v-pills-messagerie" role="tabpanel" aria-labelledby="v-pills-messagerie-tab">...</div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Start -->
+
+{% endblock %}

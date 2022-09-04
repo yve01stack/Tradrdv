@@ -1,0 +1,354 @@
+{% extends 'header_footer.html' %}
+
+{% block main %}
+
+<!-- content -->
+<section>
+    <div class="mainw3 form">
+        <form id="regForm" action="{{ url_for('traducteur_new_register', _external=True) }}" 
+            class="container" style="margin-top: 100px;" enctype="multipart/form-data" method="post">
+
+            <h3>Devenir Traducteur</h3>
+            
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+                <p>Vous résidez en Algérie, et avez une licence en traduction ou un diplôme équivalent ? 
+                    Ou bien vous êtes titulaire d’une licence en langues étrangères, en plus d’un master en traduction ? 
+                    Ou peut-être vous êtes ingénieur en une toute autre filière, mais avez une maîtrise parfaite des langues, 
+                    et possédez en tout ce qui est technique, un très bon jargon ? Vous désirez avoir à faire à de multitudes de clients, 
+                    acquérir de l’expérience, et faire exploser votre Portefeuille d’argent ? 
+                    Traducteurs sur Rendez-vous est le monde qu’il vous faut ! N’attendez plus et engagez-vous dés maintenant ! </p>                
+            </div>
+            
+            <div class="tab"><b>Compétences</b>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>
+                            <select name="skill_1" required="true" onchange="this.className = ''">
+                                <option value="">{{_('Niveau excellent')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="skill_2" onchange="this.className = ''">
+                                <option value="">{{_('Niveau très bien')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="skill_3" onchange="this.className = ''">
+                                <option value="">{{_('Niveau bien')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="skill_4" onchange="this.className = ''">
+                                <option value="">{{_('Niveau assez bien')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="skill_5" onchange="this.className = ''">
+                                <option value="">{{_('Niveau passable')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <select name="skill_6" required onchange="this.className = ''">
+                                <option value="">{{_('Autre')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="skill_7" onchange="this.className = ''">
+                                <option value="">{{_('Autre')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="skill_8" onchange="this.className = ''">
+                                <option value="">{{_('Autre')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="skill_9" onchange="this.className = ''">
+                                <option value="">{{_('Autre')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="skill_10" onchange="this.className = ''">
+                                <option value="">{{_('Autre')}}</option>
+                                {% for skill in config['SKILLS'] %}
+                                <option value="{{ skill }}">{{ skill }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab"><b>Personnel Informations</b>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>
+                            <select name="country" required="true" id="country_select_form" onchange="this.className = ''; getTown()">
+                                <option value="">{{_('Pays de résidence')}}</option>
+                                {% for country in config['COUNTRIES'] %}
+                                <option value="{{ country }}" id="url_{{country}}" href="{{ url_for('get_town', country=country, _external=True) }}">{{ country }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="town" required="true" id="town_select_form" onchange="this.className = ''">
+                                <option value=''>{{_('Ville de résidence')}}</option>
+                            </select>
+                        </p>
+                        <p><input required="true" name="addr_postale" placeholder="code postal, rue, bâtiment" oninput="this.className = ''"></p>
+                        <p><input required="true" name="phone" placeholder="+213 658489196" oninput="this.className = ''"></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p><input name="CCP_number" placeholder="Numéro de compte CCP" oninput="this.className = ''"></p>
+                        <p><input name="BaridiMob_RIP" placeholder="BaridiMob RIP" oninput="this.className = ''"></p>
+                        <p>
+                            <select name="ePayment_type" onchange="this.className = ''">
+                                <option value=''>{{_('Paiement électronique')}}</option>
+                                {% for ePayment in config['ePAIMENT_TYPES'] %}
+                                <option value='{{ePayment}}'>{{ePayment}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p><input name="ePayment" placeholder="Identifiant ePaiement" oninput="this.className = ''"></p>
+                    </div>
+                </div>   
+            </div>
+            
+            <div class="tab"><b>Identité</b>
+                <div class="row">
+                    <div class="col-sm-6">                
+                        <p>
+                            <label for="id_card"><b>Carte Identité/Passeport (1mo max) </b></label>
+                            <input type="file" accept="image/*" name="id_card" required="true" onchange="this.className = ''">
+                        </p>
+                        <p>
+                            <label for="diploma"><b>Diplomes obtenus (.pdf, 1mo max) </b></label>
+                            <input type="file" required="true" name="diploma" accept=".pdf" onchange="this.className = ''">
+                        </p>
+                        <p>
+                            <label class="checkbox_container">Traducteur
+                                <input type="checkbox" name="traducteur" checked disabled required="true">
+                                <span class="checkmark"></span>
+                              </label>
+                              <label class="checkbox_container">Interprète
+                                <input type="checkbox" name="interprete">
+                                <span class="checkmark"></span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="col-sm-6"> 
+                        <label for="about_me"><b>Bio (pas de contact personnel, 5 lignes max) </b></label>               
+                        <textarea name="about_me" required="true" cols="50" class="w-100" oninput="this.className = ''"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tab"><b>Testeur</b>
+                <div class="row">
+                    <div class="col-sm-6"> 
+                        <p class="testeur">Veuillez selectionner un testeur qui vous passera le test d'attitude pour devenir traducteur chez 
+                            Traducteur sur Rendez-vous quand vous aurez payé les frais d'abonnement annuel</p>
+                        <select name="testeur_id" required="true" id="testeur_select_form" onchange="this.className = ''; getTesteur()">
+                            <option value=''>{{_('Chosissez un testeur')}}</option>
+                            {% for testeur in testeurs %}
+                            <option value='{{testeur.id}}' id="testeur_url_{{testeur.id}}" href="{{ url_for('get_testeur', testeur_id=testeur.id, _external=True) }}">
+                                {{testeur.username}} | {{testeur.country}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <p><strong>{{_("Nom d'utilisateur:")}} </strong><small class="h6" id="testeur_username"></small></p>
+                        <p><strong>{{_('Pays de résidence:')}} </strong><small class="h6" id="testeur_current_country"></small></p>
+                        <p><strong>{{_('Ville de résidence:')}} </strong><small class="h6" id="testeur_current_town"></small></p>
+                        <p><strong>{{_('Adresse postale:')}} </strong><small class="h6" id="testeur_addr_postale"></small></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <center>
+                            <img id="testeur_avatar" src="{{config['COVER_PICTURE']}}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;"> 
+                        </center> 
+                        <p class="mt-3" id="testeur_about_me"></p>
+                        <p><strong>{{_('Accomplissement:')}} </strong><small class="h6" id="testeur_success_work"></small></p>
+                        <p><strong>{{_('En ligne:')}} </strong><small class="h6" id="testeur_last_seen"></small></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" class="btn-primary btn-perso" onclick="nextPrev(-1)">Précédent</button>
+                    <button type="button" id="nextBtn" class="btn-primary btn-perso" onclick="nextPrev(1)">Suivant</button>
+                </div>
+            </div>
+            
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+            
+        </form>
+    </div>
+    <!-- //content -->
+</section>
+
+<script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form ...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  // ... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Envoyer";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Suivant";
+  }
+  // ... and run a function that displays the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form... :
+  if (currentTab >= x.length) {
+    //...the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, z, t, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  z = x[currentTab].getElementsByTagName("select");
+  t = x[currentTab].getElementsByTagName("textarea");
+
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+        // If a field is empty...
+        if (y[i].required && y[i].value == "") {
+        // add an "invalid" class to the field:
+        y[i].className += " invalid";
+        // and set the current valid status to false:
+        valid = false;
+        }
+    }
+    // A loop that checks every select field in the current tab:
+    for (i = 0; i < z.length; i++) {
+        // If a field is empty...
+        if (z[i].getAttribute('required') && z[i].value == "") {
+            // add an "invalid" class to the field:
+            z[i].className += " invalid";
+            // and set the current valid status to false:
+            valid = false;
+        }
+    }
+    // A loop that checks every select field in the current tab:
+    for (i = 0; i < t.length; i++) {
+        // If a field is empty...
+        if (t[i].getAttribute('required') && t[i].value == "") {
+            // add an "invalid" class to the field:
+            t[i].className += " invalid";
+            // and set the current valid status to false:
+            valid = false;
+        }
+    }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class to the current step:
+    x[n].className += " active";
+}
+
+// get the towns that correspond to the selected country
+function getTown() {
+    var x = document.getElementById("country_select_form").value;
+		var url = $("#url_"+x).attr('href');
+    		$.post(url, { code: x }, function(data, status) { 
+                var options = "<option value=''>{{_('Ville de résidence')}}</option>";
+                var i
+                for (i = 0; i < data['towns'].length; i++) {
+                    options = options + "<option value='"+data['towns'][i]+"'>"+data['towns'][i]+"</option>";
+                }
+                document.getElementById("town_select_form").innerHTML = options
+            });
+        }
+
+// get the testeur who correspond to the selected testeur
+function getTesteur() {
+    var x = document.getElementById("testeur_select_form").value;
+		var url = $("#testeur_url_"+x).attr('href');
+    		$.post(url, { code: x }, function(data, status) { 
+                document.getElementById("testeur_avatar").src = data['testeur']['author']['avatar'];
+                document.getElementById("testeur_about_me").innerText = data['testeur']['about_me'];
+                document.getElementById("testeur_username").innerText = data['testeur']['author']['username'];
+                document.getElementById("testeur_current_country").innerText = data['testeur']['current_country'];
+                document.getElementById("testeur_current_town").innerText = data['testeur']['current_town'];
+                document.getElementById("testeur_success_work").innerText = data['testeur']['success_work'];
+                document.getElementById("testeur_addr_postale").innerText = data['testeur']['addr_postale'];
+                document.getElementById("testeur_last_seen").innerText = data['testeur']['author']['last_seen'];
+            });
+        }
+
+</script>
+
+{% endblock %}

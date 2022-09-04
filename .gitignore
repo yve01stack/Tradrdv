@@ -1,0 +1,7 @@
+env
+logs
+migrations
+app.db
+.env
+.flaskenv
+__pycache__

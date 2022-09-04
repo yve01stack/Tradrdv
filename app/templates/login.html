@@ -1,0 +1,55 @@
+{% extends 'header_footer.html' %}
+
+{% block main %}
+
+    <!-- Services Start -->
+    <section class="mainw3 form">
+        <div class="container mt-sm-5 pt-sm-5">
+            <!-- main content -->
+            <div class="row map-content-9">
+                <div class="info-grids col-md-6">
+                    <form action="#" method="post" class="" novalidate>
+                        {{ form.hidden_tag() }}
+                        <div class="form-grid">
+                            <div class="input-field">
+                                {{ form.email.label }}
+                                {% for error in form.email.errors %}
+                                <span class="text-danger">[{{ error }}]</span>
+                                {% endfor %} 
+                                {{ form.email(size=100, placeholder="E-mail", id="email") }}                           
+                            </div>
+                            <div class="input-field">
+                                {{ form.password.label }}
+                                {% for error in form.password.errors %}
+                                <span class="text-danger">[{{ error }}]</span>
+                                {% endfor %}
+                                {{ form.password(size=32, id="Password", placeholder="Mot de passe") }}
+                            </div>
+                        </div>
+                        <label class="check-remaind">
+                            {{ form.remember_me() }}
+                            <span class="checkmark"></span>
+                            <p class="remember">{{ form.remember_me.label }}</p>
+                        </label>
+                        {{ form.submit(class="btn-style") }}
+                    </form>
+                </div>
+                <div class="info-grids col-md-6 social-login-details align-self">
+                    <p class="text-center mb-3">Ou connectez-vous avec</p>
+                    <div class="social-media">
+                        <a href="#facebook" class="fb"><span class="fa fa-facebook" aria-hidden="true"></span> Se connecter avec Facebook</a>
+                        <a href="{{ url_for('google_login', _external=True) }}" class="gl">
+                            <span class="fa fa-google" aria-hidden="true"></span> Se connecter avec Google
+                        </a>
+                    </div>
+                    <p class="text-center mt-4">Pas encore enregistré ? <a href="{{ url_for('register', _external=True) }}">inscrivez-vous</a> ici</p>
+                    <p class="text-center mt-4">Mot de passe oublié ? <a href="{{ url_for('forgot_password', _external=True) }}">réinitialisez</a> ici</p>
+                </div>
+            </div>
+            <!-- //main content -->        
+
+        </div>
+    </section>
+    <!-- //Services Start -->
+
+{% endblock %}

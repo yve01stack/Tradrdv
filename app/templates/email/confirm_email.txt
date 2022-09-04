@@ -1,0 +1,11 @@
+Bonjour {{ user.fullname }},
+
+Pour confirmer votre adresse mail cliquez sur le lien suivant :
+
+{{ url_for('confirmed_email', token=token, _external=True) }}
+
+Si vous n'avez pas demandé la vérification d'identité sur Traducteurs sur rendez-vous, ignorez simplement ce message.
+
+Cordialement,
+
+L'équipe TRADRDV

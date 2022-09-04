@@ -1,0 +1,10 @@
+<p>{{_("Bonjour %(username)s,", username=user.fullname)}}</p>
+<p>
+    {{_("Pour confirmer votre adresse mail, cliquez sur le lien")}} 
+    <a href="{{ url_for('confirmed_email', token=token, _external=True) }}"> {{_('suivant')}}</a>.
+</p>
+<p>{{_("Vous pouvez également coller le lien suivant dans la barre d'adresse de votre navigateur :")}}</p>
+<p>{{ url_for('confirmed_email', token=token, _external=True) }}</p>
+<p>{{_("Si vous n'avez pas demandé la vérification d'identité sur Traducteurs sur rendez-vous, ignorez simplement ce message.")}}</p>
+<p>{{_('Cordialement,')}}</p>
+<p>{{_("L'équipe TRADRDV")}}</p>

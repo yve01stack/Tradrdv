@@ -1,0 +1,356 @@
+:root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #8e43e7;
+    --secondary: #273c66;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+
+/*-----------------------------------
+    1 - Single traducteur profile
+------------------------------------*/
+.title-small {
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 2em;
+    letter-spacing: 1px;
+    color: #8c89a2; 
+}
+      
+.title-small span {
+    color: var(--heading-color); 
+}
+    
+.w3l-banner {
+    margin-top: none;
+    background-color: var(--bg-light); }
+  
+.w3l-banner h1.title {
+    font-size: 48px;
+    line-height: 1.2;
+    font-weight: 600; }
+  
+.w3l-banner h1.title span {
+    font-weight: 300; }
+  
+.w3l-banner p.sample a {
+    font-size: 15px;
+    font-weight: 600;
+    padding-left: 5px; }
+  
+span.cursor {
+    background: var(--heading-color);
+    display: inline-block;
+    margin-left: 0.3rem;
+    width: 3px;
+    -webkit-animation: blink 1s infinite;
+    animation: blink 1s infinite; }
+  
+@media only screen and (max-width: 1080px) {
+    .w3l-banner h1.title {
+      font-size: 38px;
+      line-height: 45px; } }
+  
+@media only screen and (max-width: 992px) {
+    .w3l-banner {
+      margin-top: none; } }
+  
+@media only screen and (max-width: 568px) {
+    .w3l-banner img {
+      max-width: 400px; }
+    .w3l-banner h1.title {
+      font-size: 35px; } }
+  
+@media only screen and (max-width: 415px) {
+    .w3l-banner h1.title {
+      font-size: 32px;
+      line-height: 34px; }
+    .w3l-banner img {
+      max-width: 100%; } 
+    .title-small {
+      font-size: 14px;
+      letter-spacing: .5px; }}
+  
+
+/*-----------------------------------
+    1 - Single client profile
+------------------------------------*/
+
+/* The popup form - hidden by default */
+.contact-box, .tab-box {
+  width: 100%;
+  height: auto;
+}
+
+/* Add styles to the form container */
+.contact-box .contact-head{
+  width: 100%;
+  height: 50px;
+  padding-top: 8px;
+  color: white;
+  background-color: black;
+}
+
+.contact-box .contact-nav{
+  width: 100%;
+  height: 28px;
+  border: 1px solid #eee;
+}
+
+.contact-box .contact-nav .contact-tab:hover{
+  background-color: #eee;
+  color: black;
+}
+
+.contact-box .contact-container1 {
+  width: 100%;
+  height: 450px;
+  padding: 5px;
+  background-color: white;
+  overflow-y: auto;
+}
+
+.contact-box .contact-container2 {
+  width: 100%;
+  height: 450px;
+  padding: 5px;
+  background-color: white;
+  overflow-y: auto;
+}
+
+/* Style the input container */
+.contact-box .input-container {
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #eee;
+}
+
+/* Style the form icons */
+.contact-box .input-container .icon {
+  padding: 10px;
+  padding-top: 16px;
+  margin: 1px;
+  background: #eee;
+  color: dodgerblue;
+  min-width: 48px;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid #eee;
+}
+
+.contact-box .input-container .icon:hover {
+  color: dodgerblue;
+  background: rgb(198, 194, 194);
+}
+/* Style the input fields */
+.contact-box .contact-form {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
+}
+
+.contact-box .contact-form:focus {
+  border: 2px solid dodgerblue;
+}
+
+/* .tab-box .tab-container{
+  width: 100%;
+  height: 50px;
+  padding-top: 8px;
+  color: white;
+  background-color: black;
+}
+
+.tab-box .tab-container a{
+  color: white;
+} */
+
+
+/*-----------------------------------
+    1 - Single client profile update
+------------------------------------*/
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password], .form-container select {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container select:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+/*-----------------------------------
+    1 - Checkbox Custom 
+------------------------------------*/
+
+/* The container */
+.checkbox_container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkbox_container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox_container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox_container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*-----------------------------------
+    1 - Multiple step From 
+------------------------------------*/ 
+
+/* Style the form */
+#regForm {
+  background-color: #ffffff;
+  /* margin: 100px auto; */
+  padding: 40px;
+  /* width: 70%; */
+  /* min-width: 300px; */
+}
+
+/* Style the input fields */
+#regForm select, #regForm input, #regForm textarea{
+  padding: 10px;
+  width: 100%;
+  /* margin: 5px 0 5px 0; */
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+#regForm select:focus, #regForm input:focus, #regForm textarea:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Mark input boxes that gets an error on validation: */
+#regForm input.invalid, #regForm select.invalid, #regForm textarea.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+#regForm .tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+#regForm .step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+#regForm .step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+#regForm .step.finish {
+  background-color: #04AA6D;
+}
+
+.btn-perso{
+  border-radius: 5px;
+  padding: 7px;
+  outline: none;
+}
+
+.btn-perso:focus{
+  outline: none;
+}

@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="{{config['SKILLS']}}" />
+    <meta name="application-name" content='{{config["SITE_NAME"]}}'>
+    <meta content='{{config["SITE_DESCRIPTION"]}}' name="description">
+    <!-- Document title -->
+    <title>{{ title }}</title>
+    <!-- Stylesheets & Fonts -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
+        rel="stylesheet">
+    <!-- Plugins Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/loader/loaders.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/font-awesome/font-awesome.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/aos/aos.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/swiper/swiper.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/lightgallery.min.css')}}">
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/profil.css')}}">
+    <!-- Responsive Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/responsive.css')}}">
+    <!-- Favicons -->
+    <link href="{{ url_for('static', filename='assets/images/dev/favicon.png')}}" rel="icon">
+    <!-- reference Moment.js library -->
+    {{ moment.include_moment() }}
+    {{ moment.locale(g.locale) }}
+</head>
+
+<body>
+
+    <!-- Loader Start -->
+    <div class="css-loader">
+        <div class="loader-inner line-scale d-flex align-items-center justify-content-center"></div>
+    </div>
+    <!-- Loader End -->
+    <!-- Header Start -->
+    <header class="position-absolute w-100">
+        <div class="container">
+            <div class="top-header d-none d-sm-flex justify-content-between align-items-center">
+                <div class="contact">
+                    <a href="tel:{{config['CALL_CONTACT']}}" class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{config["CALL_CONTACT"]}}</a>
+                    <a href="mailto:{{config['MAIL_CONTACT']}}"><i class="fa fa-envelope" aria-hidden="true"></i>{{config['MAIL_CONTACT']}}</a>
+                </div>
+                <nav class="d-flex aic">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('logout', _external=True) }}" class="login"><i class="fa fa-sign-out" aria-hidden="true"></i>Se déconnecter</a>
+                    {% else %}
+                    <a href="{{ url_for('login', _external=True) }}" class="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion</a>
+                    {% endif %}
+                    <ul class="nav social d-none d-md-flex">
+                        <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                       <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <nav class="navbar navbar-expand-md navbar-light">
+                <a class="navbar-brand" href="{{ url_for('accueil', _external=True) }}">
+					<img src="{{ url_for('static', filename='assets/images/dev/logo.png')}}" style="width: 200px; height: 32px;" alt="{{config['SITE_NAME']}}">
+				</a>
+                <div class="group d-flex align-items-center">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><span
+                            class="navbar-toggler-icon"></span></button>
+                    {% if current_user.is_authenticated %}
+                    <a class="login-icon d-sm-none" href="{{ url_for('logout', _external=True) }}"><i class="fa fa-sign-out"></i></a>
+                    <a class="client-profile" href="{{ url_for('profile', _external=True) }}"><i class="fa fa-user"></i></a>
+                    {% else %}
+                    <a class="login-icon d-sm-none" href="{{ url_for('login', _external=True) }}"><i class="fa fa-sign-in"></i></a>
+                    {% endif %}
+                </div>
+                <a class="search-icon d-none d-md-block" href="#"><i class="fa fa-search"></i></a>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('accueil', _external=True) }}">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('about_us', _external=True) }}">À Propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('news', _external=True) }}">News</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Traducteurs</a></li>
+                        {% if current_user.is_authenticated %}
+                        {% if current_user.statut == 'admin' %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_panel', _external=True) }}">Admin</a></li>
+                        {% elif current_user.statut == 'testeur' %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">Gestion</a></li>
+                        {% elif current_user.statut == 'traduicteur' %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">Gestion</a></li>
+                        {% endif %}
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact_us', _external=True) }}">Contact</a></li>
+                    </ul>
+                    <form class="bg-white search-form" method="get" id="searchform">
+                        <div class="input-group">
+                            <input class="field form-control" id="s" name="s" type="text" placeholder="Pseudo du traducteur">
+                            <span class="input-group-btn">
+                                <input class="submit btn btn-primary" id="searchsubmit" name="submit" type="submit"
+                                    value="Rechercher">
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <section class="services position-absolute w-100 m-n3">
+        <div classs="container mt-sm-5 pt-sm-5">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 m-auto">
+                    {% for category, message in messages %}
+                    <div class="ml-md-1 ml-5 alert alert-{{category}} {% if category == 'message' %} alert-info {% endif %}  
+                        alert-dismissible fade show" role="alert" style="z-index: 9000;">
+                        {{ message }}
+                        <a type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </a>
+                        <hr>
+                        <p class="mb-0">{{title}}</p>
+                      </div>
+                      {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    {% endwith %}
+
+	{% block main %}{% endblock %}
+
+    <!-- Footer Start -->
+    <footer>
+        <!-- Widgets Start -->
+        <div class="footer-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="single-widget contact-widget" data-aos="fade-up" data-aos-delay="0">
+                            <h6 class="widget-tiltle">&nbsp;</h6>
+                            <p>{{ config['SITE_DESCRIPTION']}}</p>
+                            <div class="media">
+                                <i class="fa fa-map-marker"></i>
+                                <div class="media-body ml-3">
+                                    <h6>Adresse</h6>
+                                    {{ config['ADDRESS']}}
+                                </div>
+                            </div>
+                            <div class="media">
+                                <i class="fa fa-envelope-o"></i>
+                                <div class="media-body ml-3">
+                                    <h6>Avez-vous des questions?</h6>
+                                    <a href="mailto:{{ config['MAIL_CONTACT']}}">{{ config['MAIL_CONTACT']}}</a>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <i class="fa fa-phone"></i>
+                                <div class="media-body ml-3">
+                                    <h6>Appelez-nous</h6>
+                                    <a href="tel:{{ config['CALL_CONTACT']}}"> {{ config['CALL_CONTACT']}}</a>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <i class="fa fa-fax"></i>
+                                <div class="media-body ml-3">
+                                    <h6>Fax</h6>
+                                    <a href="fax:{{ config['FAX_CONTACT']}}">{{ config['FAX_CONTACT']}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6 col-xl-3">
+                        <div class="single-widget twitter-widget" data-aos="fade-up" data-aos-delay="200">
+                            <h6 class="widget-tiltle">Fresh Tweets</h6>
+                            <div class="media">
+                                <i class="fa fa-twitter"></i>
+                                <div class="media-body ml-3">
+                                    <h6><a href="#">@Themes,</a> Html Version Out Now</h6>
+                                    <span>10 Mins Ago</span>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <i class="fa fa-twitter"></i>
+                                <div class="media-body ml-3">
+                                    <h6><a href="#">@Envato,</a> the best selling item of the day!</h6>
+                                    <span>20 Mins Ago</span>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <i class="fa fa-twitter"></i>
+                                <div class="media-body ml-3">
+                                    <h6><a href="#">@Collis,</a> We Planned to Update the Enavto Author Payment Method
+                                        Soon!</h6>
+                                    <span>10 Mins Ago</span>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <i class="fa fa-twitter"></i>
+                                <div class="media-body ml-3">
+                                    <h6><a href="#">@SteelThemes,</a> Html Version Out Now</h6>
+                                    <span>15 Mins Ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="single-widget recent-post-widget" data-aos="fade-up" data-aos-delay="400">
+                            <h6 class="widget-tiltle">DERNIERS NEWS</h6>
+                            <div class="media">
+                                <a class="rcnt-img" href="#"><img src="{{ url_for('static', filename='assets/images/dev/rcnt-post1.png')}}"
+                                        alt="Recent Post"></a>
+                                <div class="media-body ml-3">
+                                    <h6><a href="#">An engaging</a></h6>
+                                    <p><i class="fa fa-user"></i>Mano <i class="fa fa-eye"></i> 202 Views</p>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <a class="rcnt-img" href="#"><img src="{{ url_for('static', filename='assets/images/dev/rcnt-post2.png')}}"
+                                        alt="Recent Post"></a>
+                                <div class="media-body ml-3">
+                                    <h6><a href="#">Statistics and analysis. The key to succes.</a></h6>
+                                    <p><i class="fa fa-user"></i>Rosias <i class="fa fa-eye"></i> 20 Views</p>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <a class="rcnt-img" href="#"><img src="{{ url_for('static', filename='assets/images/dev/rcnt-post3.png')}}"
+                                        alt="Recent Post"></a>
+                                <div class="media-body ml-3">
+                                    <h6><a href="#">Envato Meeting turns into a photoshooting.</a></h6>
+                                    <p><i class="fa fa-user"></i>Kien <i class="fa fa-eye"></i> 74 Views</p>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <a class="rcnt-img" href="#"><img src="{{ url_for('static', filename='assets/images/dev/rcnt-post4.png')}}"
+                                        alt="Recent Post"></a>
+                                <div class="media-body ml-3">
+                                    <h6><a href="#">An engaging embedded the video posts</a></h6>
+                                    <p><i class="fa fa-user"></i>Robert <i class="fa fa-eye"></i> 48 Views</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="single-widget tags-widget" data-aos="fade-up" data-aos-delay="800">
+                            <h6 class="widget-tiltle">LIENS UTILES</h6>
+                            <a href="{{ url_for('traducteur', _external=True) }}">Traducteurs</a>
+                            <a href="{{ url_for('news', _external=True) }}">News</a>
+                            <a href="{{ url_for('contact_us', _external=True) }}">Nous contacter</a>
+                            <a href="{{ url_for('about_us', _external=True) }}">À Propos</a>
+                            <a href="{{ url_for('accueil', _external=True) }}">Accueil</a>
+                        </div><br>
+                        <div class="single-widget subscribe-widget" id="newsletter" data-aos="fade-up" data-aos-delay="800">
+                            <h6 class="widget-tiltle">Souscrivez-vouse</h6>
+                            <p class="mt-n3">Inscrivez-vous à notre liste de diffusion pour recevoir les dernières mises à jour et offres</p>
+                            <form action="{{ url_for('newsletter_add', _external=True) }}" class="" method="post">
+                                <div class="input-group">
+                                    <input class="field form-control" name="subscribe" type="email"
+                                        placeholder="Adresse Email">
+                                    <span class="input-group-btn">
+                                        <button type="submit" name="submit-mail"><i class="fa fa-check"></i></button>
+                                    </span>
+                                </div>
+                            </form>
+                            <p>Nous respectons votre vie privée</p>
+                            <ul class="nav social-nav">
+                                <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Widgets End -->
+        <!-- Foot Note Start -->
+        <div class="foot-note">
+            <div class="container">
+                <div
+                    class="footer-content text-center text-lg-left d-lg-flex justify-content-between align-items-center">
+                    <p class="mb-0" data-aos="fade-right" data-aos-offset="0">&copy; 2022</p> All Rights Reserved. Design by 
+                        <a href="mailto:yvestack01c@gmail.com" class="fh5-link">Yvestack01c | FreeHTML5.co.</a>
+                    </p>
+                    <p class="mb-0" data-aos="fade-left" data-aos-offset="0">
+                        <a href="#">Conditions d'utilisation</a>
+                        <a href="#">Confidentialité et de sécurité</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Foot Note End -->
+    </footer>
+    <!-- Footer Endt -->
+    <!--jQuery-->
+    <script src="{{ url_for('static', filename='assets/js/jquery-3.3.1.js')}}"></script>
+    <!--Plugins-->
+    <script src="{{ url_for('static', filename='assets/js/bootstrap.bundle.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/loaders.css.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/aos.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/swiper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/lightgallery-all.min.js')}}"></script>
+    <!--Template Script-->
+    <script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
+    
+    <!-- services owlcarousel -->
+    <script src="{{ url_for('static', filename='assets/js/owl.carousel.js')}}"></script>
+    <!-- script for services -->
+    <script>
+        $(document).ready(function () {
+          $('.owl-two').owlCarousel({
+            loop: true,
+            margin: 30,
+            nav: false,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+              0: {
+                items: 1,
+                nav: false
+              },
+              480: {
+                items: 1,
+                nav: false
+              },
+              700: {
+                items: 1,
+                nav: false
+              },
+              1090: {
+                items: 3,
+                nav: false
+              }
+            }
+          })
+        })
+      </script>
+      <!-- //script for services -->
+    
+
+
+
+</body>
+
+</html>
