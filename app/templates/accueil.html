@@ -21,11 +21,44 @@
 
     <!-- Traducteur à la une -->
     <section class="w3l-services">
-        <div class="container py-5">
+        <div class="container pt-5">
             <h3 class="title-big text-center mb-sm-5 mb-4">Traducteurs à la Une</h3>
         </div>
-        <div class="row">
-
+        <div class="container pb-5">
+            <div class="row">
+                {% for traducteur in traducteurs_need_ad[:10] %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="{{traducteur.author.avatar}}" alt="Avatar">
+                            </div>
+                            <div class="flip-card-back">
+                                <a href="{{ url_for('traducteur_single', trad_id=traducteur.id, _external=True) }}">
+                                    <h3>{{traducteur.author.username}}</h3>
+                                    <h5>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 1 %} style="color: orange;" {% endif %}></span>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 2 %} style="color: orange;" {% endif %}></span>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 3 %} style="color: orange;" {% endif %}></span>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 4 %} style="color: orange;" {% endif %}></span>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 5 %} style="color: orange;" {% endif %}></span>
+                                    </h5>
+                                    <p>{{traducteur.skill_1}}</p>
+                                    <p>Pays: {{traducteur.current_country}}</p>
+                                    <p>
+                                        {% if traducteur.dispo %}
+                                        <strong class="text-success">Disponible</strong>
+                                        {% else %}
+                                        <strong class="text-danger">Occupé(e)</strong>
+                                        {% endif %}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
     <!-- Traducteur End -->
@@ -87,15 +120,47 @@
 
     <!-- Traducteurs -->
     <section class="w3l-services">
-        <div class="container py-lg-5">
+        <div class="container">
             <h3 class="title-big text-center mb-sm-5 mb-4">Traducteurs</h3>
         </div>
-        <div class="row">
-
+        <div class="container">
+            <div class="row">
+                {% for traducteur in traducteurs[:10] %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="{{traducteur.author.avatar}}" alt="Avatar">
+                            </div>
+                            <div class="flip-card-back">
+                                <a href="{{ url_for('traducteur_single', trad_id=traducteur.id, _external=True) }}">
+                                    <h3>{{traducteur.author.username}}</h3>
+                                    <h5>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 1 %} style="color: orange;" {% endif %}></span>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 2 %} style="color: orange;" {% endif %}></span>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 3 %} style="color: orange;" {% endif %}></span>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 4 %} style="color: orange;" {% endif %}></span>
+                                        <span class="fa fa-star" {% if traducteur.test_score>= 5 %} style="color: orange;" {% endif %}></span>
+                                    </h5>
+                                    <p>{{traducteur.skill_1}}</p>
+                                    <p>Pays: {{traducteur.current_country}}</p>
+                                    <p>
+                                        {% if traducteur.dispo %}
+                                        <strong class="text-success">Disponible</strong>
+                                        {% else %}
+                                        <strong class="text-danger">Occupé(e)</strong>
+                                        {% endif %}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
     <!-- Traducteurs End -->
-
 
 
     <!-- Pricing Start -->
@@ -132,9 +197,9 @@
                         <p>70 mots par jour</p>
                         <p>Traduction en deux Langues différentes si besoin est</p>
                         {% if current_user.is_authenticated %}
-                        <a href="#" class="btn btn-primary {% if current_user.offre_statut=='standard' or current_user.offre_statut=='premium' %} disabled {% endif %}">Abonner</a>
+                        <a href="{{ url_for('offer_subscribe', offer_type='premium', _external=True) }}" class="btn btn-primary {% if current_user.offre_statut=='standard' or current_user.offre_statut=='premium' %} disabled {% endif %}">Abonner</a>
                         {% else %}
-                        <a href="#" class="btn btn-primary">Abonner</a>
+                        <a href="{{ url_for('offer_subscribe', offer_type='premium', _external=True) }}" class="btn btn-primary">Abonner</a>
                         {% endif %}
                         <svg viewBox="0 0 170 193">
                             <path fill-rule="evenodd" fill="rgb(21, 108, 238)"
@@ -147,13 +212,14 @@
                         data-aos-duration="600">
                         <span>6 Mois</span>
                         <h2>Standard</h2>
-                        <p class="desc">Bénéficiez de cette offre durant 12 mois</p>
+                        <p class="desc">Bénéficiez de cette offre durant 6 mois</p>
                         <p class="price">{{config['OFFRE_STATUTS']['standard']['price_eur']}}€  | {{config['OFFRE_STATUTS']['standard']['price_da']}}Da</p>
                         <p>Cette offre moyenne vous permet de profite des mêmes avantages que l'offre premium mais sur une durée de six mois</p>
                         {% if current_user.is_authenticated %}
-                        <a href="#" class="btn btn-primary {% if current_user.offre_statut=='standard' or current_user.offre_statut=='premium' %} disabled {% endif %}">Abonner</a>
+                        <a href="{{ url_for('offer_subscribe', offer_type='standard', _external=True) }}" 
+                            class="btn btn-primary {% if current_user.offre_statut=='standard' or current_user.offre_statut=='premium' %} disabled {% endif %}">Abonner</a>
                         {% else %}
-                        <a href="#" class="btn btn-primary">Abonner</a>
+                        <a href="{{ url_for('offer_subscribe', offer_type='standard', _external=True) }}" class="btn btn-primary">Abonner</a>
                         {% endif %}                        
                         <svg viewBox="0 0 170 193">
                             <path fill-rule="evenodd" fill="rgb(21, 108, 238)"

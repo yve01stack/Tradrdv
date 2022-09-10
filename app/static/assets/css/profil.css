@@ -29,6 +29,11 @@
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 
+/*flask-moment*/
+span{
+  color: black;
+}
+
 /*-----------------------------------
     1 - Single traducteur profile
 ------------------------------------*/
@@ -180,25 +185,14 @@ span.cursor {
   border: 2px solid dodgerblue;
 }
 
-/* .tab-box .tab-container{
-  width: 100%;
-  height: 50px;
-  padding-top: 8px;
-  color: white;
-  background-color: black;
-}
-
-.tab-box .tab-container a{
-  color: white;
-} */
-
 
 /*-----------------------------------
     1 - Single client profile update
 ------------------------------------*/
 
 /* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password], .form-container select {
+.form-container input[type=text], .form-container input[type=password], .form-container input[type=file],
+ .form-container input[type=link], .form-container input[type=number], .form-container select, .form-container textarea {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -207,7 +201,8 @@ span.cursor {
 }
 
 /* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container select:focus {
+.form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container input[type=file]:focus,
+.form-container input[type=link]:focus, .form-container input[type=number]:focus, .form-container select:focus, .form-container textarea:focus {
   background-color: #ddd;
   outline: none;
 }
@@ -353,4 +348,195 @@ span.cursor {
 
 .btn-perso:focus{
   outline: none;
+}
+
+/*-----------------------------------
+    1 - custumize modal
+------------------------------------*/
+
+.modal .modal-dialog-aside{ 
+	width: 350px; max-width:80%; height: 100%; margin:0;transform: translate(0); transition: transform .2s;
+}
+.modal .modal-dialog-aside .modal-content{  height: inherit; border:0; border-radius: 0;}
+.modal .modal-dialog-aside .modal-content .modal-body{ overflow-y: auto }
+.modal.fixed-left .modal-dialog-aside{ margin-left:auto;  transform: translateX(100%); }
+.modal.fixed-right .modal-dialog-aside{ margin-right:auto; transform: translateX(-100%); }
+.modal.show .modal-dialog-aside{ transform: translateX(0);  }
+
+
+/*-----------------------------------
+    1 - custumize Ratings
+------------------------------------*/
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0 0px;
+}
+.rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+
+/*-----------------------------------
+    1 - Featured traducteur card
+------------------------------------*/
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 250px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-front img{
+  width:100%;
+  height:100%;
+}
+
+/* Style the back side */
+.flip-card-back {
+  background-color: dodgerblue;
+  color: white;
+  transform: rotateY(180deg);
+  padding: 15px;
+}
+
+.flip-card-back a{
+  text-decoration: none;
+  color: white;
+}
+
+
+
+/*-----------------------------------
+    1 - custumize collapsible
+------------------------------------*/
+
+/* Style the button that is used to open and close the collapsible content */
+.term-collapse .collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  border-bottom: 1px solid white;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.term-collapse .active, .term-collapse .collapsible:hover {
+  background-color: #ccc;
+}
+
+.term-collapse .active, .term-collapse .collapsible:focus {
+  border: 0 solid #ccc;
+  outline-style: none;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.term-collapse .collapsible-content {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.term-collapse .collapsible:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+ .term-collapse .active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+
+/*-----------------------------------
+    1 - custumize pagination
+------------------------------------*/
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: dodgerblue;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
 }

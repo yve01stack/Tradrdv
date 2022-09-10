@@ -78,22 +78,22 @@
                                 <div class="flip-card">
                                     <div class="flip-card-inner">
                                         <div class="flip-card-front">
-                                            <img src="{{traducteur.author.avatar}}" alt="Avatar">
+                                            <img src="{{traducteur.Traducteur.author.avatar}}" alt="Avatar">
                                         </div>
                                         <div class="flip-card-back">
-                                            <a href="{{ url_for('traducteur_single', trad_id=traducteur.id, _external=True) }}">
-                                                <h3>{{traducteur.author.username}}</h3>
+                                            <a href="{{ url_for('traducteur_single', trad_id=traducteur.Traducteur.id, _external=True) }}">
+                                                <h3>{{traducteur.Traducteur.author.username}}</h3>
                                                 <h5>
-                                                    <span class="fa fa-star" {% if traducteur.test_score>= 1 %} style="color: orange;" {% endif %}></span>
-                                                    <span class="fa fa-star" {% if traducteur.test_score>= 2 %} style="color: orange;" {% endif %}></span>
-                                                    <span class="fa fa-star" {% if traducteur.test_score>= 3 %} style="color: orange;" {% endif %}></span>
-                                                    <span class="fa fa-star" {% if traducteur.test_score>= 4 %} style="color: orange;" {% endif %}></span>
-                                                    <span class="fa fa-star" {% if traducteur.test_score>= 5 %} style="color: orange;" {% endif %}></span>
+                                                    <span class="fa fa-star" {% if traducteur.Traducteur.test_score>= 1 %} style="color: orange;" {% endif %}></span>
+                                                    <span class="fa fa-star" {% if traducteur.Traducteur.test_score>= 2 %} style="color: orange;" {% endif %}></span>
+                                                    <span class="fa fa-star" {% if traducteur.Traducteur.test_score>= 3 %} style="color: orange;" {% endif %}></span>
+                                                    <span class="fa fa-star" {% if traducteur.Traducteur.test_score>= 4 %} style="color: orange;" {% endif %}></span>
+                                                    <span class="fa fa-star" {% if traducteur.Traducteur.test_score>= 5 %} style="color: orange;" {% endif %}></span>
                                                 </h5>
-                                                <p>{{traducteur.skill_1}}</p>
-                                                <p>Pays: {{traducteur.current_country}}</p>
+                                                <p>{{traducteur.Traducteur.skill_1}}</p>
+                                                <p>Pays: {{traducteur.Traducteur.current_country}}</p>
                                                 <p>
-                                                    {% if traducteur.dispo %}
+                                                    {% if traducteur.Traducteur.dispo %}
                                                     <strong class="text-success">Disponible</strong>
                                                     {% else %}
                                                     <strong class="text-danger">Occupé(e)</strong>

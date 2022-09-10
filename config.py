@@ -42,17 +42,32 @@ class Config(object):
 
 	COUNTRIES = ['Maroc', 'Tunisie', 'Algérie']
 	TOWNS = {'Maroc':['Casablanca', 'Fés', 'Marrakech'], 'Tunisie':['Tunis', 'Sfax', 'Sousse '], 'Algérie':['Alger', 'Blida']}
-	SKILLS = ['Français-Anglais', 'Français-Arabe', 'Français-Ruisse', 'Français-Italien', 'Français-Espagnol', 'Français-Chinois',\
-		 'Arabe-Anglais', 'Arabe-Ruisse', 'Arabe-Italien', 'Arabe-Espagnol', 'Arabe-Chinois', 'Ruisse-Italien', 'Ruisse-Espagnol',\
-			'Ruisse-Chinois', 'Italien-Espagnol', 'Italien-Chinois', 'Espagnol-Chinois']
-	ePAYMENT_TYPES = ['PayPal', 'Payonner', 'Western Union', 'Compte Bancaire']
+	SKILLS = ['Français-Anglais', 'Français-Arabe', 'Français-Ruisse', 'Français-Italien', 'Français-Espagnol', 'Français-Chinois',
+		 'Français-Tamazight', 'Français-Allemand', 'Français-Turc', 'Français-Japonais', 'Arabe-Anglais', 'Arabe-Ruisse', 'Arabe-Italien', 
+		 'Arabe-Espagnol', 'Arabe-Chinois', 'Arabe-Tamazight', 'Arabe-Allemand', 'Arabe-Turc', 'Arabe-Japonais', 'Ruisse-Italien', 
+		 'Ruisse-Espagnol', 'Ruisse-Chinois', 'Ruisse-Tamazight', 'Ruisse-Allemand', 'Ruisse-Turc', 'Ruisse-Japonais', 'Italien-Espagnol', 
+		 'Italien-Chinois', 'Italien-Tamazight', 'Italien-Allemand', 'Italien-Turc', 'Italien-Japonais', 'Espagnol-Chinois', 'Espagnol-Tamazight',
+		 'Espagnol-Allemand', 'Espagnol-Turc', 'Espagnol-Japonais', 'Tamazight-Allemand', 'Tamazight-Turc', 'Tamazight-Japonais', 
+		 'Allemand-Turc', 'Allemand-Japonais', 'Turc-Japonais']
+
+	E_PAYMENT_TYPES = ['PayPal', 'Payonner', 'Western Union', 'Compte Bancaire']
 	STATUTS = ['admin', 'testeur', 'traducteur', 'client']
 	SEX = ['Féminin', 'Masculin']
-	PAYMENT_WAY = ['Payer cash', 'Abonnement']
+	PAYMENT_WAY = ['cash', 'abonnement']
+	PAYMENT_METHOD = [{'name': 'CCP', 'desc': 'GHEDIRI Hanane -  0002054044 clé 96 - adresse : Tipaza'},
+		{'name': 'MaridiMob', 'desc': '00799999000205404496'}, {'name': 'Western Union', 'desc': 'Nom: GHEDIRI, Prénom: Hanane, Pays: Algérie, Ville: Tipaza, Code postal: 42000'},
+		{'name': 'Payonner', 'desc': 'hananeinterpretingworld@gmail.com'}]
 	TRADUCTEUR_CAUTION = {'price_eur': 80.00, 'price_da': 15000}
 	OFFRE_STATUTS = {'gratuit':{'price_eur': 0.0, 'price_da': 0}, 'standard':{'price_eur': 55.00, 'price_da': 7500}, 'premium':{'price_eur': 80.00, 'price_da': 11000}}
 	COVER_PICTURE = 'https://storage.googleapis.com/tradrdv/dev/OOjs_UI_icon_userAvatar.svg.png'
-	ORDER_PER_PAGE = 3
+	ORDER_PER_PAGE = 20
+
+	# freelancer payment
+	TESTEUR_PART = 2500
+	TRAD_PART_ABON = 200
+	TRAD_PART_NO_ABON = 80 #%
+
+
 
 	# Google config
 	GOOGLE_CLIENT_ID =  os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -71,8 +86,19 @@ class Config(object):
 	MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') is not None
 	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+	
 	SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+	EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
+	EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
+	EMAIL_SENDER = os.environ.get('EMAIL_SENDER')
+	EMAIL_HOST = os.environ.get('EMAIL_HOST')
+	EMAIL_PORT = int(os.environ.get('EMAIL_PORT') or 2525)
+	EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') is not True
+	SENDGRID_NEED = os.environ.get('SENDGRID_NEED')
+
 	ADMINS = ['contact@tradrdv.com', 'admin@tradrdv.com', 'programm01dev@gmail.com']
 	# flask babel translator
 	LANGUAGES = ['fr', 'en']
+
+	
  

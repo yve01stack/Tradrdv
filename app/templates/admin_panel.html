@@ -14,15 +14,336 @@
                         <a class="nav-link" id="v-pills-traducteurs-tab" data-toggle="pill" href="#v-pills-traducteurs" role="tab" aria-controls="v-pills-traducteurs" aria-selected="false">Traducteurs</a>
                         <a class="nav-link" id="v-pills-testeurs-tab" data-toggle="pill" href="#v-pills-testeurs" role="tab" aria-controls="v-pills-testeurs" aria-selected="false">Testeurs</a>
                         <a class="nav-link" id="v-pills-messagerie-tab" data-toggle="pill" href="#v-pills-messagerie" role="tab" aria-controls="v-pills-messagerie" aria-selected="false">Messagerie</a>
+                        <a class="nav-link" id="v-pills-accord-tab" data-toggle="pill" href="#v-pills-accord" role="tab" aria-controls="v-pills-accord" aria-selected="false">Accords</a>
                       </div>
                     </div>
                     <div class="col-9">
                       <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">...</div>
+                        <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                          <div class="row d-none">
+                            <div class="card text-white bg-primary mb-3 col-3" tyle="max-width: 18rem;">
+                              <div class="card-header">Header</div>
+                              <div class="card-body">
+                                <p class="card-text">Some the card's</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <div class="tab-pane fade" id="v-pills-clients" role="tabpanel" aria-labelledby="v-pills-clients-tab">...</div>
                         <div class="tab-pane fade" id="v-pills-traducteurs" role="tabpanel" aria-labelledby="v-pills-traducteurs-tab">...</div>
                         <div class="tab-pane fade" id="v-pills-testeurs" role="tabpanel" aria-labelledby="v-pills-testeurs-tab">...</div>
-                        <div class="tab-pane fade" id="v-pills-messagerie" role="tabpanel" aria-labelledby="v-pills-messagerie-tab">...</div>
+                        <div class="tab-pane fade" id="v-pills-messagerie" role="tabpanel" aria-labelledby="v-pills-messagerie-tab">
+                          <!-- Box of messenger -->
+                          <div class="row">
+                            <div class="col-md-6 mb-3">
+                                 <div class="contact-box shadow-sm bg-white">
+                                     <div class="contact-head text-center"><h3>Message</h3></div>
+                                     <div class="contact-nav shadow-sm bg-white">
+                                         <strong>
+                                             <i type="button" class="fa fa-envelope text-center contact-tab" 
+                                                 style="border-right: 1px solid #eee; width: 50%;" onclick="openMsg()"></i>
+                                             <i type="button" class="fa fa-users text-center contact-tab" onclick="closeMsg()" style="width: 48%;"></i>
+                                         </strong>
+                                     </div>
+                                     <div class="contact-container1" id="scroll" style="display: none;">
+                 
+                                     </div>
+                                     <div class="contact-container2">
+                 
+                                     </div>
+                                     <form method="post" action="{{ url_for('send_message', _external=True) }}" enctype="multipart/form-data" id="msgForm">
+                                         <div class="input-container shadow-sm bg-white">
+                                             <textarea id="msgText" class="contact-form"></textarea>
+                                             <input type="hidden" class="get_message_url" href="{{ url_for('get_message', _external=True) }}">
+                                             <input type="hidden" value="" class="receiver_id">
+                                             <input type="file" class="d-none" name="msgFile" id="msgFile" oninput="sendfile(this);">
+                                             <i type="button" class="fa fa-paperclip icon" onclick="return document.getElementById('msgFile').click();" 
+                                                 id="file_input" style="transform: rotate(43deg)"></i>
+                     
+                                             <i type="button" id="text_input" onclick="sendtext()" class="fa fa-check icon"></i>
+                                         </div>
+                                     </form>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                              <form action="{{ url_for('send_newsletter', _external=True) }}" class="contact-box shadow-sm bg-white" style="height: 588px;">
+                                <div class="form-container">
+                                  <div class="contact-head text-center"><h3>Newsletter</h3></div>
+                                  <div class="p-3">
+                                      <input type="link" placeholder="http://www.tradrdv.com/about_us" name="url" required>
+                                      <input type="text" placeholder="Subject" name="subject" required>
+                                      <textarea name="message">Message..</textarea>
+                                      <button type="submit" form="update-profile" class="btn btn-primary">{{_('Envoyer')}} ({{newsletter_subscribe}})</button>
+                                  </div>
+                                </div>
+                              </form>
+                             </div>
+                          </div>
+                          <!-- //Box of messenger -->
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-accord" role="tabpanel" aria-labelledby="v-pills-accord-tab">
+                            <!-- Tabs for Deals -->
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                              <li class="nav-item">
+                                <a class="nav-link active" id="pills-progress-tab" data-toggle="pill" href="#pills-progress" role="tab" aria-controls="pills-progress" aria-selected="true">En cours</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="pills-bill-tab" data-toggle="pill" href="#pills-bill" role="tab" aria-controls="pills-bill" aria-selected="false">Paiement reçu</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="pills-reject-tab" data-toggle="pill" href="#pills-reject" role="tab" aria-controls="pills-reject" aria-selected="false">Rejetés</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="pills-over-tab" data-toggle="pill" href="#pills-over" role="tab" aria-controls="pills-over" aria-selected="false">Terminés</a>
+                              </li>
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                              <!-- Accords en cours -->
+                              <div class="tab-pane fade show active" id="pills-progress" role="tabpanel" aria-labelledby="pills-progress-tab">
+                                <table class="table">
+                                  <thead class="thead-dark">
+                                      <tr>
+                                          <th>{{_('Photo')}}</th>
+                                          <th>{{_('Détails')}}</th>
+                                          <th>{{_('Service')}}</th>
+                                          <th>{{_('Action')}}</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for deal in deals_progress %}
+                                      <tr>
+                                          <td class="invert-image" rowspan="2">                                         
+                                              <a>
+                                                  <img src="{{ deal.author.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                              </a>
+                                          </td>
+                                          <td class="invert">{{deal.motif}}</td>
+                                          <td class="invert">
+                                            <span class="badge badge-primary px-2">{{deal.type_deal}}</span>
+                                          </td>
+                                          <td>
+                                            <a class="badge badge-primary" href="{{deal.work_did}}" download="pièce jointe" target="_blank">{{_('fichier')}} <i class="fa fa-download"></i></a>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="invert">
+                                              <i>{{ moment(deal.timestamp).format("LL") }} </i>
+                                              <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
+                                          </td> 
+                                          <td class="invert">{{deal.amount}}da</td>      
+                                          <td class="invert">
+                                            <span type="button" class="badge badge-primary px-2" data-toggle="modal" data-target="#modal_aside_left" 
+                                              data-itemid="{{deal.id}}" 
+                                              data-whatever="{{deal.motif}}"
+                                              data-columns="{{deal.amount}}da"
+                                              data-parent="{{deal.author.username}}"
+                                              data-draggable="{{deal.payment_way}}"
+                                              data-dropzone="{{ deal.payment_bill }}"
+                                              data-itemref="{{ deal.friend.username }}">{{_('Aperçu')}}
+                                            </span>      
+                                          </td>
+                                        </tr>
+                                      {% endfor %}
+                                  </tbody>
+                                </table>
+                                <!-- deal modal -->
+                                <div id="modal_aside_left" class="modal fixed-left fade" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-dialog-aside" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Notez le travail</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>motif: </strong><i class="motif"></i></p>
+                                        <p><strong>Coût: </strong><i class="amount"></i></p>
+                                        <p><strong>Client: </strong><i class="username"></i></p>
+                                        <p><strong>Prestateur: </strong><i class="pre_username"></i></p>
+                                        <p><strong>Type de paiement: </strong><i class="payment_way"></i></p>
+                                        
+                                        <form class="form-container" method="post" action="{{ url_for('submit_checked_work', _external=True) }}" enctype="multipart/form-data" id="dealView">
+                                            <p>Joindre la version finale du travail
+                                                <input type="file" required accept=".pdf" class="mt-2" name="checked_work">
+                                                <input class="deal_id" name="deal_id" required type="hidden">
+                                            </p>
+                                            <p><strong>{{_('Donnez une note:')}} </strong>
+                                              <div class="rate mt-n3">
+                                                  <input type="radio" id="star5" name="rate" value="5" />
+                                                  <label for="star5" title="text">5 stars</label>
+                                                  <input type="radio" id="star4" name="rate" value="4" />
+                                                  <label for="star4" title="text">4 stars</label>
+                                                  <input type="radio" id="star3" name="rate" value="3" />
+                                                  <label for="star3" title="text">3 stars</label>
+                                                  <input type="radio" id="star2" name="rate" value="2" />
+                                                  <label for="star2" title="text">2 stars</label>
+                                                  <input type="radio" id="star1" name="rate" value="1" />
+                                                  <label for="star1" title="text">1 star</label>
+                                              </div>
+                                          </p>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="submit" form="dealView" class="btn-perso">Enregistrer</button>
+                                    </div>
+                                  </div>
+                                </div> <!-- modal-bialog .// -->
+                                </div> <!-- modal.// -->
+                              </div>
+                              <!-- bill validation -->
+                              <div class="tab-pane fade" id="pills-bill" role="tabpanel" aria-labelledby="pills-bill-tab">
+                                <table class="table">
+                                  <thead class="thead-dark">
+                                      <tr>
+                                          <th>{{_('Photo')}}</th>
+                                          <th>{{_('Détails')}}</th>
+                                          <th>{{_('Action')}}</th>
+                                          <th>{{_('Indice')}}</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for deal in deals_check_bill %}
+                                      <tr>
+                                          <td class="invert-image" rowspan="2">                                         
+                                              <a>
+                                                  <img src="{{ deal.author.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                              </a>
+                                          </td>
+                                          <td class="invert">{{deal.motif}}</td>
+                                          <td class="invert">
+                                            {% if deal.type_deal=='abon' %}
+                                              <a href="{{ url_for('enroll_offer', deal_id=deal.id, _external=True) }}" class="badge badge-success">{{_('Valider')}}</a>
+                                            {% else %}
+                                              <a href="{{ url_for('valid_deal_bill', deal_id=deal.id, _external=True) }}" class="badge badge-success">{{_('Valider')}}</a>
+                                            {% endif %}
+                                            </td>
+                                          <td>
+                                            <a class="badge badge-primary" href="{{deal.payment_bill}}" download="pièce jointe" target="_blank">{{_('fichier')}} <i class="fa fa-download"></i></a>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="invert">
+                                              <i>{{ moment(deal.timestamp).format("LL") }} </i>
+                                              <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
+                                          </td> 
+                                          <td class="invert">
+                                            <a href="{{ url_for('reject_deal_bill', deal_id=deal.id, _external=True) }}" class="badge badge-danger px-2">{{_('Rejeter')}}</a>
+                                          </td>      
+                                          <td class="invert">
+                                              <span class="badge badge-primary px-2">{{deal.amount}}da</span>
+                                            </td>
+                                        </tr>
+                                      {% endfor %}
+                                  </tbody>
+                                </table>
+                              </div>
+                              <!-- Deal rejected -->
+                              <div class="tab-pane fade" id="pills-reject" role="tabpanel" aria-labelledby="pills-reject-tab">
+                                <table class="table">
+                                  <thead class="thead-dark">
+                                      <tr>
+                                          <th>{{_('Photo')}}</th>
+                                          <th>{{_('Détails')}}</th>
+                                          <th>{{_('Service')}}</th>
+                                          <th>{{_('Client')}}</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for deal in deals_reject %}
+                                      <tr>
+                                          <td class="invert-image" rowspan="2">                                         
+                                              <a>
+                                                  <img src="{{ deal.author.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                              </a>
+                                          </td>
+                                          <td class="invert">{{deal.motif}}</td>
+                                          <td class="invert">
+                                            <span class="badge badge-primary px-2">{{deal.type_deal}}</span>
+                                          </td>
+                                          <td>{{deal.author.username}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="invert">
+                                              <i>{{ moment(deal.timestamp).format("LL") }} </i>
+                                              <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
+                                          </td> 
+                                          <td class="invert" colspan="2">
+                                            <form method="post" action="{{ url_for('attribute_new_trad', _external=True) }}">
+                                              <select name="trad_id">
+                                                <option value="">{{_('Attribuer un Prestataire')}}</option>
+                                                {% for trad in list_trad[:10] %}
+                                                <option value="{{ trad.author.id }}">{{ trad.author.username }} | {{ trad.author.statut }}</option>
+                                                {% endfor %}
+                                              </select>
+                                              <input name="deal_id" value="{{deal.id}}" required type="hidden">
+                                              <button type="submit">ok</button>
+                                            </form>
+                                            
+                                          </td>      
+                                        </tr>
+                                      {% endfor %}
+                                  </tbody>
+                                </table>
+                              </div>
+                              <!-- Deal over -->
+                              <div class="tab-pane fade" id="pills-over" role="tabpanel" aria-labelledby="pills-over-tab">
+                                <table class="table">
+                                  <thead class="thead-dark">
+                                      <tr>
+                                          <th>{{_('Photo')}}</th>
+                                          <th>{{_('Détails')}}</th>
+                                          <th>{{_('Client')}}</th>
+                                          <th>{{_('Statut')}}</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for deal in deals_over %}
+                                      <tr>
+                                          <td class="invert-image" rowspan="2">                                         
+                                              <a>
+                                                  <img src="{{ deal.author.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                              </a>
+                                          </td>
+                                          <td class="invert">{{deal.motif}}</td>
+                                          <td class="invert">{{deal.author.username}}</td>
+                                          <td>
+                                              {% if deal.friend_accept %}
+                                                  {% if deal.admin_confirm_bill %}
+                                                      {% if deal.deal_over %}
+                                                      <span class="badge badge-success">{{_('Terminé')}}</span>
+                                                      {% else %}
+                                                      <span class="badge badge-info">{{_('En cours..')}}</span>
+                                                      {% endif %}
+                                                  {% else %}
+                                                  <span class="badge badge-warning">{{_('Paiement..')}}</span>
+                                                  {% endif %}
+                                              {% else %}
+                                                  <span class="badge badge-primary">{{_('Attente..')}}</span>
+                                              {% endif %}
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="invert">
+                                              <i>{{ moment(deal.timestamp).format("LL") }} </i>
+                                              <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
+                                          </td> 
+                                          <td class="invert">{{ deal.amount }}da</td>      
+                                          <td class="invert">
+                                            <span class="fa fa-star" {% if deal.work_score>= 1 %} style="color: orange;" {% endif %}></span>
+                                            <span class="fa fa-star" {% if deal.work_score>= 2 %} style="color: orange;" {% endif %}></span>
+                                            <span class="fa fa-star" {% if deal.work_score>= 3 %} style="color: orange;" {% endif %}></span>
+                                            <span class="fa fa-star" {% if deal.work_score>= 4 %} style="color: orange;" {% endif %}></span>
+                                            <span class="fa fa-star" {% if deal.work_score>= 5 %} style="color: orange;" {% endif %}></span>
+                                          </td>
+                                        </tr>
+                                      {% endfor %}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <!-- Tabs for Deals -->
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -30,5 +351,38 @@
         </div>
     </section>
     <!-- Services Start -->
+
+    <script src="{{ url_for('static', filename='assets/js/messenger.js')}}"></script>
+
+    <script>
+
+      $('#modal_aside_left').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var deal_id = button.data('itemid') // Extract info from data-* attributes
+          var motif = button.data('whatever')
+          var amount = button.data('columns')
+          var username = button.data('parent')
+          var pre_username = button.data('itemref')
+          var payment_way = button.data('draggable')
+          var payment_bill = button.data('dropzone')
+    
+          var modal = $(this)
+          modal.find('.modal-body .deal_id').val(deal_id)
+          
+          modal.find('.modal-body .motif').text(motif)
+          modal.find('.modal-body .motif_update').val(motif)
+    
+          modal.find('.modal-body .amount').text(amount)
+          modal.find('.modal-body .amount_update').val(amount)
+    
+          modal.find('.modal-body .username').text(username)
+          modal.find('.modal-body .username').text(pre_username)
+
+          modal.find('.modal-body .payment_way').text(payment_way)
+          $('.output_payment_bill').attr('src')=payment_bill
+        
+      })
+    
+    </script>
 
 {% endblock %}

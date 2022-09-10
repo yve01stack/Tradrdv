@@ -37,25 +37,3 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField(_l('Nouveau mot de passe'), validators=[DataRequired()])
     password2 = PasswordField(_l('Confirmer'), validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField(_l('Réinitialiser'))
-
-
-
-
-class SearchUserToLivreurForm(FlaskForm):
-    email = StringField(_l('Email'), validators=[DataRequired(), Email()])
-    submit = SubmitField(_l('Rechercher'))
-
-class SearchGestionProduitForm(FlaskForm): 
-    q = StringField(_l('Search'), validators=[DataRequired()])
-    submit = SubmitField(_l('Rechercher'))
-
-class SearchOrderByEmailForm(FlaskForm):
-    q = StringField(_l('Nom du commandeur'), validators=[DataRequired()])
-    submit = SubmitField(_l('Search'))
-
-class ContactForm(FlaskForm):
-    username = StringField('Nom complet', validators=[DataRequired()])
-    subject = StringField('Objet', validators=[DataRequired(), Length(min=0, max=150)])
-    email = StringField('E-mail', validators=[DataRequired(), Email()])
-    message = TextAreaField('Message', validators=[DataRequired(), Length(min=0, max=450)])
-    submit = SubmitField('Envoyer')

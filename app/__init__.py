@@ -17,7 +17,7 @@ from flask_babel import lazy_gettext as _l
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, render_as_batch=True)
 login = LoginManager(app)
 client = WebApplicationClient(app.config["GOOGLE_CLIENT_ID"])
 login.login_view = 'login'

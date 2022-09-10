@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from time import time
 import jwt
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging as lg
 
 from app import db, login, app, moment
@@ -20,8 +20,9 @@ class User(UserMixin, db.Model):
     statut = db.Column(db.String(16), default='client')
     ad_statut = db.Column(db.Boolean, nullable=False, default=False)
     offre_statut = db.Column(db.String(16), default='gratuit')
-    offre_active = db.Column(db.Boolean, default=False)
+    offre_begin = db.Column(db.DateTime, default=datetime.utcnow)
     offre_end = db.Column(db.DateTime, default=datetime.utcnow)
+    remain_day = db.Column(db.Integer, default=0)
     avatar = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/OOjs_UI_icon_userAvatar.svg.png")
     country = db.Column(db.String(32), index=True)
     revenu = db.Column(db.Integer, nullable=False, default=0)
@@ -31,8 +32,6 @@ class User(UserMixin, db.Model):
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     traducteurs = db.relationship('Traducteur', backref='author', lazy='dynamic')
     payments = db.relationship('Payment', backref='owner', lazy='dynamic')
-    #deals = db.relationship('Deal', backref='author', lazy='dynamic')
-    #friends = db.relationship('Deal', backref='friend', lazy='dynamic')
     commercials = db.relationship('Commercial', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
     contacts = db.relationship('Contact', backref='author', lazy='dynamic')
@@ -59,8 +58,8 @@ class User(UserMixin, db.Model):
             'email': self.email,
             'avatar': self.avatar,
             'country': self.country,
-            'last_seen': self.last_seen,
-            'timestamp': self.timestamp,
+            'last_seen': self.last_seen.strftime("%m/%d/%Y, %H:%M"),
+            'timestamp': self.timestamp.strftime("%m/%d/%Y, %H:%M"),
             'is_active': "True" if self.is_active else "False"
             }
 
@@ -87,6 +86,12 @@ class User(UserMixin, db.Model):
     def set_confirmed(self, confirmed):
         self.confirmed = confirmed
 
+    def has_valid_abon(self):
+        remain_day = (self.offre_end - datetime.utcnow()).days
+        self.remain_day = remain_day if remain_day >=0 else 0
+        if remain_day <=0 :
+            self.offre_statut = 'gratuit'
+        db.session.commit()
 
 @login.user_loader
 def load_user(id):
@@ -104,15 +109,16 @@ class Traducteur(db.Model):
     id_card = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/88591.png")
     diploma = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/diploma.pdf")
     about_me = db.Column(db.String(500))
-    traducteur = db.Column(db.Boolean, nullable=True, default=True)
-    interprete = db.Column(db.Boolean, nullable=False, default=False)
+    traducteur = db.Column(db.Boolean, nullable=False, default=True)
+    interprete = db.Column(db.Boolean, default=False)
     phone = db.Column(db.String(32), nullable=False)
     addr_postale = db.Column(db.String(64), nullable=False)
-    payment_annual_valid = db.Column(db.Boolean, nullable=False, default=False)
-    payment_annual_date = db.Column(db.DateTime, default=datetime.utcnow)
+    caution_annual_begin = db.Column(db.DateTime, default=datetime.utcnow)
     caution_annual_end = db.Column(db.DateTime, default=datetime.utcnow)
+    remain_day = db.Column(db.Integer, default=0)
     test_score = db.Column(db.Integer, nullable=False, default=0)
-    success_work = db.Column(db.Integer, default=0)
+    success_work = db.Column(db.Integer, nullable=False, default=0)
+    unsuccess_work = db.Column(db.Integer, nullable=False, default=0)
     skill_1 = db.Column(db.String(64), nullable=False)
     skill_2 = db.Column(db.String(64))
     skill_3 = db.Column(db.String(64))
@@ -126,12 +132,26 @@ class Traducteur(db.Model):
     current_country = db.Column(db.String(32), index=True)
     current_town = db.Column(db.String(32))
     compte_valid = db.Column(db.Boolean, nullable=False, default=False)
+    need_help_ad = db.Column(db.String(16), default='off') #other value 'off', 'on', 'ask'
+    profile_view = db.Column(db.Integer, nullable=False, default=0)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Traducteur {}>'.format(self.skill_1)
     
+    def has_valid_abon(self):
+        remain_day = (self.caution_annual_end - datetime.utcnow()).days
+        self.remain_day = remain_day if remain_day >=0 else 0
+        if remain_day <=0 :
+            self.compte_valid = False
+        db.session.commit()
+    
+    def add_view(self):
+        self.profile_view += 1
+        db.session.commit()
+
+
     def as_dict(self):
         return {'id': self.id,
             'about_me': self.about_me,
@@ -158,11 +178,12 @@ class Deal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     motif = db.Column(db.String(100), index=True, nullable=False)
     type_deal = db.Column(db.String(16), nullable=False)
-    payment_way = db.Column(db.String(16))
+    payment_way = db.Column(db.String(16)) #cash, abonnement
     amount = db.Column(db.Integer, nullable=False, default=0)
-    #friend_id = db.Column(db.Integer, nullable=False)
     friend_accept = db.Column(db.Boolean, nullable=False, default=False)
-    payment_bill = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/88591.png")
+    friend_reject = db.Column(db.Boolean, nullable=False, default=False)
+    payment_bill = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/101671.png")
+    bill_is_added = db.Column(db.Boolean, nullable=False, default=False)
     admin_confirm_bill = db.Column(db.Boolean, nullable=False, default=False)
     work_did = db.Column(db.String(500))
     work_valid = db.Column(db.String(500))
@@ -202,6 +223,13 @@ class Payment(db.Model):
 
     def __repr__(self):
         return '<Payment {}>'.format(self.amount)
+    
+def make_payment(motif, amount, owner):
+    if amount > 0:
+        owner.revenu += amount
+    db.session.add(Payment(motif=motif, amount=amount, owner=owner))
+    db.session.commit()
+
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -235,7 +263,7 @@ class Contact(db.Model):
             'file': self.file,
             'file_statut': 'True' if self.file_statut else 'False',
             'read': 'True' if self.read else 'False',
-            'timestamp': moment.create(self.timestamp).fromNow(),
+            'timestamp': self.timestamp.strftime("%m/%d/%Y, %H:%M"),
             'author': User.query.filter_by(id=self.user_id).first().as_dict()
         }
 
@@ -265,6 +293,61 @@ class Newsletter(db.Model):
         return '<Newsletter {}>'.format(self.email)
 
 
+class Dashbord(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    revenu_abon = db.Column(db.Integer, nullable=False, default=0)
+    revenu_test = db.Column(db.Integer, nullable=False, default=0)
+    revenu_work = db.Column(db.Integer, nullable=False, default=0)
+    freelance_part = db.Column(db.Integer, nullable=False, default=0)
+    revenu_total = db.Column(db.Integer, nullable=False, default=0)
+    accueil_view = db.Column(db.Integer, nullable=False, default=0)
+    traducteur_view = db.Column(db.Integer, nullable=False, default=0)
+    remain_day = db.Column(db.Integer, default=0)
+    begin = db.Column(db.DateTime, default=datetime.utcnow)
+    end = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return '<Dashbord {}>'.format(self.id)
+    
+    def end_valid_month(self):
+        remain_day = (self.end - datetime.utcnow()).days
+        self.remain_day = remain_day if remain_day >=0 else 0
+        if remain_day <=0 :
+            last_month = Dashbord.query.filter_by(id=2).first()
+            last_month.revenu_abon = self.revenu_abon
+            last_month.revenu_test = self.revenu_test
+            last_month.revenu_work = self.revenu_work
+            last_month.freelance_part = self.freelance_part
+            last_month.revenu_total = self.revenu_total
+            last_month.accueil_view = self.accueil_view
+            last_month.traducteur_view = self.traducteur_view
+            last_month.remain_day = self.remain_day
+            last_month.begin = self.begin
+            last_month.end = self.end
+
+            self.revenu_abon = 0
+            self.revenu_test = 0
+            self.revenu_work = 0
+            self.freelance_part = 0
+            self.revenu_total = 0
+            self.accueil_view = 0
+            self.traducteur_view = 0
+            self.remain_day = 0
+            self.begin = datetime.utcnow()
+            self.end = datetime.utcnow() + timedelta(days=30)
+        db.session.commit()
+
+    def update_dashbord(self, revenu_abon=0, revenu_test=0, revenu_work=0, freelance_part=0, accueil_view=0, traducteur_view=0):
+        self.revenu_abon += revenu_abon
+        self.revenu_test += revenu_test 
+        self.revenu_work += revenu_work 
+        self.freelance_part += freelance_part
+        self.revenu_total = self.revenu_abon + self.revenu_test + self.revenu_work
+        self.accueil_view += accueil_view
+        self.traducteur_view += traducteur_view
+        db.session.commit()
+
+
 
 
 #database initialized
@@ -276,9 +359,13 @@ def init_db():
 
     new_user = User.query.filter_by(id=2).first()
     traducteur = Traducteur(skill_1='Français-Anglais', skill_2='Français-Arabe', phone='+213 658489196', addr_postale='42000, Tipasa, Algérie',\
-        payment_annual_valid=True, compte_valid=True, current_country='Algérie', current_town='Alger', test_score=4,\
+        caution_annual_end=datetime.utcnow()+timedelta(days=365), compte_valid=True, current_country='Algérie', current_town='Alger', test_score=4,\
         about_me="Je suis traductrice professionnelle depuis plus de 5ans maintemant, je suis à votre dispotion. Engagez moi!", author=new_user)
     db.session.add(traducteur)
+
+    db.session.add(Dashbord(begin=datetime.utcnow(), end = datetime.utcnow() + timedelta(days=30)))
+    db.session.add(Dashbord())
+
     db.session.commit()
     lg.warning('Database initialized!')
 

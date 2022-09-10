@@ -1,0 +1,106 @@
+{% extends 'header_footer.html' %}
+
+{% block main %}
+
+<!-- content -->
+<section style="padding-top: 150px; padding-bottom: 50px">
+    <div class="term-collapse">
+        <div class="container">
+            <button type="button" class="collapsible">Que faut-il pour rejoindre notre communauté en tant que traducteur/Interprète ?</button>
+            <div class="collapsible-content">
+                Pour rejoindre notre communauté, il vous suffit de payer un abonnement annuel de 15000 Da/118 Euros si vous êtes un(e) algérien(e) 
+                    résident à l’étranger, sauf en cas de promotions, et respecter quelques engagements 
+                <ol>
+                    <li>Tous les clients payent directement le site, et à l'avance.</li>
+                    <li>Les clients payent à l’avance pour une mission de prestation sauf en cas de convention agréée par la direction de 
+                        la plateforme, où le traducteur n’est pas obligé de l’accepter, et est parfaitement admissible aux missions payées à 
+                        l’avance s’il privilégie celles-ci uniquement.</li>
+                    <li>Les traducteurs acceptent que la plateforme garde 15% des paiements de leurs travaux, et leur verse 85% sur leurs 
+                        comptes respectifs. S’il y a une relecture à faire, la plateforme prend au maximum 5% comme frais de relecture du total 
+                        du paiement du client, parfois moins, selon le volume nécessaire de celle-ci, pas un centime de plus.</li>
+                    <li>Ne pas dépasser la somme fixée, en donnant leurs tarifs aux clients. Il faut préserver le rapport qualité prix.</li>
+                    <li>Ils ne communiquent pas leurs coordonnées aux clients.</li>
+                    <li>Ils respectent les délais et la confidentialité.</li>
+                    <li>Ils passeront tous un test après abonnement fait.</li>
+                    <li>Le traducteur ne prend pas deux clients à la fois.</li>
+                    <li>Le traducteur ne revient pas sur un engagement fait.</li>
+                </ol>
+            </div>
+
+            <button type="button" class="collapsible">Concernant les prix. (Les tarifs à ne pas dépasser pour le marché algérien)</button>
+            <div class="collapsible-content">
+                <ul>
+                    <li>Les documents écrits à traduire: pas plus de 1600 Da la page, même si elle est bien remplie. (La page standard 
+                        chez Traducteurs sur Rendez-vous est de 350 mots).</li>
+                    <li>Relecture "Proofreading" : pas plus de 850 Da la page, même si elle est bien remplie.</li>
+                    <li>Les interprétations: il est à savoir qu'en général les sociétés qui sollicitent les interprètes se chargeront 
+                        des frais de transport, d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 18000 Da la journée.</li>
+                    <li>La transcription de fichiers audio. 10000 Da au maximum pour une heure.</li>
+                    <li>Les sous-titres pour vidéo. 5000 Da les 20 minutes. Donc 15000 Da l'heure.</li>
+                    <li>Traduction avec voix-off d'une vidéo, ne pas dépasser les 20000 Da l'heure.</li>
+                </ul>
+            </div>
+
+            <button type="button" class="collapsible">Concernant les prix. (Les tarifs à ne pas dépasser pour le marché étranger)</button>
+            <div class="collapsible-content">
+                <ul>
+                    <li>Les documents écrits à traduire: entre 13 et 18 Euros la page, même si elle est bien remplie. (La page standard 
+                        chez Traducteurs sur Rendez-vous est de 350 mots).</li>
+                    <li>Relecture "Proofreading" : entre 7 et 10 Euros la page, même si elle est bien remplie.</li>
+                    <li>Les interprétations: il est à savoir qu'en général les sociétés qui sollicitent les interprètes se chargeront des 
+                        frais de transport, d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 170 Euros la journée.</li>
+                    <li>La transcription de fichiers audio. 110 Euros au maximum pour une heure.</li>
+                    <li>Les sous-titres pour vidéo. 60 Euros les 20 minutes. Donc 180 Euros l'heure.</li>
+                    <li>Traduction avec voix-off d'une vidéo, ne pas dépasser les 190 Euros l'heure.</li>
+                </ul>
+            </div>
+
+            <button type="button" class="collapsible">Petites pénalités</button>
+            <div class="collapsible-content">
+                <ul class="list-unstyled">
+                    <li>Pour garantir un travail de qualité, et pour assurer aux clients une haute satisfaction, des mesures ont 
+                        été entreprises, sans pour autant, qu’elles soient faites par manque de confiance en le traducteur, ou diminuer de sa personne. 
+                        Si le traducteur dépasse les délais impartis, un badge rouge sera affiché sur son profil pour une période de 15 jours, et 
+                        le client pourra le bloquer, en ayant une réduction comme dédommagement. Point positif : le badge rouge disparaitra après 15 jours,
+                        et d’autres clients pourront le contacter au futur. Si le traducteur ne respecte pas la confidentialité, il sera radié du site. 
+                        La dernière n’est pas vraiment une pénalité, toutefois nous tenons à signaler, que si le traducteur donne des tarifs supérieurs 
+                        aux sommes fixées, ceux là seront changés automatiquement, ou manuellement par les administrateurs du site. 
+                        Confer Les tarifs à ne pas dépasser… </li>
+                </ul>
+            </div>
+
+            <button type="button" class="collapsible">Ce que nous exigeons au client vis-à-vis du traducteur</button>
+            <div class="collapsible-content">
+                <ul>
+                    <li>Après s’être mis d’accord avec la direction de la plateforme ou un traducteur, il payera le montant à l’avance 
+                        sur le compte du site, et ne se désistera pas alors que le traducteur a commencé le travail.</li>
+                    <li>Prévenir le traducteur avant paiement en cas d’annulation avant 24h, le temps écoulé, et donc le délai dépassé 
+                        le traducteur passera naturellement vers une autre commande, sauf si celui-ci convienne d’attendre et ne pas 
+                        prendre une autre mission jusqu’à ce que le client paye.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //content -->
+</section>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script>
+
+{% endblock %}
+
+        

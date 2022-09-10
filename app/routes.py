@@ -10,11 +10,10 @@ from googletrans import Translator
 
 
 from app import app, db, client
-from app.models import Chat, Deal, User, Traducteur, Contact, Newsletter
+from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, make_payment
 from app.utils import get_google_provider_cfg, allowed_image, delete_blob_img, upload_blob_img, upload_blob_file, password_reset_email,\
-     email_confirm_email, alert_email, newsletter_email, sendgrid_mail
-from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm, SearchUserToLivreurForm, SearchGestionProduitForm, SearchOrderByEmailForm,\
-    ContactForm
+     email_confirm_email, alert_email, newsletter_email, select_by_random
+from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.decorators import check_confirmed, check_admin, check_manager, in_development
 
 
@@ -24,6 +23,17 @@ def before_request():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
     g.locale = str(get_locale())
+
+    traducteurs = Traducteur.query.filter_by(compte_valid=True).all()
+    for traducteur in traducteurs:
+        traducteur.has_valid_abon()
+    
+    clients = User.query.filter((User.offre_statut=='standard') | (User.offre_statut=='premium')).all()
+    for client in clients:
+        client.has_valid_abon()
+    
+    this_month = Dashbord.query.filter_by(id=1).first()
+    this_month.end_valid_month()
 
 # @app.context_processor
 # def my_utility_processor(): 
@@ -50,8 +60,12 @@ def before_request():
 @app.route('/')
 @app.route('/accueil')
 def accueil():
-    #sendgrid_mail()
-    return render_template('accueil.html', title=_('Accueil - ')+app.config['SITE_NAME'])
+    this_month = Dashbord.query.filter_by(id=1).first()
+    this_month.update_dashbord(accueil_view=1)
+
+    traducteurs_need_ad = Traducteur.query.filter((Traducteur.compte_valid==True) & (Traducteur.need_help_ad=='on')).order_by(select_by_random()).all()
+    traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random()).all()
+    return render_template('accueil.html', traducteurs_need_ad=traducteurs_need_ad, traducteurs=traducteurs, title=_('Accueil - ')+app.config['SITE_NAME'])
 
 
 
@@ -196,13 +210,13 @@ def update_profile():
             return redirect(url_for('track_order', id=current_user.id, _external=True))
     user = User.query.filter_by(email=current_user.email).first()
     if user.google_login is False:
-        if old_password != '' and new_password != '':
+        if not old_password is None and not new_password is None:
             if user is None or not user.check_password(old_password):
                 flash(_('Ancien mot de passe incorrect'), 'danger')
                 return redirect(url_for('profile', _external=True))
             user.set_password(new_password)
 
-    if username == '':
+    if username == '' and user.username is None:
         flash(_('Veuillez fournir un nom d\'utilisateur'), 'danger')
         return redirect(url_for('profile', _external=True))
     elif User.query.filter_by(username=username).first():
@@ -210,7 +224,7 @@ def update_profile():
             flash(_('Veuillez fournir un nom d\'utilisateur correct'), 'danger')
             return redirect(url_for('profile', _external=True))
 
-    if pseudo_com !='':
+    if pseudo_com != '':
         parrain = User.query.filter((User.username==pseudo_com) & (User.ad_statut==True)).first()
         if parrain:
             if username == user.username:
@@ -283,6 +297,37 @@ def reset_password(token):
     return render_template('reset_password.html', form=form, title=_('Réinitialiser votre mot de passe'))
 
 
+@app.route('/offer/<offer_type>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def offer_subscribe(offer_type):
+    user = User.query.filter_by(id=current_user.id).first()
+    subscribe_in_progress = Deal.query.filter((Deal.user_id==current_user.id) & (Deal.type_deal=='abon') & (Deal.deal_over==False)).first()
+    if user.remain_day > 0:
+        flash(_('Désolé, vous avez un offre en cours'), 'warning')
+        return redirect(url_for('accueil', _external=True))
+    if subscribe_in_progress:
+        flash(_('Désolé, vous avez une demande d\'offre en cours'), 'warning')
+        return redirect(url_for('accueil', _external=True))
+    
+    admin = User.query.filter((User.statut=='admin')).order_by(User.last_seen.desc()).first()
+    if offer_type == 'standard':
+        motif = 'Souscription à l\'offre standard'
+        deal = Deal(type_deal='abon', payment_way='cash', motif=motif, amount=app.config['OFFRE_STATUTS']['standard']['price_da'],\
+            friend_accept=True, friend=admin, author=current_user)
+    elif offer_type == 'premium':
+        motif = 'Souscription à l\'offre premium'
+        deal = Deal(type_deal='abon', payment_way='cash', motif=motif, amount=app.config['OFFRE_STATUTS']['premium']['price_da'],\
+            friend_accept=True, friend=admin, author=current_user)
+    else:
+        return render_template('404.html', title=_("404 Erreur")), 404
+    
+    db.session.add(deal)
+    db.session.commit()
+    flash(_('Veuillez payer la facture, joindre la photo du reçu et ensuite profitez de votre offre'), 'success')
+    return redirect(url_for('accueil', _external=True))
+   
+
 @app.route('/profile/')
 @login_required 
 @check_confirmed
@@ -291,7 +336,8 @@ def profile():
         flash(_('Veuillez complèter votre profil et profiter pleinement de %(sitename)s', sitename=app.config['SITE_NAME']), 'warning')
     subtitle = _("Anonyme") if current_user.username is None else current_user.username
     deals = Deal.query.filter_by(user_id=current_user.id).order_by(Deal.timestamp.desc()).all()
-    return render_template('profile.html', deals=deals, title=_("Profil- %(subtitle)s", subtitle=subtitle))
+    payments = Payment.query.filter_by(user_id=current_user.id).order_by(Payment.timestamp.desc()).all()
+    return render_template('profile.html', deals=deals, payments=payments, title=_("Profil- %(subtitle)s", subtitle=subtitle))
 
 
 @app.route('/logout')
@@ -370,16 +416,16 @@ def traducteur_new_register():
     else:
         diploma = 'https://storage.googleapis.com/tradrdv/dev/diploma.pdf'
 
-    traducteur = Traducteur(skill_1=skill_1, skill_2=skill_2, skill_3=skill_3, skill_4=skill_4, skill_5=skill_5, skill_6=skill_6, skill_7=skill_7,\
+    new_traducteur = Traducteur(skill_1=skill_1, skill_2=skill_2, skill_3=skill_3, skill_4=skill_4, skill_5=skill_5, skill_6=skill_6, skill_7=skill_7,\
         skill_8=skill_8, skill_9=skill_9, skill_10=skill_10, current_country=country, current_town=town, addr_postale=addr_postale, phone=phone,\
         CCP_number=CCP_number, BaridiMob_RIP=BaridiMob_RIP, ePayment_type=ePayment_type, ePayment=ePayment, about_me=about_me,\
         traducteur=traducteur, interprete=interprete, author=current_user)
-    db.session.add(traducteur)
+    db.session.add(new_traducteur)
 
-    # Setup a deal (type of deal= service, work)
+    # Setup a deal (type of deal= trad, test, abon)
     testeur = User.query.filter_by(id=testeur_id).first()
     motif = 'Paiement de caution annuelle de traducteur'
-    deal = Deal(type_deal='service', payment_way='Payer cash', motif=motif, amount=app.config['TRADUCTEUR_CAUTION']['price_da'],\
+    deal = Deal(type_deal='test', payment_way='cash', motif=motif, amount=app.config['TRADUCTEUR_CAUTION']['price_da'],\
         friend=testeur, author=current_user)
     user = User.query.filter_by(id=current_user.id).first()
     user.statut = 'traducteur'
@@ -391,40 +437,357 @@ def traducteur_new_register():
         chat.last_chat = datetime.utcnow()
     else:
         chat = Chat(receiver_id=testeur.id, author=current_user)
-    message = "Bonjour,"
+    message = "Nouveau accord: "+motif
     contact = Contact(receiver_id=testeur.id, message=message, file_statut=False, author=current_user)
     db.session.add(contact)
     db.session.commit()
-    if testeur.last_seen + timedelta(minutes=10) < datetime.utcnow():
+    if testeur.last_seen + timedelta(minutes=20) < datetime.utcnow():
         subject = _('Un nouveau message')
         body = _("Depuis votre dernière visite sur TRADRDV, %(username)s un nouveau traducteur aimerait passer son test d\'attitude auprès de vous."\
-            "Veuillez consulter votre messagerie.", username=current_user.fullname) 
+            "Veuillez consulter votre messagerie.", username=current_user.username) 
         url = url_for('profile', _external=True)
         alert_email(subject, body, url, testeur)
     flash(_('Veuillez payer la facture, joindre la photo du reçu et ensuite passez le test auprès du testeur'), 'success')
     return redirect(url_for('profile', _external=True))
 
 
+@app.route('/manager/traducteur/update/<deal_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_manager
+def trad_test_update(deal_id):
+    deal = Deal.query.filter((Deal.id==deal_id) & (Deal.friend_id==current_user.id)).first_or_404()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('manager_panel', _external=True))
+
+    traducteur = Traducteur.query.filter_by(user_id=deal.user_id).first_or_404()
+    testeurs = User.query.filter((User.statut=='testeur') & (Traducteur.dispo==True) & (Traducteur.compte_valid==True))\
+        .order_by(User.last_seen.asc()).all()
+    return render_template('update_traducteur.html', traducteur=traducteur, testeurs=testeurs, deal=deal, title=_('Mise à du compte traducteur'))
+
+
+@app.route('/traducteur/update', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_manager
+def traducteur_update():
+    if current_user.statut == "traducteur" or current_user.statut == "admin":
+        flash(_('Vous êtes déjà souscrire à cette offre ou vous n\'êtes autorisés'), 'warning')
+        return redirect(url_for('profile', _external=True))
+
+    skill_1 = request.form.get('skill_1')
+    skill_2 = request.form.get('skill_2')
+    skill_3 = request.form.get('skill_3')
+    skill_4 = request.form.get('skill_4')
+    skill_5 = request.form.get('skill_5')
+    skill_6 = request.form.get('skill_6')
+    skill_7 = request.form.get('skill_7')
+    skill_8 = request.form.get('skill_8')
+    skill_9 = request.form.get('skill_9')
+    skill_10 = request.form.get('skill_10')
+
+    deal_id = request.form.get('deal_id')
+    rate = request.form.get('rate') if not request.form.get('rate') is None else 1
+    testeur_id = request.form.get('testeur_id')
+    country = request.form.get('country')
+    town = request.form.get('town')
+    addr_postale = request.form.get('addr_postale')
+    phone = request.form.get('phone')
+    CCP_number = request.form.get('CCP_number')
+    BaridiMob_RIP = request.form.get('BaridiMob_RIP')
+    ePayment_type = request.form.get('ePayment_type')
+    ePayment = request.form.get('ePayment')
+    about_me = request.form.get('about_me')
+    traducteur = True if request.form.get('traducteur') == 'on' else False
+    interprete = True if request.form.get('interprete') == 'on' else False
+
+    id_card = request.files.get("id_card")
+    diploma = request.files.get("diploma")
+
+    deal = Deal.query.filter((Deal.id==deal_id) & (Deal.friend_id==current_user.id)).first_or_404()
+    traducteur_old = Traducteur.query.filter_by(user_id=deal.user_id).first_or_404()
+
+    if id_card:
+        if allowed_image(id_card.filename):
+            id_card.filename = secure_filename(str(datetime.timestamp(datetime.now()))+id_card.filename)
+            Image.open(id_card).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'cloud_img', id_card.filename))
+            id_card = upload_blob_img(app.config['CLOUD_STORAGE_BUCKET'], id_card, 'id_card_img')
+        else:
+            flash(_('Erreur de nom ou d\'extension du carte identité/passeport'), 'danger')
+            return redirect(url_for('traducteur_new_post', _external=True))
+    else:
+        id_card = traducteur_old.id_card
+
+    if diploma:
+        diploma.filename = secure_filename(str(datetime.timestamp(datetime.now()))+diploma.filename)
+        diploma.save(os.path.join('app', 'static', 'assets', 'images', 'cloud_file', diploma.filename))
+        diploma = upload_blob_file(app.config['CLOUD_STORAGE_BUCKET'], diploma, 'diploma_file')
+    else:
+        diploma = traducteur_old.diploma
+
+    traducteur_old.skill_1 = skill_1
+    traducteur_old.skill_2 = skill_2
+    traducteur_old.skill_3 = skill_3
+    traducteur_old.skill_4 = skill_4
+    traducteur_old.skill_5 = skill_5
+    traducteur_old.skill_6 = skill_6
+    traducteur_old.skill_7 = skill_7
+    traducteur_old.skill_8 = skill_8
+    traducteur_old.skill_9 = skill_9
+    traducteur_old.skill_10 = skill_10
+
+    traducteur_old.current_country = country
+    traducteur_old.current_town = town
+    traducteur_old.addr_postale = addr_postale
+    traducteur_old.phone = phone
+    traducteur_old.CCP_number = CCP_number
+    traducteur_old.BaridiMob_RIP = BaridiMob_RIP
+    traducteur_old.ePayment_type = ePayment_type
+    traducteur_old.ePayment = ePayment
+    traducteur_old.about_me = about_me
+    traducteur_old.traducteur = traducteur
+    traducteur_old.interprete = interprete
+    traducteur_old.author = User.query.filter_by(id=deal.user_id).first()
+    traducteur_old.interprete = interprete
+    traducteur_old.interprete = interprete
+
+    traducteur_old.caution_annual_begin = datetime.utcnow()
+    traducteur_old.caution_annual_end = datetime.utcnow() + timedelta(days=365)
+    traducteur_old.test_score = rate
+    traducteur_old.compte_valid = True
+
+    deal.deal_over = True
+    deal.deal_over_time = datetime.utcnow()
+    deal.work_score = rate
+
+    testeur = Traducteur.query.filter_by(user_id=deal.friend_id).first()
+    testeur.success_work += 1
+    db.session.commit()
+    
+    make_payment(motif=deal.motif, amount=app.config['TESTEUR_PART'], owner=deal.friend)
+    this_month = Dashbord.query.filter_by(id=1).first()
+    this_month.update_dashbord(freelance_part=app.config['TESTEUR_PART'])
+    
+    chat = Chat.query.filter(((Chat.user_id==current_user.id) & (Chat.receiver_id==deal.user_id)) | ((Chat.user_id==deal.user_id) & (Chat.receiver_id==current_user.id))).first()
+    if chat:
+        chat.last_chat = datetime.utcnow()
+    else:
+        chat = Chat(receiver_id=deal.user_id, author=current_user)
+    message = "Votre profil de traducteur est maintenant disponible auprès des clients. Nous vous souhaitons bienvenu(e) chez "+app.config['SITE_NAME']
+    contact = Contact(receiver_id=deal.user_id, message=message, file_statut=False, author=current_user)
+    db.session.add(contact)
+    db.session.commit()
+    if deal.author.last_seen + timedelta(minutes=20) < datetime.utcnow():
+        subject = _('Un nouveau message')
+        body = _("Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un nouveau message."\
+            "Veuillez consulter votre messagerie.", username=current_user.username) 
+        url = url_for('profile', _external=True)
+        alert_email(subject, body, url, deal.author)
+    return redirect(url_for('manager_panel', _external=True))
+
+
 @app.route('/manager/panel')
 @login_required
 @check_confirmed
 @check_manager
-@in_development
 def manager_panel():
     if current_user.username is None:
         flash(_('Veuillez complèter et profiter pleinement de %(sitename)s', app.config['SITE_NAME']), 'warning')
     subtitle = _("Anonyme") if current_user.username is None else current_user.username
     # Get the deals in progress and finished for traducteur
     deals_progress = Deal.query.filter((Deal.friend_id==current_user.id) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc()).all()
-    deals_over = Deal.query.filter_by((Deal.friend_id==current_user.id) & (Deal.deal_over==True)).order_by(Deal.timestamp.desc()).all()
+    deals_over = Deal.query.filter((Deal.friend_id==current_user.id) & (Deal.deal_over==True)).order_by(Deal.timestamp.desc()).all()
+    traducteur = Traducteur.query.filter_by(user_id=current_user.id).first()
 
-    return render_template('manager_panel.html', deals_progress=deals_progress, deals_over=deals_over, title=_("Profil- %(subtitle)s", subtitle=subtitle))
+    return render_template('manager_panel.html', deals_progress=deals_progress, deals_over=deals_over, traducteur=traducteur,
+        title=_("Profil- %(subtitle)s", subtitle=subtitle))
+
+
+@app.route('/manager/accept/<deal_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_manager
+def accept_deal(deal_id):
+    deal = Deal.query.filter((Deal.id==deal_id) & (Deal.friend_id==current_user.id)).first_or_404()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('manager_panel', _external=True))
+    deal.friend_accept = True
+    db.session.commit()
+    flash(_('Vous venez d\'accepter une nouvelle commande, le temps vous est désormais compté'), 'success')
+    return redirect(url_for('manager_panel', _external=True))
+
+
+@app.route('/manager/reject/<deal_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_manager
+def reject_deal(deal_id):
+    deal = Deal.query.filter((Deal.id==deal_id) & (Deal.friend_id==current_user.id)).first_or_404()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('manager_panel', _external=True))
+    traducteur = Traducteur.query.filter_by(user_id=current_user.id).first()
+    deal.friend_reject = True
+    deal.friend_accept = False
+    traducteur.unsuccess_work += 1
+    db.session.commit()    
+    flash(_('Vous venez de rejeter une commande, votre statut d\'accomplissement se dégrade'), 'warning')
+    return redirect(url_for('manager_panel', _external=True))
+
+
+@app.route('/manager/submit/work', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_manager
+def submit_work():
+    deal_id = request.form.get('deal_id')
+    work = request.files.get("work")
+
+    if work:
+        work.filename = secure_filename(str(datetime.timestamp(datetime.now()))+work.filename)
+        work.save(os.path.join('app', 'static', 'assets', 'images', 'cloud_file', work.filename))
+        work = upload_blob_file(app.config['CLOUD_STORAGE_BUCKET'], work, 'work_file')
+        deal = Deal.query.filter((Deal.id==deal_id) & (Deal.friend_id==current_user.id)).first_or_404()
+
+        if deal.deal_over is True:
+            flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+            return redirect(url_for('manager_panel', _external=True))
+
+        deal.work_did = work
+        db.session.commit()
+        flash(_('Félicitations, vous venez de mentionner une commande accomplie, vérification en cours'), 'success')
+        return redirect(url_for('manager_panel', _external=True))
+    else:
+        flash(_('Veuillez joindre votre travail'), 'warning')
+        return redirect(url_for('manager_panel', _external=True))
 
 
 @app.route('/traducteur')
-@in_development
 def traducteur():
-    return render_template('traducteur.html', title=_('Traducteur- ')+app.config['SITE_NAME'])
+    this_month = Dashbord.query.filter_by(id=1).first()
+    this_month.update_dashbord(traducteur_view=1)
+
+    page = request.args.get('page', 1, type=int)
+
+    traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random())\
+        .paginate(page, app.config['ORDER_PER_PAGE'], False)
+    next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
+    prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None
+
+    return render_template('traducteur.html', traducteurs=traducteurs.items, next_url=next_url, prev_url=prev_url, page=page, 
+        has_next=traducteurs.has_next, has_prev=traducteurs.has_prev, title=_('Traducteur- ')+app.config['SITE_NAME'])
+
+
+@app.route('/search/traducteur', methods=['GET', 'POST'])
+def search_trad():
+    page = request.args.get('page', 1, type=int)
+    search = request.args.get('q')
+
+    search = "%{}%".format(search)
+    traducteurs = db.session.query(Traducteur, User).filter((User.username.like(search)) & (Traducteur.compte_valid==True))\
+        .join(User, (User.id==Traducteur.user_id)).paginate(page, app.config['ORDER_PER_PAGE'], False)
+    next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
+    prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None
+
+    return render_template('traducteur_search.html', traducteurs=traducteurs.items, next_url=next_url, prev_url=prev_url, page=page, 
+        has_next=traducteurs.has_next, has_prev=traducteurs.has_prev, title=_('Traducteur- search %(search)s', search=search))
+
+
+@app.route('/filter/traducteur', methods=['GET', 'POST'])
+def filter_trad():
+    page = request.args.get('page', 1, type=int)
+    
+    skill = request.form.get('skill')
+    country = request.form.get('country')
+    town = request.form.get('town')
+    success_work = request.form.get('success_work')
+    dispo = True if request.form.get('dispo') == 'on' else False
+    accept_subscriber = True if request.form.get('accept_subscriber') == 'on' else False
+    rate = request.form.get('rate') if not request.form.get('rate') is None else 1
+    
+    traducteurs = Traducteur.query.filter(
+        ((Traducteur.skill_1==skill) | (Traducteur.skill_2==skill) | (Traducteur.skill_3==skill) | (Traducteur.skill_4==skill) |
+        (Traducteur.skill_5==skill) | (Traducteur.skill_6==skill) | (Traducteur.skill_7==skill) | (Traducteur.skill_8==skill) |
+        (Traducteur.skill_9==skill) | (Traducteur.skill_10==skill)) & (Traducteur.success_work>=success_work) & (Traducteur.dispo==dispo) & 
+        (Traducteur.accept_subscriber==accept_subscriber) & (Traducteur.test_score>=rate) & (Traducteur.compte_valid==True) &
+        (Traducteur.current_country==country) & (Traducteur.current_town==town)).paginate(page, app.config['ORDER_PER_PAGE'], False)
+
+    next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
+    prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None
+
+    return render_template('traducteur.html', traducteurs=traducteurs.items, next_url=next_url, prev_url=prev_url, page=page, 
+        has_next=traducteurs.has_next, has_prev=traducteurs.has_prev, title=_('Traducteur- filter %(skill)s', skill=skill))
+
+
+@app.route('/traducteur/single/<trad_id>', methods=['GET', 'POST'])
+def traducteur_single(trad_id):
+    traducteur = Traducteur.query.filter((Traducteur.id==trad_id) & (Traducteur.compte_valid==True)).first_or_404()
+    traducteur.add_view()
+    return render_template('single_traducteur.html', traducteur=traducteur, title=_('Traducteur profil- %(username)s', username=traducteur.author.username))
+
+
+@app.route('/contact/traducteur/<trad_id>', methods=['POST', 'GET'])
+@login_required
+@check_confirmed
+def contact_trad(trad_id):
+    traducteur = Traducteur.query.filter((Traducteur.id==trad_id) & (Traducteur.compte_valid==True)).first_or_404()
+    if traducteur.user_id == current_user.id:
+        flash(_('Vous ne pouvez pas contacter vous même'), 'warning')
+        return redirect(url_for('profile', _external=True))
+    chat = Chat.query.filter(((Chat.user_id==current_user.id) & (Chat.receiver_id==traducteur.user_id)) |\
+            ((Chat.user_id==traducteur.user_id) & (Chat.receiver_id==current_user.id))).first()
+    if chat:
+        chat.last_chat = datetime.utcnow()
+    else:
+        chat = Chat(receiver_id=traducteur.user_id, author=current_user)
+    message = "Nouveau message, je suis intéressé par votre profil. Etes vous disponible pour me renseigner?"
+    contact = Contact(receiver_id=traducteur.user_id, message=message, file_statut=False, author=current_user)
+    db.session.add(contact)
+    db.session.commit()
+    if traducteur.author.last_seen + timedelta(minutes=20) < datetime.utcnow():
+        subject = _('Un nouveau message')
+        body = _('Depuis votre dernière visite sur TRADRDV, %(username)s aimerait entrer en contact avec vous.\
+                Veuillez consulter votre messagerie.', username=current_user.username) 
+        url = url_for('profile', _external=True)
+        alert_email(subject, body, url, traducteur.author)
+        return redirect(url_for('profile', _external=True))
+    flash(_('Veuillez cliquer sur le pseudo du prestataire dans la discussion pour entamer la conversation'), 'success')
+    return redirect(url_for('profile', _external=True))
+
+
+@app.route('/traducteur/hire', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def trad_hire():
+    payment_way = request.form.get('payment_way')
+    trad_id = request.form.get('trad_id')
+    motif = request.form.get('motif')
+    amount = request.form.get('amount')
+
+    if payment_way == 'abonnement':
+        if current_user.offre_statut == 'gratuit':
+            flash(_('Vous n\'avez aucune offre active. Veuillez vous abonner avant d\'utiliser cette option'), 'warning')
+            return redirect(url_for('accueil', _external=True))
+
+    traducteur = Traducteur.query.filter((Traducteur.id==trad_id) & (Traducteur.compte_valid==True)).first_or_404()
+    if traducteur.user_id == current_user.id:
+        flash(_('Vous ne pouvez pas engager vous même'), 'warning')
+        return redirect(url_for('profile', _external=True))
+
+    if payment_way == 'abonnement':
+        deal = Deal(type_deal='trad', payment_way=payment_way, motif=motif, amount=amount, admin_confirm_bill=True, bill_is_added=True,
+            friend=traducteur.author, author=current_user)
+    elif payment_way == 'cash':
+        deal = Deal(type_deal='trad', payment_way=payment_way, motif=motif, amount=amount, friend=traducteur.author, author=current_user)
+    else:
+        return render_template('404.html', title=_("404 Erreur")), 404
+
+    db.session.add(deal)
+    db.session.commit()
+    return redirect(url_for('profile', _external=True))
+
 
 @app.route('/get/town/<country>', methods=['GET', 'POST'])
 def get_town(country):
@@ -438,6 +801,48 @@ def get_testeur(testeur_id):
     return jsonify({'testeur': testeur.as_dict()}), 200
 
 
+
+
+# -------------------------------------------------#
+#-------Deal route treatement program--------#
+#--------------------------------------------------#
+@app.route('/deal/submit/bill', methods=['POST', 'GET'])
+@login_required
+@check_confirmed
+def deal_submit_bill():
+    deal_id = request.form.get('deal_id')
+    motif_update = request.form.get('motif_update')
+    amount_update = request.form.get('amount_update')
+    payment_bill = request.files.get("payment_bill")
+    
+    deal = Deal.query.filter_by(id=deal_id).first()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('profile', _external=True))
+    if deal.friend_accept is False:
+        flash(_('Attendez l\'avis du prestataire avant de joindre le reçu'), 'warning')
+        return redirect(url_for('profile', _external=True))
+
+    if payment_bill:
+        if allowed_image(payment_bill.filename):
+            payment_bill.filename = secure_filename(str(datetime.timestamp(datetime.now()))+payment_bill.filename)
+            Image.open(payment_bill).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'cloud_img', payment_bill.filename))
+            payment_bill = upload_blob_img(app.config['CLOUD_STORAGE_BUCKET'], payment_bill, 'bill_img')
+        else:
+            flash(_('Erreur de nom ou d\'extension du carte identité/passeport'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        payment_bill = None
+
+    if deal.friend_accept is False:
+        deal.motif = motif_update if not motif_update is None else deal.motif
+        deal.amount = amount_update if not amount_update is None else deal.amount
+    if deal.admin_confirm_bill is False:
+        deal.payment_bill = payment_bill if not payment_bill is None else deal.payment_bill
+        if not payment_bill is None:
+            deal.bill_is_added = True
+        db.session.commit()
+    return redirect(url_for('profile', _external=True))
 
 
 # -------------------------------------------------#
@@ -455,14 +860,14 @@ def contact_us():
             chat.last_chat = datetime.utcnow()
         else:
             chat = Chat(receiver_id=admin.id, author=current_user)
-        message = "Bonjour,"
+        message = "Nouveau contact"
         contact = Contact(receiver_id=admin.id, message=message, file_statut=False, author=current_user)
         db.session.add(contact)
         db.session.commit()
-        if admin.last_seen + timedelta(minutes=10) < datetime.utcnow():
+        if admin.last_seen + timedelta(minutes=20) < datetime.utcnow():
             subject = _('Un nouveau message')
             body = _('Depuis votre dernière visite sur TRADRDV, %(username)s aimerait entrer en contact avec vous.\
-                Veuillez consulter votre messagerie.', username=current_user.fullname) 
+                Veuillez consulter votre messagerie.', username=current_user.username) 
             url = url_for('profile', _external=True)
             alert_email(subject, body, url, admin)
         return redirect(url_for('profile', _external=True))
@@ -501,10 +906,10 @@ def send_message():
             contact = Contact(receiver_id=receiver_id, message=msg_text, author=current_user)
             db.session.add(contact)
             db.session.commit()
-        if user.last_seen + timedelta(minutes=10) < datetime.utcnow():
+        if user.last_seen + timedelta(minutes=20) < datetime.utcnow():
             subject = _('Un nouveau message')
             body = _('Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un message.\
-                Veuillez consulter votre messagerie.', username=current_user.fullname) 
+                Veuillez consulter votre messagerie.', username=current_user.username) 
             url = url_for('profile', _external=True)
             alert_email(subject, body, url, user)      
     return jsonify({}), 200
@@ -515,11 +920,12 @@ def send_message():
 @check_confirmed
 def get_message():
     receiver_id = request.form.get('receiver_id')
-    chats = Chat.query.filter((Chat.user_id==current_user.id) | (Chat.receiver_id==current_user.id)).all()
-    user = User.query.filter_by(id=current_user.id).first()
+    chats = Chat.query.filter((Chat.user_id==current_user.id) | (Chat.receiver_id==current_user.id)).order_by(Chat.last_chat.desc()).all()
     chats = [chat.as_dict() for chat in chats]
-    if receiver_id == "":
-        return jsonify({'messages': [], 'chats': chats, 'user': user.as_dict()}), 200
+    user = User.query.filter_by(id=current_user.id).first()
+
+    if receiver_id == '':
+        return jsonify({'messages': [], 'chats': chats, 'user': user.as_dict()}), 200  
     messages = Contact.query.filter(((Contact.user_id==current_user.id) & (Contact.receiver_id==receiver_id)) |\
          ((Contact.user_id==receiver_id) & (Contact.receiver_id==current_user.id))).order_by(Contact.timestamp.asc()).all()
     messages = [message.as_dict() for message in messages]
@@ -543,55 +949,24 @@ def newsletter_add():
     return redirect(next_page)
 
 
-@app.route('/send/message', methods=['GET', 'POST'])
+@app.route('/newsletter/send', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
 @check_admin
-def send_messagel():
-    msg_sending=True if request.form.get('msg_sending') == 'true' else False
-    id=request.form.get('id')
+def send_newsletter():
+    url=request.form.get('url')
     subject=request.form.get('subject')
     message=request.form.get('message')
 
-    if msg_sending:
-        contact = Contact.query.filter_by(id=id).first_or_404()
-        emails = [contact.email]
-        subject = '[Réponse] '+contact.subject
-        body = message
-        url = url_for('accueil', _external=True)
-        newsletter_email(emails, subject, body, url, contact.username)
-
-        contact.response = message
-        contact.read = True
-        db.session.commit()
-        flash(_('Réponse envoyée'), 'success')
-    else:
-        emails = []  
-        followers = Newsletter.query
-        if followers.count() > 0:
-            emails = [follower.email for follower in followers.all()]
-            url = url_for('accueil', _external=True)
-            newsletter_email(emails, subject, message, url)
-            flash(_('Le broadcast est envoyé'), 'success')
-            return redirect(url_for('messagerie', _external=True))
-        flash(_('Vour n\'avez aucun contact pour le moment'), 'danger')
-    return redirect(url_for('messagerie', _external=True))
-
-
-@app.route('/messagerie')
-@login_required
-@check_confirmed
-@check_admin
-def messagerie():
-    page = request.args.get('page', 1, type=int)
-
-    messages = Contact.query.filter_by(read=False).paginate(page, app.config['ORDER_PER_PAGE'], False)
-    next_url = url_for('messagerie', page=messages.next_num, _external=True) if messages.has_next else None
-    prev_url = url_for('messagerie', page=messages.prev_num, _external=True) if messages.has_prev else None
-    
-    newsletter_subscribe = Newsletter.query.count()
-    return render_template('messagerie.html', messages=messages.items, next_url=next_url, prev_url=prev_url, has_next=messages.has_next,\
-        has_prev=messages.has_prev, newsletter_subscribe=newsletter_subscribe, page=page, title=_('Gestion messagerie et journal'))
+    emails = []  
+    followers = Newsletter.query
+    if followers.count() > 0:
+        emails = [follower.email for follower in followers.all()]
+        newsletter_email(emails, subject, message, url)
+        flash(_('Le broadcast est envoyé'), 'success')
+        return redirect(url_for('admin_panel', _external=True))
+    flash(_('Vour n\'avez aucun contact pour le moment'), 'warning')
+    return redirect(url_for('admin_panel', _external=True))
 
 
 
@@ -602,16 +977,227 @@ def messagerie():
 @login_required
 @check_confirmed
 @check_admin
-@in_development
 def admin_panel():
     if current_user.username is None:
         flash(_('Veuillez complèter et profiter pleinement de %(sitename)s', app.config['SITE_NAME']), 'warning')
     subtitle = _("Anonyme") if current_user.username is None else current_user.username
-    return render_template('admin_panel.html', title=_("Profil- %(subtitle)s", subtitle=subtitle))
+    deals_progress = Deal.query.filter((Deal.friend_accept==True) & (Deal.deal_over==False) & (Deal.work_did!=None)).order_by(Deal.timestamp.desc()).all()
+    deals_over = Deal.query.filter_by(deal_over=True).order_by(Deal.timestamp.desc()).all()
+    deals_reject = Deal.query.filter((Deal.friend_reject==True) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc()).all()
+    deals_check_bill = Deal.query.filter((Deal.admin_confirm_bill==False) & (Deal.bill_is_added==True) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc()).all()
+    #Number of newsletter contact
+    newsletter_subscribe = Newsletter.query.count()
+    #List of traducteur to select for reject deal
+    list_trad = Traducteur.query.filter((Traducteur.compte_valid==True)).all()
+    #Dashbord of the two months
+    dashbord_this_month = Dashbord.query.filter_by(id=1).first()
+    dashbord_last_month = Dashbord.query.filter_by(id=2).first()
+
+    return render_template('admin_panel.html', deals_progress=deals_progress, deals_over=deals_over, deals_reject=deals_reject, 
+        deals_check_bill=deals_check_bill, newsletter_subscribe=newsletter_subscribe, list_trad=list_trad,
+        dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, title=_("Profil- %(subtitle)s", subtitle=subtitle))
 
 
+@app.route('/admin/submit/checked/work', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def submit_checked_work():
+    deal_id = request.form.get('deal_id')
+    rate = request.form.get('rate') if not request.form.get('rate') is None else 1
+    checked_work = request.files.get("checked_work")
+
+    deal = Deal.query.filter((Deal.id==deal_id)).first_or_404()
+    traducteur = Traducteur.query.filter_by(user_id=deal.friend_id).first()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('admin_panel', _external=True))
+
+    if checked_work:
+        checked_work.filename = secure_filename(str(datetime.timestamp(datetime.now()))+checked_work.filename)
+        checked_work.save(os.path.join('app', 'static', 'assets', 'images', 'cloud_file', checked_work.filename))
+        checked_work = upload_blob_file(app.config['CLOUD_STORAGE_BUCKET'], checked_work, 'work_file')
+
+        deal.work_valid = checked_work
+        deal.work_score = rate
+        deal.deal_over = True
+        deal.deal_over_time = datetime.utcnow()
+        traducteur.success_work += 1 
+    
+        this_month = Dashbord.query.filter_by(id=1).first()
+        if deal.payment_way == 'cash':
+            make_payment(motif=deal.motif, amount=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100, owner=deal.friend)
+            this_month.update_dashbord(freelance_part=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100)
+        elif deal.payment_way == 'abonnement':
+            make_payment(motif=deal.motif, amount=app.config['TRAD_PART_ABON'], owner=deal.friend)
+            this_month.update_dashbord(freelance_part=app.config['TRAD_PART_ABON'])
+
+        # Deal is over text from traductor to custom
+        chat = Chat.query.filter(((Chat.user_id==deal.friend_id) & (Chat.receiver_id==deal.user_id)) |\
+            ((Chat.user_id==deal.user_id) & (Chat.receiver_id==deal.friend_id))).first()
+        if chat:
+            chat.last_chat = datetime.utcnow()
+        else:
+            chat = Chat(receiver_id=deal.user_id, author=deal.friend)
+        message = _("ACCORD TERMINE: merci d'avoir choisi %(site_name)s", site_name=app.config['SITE_NAME'])
+        contact = Contact(receiver_id=deal.user_id, message=message, file_statut=False, author=deal.friend)
+        db.session.add(contact)
+        db.session.commit()
+        if deal.author.last_seen + timedelta(minutes=20) < datetime.utcnow():
+            subject = _('Un nouveau message')
+            body = _('Depuis votre dernière visite sur TRADRDV, %(username)s vous a laissé(e) un message.\
+                Veuillez consulter votre messagerie.', username=deal.author.username) 
+            url = url_for('profile', _external=True)
+            alert_email(subject, body, url, deal.author)
+        
+        # Congrat text from admin to traducteur
+        chat = Chat.query.filter(((Chat.user_id==current_user.id) & (Chat.receiver_id==deal.friend_id)) |\
+            ((Chat.user_id==deal.friend_id) & (Chat.receiver_id==current_user.id))).first()
+        if chat:
+            chat.last_chat = datetime.utcnow()
+        else:
+            chat = Chat(receiver_id=deal.friend_id, author=current_user)
+        message = _("Félicitations pour votre nouveau point d’expérience, continuez de gravir les échelons, y’en aura encore !")
+        contact = Contact(receiver_id=deal.friend_id, message=message, file_statut=False, author=current_user)
+        db.session.add(contact)
+        db.session.commit()
+        if deal.friend.last_seen + timedelta(minutes=20) < datetime.utcnow():
+            subject = _('Un nouveau message')
+            body = _('Depuis votre dernière visite sur TRADRDV, %(username)s vous a laissé(e) un message.\
+                Veuillez consulter votre messagerie.', username=current_user.username) 
+            url = url_for('profile', _external=True)
+            alert_email(subject, body, url, deal.author)
+
+        flash(_('Commande terminée'), 'success')
+        return redirect(url_for('admin_panel', _external=True))
+    else:
+        flash(_('Veuillez joindre un fichier'), 'warning')
+        return redirect(url_for('admin_panel', _external=True))
 
 
+@app.route('/admin/valid/bill/<deal_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def valid_deal_bill(deal_id):
+    deal = Deal.query.filter((Deal.id==deal_id)).first_or_404()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('manager_panel', _external=True))
+    deal.admin_confirm_bill = True
+    db.session.commit()
+
+    make_payment(motif=deal.motif, amount=-deal.amount, owner=deal.author)
+    this_month = Dashbord.query.filter_by(id=1).first()
+    if deal.type_deal == 'test':
+        this_month.update_dashbord(revenu_test=deal.amount)
+    elif deal.type_deal == 'trad':
+        this_month.update_dashbord(revenu_work=deal.amount)
+
+    flash(_('La conformité et l\'originalité du reçu confirmées'), 'success')
+    return redirect(url_for('admin_panel', _external=True))
+
+
+@app.route('/admin/reject/bill/<deal_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def reject_deal_bill(deal_id):
+    deal = Deal.query.filter((Deal.id==deal_id)).first_or_404()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('manager_panel', _external=True))
+
+    chat = Chat.query.filter(((Chat.user_id==current_user.id) & (Chat.receiver_id==deal.user_id)) |\
+            ((Chat.user_id==deal.user_id) & (Chat.receiver_id==current_user.id))).first()
+    if chat:
+        chat.last_chat = datetime.utcnow()
+    else:
+        chat = Chat(receiver_id=deal.user_id, author=current_user)
+    message = _("Désolé, votre reçu n'est pas vérifié. Veuillez nous envoyer plus de détails par la discussion")
+    contact = Contact(receiver_id=deal.user_id, message=message, file_statut=False, author=current_user)
+    db.session.add(contact)
+    db.session.commit()
+    if deal.author.last_seen + timedelta(minutes=20) < datetime.utcnow():
+        subject = _('Un nouveau message')
+        body = _('Depuis votre dernière visite sur TRADRDV, %(username)s vous a laissé(e) un message.\
+                Veuillez consulter votre messagerie.', username=current_user.username) 
+        url = url_for('profile', _external=True)
+        alert_email(subject, body, url, deal.author)
+
+    flash(_('La conformité et l\'originalité du reçu rejetées'), 'success')
+    return redirect(url_for('admin_panel', _external=True))
+
+
+@app.route('/admin/attribute/new_trad', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def attribute_new_trad():
+    deal_id = request.form.get('deal_id')
+    trad_id = request.form.get('trad_id')
+
+    deal = Deal.query.filter((Deal.id==deal_id)).first_or_404()
+    friend = User.query.filter_by(id=trad_id).first()
+    author = User.query.filter_by(id=deal.user_id).first()
+
+    deal.friend=friend
+    deal.author=author
+    deal.friend_accept=False
+    deal.friend_reject=False
+    db.session.commit()
+
+    chat = Chat.query.filter(((Chat.user_id==friend.id) & (Chat.receiver_id==author.id)) | ((Chat.user_id==author.id) & (Chat.receiver_id==friend.id))).first()
+    if chat:
+        chat.last_chat = datetime.utcnow()
+    else:
+        chat = Chat(receiver_id=author.id, author=friend)
+    message = "Bonjour, je suis votre nouveau prestataire sur l'accord: "+deal.motif
+    contact = Contact(receiver_id=author.id, message=message, file_statut=False, author=friend)
+    db.session.add(contact)
+    db.session.commit()
+    if author.last_seen + timedelta(minutes=20) < datetime.utcnow():
+        subject = _('Un nouveau message')
+        body = _("Depuis votre dernière visite sur TRADRDV, %(username)s un nouveau prestataire a repris votre accord suite au refus de l'autre. "\
+            "Veuillez consulter votre messagerie.", username=friend.username) 
+        url = url_for('profile', _external=True)
+        alert_email(subject, body, url, author)
+    return redirect(url_for('admin_panel', _external=True))
+
+
+@app.route('/admin/enroll/offer/<deal_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def enroll_offer(deal_id):
+    deal = Deal.query.filter((Deal.id==deal_id)).first_or_404()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('manager_panel', _external=True))
+    deal.admin_confirm_bill = True
+    deal.work_score = 5
+    deal.deal_over = True
+    deal.deal_over_time = datetime.utcnow()
+    db.session.commit()
+    
+    user = User.query.filter_by(id=deal.user_id).first()  
+    if deal.amount == app.config['OFFRE_STATUTS']['standard']['price_da']:
+        user.offre_statut = 'standard'
+        user.offre_begin = datetime.utcnow()
+        user.offre_end = datetime.utcnow() + timedelta(days=182)
+        db.session.commit()
+    if deal.amount == app.config['OFFRE_STATUTS']['premium']['price_da']:
+        user.offre_statut = 'premium'
+        user.offre_begin = datetime.utcnow()
+        user.offre_end = datetime.utcnow() + timedelta(days=365)
+        db.session.commit()
+    
+    make_payment(motif=deal.motif, amount=-deal.amount, owner=deal.author)
+    this_month = Dashbord.query.filter_by(id=1).first()
+    this_month.update_dashbord(revenu_abon=deal.amount)
+
+    flash(_('La conformité et l\'originalité du reçu confirmées'), 'success')
+    return redirect(url_for('admin_panel', _external=True))
 
 
 # -------------------------------------------------#
@@ -625,19 +1211,18 @@ def get_notification():
     return jsonify({'number_new_msg':number_new_msg}), 200
 
 
-@app.route('/about_us')
-def about_us():
-    return render_template('about.html', title=_('À Propos de nous'))
-
-
 @app.route('/news')
 @in_development
 def news():
     return render_template('news.html', title=_('Articles-')+app.config['SITE_NAME'])
 
 
+@app.route('/about_us')
+def about_us():
+    return render_template('about.html', title=_('À Propos de nous'))
+
+
 @app.route('/terms')
-@in_development
 def terms():
     return render_template('terms.html', title=_('Conditions d\'utilisation'))
 

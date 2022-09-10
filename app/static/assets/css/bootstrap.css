@@ -4,7 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
+  :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -1004,7 +1004,7 @@ pre code {
 }
 
 @media (min-width: 768px) {
-  .col-md {
+ .col-md {
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
@@ -1142,7 +1142,7 @@ pre code {
   }
   .offset-md-11 {
     margin-left: 91.66667%;
-  }
+  } 
 }
 
 @media (min-width: 992px) {
@@ -2084,7 +2084,7 @@ textarea.form-control {
 .was-validated .custom-file-input:valid ~ .valid-tooltip, .custom-file-input.is-valid ~ .valid-feedback,
 .custom-file-input.is-valid ~ .valid-tooltip {
   display: block;
-}
+} 
 
 .was-validated .custom-file-input:valid:focus ~ .custom-file-label, .custom-file-input.is-valid:focus ~ .custom-file-label {
   border-color: #28a745;
@@ -3185,7 +3185,7 @@ input[type="button"].btn-block {
 
 .dropdown-menu.show {
   display: block;
-}
+} 
 
 .dropdown-header {
   display: block;

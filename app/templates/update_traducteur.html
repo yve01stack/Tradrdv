@@ -5,10 +5,10 @@
 <!-- content -->
 <section>
     <div class="mainw3 form">
-        <form id="regForm" action="{{ url_for('traducteur_new_register', _external=True) }}" 
+        <form id="regForm" action="{{ url_for('traducteur_update', _external=True) }}" 
             class="container" style="margin-top: 100px;" enctype="multipart/form-data" method="post">
 
-            <h3>Devenir Traducteur</h3>
+            <h3>Mise à jour de {{traducteur.author.username}}</h3>
             
             <!-- One "tab" for each step in the form: -->
             <div class="tab">
@@ -27,7 +27,7 @@
                             <select name="skill_1" required="true" onchange="this.className = ''">
                                 <option value="">{{_('Niveau excellent')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_1 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -35,7 +35,7 @@
                             <select name="skill_2" onchange="this.className = ''">
                                 <option value="">{{_('Niveau très bien')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_2 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -43,7 +43,7 @@
                             <select name="skill_3" onchange="this.className = ''">
                                 <option value="">{{_('Niveau bien')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_3 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -51,7 +51,7 @@
                             <select name="skill_4" onchange="this.className = ''">
                                 <option value="">{{_('Niveau assez bien')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_4 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -59,7 +59,7 @@
                             <select name="skill_5" onchange="this.className = ''">
                                 <option value="">{{_('Niveau passable')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_5 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -69,7 +69,7 @@
                             <select name="skill_6" required onchange="this.className = ''">
                                 <option value="">{{_('Autre')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_6 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -77,7 +77,7 @@
                             <select name="skill_7" onchange="this.className = ''">
                                 <option value="">{{_('Autre')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_7 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -85,7 +85,7 @@
                             <select name="skill_8" onchange="this.className = ''">
                                 <option value="">{{_('Autre')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_8 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -93,7 +93,7 @@
                             <select name="skill_9" onchange="this.className = ''">
                                 <option value="">{{_('Autre')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_9 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -101,7 +101,7 @@
                             <select name="skill_10" onchange="this.className = ''">
                                 <option value="">{{_('Autre')}}</option>
                                 {% for skill in config['SKILLS'] %}
-                                <option value="{{ skill }}">{{ skill }}</option>
+                                <option {% if traducteur.skill_10 == skill %} selected {% endif %} value="{{ skill }}">{{ skill }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -116,30 +116,30 @@
                             <select name="country" required="true" id="country_select_form" onchange="this.className = ''; getTown()">
                                 <option value="">{{_('Pays de résidence')}}</option>
                                 {% for country in config['COUNTRIES'] %}
-                                <option value="{{ country }}" id="url_{{country}}" href="{{ url_for('get_town', country=country, _external=True) }}">{{ country }}</option>
+                                <option {% if traducteur.current_country == country %} selected {% endif %} value="{{ country }}" id="url_{{country}}" href="{{ url_for('get_town', country=country, _external=True) }}">{{ country }}</option>
                                 {% endfor %}
                             </select>
                         </p>
                         <p>
                             <select name="town" required="true" id="town_select_form" onchange="this.className = ''">
-                                <option value=''>{{_('Ville de résidence')}}</option>
+                                <option value='{{traducteur.current_town}}'>{{traducteur.current_town}}</option>
                             </select>
                         </p>
-                        <p><input required="true" name="addr_postale" placeholder="code postal, rue, bâtiment" oninput="this.className = ''"></p>
-                        <p><input required="true" name="phone" placeholder="+213 658489196" oninput="this.className = ''"></p>
+                        <p><input required="true" value="{{traducteur.addr_postale}}" name="addr_postale" placeholder="code postal, rue, bâtiment" oninput="this.className = ''"></p>
+                        <p><input required="true" value="{{traducteur.phone}}" name="phone" placeholder="+213 658489196" oninput="this.className = ''"></p>
                     </div>
                     <div class="col-sm-6">
-                        <p><input name="CCP_number" placeholder="Numéro de compte CCP" oninput="this.className = ''"></p>
-                        <p><input name="BaridiMob_RIP" placeholder="BaridiMob RIP" oninput="this.className = ''"></p>
+                        <p><input name="CCP_number" value="{{traducteur.CCP_number}}" placeholder="Numéro de compte CCP" oninput="this.className = ''"></p>
+                        <p><input name="BaridiMob_RIP" value="{{traducteur.BaridiMob_RIP}}" placeholder="BaridiMob RIP" oninput="this.className = ''"></p>
                         <p>
                             <select name="ePayment_type" onchange="this.className = ''">
                                 <option value=''>{{_('Paiement électronique')}}</option>
                                 {% for ePayment in config['E_PAYMENT_TYPES'] %}
-                                <option value='{{ePayment}}'>{{ePayment}}</option>
+                                <option {% if traducteur.ePayment_type == ePayment %} selected {% endif %} value='{{ePayment}}'>{{ePayment}}</option>
                                 {% endfor %}
                             </select>
                         </p>
-                        <p><input name="ePayment" placeholder="Identifiant ePaiement" oninput="this.className = ''"></p>
+                        <p><input name="ePayment" value="{{traducteur.ePayment}}" placeholder="Identifiant ePaiement" oninput="this.className = ''"></p>
                     </div>
                 </div>   
             </div>
@@ -148,27 +148,33 @@
                 <div class="row">
                     <div class="col-sm-6">                
                         <p>
-                            <label for="id_card"><b>Carte Identité/Passeport (1mo max) </b></label>
-                            <input type="file" accept="image/*" name="id_card" required="true" onchange="this.className = ''">
+                            <label for="id_card"><b>Carte Identité/Passeport (1mo max) </b>
+                                <i><a href="{{traducteur.id_card}}" download="pièce jointe" target="_blank">pièce jointe</a></i>
+                            </label>
+                            <input type="file" accept="image/*" name="id_card" onchange="this.className = ''">
                         </p>
                         <p>
-                            <label for="diploma"><b>Diplomes obtenus (.pdf, 1mo max) </b></label>
-                            <input type="file" required="true" name="diploma" accept=".pdf" onchange="this.className = ''">
+                            <label for="diploma"><b>Diplomes obtenus (.pdf, 1mo max) </b>
+                                <i><a href="{{traducteur.diploma}}" download="pièce jointe" target="_blank">pièce jointe</a></i>
+                            </label>
+                            <input type="file" name="diploma" accept=".pdf" onchange="this.className = ''">
                         </p>
                         <p>
                             <label class="checkbox_container">Traducteur
                                 <input type="checkbox" name="traducteur" checked disabled required="true">
                                 <span class="checkmark"></span>
                               </label>
-                              <label class="checkbox_container">Interpréte
-                                <input type="checkbox" name="interprete">
+                              <label class="checkbox_container">Interprète
+                                <input type="checkbox" {% if traducteur.interprete %} checked {% endif %} name="interprete">
                                 <span class="checkmark"></span>
                             </label>
                         </p>
                     </div>
                     <div class="col-sm-6"> 
                         <label for="about_me"><b>Bio (pas de contact personnel, 5 lignes max) </b></label>               
-                        <textarea name="about_me" required="true" cols="50" class="w-100" oninput="this.className = ''"></textarea>
+                        <textarea name="about_me" required="true" cols="50" class="w-100" oninput="this.className = ''">
+                            {{traducteur.about_me}}
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -180,23 +186,37 @@
                         <select name="testeur_id" required="true" id="testeur_select_form" onchange="this.className = ''; getTesteur()">
                             <option value=''>{{_('Chosissez un testeur')}}</option>
                             {% for testeur in testeurs %}
-                            <option value='{{testeur.id}}' id="testeur_url_{{testeur.id}}" href="{{ url_for('get_testeur', testeur_id=testeur.id, _external=True) }}">
+                            <option {% if deal.friend_id==testeur.id %} selected {% endif %} value='{{testeur.id}}' id="testeur_url_{{testeur.id}}" href="{{ url_for('get_testeur', testeur_id=testeur.id, _external=True) }}">
                                 {{testeur.username}} | {{testeur.country}}
                             </option>
                             {% endfor %}
                         </select>
-                        <p><strong>{{_("Nom d'utilisateur:")}} </strong><small class="h6" id="testeur_username"></small></p>
-                        <p><strong>{{_('Pays de résidence:')}} </strong><small class="h6" id="testeur_current_country"></small></p>
+                        <p><strong>{{_("Nom d'utilisateur:")}} </strong><small class="h6" id="testeur_username">{{deal.friend.username}}</small></p>
+                        <p><strong>{{_('Pays de résidence:')}} </strong><small class="h6" id="testeur_current_country">{{deal.friend.country}}</small></p>
                         <p><strong>{{_('Ville de résidence:')}} </strong><small class="h6" id="testeur_current_town"></small></p>
                         <p><strong>{{_('Adresse postale:')}} </strong><small class="h6" id="testeur_addr_postale"></small></p>
                     </div>
                     <div class="col-sm-6">
                         <center>
-                            <img id="testeur_avatar" src="{{config['COVER_PICTURE']}}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;"> 
+                            <img id="testeur_avatar" src="{{deal.friend.avatar}}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;"> 
                         </center> 
                         <p class="mt-3" id="testeur_about_me"></p>
                         <p><strong>{{_('Accomplissement:')}} </strong><small class="h6" id="testeur_success_work"></small></p>
-                        <p><strong>{{_('En ligne:')}} </strong><small class="h6" id="testeur_last_seen"></small></p>
+                        <p><strong>{{_('Donnez une note:')}} </strong>
+                            <div class="rate mt-n3">
+                                <input type="radio" id="star5" name="rate" value="5" />
+                                <label for="star5" title="text">5 stars</label>
+                                <input type="radio" id="star4" name="rate" value="4" />
+                                <label for="star4" title="text">4 stars</label>
+                                <input type="radio" id="star3" name="rate" value="3" />
+                                <label for="star3" title="text">3 stars</label>
+                                <input type="radio" id="star2" name="rate" value="2" />
+                                <label for="star2" title="text">2 stars</label>
+                                <input type="radio" id="star1" name="rate" value="1" />
+                                <label for="star1" title="text">1 star</label>
+                            </div>
+                        </p>
+                        <p><input name="deal_id" value="{{deal.id}}" required type="hidden"></p>
                     </div>
                 </div>
             </div>

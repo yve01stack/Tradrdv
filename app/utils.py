@@ -5,22 +5,17 @@ from flask_mail import Message
 from flask_babel import _
 import sendgrid
 from sendgrid.helpers.mail import *
+from  sqlalchemy.sql.expression import func, select
 
 from app import app, db, mail, storage_client
 
 
+def select_by_random():
+    if os.environ.get('DATABASE_URL') is None:
+        return func.random()
+    else:
+        return func.rand()
 
-def sendgrid_mail():
-    sg = sendgrid.SendGridAPIClient(api_key='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')
-    from_email = Email(app.config['MAIL_USERNAME'])
-    to_email = To("yvestack01c@gmail.com")
-    subject = "Sending with SendGrid is Fun"
-    content = Content("text/plain", "and easy to do anywhere, even with Python")
-    mail = Mail(from_email, to_email, subject, content)
-    response = sg.client.mail.send.post(request_body=mail.get())
-    print(response.status_code)
-    print(response.body)
-    print(response.headers)
 
 # Google login
 def get_google_provider_cfg(discovery_url):
@@ -75,10 +70,27 @@ def send_async_email(app, msg):
         mail.send(msg)
 
 def send_email(subject, sender, recipients, text_body, html_body):
-    msg = Message(subject, sender=sender, recipients=recipients)
-    msg.body = text_body
-    msg.html = html_body
-    Thread(target=send_async_email, args=(app, msg)).start()
+    if app.config['SENDGRID_NEED']:
+        for receiver in recipients:
+            sendgrid_mail(subject, receiver, html_body)
+    else:
+        msg = Message(subject, sender=sender, recipients=recipients)
+        msg.body = text_body
+        msg.html = html_body
+        Thread(target=send_async_email, args=(app, msg)).start()
+
+def sendgrid_mail(subject, receiver, html_body):
+    sg = sendgrid.SendGridAPIClient(api_key=app.config['SENDGRID_API_KEY'])
+    from_email = Email(app.config['EMAIL_SENDER'])
+    to_email = To(receiver)
+    subject = subject
+    content = Content("text/html", html_body)
+    mail = Mail(from_email, to_email, subject, content)
+    response = sg.client.mail.send.post(request_body=mail.get())
+    print(response.status_code)
+    print(response.body)
+    print(response.headers)
+
 
 def password_reset_email(user):
     token = user.get_reset_password_token()
