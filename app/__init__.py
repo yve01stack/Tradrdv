@@ -12,6 +12,7 @@ from google.cloud import storage
 from flask_moment import Moment
 from flask_babel import Babel, _
 from flask_babel import lazy_gettext as _l 
+from flask_apscheduler import APScheduler
 
 
 app = Flask(__name__)
@@ -26,6 +27,8 @@ mail = Mail(app)
 storage_client = storage.Client()
 moment = Moment(app)
 babel = Babel(app)
+scheduler = APScheduler()
+scheduler.init_app(app)
 
 from app import routes, models
 

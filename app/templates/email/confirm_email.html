@@ -1,7 +1,7 @@
 <p>{{_("Bonjour %(username)s,", username=user.fullname)}}</p>
 <p>
-    {{_("Pour confirmer votre adresse mail, cliquez sur le lien")}} 
-    <a href="{{ url_for('confirmed_email', token=token, _external=True) }}"> {{_('suivant')}}</a>.
+    {{_("Pour confirmer votre adresse mail, cliquez")}} 
+    <a href="{{ url_for('confirmed_email', token=token, _external=True) }}"> {{_('ici')}}</a>.
 </p>
 <p>{{_("Vous pouvez également coller le lien suivant dans la barre d'adresse de votre navigateur :")}}</p>
 <p>{{ url_for('confirmed_email', token=token, _external=True) }}</p>

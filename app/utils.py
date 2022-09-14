@@ -16,6 +16,10 @@ def select_by_random():
     else:
         return func.rand()
 
+def return_eq_da(symbol):
+    for devise in app.config['DEVISES']:
+        if devise['symbol'] == symbol:
+            return devise['eq_da']
 
 # Google login
 def get_google_provider_cfg(discovery_url):
@@ -121,3 +125,4 @@ def newsletter_email(emails, subject, body, url, username=''):
                recipients=emails,
                text_body=render_template('email/contact_email.txt', body=body, url=url, username=username),
                html_body=render_template('email/contact_email.html', body=body, url=url, username=username))
+

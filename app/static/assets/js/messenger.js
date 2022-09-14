@@ -133,3 +133,38 @@
 
 
     }
+
+
+    function check_message(){
+        let regex_email = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+
+        let text = $('#msgText').val();
+        // Split string using a whitespace
+        let text_array = text.split(' ');
+        let counter=[]
+        
+        text_array.forEach((word) => {          
+            
+            if (regex_email.test(word) == true){
+                $('#msgText').css('border', '2px solid red')
+                $('#text_input').attr('onclick', 'return false;')
+                counter.append(1)
+            } 
+            
+        });
+
+        if(counter.length==0){
+            $('#msgText').css('border', '2px solid dodgerblue')
+            $('#text_input').attr('onclick', 'sendtext()')
+        } else{
+            counter=[]
+        }
+
+        let result1 = text.replace(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, '')
+        let result2 = result1.replace(/^\(?([0-9]{2})\)?[-. ]?([0-9]{2})[-. ]?([0-9]{2})[-. ]?([0-9]{2})[-. ]?([0-9]{2})$/, '')
+        let result3 = result2.replace(/([0-9]{10})/, '')
+        let result4 = result3.replace(/([0-9]{9})/, '')
+        let result5 = result4.replace(/([0-9]{2})?[-. ]?([0-9]{2})[-. ]?([0-9]{2})[-. ]?([0-9]{2})[-. ]?([0-9]{2})/, '')
+
+        $('#msgText').val(result5)
+    }

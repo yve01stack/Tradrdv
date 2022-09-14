@@ -23,7 +23,7 @@
                     </div>
                     <form method="post" action="{{ url_for('send_message', _external=True) }}" enctype="multipart/form-data" id="msgForm">
                         <div class="input-container shadow-sm bg-white">
-                            <textarea id="msgText" class="contact-form"></textarea>
+                            <textarea id="msgText" class="contact-form" onkeyup="check_message()"></textarea>
                             <input type="hidden" class="get_message_url" href="{{ url_for('get_message', _external=True) }}">
                             <input type="hidden" value="" class="receiver_id">
                             <input type="file" class="d-none" name="msgFile" id="msgFile" oninput="sendfile(this);">
@@ -66,7 +66,7 @@
                                             {% else %}
                                             <span class="badge badge-success">{{current_user.remain_day}} jour(s)</span> 
                                             {% endif %}
-                                            <span class="badge badge-secondary">Revenu: {{current_user.revenu}} da</span> 
+                                            <span class="badge badge-secondary">Revenu: {{current_user.revenu}}Da</span> 
                                         </p>
                                         <div class="form-container">
                                             <input type="text" 
@@ -149,6 +149,7 @@
                                                 data-itemid="{{deal.id}}" 
                                                 data-whatever="{{deal.motif}}"
                                                 data-columns="{{deal.amount}}"
+                                                data-bind="{{deal.devise}}"
                                                 data-parent="{{deal.friend.username}}"
                                                 data-draggable="{{deal.payment_way}}"
                                                 data-dropzone="{{ deal.payment_bill }}">{{_('Aperçu')}}
@@ -169,6 +170,14 @@
                                       </button>
                                     </div>
                                     <div class="modal-body">
+                                        <p>Pour vous réserver votre traducteur et lancer votre travail, vous avez 24h pour pouvoir confirmer votre commande à travers un reçu 
+                                            du versement de 80% du total de la somme, ou vous décommander, 
+                                            <ul>
+                                                <li>Nous privilégions l’utilisation de l’application BaridiMob en Algérie, pour sa rapidité et son efficacité, et ceci sans déplacements.</li>
+                                                <li>Pour le marché en dehors de l’Algérie, nous n’acceptons que les transferts bancaires et la plateforme Payoneer».</li>
+                                                <li>Les prix pour le marché international différent des prix pour le marché local « algérien).</li>
+                                            </ul>
+                                           </p>
                                         <p><strong>motif: </strong><i class="motif"></i></p>
                                         <p><strong>Coût: </strong><i class="amount"></i></p>
                                         <p><strong>Prestataire: </strong><i class="username"></i></p>
@@ -187,10 +196,10 @@
                                             <p>Modifiez le motif (optionnel)
                                                 <input class="motif_update" name="motif_update" required type="text" maxlength="30">
                                             </p>
-                                            <p>Modifiez le prix (optionnel)
+                                            <p>Modifiez le budget (optionnel)
                                                 <input class="amount_update" name="amount_update" required type="number" maxlength="30">
                                             </p>
-                                            <p>Ajoutez le reçu de paiement
+                                            <p>joindre le reçu de paiement
                                                 <img id="output_payment_bill" onclick="return document.getElementById('payment_bill').click();" src="https://storage.googleapis.com/tradrdv/dev/101671.png" 
                                                 style="width: 90%; height: 200px; border: 5px solid #eee;">
                                                 <input accept="image/*" type="file" class="custom-file-input hidden" name="payment_bill" id="payment_bill" onchange="loadFile(event, 'output_payment_bill')">
@@ -219,7 +228,7 @@
                                     {% for payment in payments %}
                                     <tr>
                                         <td>{{payment.motif}}</td>
-                                        <td>{{payment.amount}}da</td>
+                                        <td>{{payment.amount}}{{payment.devise}}</td>
                                         <td>{{moment(payment.timestamp).format('LL')}}</td>
                                     </tr>
                                     {% endfor %}
@@ -254,6 +263,7 @@
         var deal_id = button.data('itemid') // Extract info from data-* attributes
         var motif = button.data('whatever')
         var amount = button.data('columns')
+        var devise = button.data('bind')
         var username = button.data('parent')
         var payment_way = button.data('draggable')
         var payment_bill = button.data('dropzone')
@@ -264,7 +274,7 @@
         modal.find('.modal-body .motif').text(motif)
         modal.find('.modal-body .motif_update').val(motif)
 
-        modal.find('.modal-body .amount').text(amount)
+        modal.find('.modal-body .amount').text(amount+''+devise)
         modal.find('.modal-body .amount_update').val(amount)
 
         modal.find('.modal-body .username').text(username)

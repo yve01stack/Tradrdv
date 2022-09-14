@@ -7,6 +7,7 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 class Config(object):
 	SECRET_KEY = os.environ.get('SECRET_KEY', None)
+	SCHEDULER_API_ENABLED = True
 	# Database initialization
 	if os.environ.get('DATABASE_URL') is None:
 		basedir = os.path.abspath(os.path.dirname(__file__))
@@ -40,20 +41,73 @@ class Config(object):
 	TESTEUR_EMAIL = os.environ.get("TESTEUR_EMAIL", None)
 	TESTEUR_PASSWORD = os.environ.get("TESTEUR_PASSWORD", None)
 
-	COUNTRIES = ['Maroc', 'Tunisie', 'Algérie']
-	TOWNS = {'Maroc':['Casablanca', 'Fés', 'Marrakech'], 'Tunisie':['Tunis', 'Sfax', 'Sousse '], 'Algérie':['Alger', 'Blida']}
-	SKILLS = ['Français-Anglais', 'Français-Arabe', 'Français-Ruisse', 'Français-Italien', 'Français-Espagnol', 'Français-Chinois',
-		 'Français-Tamazight', 'Français-Allemand', 'Français-Turc', 'Français-Japonais', 'Arabe-Anglais', 'Arabe-Ruisse', 'Arabe-Italien', 
-		 'Arabe-Espagnol', 'Arabe-Chinois', 'Arabe-Tamazight', 'Arabe-Allemand', 'Arabe-Turc', 'Arabe-Japonais', 'Ruisse-Italien', 
-		 'Ruisse-Espagnol', 'Ruisse-Chinois', 'Ruisse-Tamazight', 'Ruisse-Allemand', 'Ruisse-Turc', 'Ruisse-Japonais', 'Italien-Espagnol', 
-		 'Italien-Chinois', 'Italien-Tamazight', 'Italien-Allemand', 'Italien-Turc', 'Italien-Japonais', 'Espagnol-Chinois', 'Espagnol-Tamazight',
-		 'Espagnol-Allemand', 'Espagnol-Turc', 'Espagnol-Japonais', 'Tamazight-Allemand', 'Tamazight-Turc', 'Tamazight-Japonais', 
-		 'Allemand-Turc', 'Allemand-Japonais', 'Turc-Japonais']
-
+	COUNTRIES = ['Afghanistan (pashtou-dari)', 'Afrique du Sud (anglais)', 'Albanie (albanais)', 'Algérie (arabe)', 'Allemagne (allemand)', 'Andorre (catalan)',
+		'Angola (portugais)', 'Antigua-et-Barbuda (anglais)', 'Arabie Saoudite (arabe)', 'Argentine (espagnol)', 'Arménie (arménien)', 'Australie (anglais)',
+		'Autriche (allemand)', 'Azerbaïdjan (azéri)', 'Bahamas (anglais)', 'Bahreïn (arabe)', 'Bangladesh (bengali)', 'Barbade (anglais)', 'Belau / Palau / Palaos (anglais-paloasien)',
+		'Belgique (néerlandais-français-allemand)', 'Belize (anglais)', 'Bénin (français)', 'Bhoutan (dzonkha)', 'Biélorussie (biélorusse-russe)',
+		'Birmanie (birman)', 'Bolivie (espagnol)', 'Bosnie-Herzégovine (bosniaque-serbe-croate)', 'Botswana (anglais)', 'Brésil (portugais)', 'Brunei (malais)',
+		'Bulgarie (bulgare)', 'Burkina Faso (français)', 'Burundi (kurindi-français)', 'Cambodge (khmer)', 'Cameroun (français-anglais)', 'Canada (anglais-français)',
+		'Cap-Vert (portugais-créole)', 'Centrafrique (sango-français)', 'Chili (espagnol)', 'Chine (chinois)', 'Chypre (grec-turc)', 'Colombie (espagnol)', 'Comores (français-arabe)',
+		'Congo-Brazzaville (français)', 'Congo-Kinshasa ou RDC (français)', 'Corée du Nord (coréen)', 'Corée du Sud (coréen)', 'Costa Rica (espagnol)',
+		'Côte d’Ivoire (français)', 'Croatie (croate)', 'Cuba (espagnol)', 'Danemark (danois)', 'Djibouti (français-arabe)', 'Dominique (anglais)',
+		'Égypte (arabe)', 'Émirats arabes unis (arabe)', 'Équateur (espagnol)', 'Érythrée (tigrina)', 'Espagne (espagnol)', 'Estonie (estonien)', 'États-Unis (anglais)',
+		'Éthiopie (amharique)', 'Fidji (îles) (anglais)', 'Finlande (finnois-suédois)', 'France (français)', 'Gabon (français)', 'Gambie (anglais)',
+		'Géorgie (géorgien)', 'Ghana (anglais)', 'Grèce (grec)', 'Grenade (anglais)', 'Guatemala (espagnol)', 'Guinée-Bissau (portugais)', 'Guinée-Conakry (français)',
+		'Guinée équatoriale (espagnol)', 'Guyana (anglais)', 'Haïti (français-créole)', 'Honduras (espagnol)', 'Hongrie (hongrois)', 'Inde (hindi-anglais)',
+		'Indonésie (bahasa indonesia)', 'Irak (arabe)', 'Iran (farsi)', 'Irlande (irlandais-anglais)', 'Islande (islandais)', 'Italie (italien)', 'Jamaïque (anglais)',
+		'Japon (japonais)', 'Jordanie (arabe)', 'Kazakhstan (kazakh)', 'Kenya (anglais-swahili)', 'Kirghizistan (kirghiz-russe)', 'Kiribati (anglais)',
+		'Kosovo (albanais-serbe)', 'Koweït (arabe)', 'Laos (lao)', 'Lesotho (anglais-sotho)', 'Lettonie (letton)', 'Liban (arabe)', 'Liberia (anglais)',
+		'Libye (arabe)', 'Liechtenstein (allemand)', 'Lituanie (lituanien)', 'Luxembourg (français)', 'Macédoine (macédonien)', 'Madagascar (malgache-français-anglais)',
+		'Malaisie (malais)', 'Malawi (anglais)', 'Maldives (maldivien)', 'Mali (français)', 'Malte (maltais-anglais)', 'Maroc (arabe)', 'Marshall (anglais-marshallais)',
+		'Maurice (île) (anglais)', 'Mauritanie (arabe)', 'Mexique (espagnol)', 'Micronésie', 'Fédération des État de (anglais)', 'Moldavie (moldave/roumain)',
+		'Monaco (français)', 'Mongolie (mongol)', 'Monténégro (monténégrin)', 'Mozambique (portugais)', 'Namibie (anglais)', 'Nauru (anglais-nauruan)',
+		'Népal (népali)', 'Nicaragua (espagnol)', 'Niger (français)', 'Nigeria (anglais)', 'Norvège (bokmål-nynorsk)', 'Nouvelle-Zélande (anglais-maori)',
+		'Oman (arabe)', 'Ouganda (anglais)', 'Ouzbékistan (ouzbek)', 'Pakistan (anglais-ourdou)', 'Palestine (arabe, hébreux)', 'Panama (espagnol)',
+		'Papouasie-Nouvelle-Guinée (anglais)', 'Paraguay (espagnol)', 'Pays-Bas (néerlandais)', 'Pérou (espagnol)', 'Philippines (filipino)', 'Pologne (polonais)',
+		'Portugal (portugais)', 'Qatar (arabe)', 'République dominicaine (espagnol)', 'République tchèque (thèque)', 'Roumanie (roumain)', 'Royaume-Uni (anglais)',
+		'Russie (russe)', 'Rwanda (kinyarwanda-français-anglais)', 'Saint-Christophe-et-Niévès (anglais)', 'Sainte-Lucie (anglais)', 'Saint-Marin (italien)',
+		'Saint-Vincent-et-les-Grenadines (anglais)', 'Salomon (îles) (anglais)', 'São-Tomé-et-Príncipe (portugais)', 'Salvador (espagnol)', 'Samoa occidentales (samoan-anglais)',
+		'Sénégal (français)', 'Serbie (serbe)', 'Seychelles (français-anglais-créole)', 'Sierra Leone (anglais)', 'Singapour (malais-chinois-tamoul-anglais)',
+		'Slovaquie (slovaque)', 'Slovénie (slovène)', 'Somalie (somali)', 'Soudan (arabe)', 'Soudan du Sud (anglais)', 'Sri Lanka (cinghalais-tamoul)',
+		'Suède (suédois)', 'Suisse (allemand-français-italien-romanche)', 'Surinam (néerlandais)', 'Swaziland (anglais-swat)', 'Syrie (arabe)', 'Tadjikistan (tadjik)',
+		'Tanzanie (anglais-swahili)', 'Tchad (arabe-français)', 'Timor oriental (portugais et tétum)', 'Thaïlande (thaï)', 'Togo (français)', 'Tonga (anglais-tonguien)',
+		'Trinité-et-Tobago (anglais)', 'Tunisie (arabe)', 'Turkménistan (turkmène)', 'Turquie (turc)', 'Tuvalu (tuvaluan-anglais)', 'Ukraine (ukrainien)',
+		'Uruguay (espagnol)', 'Vanuatu (anglais-français)', 'Vatican (italien)', 'Venezuela (espagnol)', 'Vietnam (vietnamien)', 'Yémen (arabe)', 'Zambie (anglais)',
+		'Zimbabwe (anglais)']
+	TOWNS = {'Maroc (arabe)':['Casablanca', 'Fés', 'Marrakech'], 'Tunisie (arabe)':['Tunis', 'Sfax', 'Sousse '], 
+		'Algérie (arabe)':['Adrar', 'Chlef', 'Laghouat', 'Oum El Bouaghi', 'Batna', 'Béjaïa', 'Biskra', 'Béchar', 'Blida', 'Bouira', 'Tamanrasset', 'Tébessa',
+		'Tlemcen', 'Tiaret', 'Tizi Ouzou', 'Alger', 'Djelfa', 'Jijel', 'Sétif', 'Saïda', 'Skikda', 'Sidi Bel Abbès', 'Annaba', 'Guelma', 'Constantine',
+		'Médéa', 'Mostaganem', 'M\'Sila', 'Mascara', 'Ouargla', 'Oran', 'Bayadh', 'Illizi', 'Bordj Bou Arreridj', 'Boumerdès', 'El Tarf', 'Tindouf', 'Tissemsilt',
+		'El Oued', 'Khenchela', 'Souk Ahras', 'Tipaza', 'Mila', 'Aïn Defla', 'Naâma', 'Aïn Témouchent', 'Ghardaïa', 'Relizane', 'Timimoun', 'Bordj Badji Mokhtar', 
+		'Ouled Djellal', 'Béni Abbès', 'In Salah', 'In Guezzam', 'Touggourt', 'Djanet', 'El M\'Ghair', 'El Meniaa']}
+	SKILLS=['Arabe-français', 'Arabe-tamazight', 'Arabe-espagnol', 'Arabe-portugais', 'Arabe-italien', 'Arabe-anglais', 'Arabe-allemand', 'Arabe-polonais',
+		'Arabe-turc', 'Arabe-ukrainien', 'Arabe-russe', 'Arabe-Chinois', 'Tamazight–arabe', 'Tamazight-Français', 'Tamazight-espagnol', 'Tamazight-portugais',
+		'Tamazight-italien', 'Tamazight-anglais', 'Tamazight-allemand', 'Tamazight-polonais', 'Tamazight-turc', 'Tamazight-ukrainien', 'Tamazight-russe', 'Tamazight-chinois',
+		'Français–arabe', 'Français–tamazight', 'Français–espagnol', 'Français–portugais', 'Français–italien', 'Français–anglais', 'Français–allemand', 'Français–polonais',
+		'Français–turc', 'Français–ukrainien', 'Français–russe', 'Français–chinois', 'Espagnol-arabe', 'Espagnol-tamazight', 'Espagnol-français', 'Espagnol-espagnol', 
+		'Espagnol-portugais', 'Espagnol-italien', 'Espagnol-anglais', 'Espagnol-allemand', 'Espagnol-polonais', 'Espagnol-turc', 'Espagnol-ukrainien', 
+		'Espagnol-russe', 'Espagnol-chinois', 'Portugais-arabe', 'Portugais-tamazight', 'Portugais-français', 
+		'Portugais-espagnol', 'Portugais-italien', 'Portugais-anglais', 'Portugais-allemand', 'Portugais-polonais', 'Portugais-turc', 'Portugais-ukrainien',
+		'Portugais-russe', 'Portugais-chinois', 'Italien–arabe', 'Italien–tamazight', 'Italien–français', 'Italien–espagnol', 'Italien–portugais', 'Italien–anglais',
+		'Italien–allemand', 'Italien–polonais', 'Italien–turc', 'Italien–ukrainien', 'Italien–russe', 'Italien–chinois', 'Anglais–arabe', 'Anglais–tamazight', 'Anglais–français',
+		'Anglais–espagnol', 'Anglais–portugais', 'Anglais–italien', 'Anglais–allemand', 'Anglais–polonais', 'Anglais–turc', 'Anglais–ukrainien', 'Anglais–russe',
+		'Anglais–chinois', 'Allemand–arabe', 'Allemand–tamazight', 'Allemand–français', 'Allemand–espagnol', 'Allemand–portugais', 'Allemand–italien',
+		'Allemand–anglais', 'Allemand–polonais', 'Allemand–turc', 'Allemand–ukrainien', 'Allemand–russe', 'Allemand–chinois', 'Polonais–arabe', 'Polonais–tamazight',
+		'Polonais–français', 'Polonais–espagnol', 'Polonais–portugais', 'Polonais–italien', 'Polonais–anglais', 'Polonais–allemand', 'Polonais–turc','Polonais–ukrainien',
+		'Polonais–russe', 'Polonais–chinois', 'Turc–arabe', 'Turc–tamazight', 'Turc–français', 'Turc–espagnol', 'Turc–portugais', 'Turc–italien', 'Turc–anglais',
+		'Turc–allemand', 'Turc–polonais', 'Turc–ukrainien', 'Turc–russe', 'Turc–chinois', 'Ukrainien–arabe', 'Ukrainien–tamazight', 'Ukrainien–français',
+		'Ukrainien–espagnol', 'Ukrainien–portugais', 'Ukrainien–italien', 'Ukrainien–anglais', 'Ukrainien–allemand', 'Ukrainien–polonais', 'Ukrainien–truc',
+		'Ukrainien–russe', 'Ukrainien–chinois', 'Russe-arabe', 'Russe-tamazight', 'Russe-français', 'Russe-espagnol', 'Russe-portugais', 'Russe-italien',
+		'Russe-anglais', 'Russe-allemand', 'Russe-polonais', 'Russe-turc', 'Russe-ukrainien', 'Russe-chinois', 'Chinois-arabe', 'Chinois-tamazight', 'Chinois-français',
+		'Chinois-espagnol', 'Chinois-portugais', 'Chinois-italien', 'Chinois-anglais', 'Chinois-allemand', 'Chinois-polonais', 'Chinois-turc', 'Chinois-ukrainien', 'Chinois- russe']
+ 
 	E_PAYMENT_TYPES = ['PayPal', 'Payonner', 'Western Union', 'Compte Bancaire']
 	STATUTS = ['admin', 'testeur', 'traducteur', 'client']
+	NEWSLETTER_GROUPS = ['Groupe particulier', 'Groupe client', 'Groupe traducteur', 'Groupe testeur', 'Groupe admin']
+	PRESTATIONS = ['Interprétation', 'Traduction', 'Transcription', 'Relecture', 'Sous-titrage', 'Voix-off', 'Doublage']
 	SEX = ['Féminin', 'Masculin']
 	PAYMENT_WAY = ['cash', 'abonnement']
+	DEVISES = [{'name': 'DZD', 'symbol': 'DA', 'eq_da': 1}, {'name': 'POUND', 'symbol': '£', 'eq_da': 162}, {'name': 'EURO', 'symbol': '€', 'eq_da': 140}, {'name': 'DOLLAR', 'symbol': '$', 'eq_da': 139}]
 	PAYMENT_METHOD = [{'name': 'CCP', 'desc': 'GHEDIRI Hanane -  0002054044 clé 96 - adresse : Tipaza'},
 		{'name': 'MaridiMob', 'desc': '00799999000205404496'}, {'name': 'Western Union', 'desc': 'Nom: GHEDIRI, Prénom: Hanane, Pays: Algérie, Ville: Tipaza, Code postal: 42000'},
 		{'name': 'Payonner', 'desc': 'hananeinterpretingworld@gmail.com'}]
@@ -99,6 +153,3 @@ class Config(object):
 	ADMINS = ['contact@tradrdv.com', 'admin@tradrdv.com', 'programm01dev@gmail.com']
 	# flask babel translator
 	LANGUAGES = ['fr', 'en']
-
-	
- 

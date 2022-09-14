@@ -9,10 +9,10 @@ from flask_babel import _, get_locale
 from googletrans import Translator
 
 
-from app import app, db, client
+from app import app, db, client, tasks
 from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, make_payment
 from app.utils import get_google_provider_cfg, allowed_image, delete_blob_img, upload_blob_img, upload_blob_file, password_reset_email,\
-     email_confirm_email, alert_email, newsletter_email, select_by_random
+     email_confirm_email, alert_email, newsletter_email, select_by_random, return_eq_da
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.decorators import check_confirmed, check_admin, check_manager, in_development
 
@@ -24,16 +24,6 @@ def before_request():
         db.session.commit()
     g.locale = str(get_locale())
 
-    traducteurs = Traducteur.query.filter_by(compte_valid=True).all()
-    for traducteur in traducteurs:
-        traducteur.has_valid_abon()
-    
-    clients = User.query.filter((User.offre_statut=='standard') | (User.offre_statut=='premium')).all()
-    for client in clients:
-        client.has_valid_abon()
-    
-    this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.end_valid_month()
 
 # @app.context_processor
 # def my_utility_processor(): 
@@ -50,7 +40,6 @@ def before_request():
 #         else:
 #             return text    
 #     return dict(translate=translate)
-
 
 
 
@@ -238,7 +227,17 @@ def update_profile():
     user.country = country if country != '' else current_user.country
     user.pseudo_com = pseudo_com if pseudo_com != '' else current_user.pseudo_com
     user.sex = sex if sex != '' else current_user.sex
-    user.avatar = avatar_url
+
+    number_deal = Deal.query.filter((Deal.user_id==current_user.id) & (Deal.deal_over==True)).count()
+    if number_deal<5:
+        if user.sex=='Féminin':
+            user.avatar = 'https://storage.googleapis.com/tradrdv/dev/sex_f.jpg'
+        elif user.sex=='Masculin':
+            user.avatar = 'https://storage.googleapis.com/tradrdv/dev/sex_m.jpg'
+        else:
+            user.avatar = avatar_url
+    else:
+        user.avatar = avatar_url
     db.session.commit()
     flash(_('Votre profil a bien été modifié'), 'success')
     return redirect(url_for('profile', _external=True))
@@ -314,11 +313,11 @@ def offer_subscribe(offer_type):
     if offer_type == 'standard':
         motif = 'Souscription à l\'offre standard'
         deal = Deal(type_deal='abon', payment_way='cash', motif=motif, amount=app.config['OFFRE_STATUTS']['standard']['price_da'],\
-            friend_accept=True, friend=admin, author=current_user)
+            devise=app.config['DEVISES'][0]['symbol'], friend_accept=True, friend=admin, author=current_user)
     elif offer_type == 'premium':
         motif = 'Souscription à l\'offre premium'
         deal = Deal(type_deal='abon', payment_way='cash', motif=motif, amount=app.config['OFFRE_STATUTS']['premium']['price_da'],\
-            friend_accept=True, friend=admin, author=current_user)
+             devise=app.config['DEVISES'][0]['symbol'], friend_accept=True, friend=admin, author=current_user)
     else:
         return render_template('404.html', title=_("404 Erreur")), 404
     
@@ -392,8 +391,7 @@ def traducteur_new_register():
     ePayment_type = request.form.get('ePayment_type')
     ePayment = request.form.get('ePayment')
     about_me = request.form.get('about_me')
-    traducteur = True if request.form.get('traducteur') == 'on' else False
-    interprete = True if request.form.get('interprete') == 'on' else False
+    prestation = request.form.get('prestation')
 
     id_card = request.files.get("id_card")
     diploma = request.files.get("diploma")
@@ -419,14 +417,14 @@ def traducteur_new_register():
     new_traducteur = Traducteur(skill_1=skill_1, skill_2=skill_2, skill_3=skill_3, skill_4=skill_4, skill_5=skill_5, skill_6=skill_6, skill_7=skill_7,\
         skill_8=skill_8, skill_9=skill_9, skill_10=skill_10, current_country=country, current_town=town, addr_postale=addr_postale, phone=phone,\
         CCP_number=CCP_number, BaridiMob_RIP=BaridiMob_RIP, ePayment_type=ePayment_type, ePayment=ePayment, about_me=about_me,\
-        traducteur=traducteur, interprete=interprete, author=current_user)
+        prestation=prestation, author=current_user)
     db.session.add(new_traducteur)
 
     # Setup a deal (type of deal= trad, test, abon)
     testeur = User.query.filter_by(id=testeur_id).first()
     motif = 'Paiement de caution annuelle de traducteur'
     deal = Deal(type_deal='test', payment_way='cash', motif=motif, amount=app.config['TRADUCTEUR_CAUTION']['price_da'],\
-        friend=testeur, author=current_user)
+        devise=app.config['DEVISES'][0]['symbol'], friend=testeur, author=current_user)
     user = User.query.filter_by(id=current_user.id).first()
     user.statut = 'traducteur'
     db.session.add(deal)
@@ -499,8 +497,7 @@ def traducteur_update():
     ePayment_type = request.form.get('ePayment_type')
     ePayment = request.form.get('ePayment')
     about_me = request.form.get('about_me')
-    traducteur = True if request.form.get('traducteur') == 'on' else False
-    interprete = True if request.form.get('interprete') == 'on' else False
+    prestation = request.form.get('prestation')
 
     id_card = request.files.get("id_card")
     diploma = request.files.get("diploma")
@@ -546,11 +543,8 @@ def traducteur_update():
     traducteur_old.ePayment_type = ePayment_type
     traducteur_old.ePayment = ePayment
     traducteur_old.about_me = about_me
-    traducteur_old.traducteur = traducteur
-    traducteur_old.interprete = interprete
+    traducteur_old.prestation = prestation
     traducteur_old.author = User.query.filter_by(id=deal.user_id).first()
-    traducteur_old.interprete = interprete
-    traducteur_old.interprete = interprete
 
     traducteur_old.caution_annual_begin = datetime.utcnow()
     traducteur_old.caution_annual_end = datetime.utcnow() + timedelta(days=365)
@@ -565,9 +559,9 @@ def traducteur_update():
     testeur.success_work += 1
     db.session.commit()
     
-    make_payment(motif=deal.motif, amount=app.config['TESTEUR_PART'], owner=deal.friend)
+    make_payment(motif=deal.motif, amount=app.config['TESTEUR_PART'], devise=app.config['DEVISES'][0]['symbol'], eq_da=app.config['DEVISES'][0]['eq_da'], owner=deal.friend)
     this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.update_dashbord(freelance_part=app.config['TESTEUR_PART'])
+    this_month.update_dashbord(freelance_part=app.config['TESTEUR_PART'], eq_da=app.config['DEVISES'][0]['eq_da'])
     
     chat = Chat.query.filter(((Chat.user_id==current_user.id) & (Chat.receiver_id==deal.user_id)) | ((Chat.user_id==deal.user_id) & (Chat.receiver_id==current_user.id))).first()
     if chat:
@@ -596,12 +590,40 @@ def manager_panel():
         flash(_('Veuillez complèter et profiter pleinement de %(sitename)s', app.config['SITE_NAME']), 'warning')
     subtitle = _("Anonyme") if current_user.username is None else current_user.username
     # Get the deals in progress and finished for traducteur
-    deals_progress = Deal.query.filter((Deal.friend_id==current_user.id) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc()).all()
-    deals_over = Deal.query.filter((Deal.friend_id==current_user.id) & (Deal.deal_over==True)).order_by(Deal.timestamp.desc()).all()
+    deals_progress = Deal.query.filter((Deal.friend_id==current_user.id) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc())
+    deals_over = Deal.query.filter((Deal.friend_id==current_user.id) & (Deal.deal_over==True)).order_by(Deal.timestamp.desc())
     traducteur = Traducteur.query.filter_by(user_id=current_user.id).first()
 
-    return render_template('manager_panel.html', deals_progress=deals_progress, deals_over=deals_over, traducteur=traducteur,
-        title=_("Profil- %(subtitle)s", subtitle=subtitle))
+    last_deal = Deal.query.filter_by(friend_id=current_user.id).order_by(Deal.timestamp.desc()).first()
+    if last_deal:
+        need_help_required = True if last_deal.timestamp + timedelta(days=30) < datetime.utcnow() else False
+    else:
+        need_help_required = True
+    return render_template('manager_panel.html', deals_progress=deals_progress.all(), deals_over=deals_over.all(), traducteur=traducteur,
+        need_help_required=need_help_required, number_dp=deals_progress.count(), number_do=deals_over.count(), title=_("Profil- %(subtitle)s", subtitle=subtitle))
+
+
+@app.route('/manager/action/<trad_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_manager
+def manager_action(trad_id):
+    name = request.form.get('name')
+    statut = True if request.form.get('statut') == 'on' else False
+
+    traducteur = Traducteur.query.filter_by(id=trad_id).first_or_404()
+    if name == 'dispo':
+        traducteur.dispo = statut
+    elif name == 'accept_subscriber':
+        traducteur.accept_subscriber = statut
+    elif name == 'need_help_ad':
+        if statut:
+            traducteur.need_help_ad = 'ask'
+        else:
+            traducteur.need_help_ad = 'off'
+    db.session.commit()
+    return jsonify({'result': 1}), 200
+
 
 
 @app.route('/manager/accept/<deal_id>', methods=['GET', 'POST'])
@@ -699,6 +721,7 @@ def search_trad():
 def filter_trad():
     page = request.args.get('page', 1, type=int)
     
+    prestation = request.form.get('prestation')
     skill = request.form.get('skill')
     country = request.form.get('country')
     town = request.form.get('town')
@@ -711,7 +734,7 @@ def filter_trad():
         ((Traducteur.skill_1==skill) | (Traducteur.skill_2==skill) | (Traducteur.skill_3==skill) | (Traducteur.skill_4==skill) |
         (Traducteur.skill_5==skill) | (Traducteur.skill_6==skill) | (Traducteur.skill_7==skill) | (Traducteur.skill_8==skill) |
         (Traducteur.skill_9==skill) | (Traducteur.skill_10==skill)) & (Traducteur.success_work>=success_work) & (Traducteur.dispo==dispo) & 
-        (Traducteur.accept_subscriber==accept_subscriber) & (Traducteur.test_score>=rate) & (Traducteur.compte_valid==True) &
+        (Traducteur.accept_subscriber==accept_subscriber) & (Traducteur.test_score>=rate) & (Traducteur.prestation==prestation) & (Traducteur.compte_valid==True) &
         (Traducteur.current_country==country) & (Traducteur.current_town==town)).paginate(page, app.config['ORDER_PER_PAGE'], False)
 
     next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
@@ -765,10 +788,14 @@ def trad_hire():
     trad_id = request.form.get('trad_id')
     motif = request.form.get('motif')
     amount = request.form.get('amount')
+    devise = request.form.get('devise')
 
     if payment_way == 'abonnement':
         if current_user.offre_statut == 'gratuit':
             flash(_('Vous n\'avez aucune offre active. Veuillez vous abonner avant d\'utiliser cette option'), 'warning')
+            return redirect(url_for('accueil', _external=True))
+        elif current_user.daily_offer==0:
+            flash(_('Vous avez déjà utilisé l\'offre journalière de votre abonnement. Veuillez payer cash ou attendez le prochain 00 heure'), 'warning')
             return redirect(url_for('accueil', _external=True))
 
     traducteur = Traducteur.query.filter((Traducteur.id==trad_id) & (Traducteur.compte_valid==True)).first_or_404()
@@ -777,26 +804,28 @@ def trad_hire():
         return redirect(url_for('profile', _external=True))
 
     if payment_way == 'abonnement':
-        deal = Deal(type_deal='trad', payment_way=payment_way, motif=motif, amount=amount, admin_confirm_bill=True, bill_is_added=True,
-            friend=traducteur.author, author=current_user)
+        deal = Deal(type_deal='trad', payment_way=payment_way, motif=motif, amount=0, admin_confirm_bill=True, bill_is_added=True,
+            devise=devise, friend=traducteur.author, author=current_user)
     elif payment_way == 'cash':
-        deal = Deal(type_deal='trad', payment_way=payment_way, motif=motif, amount=amount, friend=traducteur.author, author=current_user)
+        deal = Deal(type_deal='trad', payment_way=payment_way, motif=motif, amount=amount, devise=devise, friend=traducteur.author, author=current_user)
     else:
         return render_template('404.html', title=_("404 Erreur")), 404
-
+    current_user.daily_offer = 0
     db.session.add(deal)
     db.session.commit()
     return redirect(url_for('profile', _external=True))
 
 
-@app.route('/get/town/<country>', methods=['GET', 'POST'])
-def get_town(country):
+@app.route('/get/town', methods=['GET', 'POST'])
+def get_town():
+    country = request.form.get('country')
     towns = app.config["TOWNS"][country]
     return jsonify({'towns': towns}), 200
 
 
-@app.route('/get/testeur/<testeur_id>', methods=['GET', 'POST'])
-def get_testeur(testeur_id):
+@app.route('/get/testeur', methods=['GET', 'POST'])
+def get_testeur():
+    testeur_id = request.form.get('testeur_id')
     testeur = Traducteur.query.filter_by(user_id=testeur_id).first()
     return jsonify({'testeur': testeur.as_dict()}), 200
 
@@ -954,20 +983,38 @@ def newsletter_add():
 @check_confirmed
 @check_admin
 def send_newsletter():
+    group=request.form.get('group')
     url=request.form.get('url')
     subject=request.form.get('subject')
     message=request.form.get('message')
 
     emails = []  
-    followers = Newsletter.query
-    if followers.count() > 0:
-        emails = [follower.email for follower in followers.all()]
+    if group == 'Groupe particulier':
+        followers = Newsletter.query.all()
+        emails = [follower.email for follower in followers]
         newsletter_email(emails, subject, message, url)
-        flash(_('Le broadcast est envoyé'), 'success')
-        return redirect(url_for('admin_panel', _external=True))
-    flash(_('Vour n\'avez aucun contact pour le moment'), 'warning')
+    
+    elif group == 'Groupe client':
+        clients = User.query.filter_by(statut='client').all()
+        emails = [client.email for client in clients]
+        newsletter_email(emails, subject, message, url)
+    
+    elif group == 'Groupe traducteur':
+        traducteurs = User.query.filter_by(statut='traducteur').all()
+        emails = [traducteur.email for traducteur in traducteurs]
+        newsletter_email(emails, subject, message, url)
+    
+    elif group == 'Groupe testeur':
+        testeurs = User.query.filter_by(statut='testeur').all()
+        emails = [testeur.email for testeur in testeurs]
+        newsletter_email(emails, subject, message, url)
+    
+    elif group == 'Groupe admin':
+        admins = User.query.filter_by(statut='admin').all()
+        emails = [admin.email for admin in admins]
+        newsletter_email(emails, subject, message, url)
+    flash(_('Le broadcast est envoyé'), 'success')
     return redirect(url_for('admin_panel', _external=True))
-
 
 
 # -------------------------------------------------#
@@ -981,21 +1028,31 @@ def admin_panel():
     if current_user.username is None:
         flash(_('Veuillez complèter et profiter pleinement de %(sitename)s', app.config['SITE_NAME']), 'warning')
     subtitle = _("Anonyme") if current_user.username is None else current_user.username
-    deals_progress = Deal.query.filter((Deal.friend_accept==True) & (Deal.deal_over==False) & (Deal.work_did!=None)).order_by(Deal.timestamp.desc()).all()
-    deals_over = Deal.query.filter_by(deal_over=True).order_by(Deal.timestamp.desc()).all()
-    deals_reject = Deal.query.filter((Deal.friend_reject==True) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc()).all()
-    deals_check_bill = Deal.query.filter((Deal.admin_confirm_bill==False) & (Deal.bill_is_added==True) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc()).all()
-    #Number of newsletter contact
-    newsletter_subscribe = Newsletter.query.count()
+    
+    deals_progress = Deal.query.filter((Deal.friend_accept==True) & (Deal.deal_over==False) & (Deal.work_did!=None)).order_by(Deal.timestamp.desc())
+    deals_over = Deal.query.filter_by(deal_over=True).order_by(Deal.timestamp.desc())
+    deals_reject = Deal.query.filter((Deal.friend_reject==True) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc())
+    deals_check_bill = Deal.query.filter((Deal.admin_confirm_bill==False) & (Deal.bill_is_added==True) & (Deal.deal_over==False)).order_by(Deal.timestamp.desc())
+    traducteurs_need_ad = Traducteur.query.filter((Traducteur.compte_valid==True) & ((Traducteur.need_help_ad=='on') | (Traducteur.need_help_ad=='ask')))\
+        .order_by(select_by_random()).all()
+
+    #Number of .....
+    number_client = User.query.filter_by(statut='client').count()
+    number_traducteur = User.query.filter_by(statut='traducteur').count()
+    number_testeur = User.query.filter_by(statut='testeur').count()
+    number_admin = User.query.filter_by(statut='admin').count()
+    number_newsletter = Newsletter.query.count()
     #List of traducteur to select for reject deal
     list_trad = Traducteur.query.filter((Traducteur.compte_valid==True)).all()
     #Dashbord of the two months
     dashbord_this_month = Dashbord.query.filter_by(id=1).first()
     dashbord_last_month = Dashbord.query.filter_by(id=2).first()
 
-    return render_template('admin_panel.html', deals_progress=deals_progress, deals_over=deals_over, deals_reject=deals_reject, 
-        deals_check_bill=deals_check_bill, newsletter_subscribe=newsletter_subscribe, list_trad=list_trad,
-        dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, title=_("Profil- %(subtitle)s", subtitle=subtitle))
+    return render_template('admin_panel.html', deals_progress=deals_progress.all(), deals_over=deals_over.all(), deals_reject=deals_reject.all(), 
+        deals_check_bill=deals_check_bill.all(), list_trad=list_trad, number_client=number_client, number_traducteur=number_traducteur, 
+        number_testeur=number_testeur, number_admin=number_admin, number_newsletter=number_newsletter, number_dp=deals_progress.count(), number_do=deals_over.count(), 
+        number_dr=deals_reject.count(), number_dcb=deals_check_bill.count(), dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, 
+        traducteurs_need_ad=traducteurs_need_ad, title=_("Profil- %(subtitle)s", subtitle=subtitle))
 
 
 @app.route('/admin/submit/checked/work', methods=['GET', 'POST'])
@@ -1026,11 +1083,11 @@ def submit_checked_work():
     
         this_month = Dashbord.query.filter_by(id=1).first()
         if deal.payment_way == 'cash':
-            make_payment(motif=deal.motif, amount=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100, owner=deal.friend)
-            this_month.update_dashbord(freelance_part=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100)
+            make_payment(motif=deal.motif, amount=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.friend)
+            this_month.update_dashbord(freelance_part=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100, eq_da=return_eq_da(deal.devise))
         elif deal.payment_way == 'abonnement':
-            make_payment(motif=deal.motif, amount=app.config['TRAD_PART_ABON'], owner=deal.friend)
-            this_month.update_dashbord(freelance_part=app.config['TRAD_PART_ABON'])
+            make_payment(motif=deal.motif, amount=app.config['TRAD_PART_ABON'], devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.friend)
+            this_month.update_dashbord(freelance_part=app.config['TRAD_PART_ABON'], eq_da=return_eq_da(deal.devise))
 
         # Deal is over text from traductor to custom
         chat = Chat.query.filter(((Chat.user_id==deal.friend_id) & (Chat.receiver_id==deal.user_id)) |\
@@ -1087,12 +1144,12 @@ def valid_deal_bill(deal_id):
     deal.admin_confirm_bill = True
     db.session.commit()
 
-    make_payment(motif=deal.motif, amount=-deal.amount, owner=deal.author)
+    make_payment(motif=deal.motif, amount=-deal.amount, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.author)
     this_month = Dashbord.query.filter_by(id=1).first()
     if deal.type_deal == 'test':
-        this_month.update_dashbord(revenu_test=deal.amount)
+        this_month.update_dashbord(revenu_test=deal.amount, eq_da=return_eq_da(deal.devise))
     elif deal.type_deal == 'trad':
-        this_month.update_dashbord(revenu_work=deal.amount)
+        this_month.update_dashbord(revenu_work=deal.amount, eq_da=return_eq_da(deal.devise))
 
     flash(_('La conformité et l\'originalité du reçu confirmées'), 'success')
     return redirect(url_for('admin_panel', _external=True))
@@ -1192,12 +1249,28 @@ def enroll_offer(deal_id):
         user.offre_end = datetime.utcnow() + timedelta(days=365)
         db.session.commit()
     
-    make_payment(motif=deal.motif, amount=-deal.amount, owner=deal.author)
+    make_payment(motif=deal.motif, amount=-deal.amount, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.author)
     this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.update_dashbord(revenu_abon=deal.amount)
+    this_month.update_dashbord(revenu_abon=deal.amount, eq_da=return_eq_da(deal.devise))
 
     flash(_('La conformité et l\'originalité du reçu confirmées'), 'success')
     return redirect(url_for('admin_panel', _external=True))
+
+
+@app.route('/admin/boost/<trad_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def admin_boost(trad_id):
+    statut = True if request.form.get('statut') == 'on' else False
+
+    traducteur = Traducteur.query.filter_by(id=trad_id).first_or_404()
+    if statut:
+        traducteur.need_help_ad = 'on'
+    else:
+        traducteur.need_help_ad = 'off'
+    db.session.commit()
+    return jsonify({'result': 1}), 200
 
 
 # -------------------------------------------------#

@@ -11,7 +11,7 @@
                 <h1 class="mb-2"> <span>Je suis</span> {{traducteur.author.username}} </h1>
                 <h1 class="mb-4"> un <span class="typed-text"></span><span class="cursor">&nbsp</span></h1>
                 <p>{{traducteur.about_me}}</p>
-                <h5>Compétences: <span>Traduction</span><span {% if not traducteur.interpretation %} class="d-none" {% endif %} > & Interprétation</span></h5>
+                <h5>Compétences: <span>{{traducteur.prestation}}</span></h5>
                   <div class="row">
                     <div class="col col-sm-6">
                       <ul class="list-unstyled">
@@ -32,7 +32,7 @@
                       </ul>
                     </div>
                  </div>         
-                <h5>Niveau:
+                <h5>Points étoiles:
                     <span class="fa fa-star" {% if traducteur.test_score>= 1 %} style="color: orange;" {% endif %}></span>
                     <span class="fa fa-star" {% if traducteur.test_score>= 2 %} style="color: orange;" {% endif %}></span>
                     <span class="fa fa-star" {% if traducteur.test_score>= 3 %} style="color: orange;" {% endif %}></span>
@@ -52,7 +52,7 @@
                   <span class="badge badge-danger">Rejete</span>
                   {% endif %}
                 </h5>
-                <h5>Mission accomplie: {{traducteur.success_work}}/{{traducteur.success_work+traducteur.unsuccess_work}}</h5>
+                <h5>Missions accomplies: {{traducteur.success_work}}/{{traducteur.success_work+traducteur.unsuccess_work}}</h5>
                 <h5>Adresse: {{traducteur.current_country}}, {{traducteur.current_town}}</h5>
                 <div class="mt-sm-5 mt-4">
                   <p>Il est recommandé de contacter le prestataire et de discuter des détails avant de l'engager</p>
@@ -88,15 +88,24 @@
                       <select name="payment_way" required>
                           <option value="">{{_('Méthode de paiement')}}</option>
                           {% for method in config['PAYMENT_WAY'] %}
-                          <option {% if method == 'abonnement' and current_user.offre_statut == 'gratuit' %} class="d-none" {% endif %} value="{{ method }}">{{ method }}</option>
+                          <option {% if method == 'abonnement' and current_user.offre_statut == 'gratuit' %} class="d-none" {% endif %}
+                             value="{{ method }}">{{ method }}</option>
                           {% endfor %}
                       </select>
                   </p>
                   <p>Motif
                       <input class="motif_update" name="motif" placeholder="Traduction de 100 mots Français-Anglais" required type="text" maxlength="30">
                   </p>
-                  <p>Prix
-                      <input class="amount" placeholder="1000" name="amount" required type="number" min="5">
+                  <p>
+                    <select name="devise" required>
+                        <option value="">{{_('Devise')}}</option>
+                        {% for devise in config['DEVISES'] %}
+                        <option value="{{ devise.symbol }}">{{ devise.name }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                  <p>Budget du client
+                      <input class="amount" name="amount" required value="0" type="number">
                   </p>
               </form>
 

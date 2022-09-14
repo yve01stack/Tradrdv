@@ -13,6 +13,14 @@
                             <div class="collapsible-content w-100 p-0">
                                 <form class="form-container" method="post" action="{{ url_for('filter_trad', _external=True) }}">
                                     <p>
+                                        <select name="prestation" required class="m-0 mt-1">
+                                            <option value=''>{{_('Prestation')}}</option>
+                                            {% for prestation in config['PRESTATIONS'] %}
+                                            <option value='{{prestation}}'>{{prestation}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </p>
+                                    <p>
                                         <select name="skill" required class="m-0">
                                             <option value="">{{_('Langues')}}</option>
                                             {% for skill in config['SKILLS'] %}
@@ -24,7 +32,7 @@
                                         <select name="country" id="country_select_form" required onchange="getTown()" class="m-0">
                                             <option value="">{{_('Pays de résidence')}}</option>
                                             {% for country in config['COUNTRIES'] %}
-                                            <option value="{{ country }}" id="url_{{country}}" href="{{ url_for('get_town', country=country, _external=True) }}">{{ country }}</option>
+                                            <option value="{{ country }}">{{ country }}</option>
                                             {% endfor %}
                                         </select>
                                     </p>
@@ -34,7 +42,7 @@
                                         </select>
                                     </p>
                                     <p>
-                                        <input name="success_work" required placeholder="Nombre de succès" type="number" class="m-0">
+                                        <input name="success_work" required placeholder="Points d'expérience sur TRADRDV" type="number" class="m-0">
                                     </p>
                                     <p>
                                         <label class="checkbox_container">Disponible
@@ -46,7 +54,7 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </p>
-                                    <p>Niveau
+                                    <p>Points étoiles 
                                         <div class="rate mt-n3"> 
                                             <input type="radio" id="star5" name="rate" value="5" />
                                             <label for="star5" title="text">5 stars</label>
@@ -121,18 +129,19 @@
     </section>
 
 
-
+    <a class="d-none country_select_url" href="{{ url_for('get_town', _external=True) }}"></a>
     <script>
         // get the towns that correspond to the selected country
         function getTown() {
-            var x = document.getElementById("country_select_form").value;
-		    var url = $("#url_"+x).attr('href');
-    		$.post(url, { code: x }, function(data, status) { 
+            var country = document.getElementById("country_select_form").value;
+		    var url = $('.country_select_url').attr('href');
+    		$.post(url, { country: country }, function(data, status) { 
                 var options = "<option value=''>{{_('Ville de résidence')}}</option>";
                 var i
                 for (i = 0; i < data['towns'].length; i++) {
                     options = options + "<option value='"+data['towns'][i]+"'>"+data['towns'][i]+"</option>";
                 }
+
                 document.getElementById("town_select_form").innerHTML = options
             });
         }

@@ -37,7 +37,7 @@
                                          </div>
                                          <form method="post" action="{{ url_for('send_message', _external=True) }}" enctype="multipart/form-data" id="msgForm">
                                              <div class="input-container shadow-sm bg-white">
-                                                 <textarea id="msgText" class="contact-form"></textarea>
+                                                 <textarea id="msgText" class="contact-form" onkeyup="check_message()"></textarea>
                                                  <input type="hidden" class="get_message_url" href="{{ url_for('get_message', _external=True) }}">
                                                  <input type="hidden" value="" class="receiver_id">
                                                  <input type="file" class="d-none" name="msgFile" id="msgFile" oninput="sendfile(this);">
@@ -52,8 +52,101 @@
                                  <div class="col-md-6">
                                   <div class="contact-box shadow-sm bg-white" style="height: 588px;">
                                     <div class="form-container">
-                                      <div class="contact-head text-center"><h3>Tableau</h3></div>
+                                      <div class="contact-head text-center"><h3>Dashboard</h3></div>
                                       <div class="p-3">
+                                        <div class="row">
+                                          <div class="col-sm-6 col-12">
+                                            <div class="wrimagecard wrimagecard-topimage">
+                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                                <i class="fa fa-credit-card text-primary" ></i><h4 class="float-right">{{current_user.revenu}}Da</h4>
+                                              </div>
+                                              <div class="wrimagecard-topimage_title">
+                                                <h6>Revenu</h6>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-6 col-12">
+                                            <div class="wrimagecard wrimagecard-topimage">
+                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                                <i class="fa fa-hourglass-2 text-warning" ></i><h4 class="float-right">{{traducteur.remain_day}} jour(s)</h4>
+                                              </div>
+                                              <div class="wrimagecard-topimage_title">
+                                                <h6>Jour Restant</h6>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div class="row">
+                                          <div class="col-sm-6 col-12">
+                                            <div class="wrimagecard wrimagecard-topimage">
+                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                                <i class="fa fa-rocket text-secondary" ></i><h4 class="float-right">{{number_dp}}</h4>
+                                              </div>
+                                              <div class="wrimagecard-topimage_title">
+                                                <h6>Accords en Cours</h6>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-6 col-12">
+                                            <div class="wrimagecard wrimagecard-topimage">
+                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                                <i class="fa fa-archive text-success" ></i><h4 class="float-right">{{number_do}}</h4>
+                                              </div>
+                                              <div class="wrimagecard-topimage_title">
+                                                <h6>Accords Terminés</h6>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div class="row">
+                                          <div class="col-sm-6 col-12">
+                                            <div class="wrimagecard wrimagecard-topimage">
+                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                                <i class="fa fa-mouse-pointer text-info" ></i><h4 class="float-right">{{traducteur.profile_view}}</h4>
+                                              </div>
+                                              <div class="wrimagecard-topimage_title">
+                                                <h6>Profil Visite</h6>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-sm-6 col-12">
+                                            <div class="wrimagecard wrimagecard-topimage">
+                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                                <i class="fa fa-tag text-warning" ></i>
+                                                <h4 class="float-right">{% if traducteur.compte_valid %} valide {% else %} invalide {% endif %}</h4>
+                                              </div>
+                                              <div class="wrimagecard-topimage_title">
+                                                <h6>Profil Statut</h6>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row p-3">
+                                          <form action="{{ url_for('manager_action', trad_id=traducteur.id, _external=True) }}" method="post" class="form-container tradAction">
+                                            <p>
+                                              <label class="checkbox_container">Disponible
+                                                <input type="checkbox" {% if traducteur.dispo %} checked="checked" {% endif %} onchange="tradAction(this, 'dispo')">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                            </p>
+                                            <p>
+                                              <label class="checkbox_container">Accepte abonné(e)
+                                                <input type="checkbox" {% if traducteur.accept_subscriber %} checked="checked" {% endif %} onchange="tradAction(this, 'accept_subscriber')">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                            </p>
+                                            <p>
+                                              <label class="checkbox_container">Besoin d'aide <i class="fa fa-bell text-warning"></i>
+                                                <input type="checkbox" {% if not need_help_required %} disabled {% endif %} onchange="tradAction(this, 'need_help_ad')"
+                                                {% if traducteur.need_help_ad=="ask" or traducteur.need_help_ad=="on" %} checked="checked" {% endif %}>
+                                                <span class="checkmark"></span>
+                                              </label>
+                                            </p>
+                                          </form>
+                                        </div>
+
                                                                       
                                       </div>
                                     </div>
@@ -120,7 +213,7 @@
                                                   <span type="button" class="badge badge-primary px-2" data-toggle="modal" data-target="#modal_aside_left" 
                                                     data-itemid="{{deal.id}}" 
                                                     data-whatever="{{deal.motif}}"
-                                                    data-columns="{{deal.amount}}da"
+                                                    data-columns="{{deal.amount}}{{deal.devise}}"
                                                     data-parent="{{deal.author.username}}"
                                                     data-draggable="{{deal.payment_way}}"
                                                     data-dropzone="{{ deal.payment_bill }}">{{_('Aperçu')}}
@@ -207,7 +300,7 @@
                                             <i>{{ moment(deal.timestamp).format("LL") }} </i>
                                             <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
                                         </td> 
-                                        <td class="invert">{{ deal.amount }}da</td>      
+                                        <td class="invert">{{ deal.amount }}{{deal.devise}}</td>      
                                         <td class="invert">
                                           <span class="fa fa-star" {% if deal.work_score>= 1 %} style="color: orange;" {% endif %}></span>
                                           <span class="fa fa-star" {% if deal.work_score>= 2 %} style="color: orange;" {% endif %}></span>
@@ -265,10 +358,20 @@
       modal.find('.modal-body .payment_way').text(payment_way)
       $('.output_payment_bill').attr('src')=payment_bill
 
-      console.log(motif)
-
   })
 
+</script>
+
+<script>
+  function tradAction(statut, name) {
+          if (statut.checked){
+              var x = 'on'
+          } else {
+              var x = 'off'
+          }
+    var url = $(".tradAction").attr('action');
+      $.post(url, { statut: x, name: name}, function(data) { });
+      }
 </script>
 
 

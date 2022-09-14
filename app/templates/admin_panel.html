@@ -13,25 +13,236 @@
                         <a class="nav-link" id="v-pills-clients-tab" data-toggle="pill" href="#v-pills-clients" role="tab" aria-controls="v-pills-clients" aria-selected="false">Clients</a>
                         <a class="nav-link" id="v-pills-traducteurs-tab" data-toggle="pill" href="#v-pills-traducteurs" role="tab" aria-controls="v-pills-traducteurs" aria-selected="false">Traducteurs</a>
                         <a class="nav-link" id="v-pills-testeurs-tab" data-toggle="pill" href="#v-pills-testeurs" role="tab" aria-controls="v-pills-testeurs" aria-selected="false">Testeurs</a>
+                        <a class="nav-link" id="v-pills-booster-tab" data-toggle="pill" href="#v-pills-booster" role="tab" aria-controls="v-pills-booster" aria-selected="false">Booster</a>
                         <a class="nav-link" id="v-pills-messagerie-tab" data-toggle="pill" href="#v-pills-messagerie" role="tab" aria-controls="v-pills-messagerie" aria-selected="false">Messagerie</a>
                         <a class="nav-link" id="v-pills-accord-tab" data-toggle="pill" href="#v-pills-accord" role="tab" aria-controls="v-pills-accord" aria-selected="false">Accords</a>
                       </div>
                     </div>
                     <div class="col-9">
                       <div class="tab-content" id="v-pills-tabContent">
+                        <!-- Dashbord -->
                         <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
-                          <div class="row d-none">
-                            <div class="card text-white bg-primary mb-3 col-3" tyle="max-width: 18rem;">
-                              <div class="card-header">Header</div>
-                              <div class="card-body">
-                                <p class="card-text">Some the card's</p>
+                          <section id="minimal-statistics">
+                            <div class="row">
+                              <div class="col-12 mt-3 mb-1">
+                                <h4 class="text-uppercase">Statistiques Dashboard</h4>
                               </div>
                             </div>
-                          </div>
+                            <div class="row">
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-user text-primary" ></i><h4 class="float-right">{{number_client}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h4>Clients</h4>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-user text-warning" ></i><h4 class="float-right">{{number_traducteur}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h4>Traducteurs</h4>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-user text-success" ></i><h4 class="float-right">{{number_testeur}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h4>Testeurs</h4>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-user text-danger" ></i><h4 class="float-right">{{number_admin}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h4>Admins</h4>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                
+                            <div class="row">
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-tag text-danger" ></i><h4 class="float-right">{{number_dr}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Accords Rejetés</h6>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-rocket text-success" ></i><h4 class="float-right">{{number_dp}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Accords en Cours</h6>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-cubes text-warning" ></i><h4 class="float-right">{{number_dcb}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Paiement Reçu</h6>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-archive text-primary" ></i><h4 class="float-right">{{number_do}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Accords Terminés</h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                
+                            <div class="row">
+                              <div class="col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-area-chart text-primary" ></i><h4 class="float-right">{{dashbord_last_month.accueil_view}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Page Acceuil</h6>
+                                    <div class="progress mt-1 mb-0" style="height: 7px;">
+                                      <div class="progress-bar bg-primary" role="progressbar" style="width: {% print((dashbord_this_month.accueil_view*100)/(dashbord_last_month.accueil_view+1)) %}%" 
+                                        aria-valuenow="{% print((dashbord_this_month.accueil_view*100)/(dashbord_last_month.accueil_view+1)) %}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-area-chart text-warning" ></i><h4 class="float-right">{{dashbord_last_month.traducteur_view}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Page Traducteur</h6>
+                                    <div class="progress mt-1 mb-0" style="height: 7px;">
+                                      <div class="progress-bar bg-warning" role="progressbar" style="width: {% print((dashbord_this_month.traducteur_view*100)/(dashbord_last_month.traducteur_view+1)) %}%" 
+                                        aria-valuenow="{% print((dashbord_this_month.traducteur_view*100)/(dashbord_last_month.traducteur_view+1)) %}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>  
+                          </section>
+                
+                          <section id="stats-subtitle">
+                            <div class="row">
+                              <div class="col-12 mt-3 mb-1">
+                                <h4 class="text-uppercase">Statistiques CA</h4>
+                              </div>
+                            </div>
+                
+                            <div class="row">
+                              <div class="col-xl-4 col-md-6 col-sm-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-credit-card text-warning"></i><h4 class="float-right">{{dashbord_this_month.revenu_abon}}Da</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Abonnement Client</h6>
+                                    <small>Mois dernier {{dashbord_last_month.revenu_abon}}Da</small>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-4 col-md-6 col-sm-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-credit-card text-warning"></i><h4 class="float-right">{{dashbord_this_month.revenu_test}}Da</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Abonnement Traducteur</h6>
+                                    <small>Mois dernier {{dashbord_last_month.revenu_test}}Da</small>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-4 col-md-6 col-sm-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-credit-card text-warning"></i><h4 class="float-right">{{dashbord_this_month.revenu_work}}Da</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Traveaux Réalisés</h6>
+                                    <small>Mois dernier {{dashbord_last_month.revenu_work}}Da</small>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                
+                            <div class="row">
+                              <div class="col-xl-6 col-md-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-money text-danger"></i><h4 class="float-right">{{dashbord_this_month.freelance_part}}Da</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Part des Traducteurs</h6>
+                                    <small>Mois dernier {{dashbord_last_month.freelance_part}}Da</small>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-6 col-md-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-money text-success"></i><h4 class="float-right">{{dashbord_this_month.revenu_total}}Da</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>CA Total</h6>
+                                    <small>Mois dernier {{dashbord_last_month.revenu_total}}Da</small>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+
                         </div>
                         <div class="tab-pane fade" id="v-pills-clients" role="tabpanel" aria-labelledby="v-pills-clients-tab">...</div>
                         <div class="tab-pane fade" id="v-pills-traducteurs" role="tabpanel" aria-labelledby="v-pills-traducteurs-tab">...</div>
                         <div class="tab-pane fade" id="v-pills-testeurs" role="tabpanel" aria-labelledby="v-pills-testeurs-tab">...</div>
+                        <!-- Booster -->
+                        <div class="tab-pane fade" id="v-pills-booster" role="tabpanel" aria-labelledby="v-pills-booster-tab">
+                          <div class="row">
+                            {% for trad in traducteurs_need_ad %}
+                            <div class="col-xl-3 col-sm-6 col-12">
+                              <div class="wrimagecard wrimagecard-topimage">
+                                <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                  <i class="fa fa-user text-primary" ></i><h4 class="float-right">{{trad.author.username}}</h4>
+                                </div>
+                                <div class="wrimagecard-topimage_title">
+                                  <h4>
+                                    <form action="{{ url_for('admin_boost', trad_id=trad.id, _external=True) }}" method="post" class="form-container tradBooster">
+                                      <label class="checkbox_container">Booster
+                                        <input type="checkbox" {% if trad.need_help_ad=='on' %} checked="checked" {% endif %} onchange="tradBooster(this)">
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </form>
+                                  </h4>
+                                </div>
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>
                         <div class="tab-pane fade" id="v-pills-messagerie" role="tabpanel" aria-labelledby="v-pills-messagerie-tab">
                           <!-- Box of messenger -->
                           <div class="row">
@@ -53,7 +264,7 @@
                                      </div>
                                      <form method="post" action="{{ url_for('send_message', _external=True) }}" enctype="multipart/form-data" id="msgForm">
                                          <div class="input-container shadow-sm bg-white">
-                                             <textarea id="msgText" class="contact-form"></textarea>
+                                             <textarea id="msgText" class="contact-form" onkeyup="check_message()"></textarea>
                                              <input type="hidden" class="get_message_url" href="{{ url_for('get_message', _external=True) }}">
                                              <input type="hidden" value="" class="receiver_id">
                                              <input type="file" class="d-none" name="msgFile" id="msgFile" oninput="sendfile(this);">
@@ -70,10 +281,16 @@
                                 <div class="form-container">
                                   <div class="contact-head text-center"><h3>Newsletter</h3></div>
                                   <div class="p-3">
+                                      <select name="group" required class="m-0 mt-1">
+                                          <option value=''>{{_('Groupe')}}</option>
+                                          {% for group in config['NEWSLETTER_GROUPS'] %}
+                                          <option value='{{group}}'>{{group}}</option>
+                                          {% endfor %}
+                                      </select>
                                       <input type="link" placeholder="http://www.tradrdv.com/about_us" name="url" required>
                                       <input type="text" placeholder="Subject" name="subject" required>
                                       <textarea name="message">Message..</textarea>
-                                      <button type="submit" form="update-profile" class="btn btn-primary">{{_('Envoyer')}} ({{newsletter_subscribe}})</button>
+                                      <button type="submit" form="update-profile" class="btn btn-primary">{{_('Envoyer')}}</button>
                                   </div>
                                 </div>
                               </form>
@@ -130,12 +347,12 @@
                                               <i>{{ moment(deal.timestamp).format("LL") }} </i>
                                               <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
                                           </td> 
-                                          <td class="invert">{{deal.amount}}da</td>      
+                                          <td class="invert">{{deal.amount}}{{deal.devise}}</td>      
                                           <td class="invert">
                                             <span type="button" class="badge badge-primary px-2" data-toggle="modal" data-target="#modal_aside_left" 
                                               data-itemid="{{deal.id}}" 
                                               data-whatever="{{deal.motif}}"
-                                              data-columns="{{deal.amount}}da"
+                                              data-columns="{{deal.amount}}{{deal.devise}}"
                                               data-parent="{{deal.author.username}}"
                                               data-draggable="{{deal.payment_way}}"
                                               data-dropzone="{{ deal.payment_bill }}"
@@ -231,7 +448,7 @@
                                             <a href="{{ url_for('reject_deal_bill', deal_id=deal.id, _external=True) }}" class="badge badge-danger px-2">{{_('Rejeter')}}</a>
                                           </td>      
                                           <td class="invert">
-                                              <span class="badge badge-primary px-2">{{deal.amount}}da</span>
+                                              <span class="badge badge-primary px-2">{{deal.amount}}{{deal.devise}}</span>
                                             </td>
                                         </tr>
                                       {% endfor %}
@@ -328,7 +545,7 @@
                                               <i>{{ moment(deal.timestamp).format("LL") }} </i>
                                               <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
                                           </td> 
-                                          <td class="invert">{{ deal.amount }}da</td>      
+                                          <td class="invert">{{ deal.amount }}{{deal.devise}}</td>      
                                           <td class="invert">
                                             <span class="fa fa-star" {% if deal.work_score>= 1 %} style="color: orange;" {% endif %}></span>
                                             <span class="fa fa-star" {% if deal.work_score>= 2 %} style="color: orange;" {% endif %}></span>
@@ -384,5 +601,18 @@
       })
     
     </script>
+
+    <script>
+      function tradBooster(statut) {
+          if (statut.checked){
+              var x = 'on'
+          } else {
+              var x = 'off'
+          }
+        var url = $(".tradBooster").attr('action');
+        $.post(url, { statut: x}, function(data) { });
+        }
+    </script>
+
 
 {% endblock %}

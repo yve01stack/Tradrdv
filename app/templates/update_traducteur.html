@@ -116,7 +116,7 @@
                             <select name="country" required="true" id="country_select_form" onchange="this.className = ''; getTown()">
                                 <option value="">{{_('Pays de résidence')}}</option>
                                 {% for country in config['COUNTRIES'] %}
-                                <option {% if traducteur.current_country == country %} selected {% endif %} value="{{ country }}" id="url_{{country}}" href="{{ url_for('get_town', country=country, _external=True) }}">{{ country }}</option>
+                                <option {% if traducteur.current_country == country %} selected {% endif %} value="{{ country }}">{{ country }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -160,14 +160,12 @@
                             <input type="file" name="diploma" accept=".pdf" onchange="this.className = ''">
                         </p>
                         <p>
-                            <label class="checkbox_container">Traducteur
-                                <input type="checkbox" name="traducteur" checked disabled required="true">
-                                <span class="checkmark"></span>
-                              </label>
-                              <label class="checkbox_container">Interprète
-                                <input type="checkbox" {% if traducteur.interprete %} checked {% endif %} name="interprete">
-                                <span class="checkmark"></span>
-                            </label>
+                            <select name="prestation" required="true" onchange="this.className = ''">
+                                <option value=''>{{_('Prestation')}}</option>
+                                {% for prestation in config['PRESTATIONS'] %}
+                                <option {% if traducteur.prestation == prestation %} selected {% endif %} value='{{prestation}}'>{{prestation}}</option>
+                                {% endfor %}
+                            </select>
                         </p>
                     </div>
                     <div class="col-sm-6"> 
@@ -186,7 +184,7 @@
                         <select name="testeur_id" required="true" id="testeur_select_form" onchange="this.className = ''; getTesteur()">
                             <option value=''>{{_('Chosissez un testeur')}}</option>
                             {% for testeur in testeurs %}
-                            <option {% if deal.friend_id==testeur.id %} selected {% endif %} value='{{testeur.id}}' id="testeur_url_{{testeur.id}}" href="{{ url_for('get_testeur', testeur_id=testeur.id, _external=True) }}">
+                            <option {% if deal.friend_id==testeur.id %} selected {% endif %} value='{{testeur.id}}'>
                                 {{testeur.username}} | {{testeur.country}}
                             </option>
                             {% endfor %}
@@ -201,7 +199,7 @@
                             <img id="testeur_avatar" src="{{deal.friend.avatar}}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;"> 
                         </center> 
                         <p class="mt-3" id="testeur_about_me"></p>
-                        <p><strong>{{_('Accomplissement:')}} </strong><small class="h6" id="testeur_success_work"></small></p>
+                        <p><strong>{{_("Points d'expérience sur TRADRDV:")}} </strong><small class="h6" id="testeur_success_work"></small></p>
                         <p><strong>{{_('Donnez une note:')}} </strong>
                             <div class="rate mt-n3">
                                 <input type="radio" id="star5" name="rate" value="5" />
@@ -338,26 +336,34 @@ function fixStepIndicator(n) {
     //... and adds the "active" class to the current step:
     x[n].className += " active";
 }
+</script>
 
-// get the towns that correspond to the selected country
-function getTown() {
-    var x = document.getElementById("country_select_form").value;
-		var url = $("#url_"+x).attr('href');
-    		$.post(url, { code: x }, function(data, status) { 
+<a class="d-none country_select_url" href="{{ url_for('get_town', _external=True) }}"></a>
+<script>
+        // get the towns that correspond to the selected country
+        function getTown() {
+            var country = document.getElementById("country_select_form").value;
+		    var url = $('.country_select_url').attr('href');
+    		$.post(url, { country: country }, function(data, status) { 
                 var options = "<option value=''>{{_('Ville de résidence')}}</option>";
                 var i
                 for (i = 0; i < data['towns'].length; i++) {
                     options = options + "<option value='"+data['towns'][i]+"'>"+data['towns'][i]+"</option>";
                 }
+
                 document.getElementById("town_select_form").innerHTML = options
             });
         }
 
-// get the testeur who correspond to the selected testeur
-function getTesteur() {
-    var x = document.getElementById("testeur_select_form").value;
-		var url = $("#testeur_url_"+x).attr('href');
-    		$.post(url, { code: x }, function(data, status) { 
+</script>
+
+<!-- get the testeur who correspond to the selected testeur -->
+<a class="testeur_select_url d-none" href="{{ url_for('get_testeur', _external=True) }}"></a>
+<script>
+    function getTesteur() {
+        var testeur_id = document.getElementById("testeur_select_form").value;
+		var url = $('.testeur_select_url').attr('href');
+    		$.post(url, { testeur_id: testeur_id }, function(data, status) { 
                 document.getElementById("testeur_avatar").src = data['testeur']['author']['avatar'];
                 document.getElementById("testeur_about_me").innerText = data['testeur']['about_me'];
                 document.getElementById("testeur_username").innerText = data['testeur']['author']['username'];
