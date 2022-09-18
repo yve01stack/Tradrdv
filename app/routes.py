@@ -86,7 +86,8 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash(_('E-mail ou mot de passe invalide'), 'danger')
             return redirect(url_for('login', _external=True))
-        login_user(user, remember=form.remember_me.data)
+            #form.remember_me.data
+        login_user(user, remember=False)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('accueil', _external=True)
@@ -155,14 +156,14 @@ def google_callback():
         user.set_password(app.config['SOCIAL_LOGIN_PWD'])
         db.session.add(user)
         db.session.commit()
-        login_user(User.query.filter_by(email=user_email).first(), remember=True)
+        login_user(User.query.filter_by(email=user_email).first(), remember=False)
         flash(_('Inscription avec votre compte google réussie'), 'success')
         # Send user back to homepage
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('accueil', _external=True)
         return redirect(next_page)
-    login_user(User.query.filter_by(email=user_email).first(), remember=True)
+    login_user(User.query.filter_by(email=user_email).first(), remember=False)
     flash(_('Connexion avec votre compte google réussie'), 'success')
     next_page = request.args.get('next')
     if not next_page or url_parse(next_page).netloc != '':
@@ -392,6 +393,12 @@ def traducteur_new_register():
     ePayment = request.form.get('ePayment')
     about_me = request.form.get('about_me')
     prestation = request.form.get('prestation')
+    prestation_2 = request.form.get('prestation_2')
+    prestation_3 = request.form.get('prestation_3')
+    prestation_4 = request.form.get('prestation_4')
+    prestation_5 = request.form.get('prestation_5')
+    prestation_6 = request.form.get('prestation_6')
+    prestation_7 = request.form.get('prestation_7')
 
     id_card = request.files.get("id_card")
     diploma = request.files.get("diploma")
@@ -416,8 +423,9 @@ def traducteur_new_register():
 
     new_traducteur = Traducteur(skill_1=skill_1, skill_2=skill_2, skill_3=skill_3, skill_4=skill_4, skill_5=skill_5, skill_6=skill_6, skill_7=skill_7,\
         skill_8=skill_8, skill_9=skill_9, skill_10=skill_10, current_country=country, current_town=town, addr_postale=addr_postale, phone=phone,\
-        CCP_number=CCP_number, BaridiMob_RIP=BaridiMob_RIP, ePayment_type=ePayment_type, ePayment=ePayment, about_me=about_me,\
-        prestation=prestation, author=current_user)
+        CCP_number=CCP_number, BaridiMob_RIP=BaridiMob_RIP, ePayment_type=ePayment_type, ePayment=ePayment, about_me=about_me, id_card=id_card, diploma=diploma,\
+        prestation=prestation, prestation_2=prestation_2, prestation_3=prestation_3, prestation_4=prestation_4, prestation_5=prestation_5,
+        prestation_6=prestation_6, prestation_7=prestation_7, author=current_user)
     db.session.add(new_traducteur)
 
     # Setup a deal (type of deal= trad, test, abon)
@@ -498,6 +506,12 @@ def traducteur_update():
     ePayment = request.form.get('ePayment')
     about_me = request.form.get('about_me')
     prestation = request.form.get('prestation')
+    prestation_2 = request.form.get('prestation_2')
+    prestation_3 = request.form.get('prestation_3')
+    prestation_4 = request.form.get('prestation_4')
+    prestation_5 = request.form.get('prestation_5')
+    prestation_6 = request.form.get('prestation_6')
+    prestation_7 = request.form.get('prestation_7')
 
     id_card = request.files.get("id_card")
     diploma = request.files.get("diploma")
@@ -543,7 +557,16 @@ def traducteur_update():
     traducteur_old.ePayment_type = ePayment_type
     traducteur_old.ePayment = ePayment
     traducteur_old.about_me = about_me
+    traducteur_old.id_card=id_card
+    traducteur_old.diploma=diploma
     traducteur_old.prestation = prestation
+    traducteur_old.prestation_2 = prestation_2
+    traducteur_old.prestation_3 = prestation_3
+    traducteur_old.prestation_4 = prestation_4
+    traducteur_old.prestation_5 = prestation_5
+    traducteur_old.prestation_6 = prestation_6
+    traducteur_old.prestation_7 = prestation_7
+
     traducteur_old.author = User.query.filter_by(id=deal.user_id).first()
 
     traducteur_old.caution_annual_begin = datetime.utcnow()
@@ -637,7 +660,8 @@ def accept_deal(deal_id):
         return redirect(url_for('manager_panel', _external=True))
     deal.friend_accept = True
     db.session.commit()
-    flash(_('Vous venez d\'accepter une nouvelle commande, le temps vous est désormais compté'), 'success')
+    if current_user.statut != 'testeur':
+        flash(_('Vous venez d\'accepter une nouvelle commande, le temps vous est désormais compté'), 'success')
     return redirect(url_for('manager_panel', _external=True))
 
 
@@ -734,8 +758,10 @@ def filter_trad():
         ((Traducteur.skill_1==skill) | (Traducteur.skill_2==skill) | (Traducteur.skill_3==skill) | (Traducteur.skill_4==skill) |
         (Traducteur.skill_5==skill) | (Traducteur.skill_6==skill) | (Traducteur.skill_7==skill) | (Traducteur.skill_8==skill) |
         (Traducteur.skill_9==skill) | (Traducteur.skill_10==skill)) & (Traducteur.success_work>=success_work) & (Traducteur.dispo==dispo) & 
-        (Traducteur.accept_subscriber==accept_subscriber) & (Traducteur.test_score>=rate) & (Traducteur.prestation==prestation) & (Traducteur.compte_valid==True) &
-        (Traducteur.current_country==country) & (Traducteur.current_town==town)).paginate(page, app.config['ORDER_PER_PAGE'], False)
+        (Traducteur.accept_subscriber==accept_subscriber) & (Traducteur.test_score>=rate) & ((Traducteur.prestation==prestation) | 
+        (Traducteur.prestation_2==prestation) | (Traducteur.prestation_3==prestation) | (Traducteur.prestation_4==prestation) | 
+        (Traducteur.prestation_5==prestation) | (Traducteur.prestation_6==prestation) | (Traducteur.prestation_7==prestation)) & 
+        (Traducteur.compte_valid==True) & (Traducteur.current_country==country) & (Traducteur.current_town==town)).paginate(page, app.config['ORDER_PER_PAGE'], False)
 
     next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
     prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None

@@ -163,8 +163,56 @@
                                 {% endfor %}
                             </select>
                         </p>
+                        <p>
+                            <select name="prestation_2" onchange="this.className = ''">
+                                <option value=''>{{_('Prestation')}}</option>
+                                {% for prestation in config['PRESTATIONS'] %}
+                                <option value='{{prestation}}'>{{prestation}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="prestation_3" onchange="this.className = ''">
+                                <option value=''>{{_('Prestation')}}</option>
+                                {% for prestation in config['PRESTATIONS'] %}
+                                <option value='{{prestation}}'>{{prestation}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
                     </div>
                     <div class="col-sm-6"> 
+                        <p>
+                            <select name="prestation_4" onchange="this.className = ''">
+                                <option value=''>{{_('Prestation')}}</option>
+                                {% for prestation in config['PRESTATIONS'] %}
+                                <option value='{{prestation}}'>{{prestation}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="prestation_5" onchange="this.className = ''">
+                                <option value=''>{{_('Prestation')}}</option>
+                                {% for prestation in config['PRESTATIONS'] %}
+                                <option value='{{prestation}}'>{{prestation}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="prestation_6" onchange="this.className = ''">
+                                <option value=''>{{_('Prestation')}}</option>
+                                {% for prestation in config['PRESTATIONS'] %}
+                                <option value='{{prestation}}'>{{prestation}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p>
+                            <select name="prestation_7" onchange="this.className = ''">
+                                <option value=''>{{_('Prestation')}}</option>
+                                {% for prestation in config['PRESTATIONS'] %}
+                                <option value='{{prestation}}'>{{prestation}}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
                         <label for="about_me"><b>Bio (pas de contact personnel, 5 lignes max) </b></label>               
                         <textarea name="about_me" required="true" cols="50" class="w-100" oninput="this.className = ''"></textarea>
                     </div>

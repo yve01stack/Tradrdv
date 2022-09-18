@@ -11,7 +11,7 @@
                 <h1 class="mb-2"> <span>Je suis</span> {{traducteur.author.username}} </h1>
                 <h1 class="mb-4"> un <span class="typed-text"></span><span class="cursor">&nbsp</span></h1>
                 <p>{{traducteur.about_me}}</p>
-                <h5>Compétences: <span>{{traducteur.prestation}}</span></h5>
+                <h5>Langues:</h5>
                   <div class="row">
                     <div class="col col-sm-6">
                       <ul class="list-unstyled">
@@ -31,6 +31,24 @@
                         <li {% if traducteur.skill_10=='' %} class="d-none" {% endif %}>{{traducteur.skill_10}}</li>
                       </ul>
                     </div>
+                 </div>
+                 <h5>Compétences:</h5>
+                 <div class="row">
+                  <div class="col col-sm-6">
+                    <ul class="list-unstyled">
+                      <li>{{traducteur.prestation}}</li>
+                      <li {% if traducteur.prestation_2=='' %} class="d-none" {% endif %}>{{traducteur.prestation_2}}</li>
+                      <li {% if traducteur.prestation_3=='' %} class="d-none" {% endif %}>{{traducteur.prestation_3}}</li>
+                      <li {% if traducteur.prestation_4=='' %} class="d-none" {% endif %}>{{traducteur.prestation_4}}</li>
+                    </ul>
+                  </div>
+                  <div class="col col-sm-6">
+                    <ul class="list-unstyled">
+                      <li {% if traducteur.prestation_5=='' %} class="d-none" {% endif %}>{{traducteur.prestation_5}}</li>
+                      <li {% if traducteur.prestation_6=='' %} class="d-none" {% endif %}>{{traducteur.prestation_6}}</li>
+                      <li {% if traducteur.prestation_7=='' %} class="d-none" {% endif %}>{{traducteur.prestation_7}}</li>
+                    </ul>
+                  </div>
                  </div>         
                 <h5>Points étoiles:
                     <span class="fa fa-star" {% if traducteur.test_score>= 1 %} style="color: orange;" {% endif %}></span>

@@ -175,7 +175,11 @@
                                         </td>
                                         <td class="invert">{{deal.motif}}</td>
                                         <td class="invert">
+                                          {% if deal.friend_accept %}
+                                          <span class="badge badge-success">{{_('Accepté')}}</span>
+                                          {% else %}
                                           <a href="{{ url_for('accept_deal', deal_id=deal.id, _external=True) }}" class="badge badge-success">{{_('Accepter')}}</a>
+                                          {% endif %}
                                         </td>
                                         <td>
                                             {% if deal.friend_accept %}
@@ -199,7 +203,11 @@
                                             <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
                                         </td> 
                                         <td class="invert">
+                                          {% if deal.friend_reject %}
+                                          <span class="badge badge-danger px-2">{{_('Rejeté')}}</span>
+                                          {% else %}
                                           <a href="{{ url_for('reject_deal', deal_id=deal.id, _external=True) }}" class="badge badge-danger px-2">{{_('Rejeter')}}</a>
+                                          {% endif %}
                                         </td>      
                                         <td class="invert">
                                             {% if deal.type_deal=="test" %}

@@ -20,6 +20,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db, render_as_batch=True)
 login = LoginManager(app)
+login.session_protection = "strong"
 client = WebApplicationClient(app.config["GOOGLE_CLIENT_ID"])
 login.login_view = 'login'
 login.login_message = _l('Veuillez vous connecter pour accéder à cette page.')

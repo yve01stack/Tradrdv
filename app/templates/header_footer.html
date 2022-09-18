@@ -32,8 +32,8 @@
     <link href="{{ url_for('static', filename='assets/images/dev/favicon.png')}}" rel="icon">
 
     <!-- Bootstrap files (jQuery first, then Popper.js, then Bootstrap JS) -->
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery-3.3.1.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap.bundle.js')}}"></script>
 
     <!-- reference Moment.js library -->
     {{ moment.include_moment() }}
@@ -73,7 +73,7 @@
 					<img src="{{ url_for('static', filename='assets/images/dev/logo.png')}}" style="width: 200px; height: 32px;" alt="{{config['SITE_NAME']}}">
 				</a>
                 <div class="group d-flex align-items-center">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    <button class="navbar-toggler" type="button" data-toggle="collaps" onclick="menuToggle()"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation"><span
                             class="navbar-toggler-icon"></span></button>
@@ -85,7 +85,7 @@
                     {% endif %}
                 </div>
                 <a class="search-icon d-none d-md-block" href="#"><i class="fa fa-search"></i></a>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <div class="collaps d-none navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('accueil', _external=True) }}">Accueil</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('about_us', _external=True) }}">À Propos</a></li>
@@ -96,7 +96,7 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_panel', _external=True) }}">Admin</a></li>
                         {% elif current_user.statut == 'testeur' %}
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">Gestion</a></li>
-                        {% elif current_user.statut == 'traduicteur' %}
+                        {% elif current_user.statut == 'traducteur' %}
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">Gestion</a></li>
                         {% endif %}
                         {% endif %}
@@ -330,6 +330,17 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+      </script>
+      <!-- Menu nav toggle  -->
+      <script>
+        function menuToggle(){
+            let menu = $('#navbarSupportedContent')
+            if (menu.hasClass('d-none')){
+                menu.removeClass('d-none')
+            }else{
+                menu.addClass('d-none')
+            }
+        }
       </script>
 
 

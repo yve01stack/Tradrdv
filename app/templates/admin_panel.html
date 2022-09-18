@@ -443,7 +443,8 @@
                                           <td class="invert">
                                               <i>{{ moment(deal.timestamp).format("LL") }} </i>
                                               <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
-                                          </td> 
+                                              <span>[{{deal.author.username}}]</span>
+                                            </td> 
                                           <td class="invert">
                                             <a href="{{ url_for('reject_deal_bill', deal_id=deal.id, _external=True) }}" class="badge badge-danger px-2">{{_('Rejeter')}}</a>
                                           </td>      

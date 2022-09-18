@@ -112,6 +112,12 @@ class Traducteur(db.Model):
     diploma = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/diploma.pdf")
     about_me = db.Column(db.String(500))
     prestation = db.Column(db.String(32), nullable=False, default='Traduction')
+    prestation_2 = db.Column(db.String(32))
+    prestation_3 = db.Column(db.String(32))
+    prestation_4 = db.Column(db.String(32))
+    prestation_5 = db.Column(db.String(32))
+    prestation_6 = db.Column(db.String(32))
+    prestation_7 = db.Column(db.String(32))
     phone = db.Column(db.String(32), nullable=False)
     addr_postale = db.Column(db.String(64), nullable=False)
     caution_annual_begin = db.Column(db.DateTime, default=datetime.utcnow)
@@ -130,7 +136,7 @@ class Traducteur(db.Model):
     skill_8 = db.Column(db.String(64))
     skill_9 = db.Column(db.String(64))
     skill_10 = db.Column(db.String(64))
-    current_country = db.Column(db.String(32), index=True)
+    current_country = db.Column(db.String(64), index=True)
     current_town = db.Column(db.String(32))
     compte_valid = db.Column(db.Boolean, nullable=False, default=False)
     need_help_ad = db.Column(db.String(16), default='off') #other value 'off', 'on', 'ask'
@@ -356,13 +362,13 @@ class Dashbord(db.Model):
 def init_db():
     db.drop_all()
     db.create_all()
-    db.session.add(User(username=app.config['ADMIN_USERNAME'], email=app.config['ADMIN_EMAIL'], country='Algérie', fullname=app.config['ADMIN_FULLNAME'], password_hash=app.config['ADMIN_PASSWORD'], statut='admin', confirmed=True))
-    db.session.add(User(username=app.config['TESTEUR_USERNAME'], email=app.config['TESTEUR_EMAIL'], country='Algérie', fullname=app.config['TESTEUR_FULLNAME'], password_hash=app.config['TESTEUR_PASSWORD'], statut='testeur', confirmed=True))
+    db.session.add(User(username=app.config['ADMIN_USERNAME'], email=app.config['ADMIN_EMAIL'], country='Algérie (arabe)', fullname=app.config['ADMIN_FULLNAME'], password_hash=app.config['ADMIN_PASSWORD'], statut='admin', confirmed=True))
+    db.session.add(User(username=app.config['TESTEUR_USERNAME'], email=app.config['TESTEUR_EMAIL'], country='Algérie (arabe)', fullname=app.config['TESTEUR_FULLNAME'], password_hash=app.config['TESTEUR_PASSWORD'], statut='testeur', confirmed=True))
 
     new_user = User.query.filter_by(id=2).first()
     traducteur = Traducteur(skill_1='Arabe-français', skill_2='Arabe-anglais', skill_3='', skill_4='', skill_5='', skill_6='', skill_7='', skill_8='', skill_9='', skill_10='',
-        phone='+213 658489196', addr_postale='42000, Tipasa, Algérie', caution_annual_end=datetime.utcnow()+timedelta(days=365), compte_valid=True, current_country='Algérie', 
-        current_town='Tipasa', test_score=4, about_me="Je suis traductrice professionnelle depuis plus de 5ans maintemant, je suis à votre dispotion. Engagez moi!", author=new_user)
+        phone='+213 658489196', addr_postale='42000, Tipaza, Algérie', caution_annual_end=datetime.utcnow()+timedelta(days=365), compte_valid=True, current_country='Algérie (arabe)', 
+        current_town='Tipaza', test_score=4, about_me="Je suis traductrice professionnelle depuis plus de 5ans maintemant, je suis à votre dispotion. Engagez moi!", author=new_user)
     db.session.add(traducteur)
 
     db.session.add(Dashbord(begin=datetime.utcnow(), end = datetime.utcnow() + timedelta(days=30)))
