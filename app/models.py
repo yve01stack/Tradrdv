@@ -12,6 +12,7 @@ from app import db, login, app, moment
 class User(UserMixin, db.Model): 
     id = db.Column(db.Integer, primary_key=True)
     pseudo_com = db.Column(db.String(32), index=True)
+    link_com = db.Column(db.String(500), index=True)
     username = db.Column(db.String(32), index=True, unique=True)
     fullname = db.Column(db.String(64), index=True)
     sex = db.Column(db.String(16), index=True)

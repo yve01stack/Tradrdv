@@ -52,7 +52,7 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <form method="POST" autocomplete='off' action="{{ url_for('update_profile', _external=True) }}" id="update-profile" enctype="multipart/form-data">
+                                    <form method="POST" autocomplete='off' action="{{ url_for('upgrade_profile', _external=True) }}" id="update-profile" enctype="multipart/form-data">
                                         <center>
                                             <img id="output_image" onclick="return document.getElementById('image').click();" src="{{ current_user.avatar }}" 
                                             style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;">
@@ -69,39 +69,48 @@
                                             <span class="badge badge-secondary">Revenu: {{current_user.revenu}}Da</span> 
                                         </p>
                                         <div class="form-container">
-                                            <input type="text" 
-                                                {% if current_user.pseudo_com != None %} disabled value="{{ current_user.pseudo_com }}" {% endif %} 
-                                                placeholder="Pseudo du parrain (optionnel)" name="pseudo_com" maxlength="32">
-                                            <input type="text"
-                                                {% if current_user.username != None %} disabled value="{{ current_user.username }}" {% endif %}
+                                            <select name="sex" required="" class="m-0 mt-1">
+                                                <option value="">{{_('Sexe')}}</option>
+                                                {% for sex in config['SEX'] %}
+                                                <option {% if current_user.sex==sex %} selected {% endif %} value="{{ sex }}">{{ sex }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <input type="text" class="m-0 mt-1"
+                                                {% if current_user.username != None %} value="{{ current_user.username }}" {% endif %}
                                                 placeholder="Nom d'utilisateur" name="username" required maxlength="32">
-                                            <select name="country" required="">
+                                            <select name="country" required="" class="m-0 mt-1">
                                                 <option value="">{{_('Pays')}}</option>
                                                 {% for country in config['COUNTRIES'] %}
-                                                <option {% if current_user.country==country %} selected disabled {% endif %} value="{{ country }}">{{ country }}</option>
+                                                <option {% if current_user.country==country %} selected {% endif %} value="{{ country }}">{{ country }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
+                                        <button type="submit" class="btn-perso">Enregistrer</button>
                                     </form>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-container">
-                                        <select name="sex" required="" form="update-profile">
-                                            <option value="">{{_('Sexe')}}</option>
-                                            {% for sex in config['SEX'] %}
-                                            <option {% if current_user.sex==sex %} selected disabled {% endif %} value="{{ sex }}">{{ sex }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <input type="password" {% if current_user.google_login %} disabled {% endif %} form="update-profile"  
-                                            placeholder="{{_('Ancien mot de passe')}}" name="old_password">
-                                        <input type="password" {% if current_user.google_login %} disabled {% endif %} form="update-profile"  
-                                            placeholder="{{_('Nouveau mot de passe')}}" name="new_password">
-                                    </div>
+                                    <form method="post" autocomplete='off' action="{{ url_for('set_parrain', _external=True) }}">
+                                        <div class="form-container">
+                                            <input type="text" class="m-0 mt-1" required
+                                                {% if current_user.pseudo_com != None %} disabled value="{{ current_user.pseudo_com }}" {% endif %} 
+                                                placeholder="Pseudo du parrain (optionnel)" name="pseudo_com" maxlength="32">
+                                            <input type="text" class="m-0 mt-1" required value="{{ current_user.link_com }}" placeholder="Email du parrain" 
+                                                {% if current_user.pseudo_com != None %} disabled {% endif %} name="link_com">
+                                            <button type="submit" {% if current_user.pseudo_com != None %} disabled {% endif %} class="btn-perso">Définir</button>
+                                        </div>
+                                    </form>
+                                    <form method="post" autocomplete='off' action="{{ url_for('update_pwd', _external=True) }}">
+                                        <div class="form-container">
+                                            <input type="password" required {% if current_user.google_login %} disabled {% endif %} class="m-0 mt-1"  
+                                                placeholder="{{_('Ancien mot de passe')}}" name="old_password">
+                                            <input type="password" required {% if current_user.google_login %} disabled {% endif %} class="m-0 mt-1"  
+                                                placeholder="{{_('Nouveau mot de passe')}}" name="new_password">
+                                            <button type="submit" class="btn-perso">Modifier</button>
+                                        </div>
+                                    </form>
                                     <p><strong>{{_('Nom complet:')}}</strong> {{current_user.fullname}}</p>
                                     <p><strong>{{_('E-mail:')}}</strong> {{current_user.email}}</p>
                                     <p><strong>{{_('Membre depuis:')}}</strong> {{ moment(current_user.timestamp).format('LL')}}</p>
-
-                                    <button type="submit" form="update-profile" class="btn btn-primary">{{_('Modifier')}}</button>
                                 </div>
                             </div>
                         </div>

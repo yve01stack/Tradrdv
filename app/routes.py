@@ -171,15 +171,12 @@ def google_callback():
     return redirect(next_page)
 
 
-@app.route('/update_profile/', methods=['POST', 'GET'])
+@app.route('/upgrade_profile/', methods=['POST', 'GET'])
 @login_required
 @check_confirmed
-def update_profile():
+def upgrade_profile():
     username = request.form.get('username')
     country = request.form.get('country')
-    pseudo_com = request.form.get('pseudo_com')
-    old_password = request.form.get('old_password')
-    new_password = request.form.get('new_password')
     size = request.form.get('size')
     sex = request.form.get('sex')
     avatar_url = current_user.avatar
@@ -194,40 +191,22 @@ def update_profile():
                 avatar_url = upload_blob_img(app.config['CLOUD_STORAGE_BUCKET'], uploaded_file, 'profile_img')
             else:
                 flash(_('Erreur de nom ou d\'extension de l\'image'), 'danger')
-                return redirect(url_for('track_order', id=current_user.id, _external=True))
+                return redirect(url_for('profile', id=current_user.id, _external=True))
         else:
             flash(_('Veuillez choisir une image de taille inférieur à 3Mo.'), 'danger')
-            return redirect(url_for('track_order', id=current_user.id, _external=True))
+            return redirect(url_for('profile', id=current_user.id, _external=True))
+    
     user = User.query.filter_by(email=current_user.email).first()
-    if user.google_login is False:
-        if not old_password is None and not new_password is None:
-            if user is None or not user.check_password(old_password):
-                flash(_('Ancien mot de passe incorrect'), 'danger')
-                return redirect(url_for('profile', _external=True))
-            user.set_password(new_password)
-
-    if username == '' and user.username is None:
-        flash(_('Veuillez fournir un nom d\'utilisateur'), 'danger')
-        return redirect(url_for('profile', _external=True))
-    elif User.query.filter_by(username=username).first():
-        if username != user.username:
+    if User.query.filter_by(username=username).first():
+        if user.username != username:
             flash(_('Veuillez fournir un nom d\'utilisateur correct'), 'danger')
             return redirect(url_for('profile', _external=True))
-
-    if pseudo_com != '':
-        parrain = User.query.filter((User.username==pseudo_com) & (User.ad_statut==True)).first()
-        if parrain:
-            if username == user.username:
-                flash(_('Pseudo du parrain fournit est incorrect'), 'danger')
-                return redirect(url_for('profile', _external=True))
-        else:
-            flash(_('Pseudo du parrain fournit est incorrect'), 'danger')
-            return redirect(url_for('profile', _external=True))
-
-    user.username = username if username != '' else current_user.username
-    user.country = country if country != '' else current_user.country
-    user.pseudo_com = pseudo_com if pseudo_com != '' else current_user.pseudo_com
-    user.sex = sex if sex != '' else current_user.sex
+    if username != '':
+        user.username = current_user.username if not current_user.username is None and current_user.username !=''  else username
+    if country != '':
+        user.country = current_user.country if not current_user.country is None and current_user.country !='' else country
+    if sex != '':
+        user.sex = current_user.sex if not current_user.sex is None and current_user.sex !='' else sex
 
     number_deal = Deal.query.filter((Deal.user_id==current_user.id) & (Deal.deal_over==True)).count()
     if number_deal<5:
@@ -241,6 +220,47 @@ def update_profile():
         user.avatar = avatar_url
     db.session.commit()
     flash(_('Votre profil a bien été modifié'), 'success')
+    return redirect(url_for('profile', _external=True))
+
+@app.route('/update_pwd/', methods=['POST', 'GET'])
+@login_required
+@check_confirmed
+def update_pwd():
+    old_password = request.form.get('old_password')
+    new_password = request.form.get('new_password')
+
+    user = User.query.filter_by(email=current_user.email).first()
+    if user.google_login is False:
+        if user is None or not user.check_password(old_password):
+            flash(_('Ancien mot de passe incorrect'), 'warning')
+            return redirect(url_for('profile', _external=True))
+        user.set_password(new_password)
+        db.session.commit()
+        flash(_('Votre mot de passe a bien été modifié'), 'success')
+    else:
+        flash(_('Vous ne pouvez pas changer votre mot de passe car vous utilisez google login'), 'warning')
+    return redirect(url_for('profile', _external=True))
+
+
+@app.route('/set_parrain/', methods=['POST', 'GET'])
+@login_required
+@check_confirmed
+def set_parrain():
+    pseudo_com = request.form.get('pseudo_com')
+    link_com = request.form.get('link_com')
+
+    user = User.query.filter_by(email=current_user.email).first()
+    parrain = User.query.filter((User.username==pseudo_com) & (User.ad_statut==True)).first()
+    if parrain:
+        if pseudo_com == user.username:
+            flash(_('Pseudo du parrain fournit est incorrect'), 'danger')
+            return redirect(url_for('profile', _external=True))
+        else:
+            user.pseudo_com = current_user.pseudo_com if not current_user.pseudo_com is None and current_user.pseudo_com !=''  else pseudo_com
+            user.link_com = current_user.link_com if not current_user.link_com is None and current_user.link_com !=''  else link_com
+            flash(_('Parrain est ajouté'), 'success')
+            return redirect(url_for('profile', _external=True))
+    flash(_('Pseudo du parrain fournit est incorrect'), 'danger')
     return redirect(url_for('profile', _external=True))
 
 
@@ -358,8 +378,8 @@ def traducteur_new():
     if current_user.statut == "traducteur" or current_user.statut == "testeur" or current_user.statut == "admin":
         flash(_('Vous êtes déjà souscrire à cette offre ou vous n\'êtes pas autorisé'), 'warning')
         return redirect(url_for('profile', _external=True))
-    testeurs = User.query.filter((User.statut=='testeur') & (Traducteur.dispo==True) & (Traducteur.compte_valid==True))\
-        .order_by(User.last_seen.asc()).all()
+    testeurs = User.query.filter((User.statut=='testeur')).order_by(User.last_seen.asc()).all()
+    print(testeurs)
     return render_template('new_traducteur.html', testeurs=testeurs, title=_('Devenir traducteur'))
 
 
@@ -468,8 +488,7 @@ def trad_test_update(deal_id):
         return redirect(url_for('manager_panel', _external=True))
 
     traducteur = Traducteur.query.filter_by(user_id=deal.user_id).first_or_404()
-    testeurs = User.query.filter((User.statut=='testeur') & (Traducteur.dispo==True) & (Traducteur.compte_valid==True))\
-        .order_by(User.last_seen.asc()).all()
+    testeurs = User.query.filter((User.statut=='testeur')).order_by(User.last_seen.asc()).all()
     return render_template('update_traducteur.html', traducteur=traducteur, testeurs=testeurs, deal=deal, title=_('Mise à du compte traducteur'))
 
 
