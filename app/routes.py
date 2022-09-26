@@ -10,7 +10,7 @@ from googletrans import Translator
 
 
 from app import app, db, client, tasks
-from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, make_payment
+from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, make_payment, get_paid
 from app.utils import get_google_provider_cfg, allowed_image, delete_blob_img, upload_blob_img, upload_blob_file, password_reset_email,\
      email_confirm_email, alert_email, newsletter_email, select_by_random, return_eq_da
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
@@ -1093,11 +1093,15 @@ def admin_panel():
     dashbord_this_month = Dashbord.query.filter_by(id=1).first()
     dashbord_last_month = Dashbord.query.filter_by(id=2).first()
 
+    #Profile
+    clients = User.query.filter_by(statut='client').all()
+    traducteurs = Traducteur.query.all()
+
     return render_template('admin_panel.html', deals_progress=deals_progress.all(), deals_over=deals_over.all(), deals_reject=deals_reject.all(), 
         deals_check_bill=deals_check_bill.all(), list_trad=list_trad, number_client=number_client, number_traducteur=number_traducteur, 
         number_testeur=number_testeur, number_admin=number_admin, number_newsletter=number_newsletter, number_dp=deals_progress.count(), number_do=deals_over.count(), 
         number_dr=deals_reject.count(), number_dcb=deals_check_bill.count(), dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, 
-        traducteurs_need_ad=traducteurs_need_ad, title=_("Profil- %(subtitle)s", subtitle=subtitle))
+        traducteurs_need_ad=traducteurs_need_ad, clients=clients, traducteurs=traducteurs, title=_("Profil- %(subtitle)s", subtitle=subtitle))
 
 
 @app.route('/admin/submit/checked/work', methods=['GET', 'POST'])
@@ -1316,6 +1320,62 @@ def admin_boost(trad_id):
         traducteur.need_help_ad = 'off'
     db.session.commit()
     return jsonify({'result': 1}), 200
+
+
+@app.route('/admin/get/profile', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def admin_get_profile():
+    id = request.form.get('id')
+    type_profile = request.form.get('type_profile')
+
+    if type_profile == 'client':
+        client = User.query.filter_by(id=id).first()
+        login_url = url_for('admin_login', id=client.id, _external=True)
+        data = client.as_dict()
+    elif type_profile == 'traducteur':
+        traducteur = Traducteur.query.filter_by(id=id).first()
+        login_url = url_for('admin_login', id=traducteur.user_id, _external=True)
+        data = traducteur.as_dict()
+
+    return jsonify({'data': data, 'type_profile': type_profile, 'login_url': login_url}), 200
+
+
+@app.route('/admin/login/<id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def admin_login(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    login_user(user, remember=False)
+    return redirect(url_for('profile', _external=True))
+
+
+@app.route('/admin/pay/traducteur', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def admin_pay_trad():
+    trad_id = request.form.get('trad_id')
+    motif = request.form.get('motif')
+    amount = int(request.form.get('amount'))
+    devise = request.form.get('devise')
+
+    traducteur = Traducteur.query.filter((Traducteur.id==trad_id)).first_or_404()
+    user = User.query.filter_by(id=traducteur.user_id).first()
+    if user:
+        if user.revenu >= amount:
+            get_paid(motif=motif, amount=amount, devise=devise, eq_da=return_eq_da(devise), owner=user)
+            subject = motif
+            body = _("Depuis votre dernière visite sur TRADRDV, vous avez reçu un salaire mensuel de %(amount)s %(devise)s de la part de TRADRDV. "\
+                "Veuillez consulter votre compte en banque.", amount=amount, devise=devise) 
+            url = url_for('profile', _external=True)
+            alert_email(subject, body, url, user)
+            flash(_('Paiement effectué'), 'success')
+        else:
+            flash(_('Erreur de paiement, le revenu du traducteur est insuffisant'), 'warning')
+    return redirect(url_for('admin_panel', _external=True))
 
 
 # -------------------------------------------------#

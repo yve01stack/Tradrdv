@@ -120,6 +120,7 @@ class Config(object):
 	TESTEUR_PART = 2500
 	TRAD_PART_ABON = 200
 	TRAD_PART_NO_ABON = 80 #%
+	DONATION_PART = 2 #%
 
 
 

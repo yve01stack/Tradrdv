@@ -60,6 +60,10 @@ class User(UserMixin, db.Model):
             'email': self.email,
             'avatar': self.avatar,
             'country': self.country,
+            'offre_statut': self.offre_statut,
+            'revenu': self.revenu,
+            'sex': self.sex,
+            'remain_day': self.remain_day,
             'last_seen': self.last_seen.strftime("%m/%d/%Y, %H:%M"),
             'timestamp': self.timestamp.strftime("%m/%d/%Y, %H:%M"),
             'is_active': "True" if self.is_active else "False"
@@ -168,6 +172,7 @@ class Traducteur(db.Model):
             'success_work': self.success_work,
             'current_country': self.current_country,
             'current_town': self.current_town,
+            'remain_day': self.remain_day,
             'skill_1': self.skill_1,
             'skill_2': self.skill_2,
             'skill_3': self.skill_3,
@@ -178,8 +183,13 @@ class Traducteur(db.Model):
             'skill_8': self.skill_8,
             'skill_9': self.skill_9,
             'skill_10': self.skill_10,
+            'CCP_number': self.CCP_number,
+            'BaridiMob_RIP': self.BaridiMob_RIP,
+            'ePayment_type': self.ePayment_type,
+            'ePayment': self.ePayment,
             'author': User.query.filter_by(id=self.user_id).first().as_dict()
             }
+
 
 class Deal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -238,6 +248,13 @@ def make_payment(motif, amount, devise, eq_da, owner):
         owner.revenu += amount*eq_da
     db.session.add(Payment(motif=motif, amount=amount, devise=devise, owner=owner))
     db.session.commit()
+
+def get_paid(motif, amount, devise, eq_da, owner):
+    if owner.revenu >= amount:
+        owner.revenu -= amount*eq_da
+        db.session.add(Payment(motif=motif, amount=-amount, devise=devise, owner=owner))
+        db.session.commit()
+    pass
 
 
 class Comment(db.Model):
@@ -308,6 +325,7 @@ class Dashbord(db.Model):
     revenu_test = db.Column(db.Integer, nullable=False, default=0)
     revenu_work = db.Column(db.Integer, nullable=False, default=0)
     freelance_part = db.Column(db.Integer, nullable=False, default=0)
+    donation_save = db.Column(db.Integer, nullable=False, default=0)
     revenu_total = db.Column(db.Integer, nullable=False, default=0)
     accueil_view = db.Column(db.Integer, nullable=False, default=0)
     traducteur_view = db.Column(db.Integer, nullable=False, default=0)
@@ -327,6 +345,7 @@ class Dashbord(db.Model):
             last_month.revenu_test = self.revenu_test
             last_month.revenu_work = self.revenu_work
             last_month.freelance_part = self.freelance_part
+            last_month.donation_save = self.donation_save
             last_month.revenu_total = self.revenu_total
             last_month.accueil_view = self.accueil_view
             last_month.traducteur_view = self.traducteur_view
@@ -338,6 +357,7 @@ class Dashbord(db.Model):
             self.revenu_test = 0
             self.revenu_work = 0
             self.freelance_part = 0
+            self.donation_save = 0
             self.revenu_total = 0
             self.accueil_view = 0
             self.traducteur_view = 0
@@ -351,6 +371,7 @@ class Dashbord(db.Model):
         self.revenu_test += revenu_test*eq_da
         self.revenu_work += revenu_work*eq_da
         self.freelance_part += freelance_part*eq_da
+        self.donation_save = round(((self.revenu_abon + self.revenu_test + self.revenu_work)*app.config['DONATION_PART'])/100, 2)
         self.revenu_total = self.revenu_abon + self.revenu_test + self.revenu_work
         self.accueil_view += accueil_view
         self.traducteur_view += traducteur_view

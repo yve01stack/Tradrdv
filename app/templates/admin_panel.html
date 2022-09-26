@@ -12,7 +12,6 @@
                         <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">Dashboard</a>
                         <a class="nav-link" id="v-pills-clients-tab" data-toggle="pill" href="#v-pills-clients" role="tab" aria-controls="v-pills-clients" aria-selected="false">Clients</a>
                         <a class="nav-link" id="v-pills-traducteurs-tab" data-toggle="pill" href="#v-pills-traducteurs" role="tab" aria-controls="v-pills-traducteurs" aria-selected="false">Traducteurs</a>
-                        <a class="nav-link" id="v-pills-testeurs-tab" data-toggle="pill" href="#v-pills-testeurs" role="tab" aria-controls="v-pills-testeurs" aria-selected="false">Testeurs</a>
                         <a class="nav-link" id="v-pills-booster-tab" data-toggle="pill" href="#v-pills-booster" role="tab" aria-controls="v-pills-booster" aria-selected="false">Booster</a>
                         <a class="nav-link" id="v-pills-messagerie-tab" data-toggle="pill" href="#v-pills-messagerie" role="tab" aria-controls="v-pills-messagerie" aria-selected="false">Messagerie</a>
                         <a class="nav-link" id="v-pills-accord-tab" data-toggle="pill" href="#v-pills-accord" role="tab" aria-controls="v-pills-accord" aria-selected="false">Accords</a>
@@ -190,7 +189,7 @@
                             </div>
                 
                             <div class="row">
-                              <div class="col-xl-6 col-md-12">
+                              <div class="col-xl-4 col-md-6 col-sm-12">
                                 <div class="wrimagecard wrimagecard-topimage">
                                   <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
                                     <i class="fa fa-money text-danger"></i><h4 class="float-right">{{dashbord_this_month.freelance_part}}Da</h4>
@@ -201,7 +200,18 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-xl-6 col-md-12">
+                              <div class="col-xl-4 col-md-6 col-sm-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-money text-warning"></i><h4 class="float-right">{{dashbord_this_month.donation_save}}Da</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>Donation 2%</h6>
+                                    <small>Mois dernier {{dashbord_last_month.donation_save}}Da</small>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-4 col-md-6 col-sm-12">
                                 <div class="wrimagecard wrimagecard-topimage">
                                   <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
                                     <i class="fa fa-money text-success"></i><h4 class="float-right">{{dashbord_this_month.revenu_total}}Da</h4>
@@ -216,9 +226,162 @@
                           </section>
 
                         </div>
-                        <div class="tab-pane fade" id="v-pills-clients" role="tabpanel" aria-labelledby="v-pills-clients-tab">...</div>
-                        <div class="tab-pane fade" id="v-pills-traducteurs" role="tabpanel" aria-labelledby="v-pills-traducteurs-tab">...</div>
-                        <div class="tab-pane fade" id="v-pills-testeurs" role="tabpanel" aria-labelledby="v-pills-testeurs-tab">...</div>
+                        <div class="tab-pane fade" id="v-pills-clients" role="tabpanel" aria-labelledby="v-pills-clients-tab">
+                          <!-- client profil -->
+                          <div class="row">
+                            <div class="col-md-6 mb-3">
+                                 <div class="contact-box shadow-sm bg-white">
+                                    <div class="contact-head text-center">
+                                      <input type="text" placeholder="Pseudo" id="search_client">
+                                    </div>
+                                    <div class="" style="height: 533px; overflow: auto;" id="clients_find">
+                                      {% for client in clients %}
+                                      <p class="bg-light p-1 m-1" value="{{client.id}}" onclick="getProfile(this.getAttribute('value'), 'client')" type="button" style="border-radius: 4px;">{{client.username}}
+                                        {% if client.offre_statut == 'gratuit' %}
+                                        <small class="fa fa-circle text-muted float-right mt-1"></small>
+                                        {% elif client.offre_statut == 'standard' %}
+                                        <small class="fa fa-circle text-primary float-right mt-1"></small>
+                                        {% elif client.offre_statut == 'premium' %}
+                                        <small class="fa fa-circle text-warning float-right mt-1"></small>
+                                        {% endif %}
+                                      </p>
+                                      {% endfor %}
+                                    </div>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                              <form action="" class="contact-box shadow-sm bg-white" style="height: 588px;">
+                                <div class="form-container">
+                                  <div class="contact-head text-center"><h3>Profil</h3></div>
+                                    <div class="p-3">
+                                      <div class="row">
+                                        <div class="col-sm-6 col-12">
+                                          <div class="wrimagecard wrimagecard-topimage">
+                                            <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                              <i class="fa fa-credit-card text-primary" ></i><h4 class="float-right client_revenu">...</h4>
+                                            </div>
+                                            <div class="wrimagecard-topimage_title">
+                                              <h6>Revenu</h6>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-6 col-12">
+                                          <div class="wrimagecard wrimagecard-topimage">
+                                            <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                              <i class="fa fa-hourglass-2 text-warning" ></i><h4 class="float-right client_remain_day">...</h4>
+                                            </div>
+                                            <div class="wrimagecard-topimage_title">
+                                              <h6 class="client_offre_statut">...</h6>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row m-2 d-block">
+                                        <p class="d-block">
+                                          <img class="client_avatar" src="{{ config['COVER_PICTURE'] }}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;">
+                                        </p>
+                                        <div><strong>{{_('Nom complet:')}}</strong> <i class="client_fullname">...</i></div>
+                                        <div><strong>{{_('E-mail:')}}</strong> <i class="client_email">...</i></div>
+                                        <div><strong>{{_('Sexe:')}}</strong> <i class="client_sex">...</i></div>
+                                        <div><strong>{{_('Pays:')}}</strong> <i class="client_country">...</i></div>
+                                        <div><strong>{{_('En ligne:')}}</strong> <i class="client_last_seen">...</i></div>
+                                        <div><strong>{{_('Membre depuis:')}}</strong> <i class="client_timestamp">...</i></div>
+                                      </div>
+                                      <div><a type="button" target="_blank" href="" class="btn btn-primary login_client_url" onclick="alert('Vous êtes sur le point de vous connecter sur ce compte')">Connecter</a></div>
+                                  </div>
+                                </div>
+                              </form>
+                             </div>
+                          </div>
+                          <!-- //client profil -->
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-traducteurs" role="tabpanel" aria-labelledby="v-pills-traducteurs-tab">
+                          <!-- traducteur profil -->
+                          <div class="row">
+                            <div class="col-md-6 mb-3">
+                                 <div class="contact-box shadow-sm bg-white">
+                                    <div class="contact-head text-center">
+                                      <input type="text" placeholder="Pseudo" id="search_traducteur">
+                                    </div>
+                                    <div class="" style="height: 533px; overflow: auto;" id="traducteurs_find">
+                                      {% for traducteur in traducteurs %}
+                                      <p class="bg-light p-1 m-1" value="{{traducteur.id}}" onclick="getProfile(this.getAttribute('value'), 'traducteur')" type="button" style="border-radius: 4px;">{{traducteur.author.username}}
+                                        {% if traducteur.compte_valid %}
+                                        <small class="fa fa-circle text-success float-right mt-1"></small>
+                                        {% else %}
+                                        <small class="fa fa-circle text-muted float-right mt-1"></small>
+                                        {% endif %}
+                                      </p>
+                                      {% endfor %}
+                                    </div>
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                              <div action="" class="contact-box shadow-sm bg-white">
+                                <div class="form-container"  style="height: 588px; overflow: auto;">
+                                  <div class="contact-head text-center"><h3>Profil</h3></div>
+                                    <div class="p-3">
+                                      <div class="row">
+                                        <div class="col-sm-6 col-12">
+                                          <div class="wrimagecard wrimagecard-topimage">
+                                            <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                              <i class="fa fa-credit-card text-primary" ></i><h4 class="float-right traducteur_revenu">...</h4>
+                                            </div>
+                                            <div class="wrimagecard-topimage_title">
+                                              <h6>Revenu</h6>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-6 col-12">
+                                          <div class="wrimagecard wrimagecard-topimage">
+                                            <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                              <i class="fa fa-hourglass-2 text-warning" ></i><h4 class="float-right traducteur_remain_day">...</h4>
+                                            </div>
+                                            <div class="wrimagecard-topimage_title"><h6>Jour restant</h6></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row m-2 d-block">
+                                        <p class="d-block">
+                                          <img class="traducteur_avatar" src="{{ config['COVER_PICTURE'] }}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;">
+                                        </p>
+                                        <div><strong>{{_('Nom complet:')}}</strong> <i class="traducteur_fullname">...</i></div>
+                                        <div><strong>{{_('E-mail:')}}</strong> <i class="traducteur_email">...</i></div>
+                                        <div><strong>{{_('Sexe:')}}</strong> <i class="traducteur_sex">...</i></div>
+                                        <div><strong>{{_('Pays:')}}</strong> <i class="traducteur_country">...</i></div>
+                                        <div><strong>{{_('Ville:')}}</strong> <i class="traducteur_town">...</i></div>
+                                        <div><strong>{{_('En ligne:')}}</strong> <i class="traducteur_last_seen">...</i></div>
+                                        <div><strong>{{_('Membre depuis:')}}</strong> <i class="traducteur_timestamp">...</i></div>
+                                        <h3 class="text-center">Jour de Paye</h3>
+                                        <div><strong>{{_('CCP:')}}</strong> <i class="traducteur_ccp">...</i></div>
+                                        <div><strong>{{_('BaridiMob:')}}</strong> <i class="traducteur_baridimob">...</i></div>
+                                        <div><strong>{{_('e-Paiement:')}}</strong> <i class="traducteur_ep_type">...</i></div>
+                                        <div><strong>{{_('Id:')}}</strong> <i class="traducteur_ep_id">...</i></div>
+                                        <form action="{{ url_for('admin_pay_trad', _external=True) }}" method="post" class="form-container" id="traducteur_payment">
+                                          <input class="traducteur_id" name="trad_id" required type="hidden">
+                                          <p><input name="motif" placeholder="Revenu mensuel envoyé sur ccp" required type="text" maxlength="64" class="m-0"></p>
+                                          <p>
+                                            <select name="devise" required class="m-0">
+                                              <option value="">{{_('Devise')}}</option>
+                                              {% for devise in config['DEVISES'] %}
+                                              <option value="{{ devise.symbol }}">{{ devise.name }}</option>
+                                              {% endfor %}
+                                            </select>
+                                          </p>
+                                          <p><input class="m-0" name="amount" required value="0" type="number"></p>
+                                        </form>
+                                      </div>
+                                      <div class="d-inline">
+                                        <a type="button" target="_blank" href="" class="btn btn-primary login_traducteur_url" onclick="alert('Vous êtes sur le point de vous connecter sur ce compte')">Connecter</a>
+                                        <button type="submit" class="btn-perso" form="traducteur_payment">Payer</button>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                             </div>
+                          </div>
+                          <!-- //client profil -->
+                        </div>
                         <!-- Booster -->
                         <div class="tab-pane fade" id="v-pills-booster" role="tabpanel" aria-labelledby="v-pills-booster-tab">
                           <div class="row">
@@ -594,7 +757,7 @@
           modal.find('.modal-body .amount_update').val(amount)
     
           modal.find('.modal-body .username').text(username)
-          modal.find('.modal-body .username').text(pre_username)
+          modal.find('.modal-body .pre_username').text(pre_username)
 
           modal.find('.modal-body .payment_way').text(payment_way)
           $('.output_payment_bill').attr('src')=payment_bill
@@ -613,6 +776,76 @@
         var url = $(".tradBooster").attr('action');
         $.post(url, { statut: x}, function(data) { });
         }
+    </script>
+
+    <a class="d-none get_profile_url" href="{{ url_for('admin_get_profile', _external=True) }}"></a>
+    <script>
+      function getProfile(id, type_profile){
+
+        var url = $(".get_profile_url").attr('href');
+        $.post(url, { id: id, type_profile: type_profile}, function(data) { 
+
+          if (data['type_profile']=='client'){
+            $('.client_revenu').text(data['data']['revenu']+'Da')
+            $('.client_remain_day').text(data['data']['remain_day']+' jour(s)')
+            $('.client_offre_statut').text('Offre '+data['data']['offre_statut'])
+            $('.client_avatar').attr('src', data['data']['avatar'])
+            $('.client_fullname').text(data['data']['fullname'])
+            $('.client_email').text(data['data']['email'])
+            $('.client_sex').text(data['data']['sex'])
+            $('.client_country').text(data['data']['country'])
+            $('.client_last_seen').text(data['data']['last_seen'])
+            $('.client_timestamp').text(data['data']['timestamp'])
+
+            $(".login_client_url").attr('href', data['login_url'])
+
+          } else if (data['type_profile']=='traducteur'){  
+            $('.traducteur_revenu').text(data['data']['author']['revenu']+'Da')
+            $('.traducteur_remain_day').text(data['data']['remain_day'])
+            $('.traducteur_avatar').attr('src', data['data']['author']['avatar'])
+            $('.traducteur_id').val(data['data']['id'])
+
+
+            $('.traducteur_fullname').text(data['data']['author']['fullname'])
+            $('.traducteur_email').text(data['data']['author']['email'])
+            $('.traducteur_sex').text(data['data']['author']['sex'])
+            $('.traducteur_country').text(data['data']['current_country'])
+            $('.traducteur_town').text(data['data']['current_town'])
+            $('.traducteur_last_seen').text(data['data']['author']['last_seen'])
+            $('.traducteur_timestamp').text(data['data']['author']['timestamp'])
+            
+            $('.traducteur_ccp').text(data['data']['CCP_number'])
+            $('.traducteur_baridimob').text(data['data']['BaridiMob_RIP'])
+            $('.traducteur_ep_type').text(data['data']['ePayment_type'])
+            $('.traducteur_ep_id').text(data['data']['ePayment'])
+
+            $(".login_traducteur_url").attr('href', data['login_url'])
+
+          }
+        });
+      }
+
+    </script>
+
+    <script>
+      $(document).ready(function(){
+        $("#search_client").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#clients_find p").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+
+      $(document).ready(function(){
+        $("#search_traducteur").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#traducteurs_find p").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+
     </script>
 
 
