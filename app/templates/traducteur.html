@@ -99,6 +99,7 @@
                                                     <span class="fa fa-star" {% if traducteur.test_score>= 5 %} style="color: orange;" {% endif %}></span>
                                                 </h5>
                                                 <p>{{traducteur.skill_1}}</p>
+                                                <p {% if traducteur.skill_2=='' %} class="d-none" {% endif %}>{{traducteur.skill_2}}</p>
                                                 <p>Pays: {{traducteur.current_country}}</p>
                                                 <p>
                                                     {% if traducteur.dispo %}

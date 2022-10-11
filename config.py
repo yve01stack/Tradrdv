@@ -27,7 +27,7 @@ class Config(object):
 	SITE_DESCRIPTION = _l("Traducteurs sur Rendez-vous est la première plateforme qui regroupe des traducteurs freelancers algériens, "\
 		 "et bientôt des prestataires des quatre coins du monde !")
 	SITE_ICONE = "https://storage.googleapis.com/tradrdv/dev/favicon.png"
-	MAIL_CONTACT = 'contact@tradrdv.com'
+	MAIL_CONTACT = 'traducteurs.contactofficiel@gmail.com'
 	CALL_CONTACT = '+213 658489196'
 	FAX_CONTACT = '---'
 	ADDRESS = '42000, Tipasa, Algérie'
@@ -74,12 +74,20 @@ class Config(object):
 		'Trinité-et-Tobago (anglais)', 'Tunisie (arabe)', 'Turkménistan (turkmène)', 'Turquie (turc)', 'Tuvalu (tuvaluan-anglais)', 'Ukraine (ukrainien)',
 		'Uruguay (espagnol)', 'Vanuatu (anglais-français)', 'Vatican (italien)', 'Venezuela (espagnol)', 'Vietnam (vietnamien)', 'Yémen (arabe)', 'Zambie (anglais)',
 		'Zimbabwe (anglais)']
+
 	TOWNS = {'Maroc (arabe)':['Casablanca', 'Fés', 'Marrakech'], 'Tunisie (arabe)':['Tunis', 'Sfax', 'Sousse '], 
 		'Algérie (arabe)':['Adrar', 'Chlef', 'Laghouat', 'Oum El Bouaghi', 'Batna', 'Béjaïa', 'Biskra', 'Béchar', 'Blida', 'Bouira', 'Tamanrasset', 'Tébessa',
-		'Tlemcen', 'Tiaret', 'Tizi Ouzou', 'Alger', 'Djelfa', 'Jijel', 'Sétif', 'Saïda', 'Skikda', 'Sidi Bel Abbès', 'Annaba', 'Guelma', 'Constantine',
-		'Médéa', 'Mostaganem', 'M\'Sila', 'Mascara', 'Ouargla', 'Oran', 'Bayadh', 'Illizi', 'Bordj Bou Arreridj', 'Boumerdès', 'El Tarf', 'Tindouf', 'Tissemsilt',
-		'El Oued', 'Khenchela', 'Souk Ahras', 'Tipaza', 'Mila', 'Aïn Defla', 'Naâma', 'Aïn Témouchent', 'Ghardaïa', 'Relizane', 'Timimoun', 'Bordj Badji Mokhtar', 
-		'Ouled Djellal', 'Béni Abbès', 'In Salah', 'In Guezzam', 'Touggourt', 'Djanet', 'El M\'Ghair', 'El Meniaa']}
+			'Tlemcen', 'Tiaret', 'Tizi Ouzou', 'Alger', 'Djelfa', 'Jijel', 'Sétif', 'Saïda', 'Skikda', 'Sidi Bel Abbès', 'Annaba', 'Guelma', 'Constantine',
+			'Médéa', 'Mostaganem', 'M\'Sila', 'Mascara', 'Ouargla', 'Oran', 'Bayadh', 'Illizi', 'Bordj Bou Arreridj', 'Boumerdès', 'El Tarf', 'Tindouf', 'Tissemsilt',
+			'El Oued', 'Khenchela', 'Souk Ahras', 'Tipaza', 'Mila', 'Aïn Defla', 'Naâma', 'Aïn Témouchent', 'Ghardaïa', 'Relizane', 'Timimoun', 'Bordj Badji Mokhtar', 
+			'Ouled Djellal', 'Béni Abbès', 'In Salah', 'In Guezzam', 'Touggourt', 'Djanet', 'El M\'Ghair', 'El Meniaa'],
+		'Cameroun (français-anglais)':['Douala', 'Yaoundé', 'Garoua', 'Bamenda', 'Maroua', 'Nkongsamba', 'Bafoussam', 'Ngaoundéré', 'Bertoua', 'Loum', 'Kumba', 'Edéa',
+			'Kumbo', 'Foumban', 'Mbouda', 'Dschang', 'Limbé', 'Ebolowa', 'Kousséri', 'Guider', 'Meiganga', 'Yagoua', 'Mbalmayo', 'Bafang', 'Tiko', 'Bafia', 'Wum', 
+			'Kribi', 'Buea', 'Sangmélima', 'Foumbot', 'Bangangté', 'Batouri', 'Banyo', 'Nkambé', 'Bali', 'Mbanga', 'Mokolo', 'Melong', 'Manjo', 'Garoua-Boulaï', 'Mora', 
+			'Kaélé', 'Tibati', 'Ndop', 'Akonolinga', 'Eséka', 'Mamfé', 'Obala', 'Muyuka', 'Nanga-Eboko', 'Abong-Mbang', 'Fundong',	'Nkoteng', 'Fontem', 'Mbandjock', 
+			'Touboro', 'Ngaoundal', 'Yokadouma', 'Pitoa', 'Tombel', 'Kékem', 'Magba', 'Bélabo', 'Tonga', 'Maga', 'Koutaba', 'Blangoua', 'Guidiguis', 'Bogo', 'Batibo', 
+			'Yabassi', 'Figuil', 'Makénéné', 'Gazawa', 'Tcholliré']}
+
 	SKILLS=['Arabe-français', 'Arabe-tamazight', 'Arabe-espagnol', 'Arabe-portugais', 'Arabe-italien', 'Arabe-anglais', 'Arabe-allemand', 'Arabe-polonais',
 		'Arabe-turc', 'Arabe-ukrainien', 'Arabe-russe', 'Arabe-Chinois', 'Tamazight–arabe', 'Tamazight-Français', 'Tamazight-espagnol', 'Tamazight-portugais',
 		'Tamazight-italien', 'Tamazight-anglais', 'Tamazight-allemand', 'Tamazight-polonais', 'Tamazight-turc', 'Tamazight-ukrainien', 'Tamazight-russe', 'Tamazight-chinois',
@@ -121,6 +129,7 @@ class Config(object):
 	TRAD_PART_ABON = 200
 	TRAD_PART_NO_ABON = 80 #%
 	DONATION_PART = 2 #%
+	IMPOT_PART = 5 #%
 
 
 

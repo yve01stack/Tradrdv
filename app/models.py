@@ -326,6 +326,7 @@ class Dashbord(db.Model):
     revenu_work = db.Column(db.Integer, nullable=False, default=0)
     freelance_part = db.Column(db.Integer, nullable=False, default=0)
     donation_save = db.Column(db.Integer, nullable=False, default=0)
+    impot_save = db.Column(db.Integer, nullable=False, default=0)
     revenu_total = db.Column(db.Integer, nullable=False, default=0)
     accueil_view = db.Column(db.Integer, nullable=False, default=0)
     traducteur_view = db.Column(db.Integer, nullable=False, default=0)
@@ -346,6 +347,7 @@ class Dashbord(db.Model):
             last_month.revenu_work = self.revenu_work
             last_month.freelance_part = self.freelance_part
             last_month.donation_save = self.donation_save
+            last_month.impot_save = self.impot_save
             last_month.revenu_total = self.revenu_total
             last_month.accueil_view = self.accueil_view
             last_month.traducteur_view = self.traducteur_view
@@ -358,6 +360,7 @@ class Dashbord(db.Model):
             self.revenu_work = 0
             self.freelance_part = 0
             self.donation_save = 0
+            self.impot_save = 0
             self.revenu_total = 0
             self.accueil_view = 0
             self.traducteur_view = 0
@@ -372,6 +375,7 @@ class Dashbord(db.Model):
         self.revenu_work += revenu_work*eq_da
         self.freelance_part += freelance_part*eq_da
         self.donation_save = round(((self.revenu_abon + self.revenu_test + self.revenu_work)*app.config['DONATION_PART'])/100, 2)
+        self.impot_save = round(((self.revenu_abon + self.revenu_test + self.revenu_work)*app.config['IMPOT_PART'])/100, 2)
         self.revenu_total = self.revenu_abon + self.revenu_test + self.revenu_work
         self.accueil_view += accueil_view
         self.traducteur_view += traducteur_view
