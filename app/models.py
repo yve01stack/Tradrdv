@@ -1,10 +1,9 @@
-from email.policy import default
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from time import time
 import jwt
 from datetime import datetime, timedelta
-import logging as lg
+import os, logging as lg
 
 from app import db, login, app, moment
 
@@ -25,7 +24,7 @@ class User(UserMixin, db.Model):
     offre_end = db.Column(db.DateTime, default=datetime.utcnow)
     daily_offer = db.Column(db.Integer, default=1)
     remain_day = db.Column(db.Integer, default=0)
-    avatar = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/OOjs_UI_icon_userAvatar.svg.png")
+    avatar = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', 'OOjs_UI_icon_userAvatar.svg.png').replace("\\", '/'))
     country = db.Column(db.String(32), index=True)
     revenu = db.Column(db.Integer, nullable=False, default=0)
     confirmed = db.Column(db.Boolean, default=False)
@@ -113,8 +112,8 @@ class Traducteur(db.Model):
     BaridiMob_RIP = db.Column(db.String(64))
     ePayment_type = db.Column(db.String(32))
     ePayment = db.Column(db.String(64))
-    id_card = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/88591.png")
-    diploma = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/diploma.pdf")
+    id_card = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '88591.png').replace("\\", '/'))
+    diploma = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', 'diploma.pdf').replace("\\", '/'))
     about_me = db.Column(db.String(500))
     prestation = db.Column(db.String(32), nullable=False, default='Traduction')
     prestation_2 = db.Column(db.String(32))
@@ -200,7 +199,7 @@ class Deal(db.Model):
     amount = db.Column(db.Integer, nullable=False, default=0)
     friend_accept = db.Column(db.Boolean, nullable=False, default=False)
     friend_reject = db.Column(db.Boolean, nullable=False, default=False)
-    payment_bill = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/101671.png")
+    payment_bill = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '101671.png').replace("\\", '/'))
     bill_is_added = db.Column(db.Boolean, nullable=False, default=False)
     admin_confirm_bill = db.Column(db.Boolean, nullable=False, default=False)
     work_did = db.Column(db.String(500))
@@ -224,7 +223,7 @@ class Commercial(db.Model):
     BaridiMob_RIP = db.Column(db.String(64))
     ePayment_type = db.Column(db.String(32))
     e_Payment = db.Column(db.String(64))
-    id_card = db.Column(db.String(500), default="https://storage.googleapis.com/tradrdv/dev/88591.png")
+    id_card = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '88591.png').replace("\\", '/'))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

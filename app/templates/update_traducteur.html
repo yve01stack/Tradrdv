@@ -8,20 +8,20 @@
         <form id="regForm" action="{{ url_for('traducteur_update', _external=True) }}" 
             class="container" style="margin-top: 100px;" enctype="multipart/form-data" method="post">
 
-            <h3>Mise à jour de {{traducteur.author.username}}</h3>
+            <h3>{{_("Mise à jour de %(username)s', username=traducteur.author.username")}}</h3>
             
             <!-- One "tab" for each step in the form: -->
             <div class="tab">
-                <p>Vous résidez en Algérie, et avez une licence en traduction ou un diplôme équivalent ? 
+                <p>{{_("Vous résidez en Algérie ou même outre-mer, et avez une licence en traduction ou un diplôme équivalent ? 
                     Ou bien vous êtes titulaire d’une licence en langues étrangères, en plus d’un master en traduction ? 
                     Ou peut-être vous êtes ingénieur en une toute autre filière, mais avez une maîtrise parfaite des langues, 
                     et possédez en tout ce qui est technique, un très bon jargon ? Vous désirez avoir à faire à de multitudes de clients, 
                     acquérir de l’expérience, et faire exploser votre Portefeuille d’argent ? 
-                    Traducteurs sur Rendez-vous est le monde qu’il vous faut ! N’attendez plus et engagez-vous dés maintenant ! </p> 
-                <p>Classer vos compétences par ordre de maîtrise à partir de la gauche de haut en bas.</p>               
+                    Traducteurs sur Rendez-vous est le monde qu’il vous faut ! N’attendez plus et engagez-vous dés maintenant !")}} </p> 
+                <p>{{_("Classer vos compétences par ordre de maîtrise à partir de la gauche de haut en bas.")}}</p>               
             </div>
             
-            <div class="tab"><b>Compétences</b>
+            <div class="tab"><b>{{_('Compétences')}}</b>
                 <div class="row">
                     <div class="col-sm-6">
                         <p>
@@ -110,7 +110,7 @@
                 </div>
             </div>
             
-            <div class="tab"><b>Personnel Informations</b>
+            <div class="tab"><b>{{_("Personnel Informations")}}</b>
                 <div class="row">
                     <div class="col-sm-6">
                         <p>
@@ -126,12 +126,12 @@
                                 <option value='{{traducteur.current_town}}'>{{traducteur.current_town}}</option>
                             </select>
                         </p>
-                        <p><input required="true" value="{{traducteur.addr_postale}}" name="addr_postale" placeholder="code postal, rue, bâtiment" oninput="this.className = ''"></p>
+                        <p><input required="true" value="{{traducteur.addr_postale}}" name="addr_postale" placeholder="{{_('code postal, rue, bâtiment')}}" oninput="this.className = ''"></p>
                         <p><input required="true" value="{{traducteur.phone}}" name="phone" placeholder="+213 658489196" oninput="this.className = ''"></p>
                     </div>
                     <div class="col-sm-6">
-                        <p><input name="CCP_number" value="{{traducteur.CCP_number}}" placeholder="Numéro de compte CCP" oninput="this.className = ''"></p>
-                        <p><input name="BaridiMob_RIP" value="{{traducteur.BaridiMob_RIP}}" placeholder="BaridiMob RIP" oninput="this.className = ''"></p>
+                        <p><input name="CCP_number" value="{{traducteur.CCP_number}}" placeholder="{{_('Numéro de compte CCP')}}" oninput="this.className = ''"></p>
+                        <p><input name="BaridiMob_RIP" value="{{traducteur.BaridiMob_RIP}}" placeholder="{{_('BaridiMob RIP')}}" oninput="this.className = ''"></p>
                         <p>
                             <select name="ePayment_type" onchange="this.className = ''">
                                 <option value=''>{{_('Paiement électronique')}}</option>
@@ -140,23 +140,23 @@
                                 {% endfor %}
                             </select>
                         </p>
-                        <p><input name="ePayment" value="{{traducteur.ePayment}}" placeholder="Identifiant ePaiement" oninput="this.className = ''"></p>
+                        <p><input name="ePayment" value="{{traducteur.ePayment}}" placeholder="{{_('Identifiant ePaiement')}}" oninput="this.className = ''"></p>
                     </div>
                 </div>   
             </div>
             
-            <div class="tab"><b>Identité</b>
+            <div class="tab"><b>{{_('Identité')}}</b>
                 <div class="row">
                     <div class="col-sm-6">                
                         <p>
-                            <label for="id_card"><b>Carte Identité/Passeport (1mo max) </b>
-                                <i><a href="{{traducteur.id_card}}" download="pièce jointe" target="_blank">pièce jointe</a></i>
+                            <label for="id_card"><b>{{_('Carte Identité/Passeport (1mo max)')}} </b>
+                                <i><a href="{{traducteur.id_card}}" download="pièce jointe" target="_blank">{{_('pièce jointe')}}</a></i>
                             </label>
                             <input type="file" accept="image/*" name="id_card" onchange="this.className = ''">
                         </p>
                         <p>
-                            <label for="diploma"><b>Diplomes obtenus (.pdf, 1mo max) </b>
-                                <i><a href="{{traducteur.diploma}}" download="pièce jointe" target="_blank">pièce jointe</a></i>
+                            <label for="diploma"><b>{{_('Diplomes obtenus (.pdf, 1mo max)')}} </b>
+                                <i><a href="{{traducteur.diploma}}" download="pièce jointe" target="_blank">{{_('pièce jointe')}}</a></i>
                             </label>
                             <input type="file" name="diploma" accept=".pdf" onchange="this.className = ''">
                         </p>
@@ -218,18 +218,18 @@
                                 {% endfor %}
                             </select>
                         </p>
-                        <label for="about_me"><b>Bio (pas de contact personnel, 3 lignes max) </b></label>               
+                        <label for="about_me"><b>{{_('Bio (pas de contact personnel, 3 lignes max)')}} </b></label>               
                         <textarea name="about_me" required="true" cols="50" class="w-100" oninput="this.className = ''">
                             {{traducteur.about_me}}
                         </textarea>
                     </div>
                 </div>
             </div>
-            <div class="tab"><b>Testeur</b>
+            <div class="tab"><b>{{_('Testeur')}}</b>
                 <div class="row">
                     <div class="col-sm-6"> 
-                        <p class="testeur">Veuillez selectionner un testeur qui vous passera le test d'attitude pour devenir traducteur chez 
-                            Traducteur sur Rendez-vous quand vous aurez payé les frais d'abonnement annuel</p>
+                        <p class="testeur">{{_("Veuillez selectionner un testeur qui vous passera le test d'attitude pour devenir traducteur chez 
+                            Traducteur sur Rendez-vous quand vous aurez payé les frais d'abonnement annuel")}}</p>
                         <select name="testeur_id" required="true" id="testeur_select_form" onchange="this.className = ''; getTesteur()">
                             <option value=''>{{_('Chosissez un testeur')}}</option>
                             {% for testeur in testeurs %}
@@ -245,7 +245,7 @@
                     </div>
                     <div class="col-sm-6">
                         <center>
-                            <img id="testeur_avatar" src="{{deal.friend.avatar}}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;"> 
+                            <img id="testeur_avatar" src="{{url_for('static', filename=deal.friend.avatar)}}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;"> 
                         </center> 
                         <p class="mt-3" id="testeur_about_me"></p>
                         <p><strong>{{_("Points d'expérience sur TRADRDV:")}} </strong><small class="h6" id="testeur_success_work"></small></p>
@@ -270,8 +270,8 @@
             
             <div style="overflow:auto;">
                 <div style="float:right;">
-                    <button type="button" id="prevBtn" class="btn-primary btn-perso" onclick="nextPrev(-1)">Précédent</button>
-                    <button type="button" id="nextBtn" class="btn-primary btn-perso" onclick="nextPrev(1)">Suivant</button>
+                    <button type="button" id="prevBtn" class="btn-primary btn-perso" onclick="nextPrev(-1)">{{_('Précédent')}}</button>
+                    <button type="button" id="nextBtn" class="btn-primary btn-perso" onclick="nextPrev(1)">{{_('Suivant')}}</button>
                 </div>
             </div>
             

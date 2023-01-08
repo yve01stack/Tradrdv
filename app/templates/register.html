@@ -16,49 +16,49 @@
                                 {% for error in form.username.errors %}
                                 <span class="text-danger">[{{ error }}]</span>
                                 {% endfor %} 
-                                {{ form.username(size=12, placeholder="Nom d'utilisateur", id="text") }}                           
+                                {{ form.username(size=12, placeholder=_('Nom d\'utilisateur'), id="text") }}                           
                             </div>
                             <div class="input-field">
                                 {{ form.fullname.label }}
                                 {% for error in form.fullname.errors %}
                                 <span class="text-danger">[{{ error }}]</span>
                                 {% endfor %} 
-                                {{ form.fullname(size=32, placeholder=_("Nom et prénom"), id="text") }}                           
+                                {{ form.fullname(size=32, placeholder=_('Nom et prénom'), id="text") }}                           
                             </div>
                             <div class="input-field">
                                 {{ form.email.label }}
                                 {% for error in form.email.errors %}
                                 <span class="text-danger">[{{ error }}]</span>
                                 {% endfor %} 
-                                {{ form.email(size=100, placeholder="E-mail", id="email") }}                           
+                                {{ form.email(size=100, placeholder=_('E-mail'), id="email") }}                           
                             </div>
                             <div class="input-field">
                                 {{ form.password.label }}
                                 {% for error in form.password.errors %}
                                 <span class="text-danger">[{{ error }}]</span>
                                 {% endfor %}
-                                {{ form.password(size=32, id="Password", placeholder="Mot de passe") }}
+                                {{ form.password(size=32, id="Password", placeholder=_('Mot de passe')) }}
                             </div>
                             <div class="input-field">
                                 {{ form.password2.label }}
                                 {% for error in form.password2.errors %}
                                 <span class="text-danger">[{{ error }}]</span>
                                 {% endfor %}
-                                {{ form.password2(size=32, id="password", placeholder="Confirmer le mot de passe") }}
+                                {{ form.password2(size=32, id="password", placeholder=_('Confirmer le mot de passe')) }}
                             </div>
                         </div>
                         {{ form.submit(class="btn-style") }}
                     </form>
                 </div>
                 <div class="info-grids col-md-6 social-login-details align-self">
-                    <p class="text-center mb-3">Ou inscrivez-vous avec</p>
+                    <p class="text-center mb-3">{{_('Ou inscrivez-vous avec')}}</p>
                     <div class="social-media">
-                        <a href="#facebook" class="fb"><i class="fa fa-facebook pr-2" aria-hidden="true"></i> S'inscrire avec Facebook</a>
+                        <a href="#facebook" class="fb"><i class="fa fa-facebook pr-2" aria-hidden="true"></i> {{_("S'inscrire avec Facebook")}}</a>
                         <a href="{{ url_for('google_login', _external=True) }}" class="gl">
-                            <i class="fa fa-google pr-2" aria-hidden="true"></i> S'inscrire avec Google
+                            <i class="fa fa-google pr-2" aria-hidden="true"></i> {{_("S'inscrire avec Google")}}
                         </a>
                     </div>
-                    <p class="text-center mt-4">J'ai un compte ? <a href="{{ url_for('login', _external=True) }}">Connectez-vous</a> ici</p>
+                    <p class="text-center mt-4">{{_("J'ai un compte ?")}} <a href="{{ url_for('login', _external=True) }}">{{_('Connectez-vous')}}</a> {{_('ici')}}</p>
                 </div>
             </div>
             <!-- //main content -->        

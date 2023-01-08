@@ -9,12 +9,12 @@
                 <div class="row">
                     <div class="col-3">
                       <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">Dashboard</a>
-                        <a class="nav-link" id="v-pills-clients-tab" data-toggle="pill" href="#v-pills-clients" role="tab" aria-controls="v-pills-clients" aria-selected="false">Clients</a>
-                        <a class="nav-link" id="v-pills-traducteurs-tab" data-toggle="pill" href="#v-pills-traducteurs" role="tab" aria-controls="v-pills-traducteurs" aria-selected="false">Traducteurs</a>
-                        <a class="nav-link" id="v-pills-booster-tab" data-toggle="pill" href="#v-pills-booster" role="tab" aria-controls="v-pills-booster" aria-selected="false">Booster</a>
-                        <a class="nav-link" id="v-pills-messagerie-tab" data-toggle="pill" href="#v-pills-messagerie" role="tab" aria-controls="v-pills-messagerie" aria-selected="false">Messagerie</a>
-                        <a class="nav-link" id="v-pills-accord-tab" data-toggle="pill" href="#v-pills-accord" role="tab" aria-controls="v-pills-accord" aria-selected="false">Accords</a>
+                        <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">{{_('Dashboard')}}</a>
+                        <a class="nav-link" id="v-pills-clients-tab" data-toggle="pill" href="#v-pills-clients" role="tab" aria-controls="v-pills-clients" aria-selected="false">{{_('Clients')}}</a>
+                        <a class="nav-link" id="v-pills-traducteurs-tab" data-toggle="pill" href="#v-pills-traducteurs" role="tab" aria-controls="v-pills-traducteurs" aria-selected="false">{{_('Traducteurs')}}</a>
+                        <a class="nav-link" id="v-pills-booster-tab" data-toggle="pill" href="#v-pills-booster" role="tab" aria-controls="v-pills-booster" aria-selected="false">{{_('Booster')}}</a>
+                        <a class="nav-link" id="v-pills-messagerie-tab" data-toggle="pill" href="#v-pills-messagerie" role="tab" aria-controls="v-pills-messagerie" aria-selected="false">{{_('Messagerie')}}</a>
+                        <a class="nav-link" id="v-pills-accord-tab" data-toggle="pill" href="#v-pills-accord" role="tab" aria-controls="v-pills-accord" aria-selected="false">{{_('Accords')}}</a>
                       </div>
                     </div>
                     <div class="col-9">
@@ -24,7 +24,7 @@
                           <section id="minimal-statistics">
                             <div class="row">
                               <div class="col-12 mt-3 mb-1">
-                                <h4 class="text-uppercase">Statistiques Dashboard</h4>
+                                <h4 class="text-uppercase">{{_('Statistiques Dashboard')}}</h4>
                               </div>
                             </div>
                             <div class="row">
@@ -34,7 +34,7 @@
                                     <i class="fa fa-user text-primary" ></i><h4 class="float-right">{{number_client}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h4>Clients</h4>
+                                    <h4>{{_('Clients')}}</h4>
                                   </div>
                                 </div>
                               </div>
@@ -44,7 +44,7 @@
                                     <i class="fa fa-user text-warning" ></i><h4 class="float-right">{{number_traducteur}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h4>Traducteurs</h4>
+                                    <h4>{{_('Traducteurs')}}</h4>
                                   </div>
                                 </div>
                               </div>
@@ -54,7 +54,7 @@
                                     <i class="fa fa-user text-success" ></i><h4 class="float-right">{{number_testeur}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h4>Testeurs</h4>
+                                    <h4>{{_('Testeurs')}}</h4>
                                   </div>
                                 </div>
                               </div>
@@ -64,7 +64,7 @@
                                     <i class="fa fa-user text-danger" ></i><h4 class="float-right">{{number_admin}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h4>Admins</h4>
+                                    <h4>{{_('Admins')}}</h4>
                                   </div>
                                 </div>
                               </div>
@@ -77,7 +77,7 @@
                                     <i class="fa fa-tag text-danger" ></i><h4 class="float-right">{{number_dr}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Accords Rejetés</h6>
+                                    <h6>{{_('Accords Rejetés')}}</h6>
                                   </div>
                                 </div>
                               </div>
@@ -87,7 +87,7 @@
                                     <i class="fa fa-rocket text-success" ></i><h4 class="float-right">{{number_dp}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Accords en Cours</h6>
+                                    <h6>{{_('Accords en Cours')}}</h6>
                                   </div>
                                 </div>
                               </div>
@@ -97,7 +97,7 @@
                                     <i class="fa fa-cubes text-warning" ></i><h4 class="float-right">{{number_dcb}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Paiement Reçu</h6>
+                                    <h6>{{_('Paiement Reçu')}}</h6>
                                   </div>
                                 </div>
                               </div>
@@ -107,7 +107,7 @@
                                     <i class="fa fa-archive text-primary" ></i><h4 class="float-right">{{number_do}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Accords Terminés</h6>
+                                    <h6>{{_('Accords Terminés')}}</h6>
                                   </div>
                                 </div>
                               </div>
@@ -120,7 +120,7 @@
                                     <i class="fa fa-area-chart text-primary" ></i><h4 class="float-right">{{dashbord_last_month.accueil_view}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Page Acceuil</h6>
+                                    <h6>{{_('Page Acceuil')}}</h6>
                                     <div class="progress mt-1 mb-0" style="height: 7px;">
                                       <div class="progress-bar bg-primary" role="progressbar" style="width: {% print((dashbord_this_month.accueil_view*100)/(dashbord_last_month.accueil_view+1)) %}%" 
                                         aria-valuenow="{% print((dashbord_this_month.accueil_view*100)/(dashbord_last_month.accueil_view+1)) %}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -134,7 +134,7 @@
                                     <i class="fa fa-area-chart text-warning" ></i><h4 class="float-right">{{dashbord_last_month.traducteur_view}}</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Page Traducteur</h6>
+                                    <h6>{{_('Page Traducteur')}}</h6>
                                     <div class="progress mt-1 mb-0" style="height: 7px;">
                                       <div class="progress-bar bg-warning" role="progressbar" style="width: {% print((dashbord_this_month.traducteur_view*100)/(dashbord_last_month.traducteur_view+1)) %}%" 
                                         aria-valuenow="{% print((dashbord_this_month.traducteur_view*100)/(dashbord_last_month.traducteur_view+1)) %}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -148,7 +148,7 @@
                           <section id="stats-subtitle">
                             <div class="row">
                               <div class="col-12 mt-3 mb-1">
-                                <h4 class="text-uppercase">Statistiques CA</h4>
+                                <h4 class="text-uppercase">{{_('Statistiques CA')}}</h4>
                               </div>
                             </div>
                 
@@ -159,8 +159,8 @@
                                     <i class="fa fa-credit-card text-warning"></i><h4 class="float-right">{{dashbord_this_month.revenu_abon}}Da</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Abonnement Client</h6>
-                                    <small>Mois dernier {{dashbord_last_month.revenu_abon}}Da</small>
+                                    <h6>{{_('Abonnement Client')}}</h6>
+                                    <small>{{_('Mois dernier %(amount)sDa', amount=dashbord_last_month.revenu_abon)}}</small>
                                   </div>
                                 </div>
                               </div>
@@ -170,8 +170,8 @@
                                     <i class="fa fa-credit-card text-warning"></i><h4 class="float-right">{{dashbord_this_month.revenu_test}}Da</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Abonnement Traducteur</h6>
-                                    <small>Mois dernier {{dashbord_last_month.revenu_test}}Da</small>
+                                    <h6>{{_('Abonnement Traducteur')}}</h6>
+                                    <small>{{_('Mois dernier %(amount)sDa', amount=dashbord_last_month.revenu_test)}}</small>
                                   </div>
                                 </div>
                               </div>
@@ -181,8 +181,8 @@
                                     <i class="fa fa-credit-card text-warning"></i><h4 class="float-right">{{dashbord_this_month.revenu_work}}Da</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Traveaux Réalisés</h6>
-                                    <small>Mois dernier {{dashbord_last_month.revenu_work}}Da</small>
+                                    <h6>{{_('Traveaux Réalisés')}}</h6>
+                                    <small>{{_('Mois dernier %(amount)sDa', amount=dashbord_last_month.revenu_work)}}</small>
                                   </div>
                                 </div>
                               </div>
@@ -195,8 +195,8 @@
                                     <i class="fa fa-money text-danger"></i><h4 class="float-right">{{dashbord_this_month.freelance_part}}Da</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Part des Freelances</h6>
-                                    <small>Mois dernier {{dashbord_last_month.freelance_part}}Da</small>
+                                    <h6>{{_('Part des Freelances')}}</h6>
+                                    <small>{{_('Mois dernier %(amount)sDa', amount=dashbord_last_month.freelance_part)}}</small>
                                   </div>
                                 </div>
                               </div>
@@ -206,8 +206,8 @@
                                     <i class="fa fa-money text-warning"></i><h4 class="float-right">{{dashbord_this_month.donation_save}}Da</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Donation 2%</h6>
-                                    <small>Mois dernier {{dashbord_last_month.donation_save}}Da</small>
+                                    <h6>{{_('Donation 2%(percent)s', percent='%')}}</h6>
+                                    <small>{{_('Mois dernier %(amount)sDa', amount=dashbord_last_month.donation_save)}}</small>
                                   </div>
                                 </div>
                               </div>
@@ -217,8 +217,8 @@
                                     <i class="fa fa-money text-primary"></i><h4 class="float-right">{{dashbord_this_month.impot_save}}Da</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>Impôt 5%</h6>
-                                    <small>Mois dernier {{dashbord_last_month.impot_save}}Da</small>
+                                    <h6>{{_('Impôt 5%(percent)s', percent='%')}}</h6>
+                                    <small>{{_('Mois dernier %(amount)sDa', amount=dashbord_last_month.impot_save)}}</small>
                                   </div>
                                 </div>
                               </div>
@@ -228,8 +228,8 @@
                                     <i class="fa fa-money text-success"></i><h4 class="float-right">{{dashbord_this_month.revenu_total}}Da</h4>
                                   </div>
                                   <div class="wrimagecard-topimage_title">
-                                    <h6>CA Total</h6>
-                                    <small>Mois dernier {{dashbord_last_month.revenu_total}}Da</small>
+                                    <h6>{{_('CA Total')}}</h6>
+                                    <small>{{_('Mois dernier %(amount)sDa', amount=dashbord_last_month.revenu_total)}}</small>
                                   </div>
                                 </div>
                               </div>
@@ -263,7 +263,7 @@
                              <div class="col-md-6">
                               <form action="" class="contact-box shadow-sm bg-white" style="height: 588px;">
                                 <div class="form-container">
-                                  <div class="contact-head text-center"><h3>Profil</h3></div>
+                                  <div class="contact-head text-center"><h3>{{_('Profil')}}</h3></div>
                                     <div class="p-3">
                                       <div class="row">
                                         <div class="col-sm-6 col-12">
@@ -272,7 +272,7 @@
                                               <i class="fa fa-credit-card text-primary" ></i><h4 class="float-right client_revenu">...</h4>
                                             </div>
                                             <div class="wrimagecard-topimage_title">
-                                              <h6>Revenu</h6>
+                                              <h6>{{_('Revenu')}}</h6>
                                             </div>
                                           </div>
                                         </div>
@@ -289,7 +289,7 @@
                                       </div>
                                       <div class="row m-2 d-block">
                                         <p class="d-block">
-                                          <img class="client_avatar" src="{{ config['COVER_PICTURE'] }}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;">
+                                          <img class="client_avatar" src="{{url_for('static', filename=config['COVER_PICTURE'])}}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;">
                                         </p>
                                         <div><strong>{{_('Nom complet:')}}</strong> <i class="client_fullname">...</i></div>
                                         <div><strong>{{_('E-mail:')}}</strong> <i class="client_email">...</i></div>
@@ -312,7 +312,7 @@
                             <div class="col-md-6 mb-3">
                                  <div class="contact-box shadow-sm bg-white">
                                     <div class="contact-head text-center">
-                                      <input type="text" placeholder="Pseudo" id="search_traducteur">
+                                      <input type="text" placeholder="{{_('Pseudo')}}" id="search_traducteur">
                                     </div>
                                     <div class="" style="height: 533px; overflow: auto;" id="traducteurs_find">
                                       {% for traducteur in traducteurs %}
@@ -330,7 +330,7 @@
                              <div class="col-md-6">
                               <div action="" class="contact-box shadow-sm bg-white">
                                 <div class="form-container"  style="height: 588px; overflow: auto;">
-                                  <div class="contact-head text-center"><h3>Profil</h3></div>
+                                  <div class="contact-head text-center"><h3>{{_('Profil')}}</h3></div>
                                     <div class="p-3">
                                       <div class="row">
                                         <div class="col-sm-6 col-12">
@@ -339,7 +339,7 @@
                                               <i class="fa fa-credit-card text-primary" ></i><h4 class="float-right traducteur_revenu">...</h4>
                                             </div>
                                             <div class="wrimagecard-topimage_title">
-                                              <h6>Revenu</h6>
+                                              <h6>{{_('Revenu')}}</h6>
                                             </div>
                                           </div>
                                         </div>
@@ -348,13 +348,13 @@
                                             <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
                                               <i class="fa fa-hourglass-2 text-warning" ></i><h4 class="float-right traducteur_remain_day">...</h4>
                                             </div>
-                                            <div class="wrimagecard-topimage_title"><h6>Jour restant</h6></div>
+                                            <div class="wrimagecard-topimage_title"><h6>{{_('Jour restant')}}</h6></div>
                                           </div>
                                         </div>
                                       </div>
                                       <div class="row m-2 d-block">
                                         <p class="d-block">
-                                          <img class="traducteur_avatar" src="{{ config['COVER_PICTURE'] }}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;">
+                                          <img class="traducteur_avatar" src="{{url_for('static', filename=config['COVER_PICTURE'])}}" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #eee;">
                                         </p>
                                         <div><strong>{{_('Nom complet:')}}</strong> <i class="traducteur_fullname">...</i></div>
                                         <div><strong>{{_('E-mail:')}}</strong> <i class="traducteur_email">...</i></div>
@@ -383,8 +383,8 @@
                                         </form>
                                       </div>
                                       <div class="d-inline">
-                                        <a type="button" target="_blank" href="" class="btn btn-primary login_traducteur_url" onclick="alert('Vous êtes sur le point de vous connecter sur ce compte')">Connecter</a>
-                                        <button type="submit" class="btn-perso" form="traducteur_payment">Payer</button>
+                                        <a type="button" target="_blank" href="" class="btn btn-primary login_traducteur_url" onclick="alert('Vous êtes sur le point de vous connecter sur ce compte')">{{_('Connecter')}}</a>
+                                        <button type="submit" class="btn-perso" form="traducteur_payment">{{_('Payer')}}</button>
                                       </div>
                                   </div>
                                 </div>
@@ -405,7 +405,7 @@
                                 <div class="wrimagecard-topimage_title">
                                   <h4>
                                     <form action="{{ url_for('admin_boost', trad_id=trad.id, _external=True) }}" method="post" class="form-container tradBooster">
-                                      <label class="checkbox_container">Booster
+                                      <label class="checkbox_container">{{_('Booster')}}
                                         <input type="checkbox" {% if trad.need_help_ad=='on' %} checked="checked" {% endif %} onchange="tradBooster(this)">
                                         <span class="checkmark"></span>
                                       </label>
@@ -422,7 +422,7 @@
                           <div class="row">
                             <div class="col-md-6 mb-3">
                                  <div class="contact-box shadow-sm bg-white">
-                                     <div class="contact-head text-center"><h3>Message</h3></div>
+                                     <div class="contact-head text-center"><h3>{{_('Message')}}</h3></div>
                                      <div class="contact-nav shadow-sm bg-white">
                                          <strong>
                                              <i type="button" class="fa fa-envelope text-center contact-tab" 
@@ -453,7 +453,7 @@
                              <div class="col-md-6">
                               <form action="{{ url_for('send_newsletter', _external=True) }}" class="contact-box shadow-sm bg-white" style="height: 588px;">
                                 <div class="form-container">
-                                  <div class="contact-head text-center"><h3>Newsletter</h3></div>
+                                  <div class="contact-head text-center"><h3>{{_('Newsletter')}}</h3></div>
                                   <div class="p-3">
                                       <select name="group" required class="m-0 mt-1">
                                           <option value=''>{{_('Groupe')}}</option>
@@ -463,7 +463,7 @@
                                       </select>
                                       <input type="link" placeholder="http://www.tradrdv.com/about_us" name="url" required>
                                       <input type="text" placeholder="Subject" name="subject" required>
-                                      <textarea name="message">Message..</textarea>
+                                      <textarea name="message">{{_('Message..')}}</textarea>
                                       <button type="submit" form="update-profile" class="btn btn-primary">{{_('Envoyer')}}</button>
                                   </div>
                                 </div>
@@ -476,16 +476,16 @@
                             <!-- Tabs for Deals -->
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                               <li class="nav-item">
-                                <a class="nav-link active" id="pills-progress-tab" data-toggle="pill" href="#pills-progress" role="tab" aria-controls="pills-progress" aria-selected="true">En cours</a>
+                                <a class="nav-link active" id="pills-progress-tab" data-toggle="pill" href="#pills-progress" role="tab" aria-controls="pills-progress" aria-selected="true">{{_('En cours')}}</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" id="pills-bill-tab" data-toggle="pill" href="#pills-bill" role="tab" aria-controls="pills-bill" aria-selected="false">Paiement reçu</a>
+                                <a class="nav-link" id="pills-bill-tab" data-toggle="pill" href="#pills-bill" role="tab" aria-controls="pills-bill" aria-selected="false">{{_('Paiement reçu')}}</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" id="pills-reject-tab" data-toggle="pill" href="#pills-reject" role="tab" aria-controls="pills-reject" aria-selected="false">Rejetés</a>
+                                <a class="nav-link" id="pills-reject-tab" data-toggle="pill" href="#pills-reject" role="tab" aria-controls="pills-reject" aria-selected="false">{{_('Rejetés')}}</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" id="pills-over-tab" data-toggle="pill" href="#pills-over" role="tab" aria-controls="pills-over" aria-selected="false">Terminés</a>
+                                <a class="nav-link" id="pills-over-tab" data-toggle="pill" href="#pills-over" role="tab" aria-controls="pills-over" aria-selected="false">{{_('Terminés')}}</a>
                               </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
@@ -505,7 +505,7 @@
                                       <tr>
                                           <td class="invert-image" rowspan="2">                                         
                                               <a>
-                                                  <img src="{{ deal.author.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                                  <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
                                               </a>
                                           </td>
                                           <td class="invert">{{deal.motif}}</td>
@@ -542,20 +542,20 @@
                                 <div class="modal-dialog modal-dialog-aside" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Notez le travail</h5>
+                                      <h5 class="modal-title">{{_('Notez le travail')}}</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><strong>motif: </strong><i class="motif"></i></p>
-                                        <p><strong>Coût: </strong><i class="amount"></i></p>
-                                        <p><strong>Client: </strong><i class="username"></i></p>
-                                        <p><strong>Prestateur: </strong><i class="pre_username"></i></p>
-                                        <p><strong>Type de paiement: </strong><i class="payment_way"></i></p>
+                                        <p><strong>{{_('motif:')}} </strong><i class="motif"></i></p>
+                                        <p><strong>{{_('Coût:')}} </strong><i class="amount"></i></p>
+                                        <p><strong>{{_('Client:')}} </strong><i class="username"></i></p>
+                                        <p><strong>{{_('Prestateur:')}} </strong><i class="pre_username"></i></p>
+                                        <p><strong>{{_('Type de paiement:')}} </strong><i class="payment_way"></i></p>
                                         
                                         <form class="form-container" method="post" action="{{ url_for('submit_checked_work', _external=True) }}" enctype="multipart/form-data" id="dealView">
-                                            <p>Joindre la version finale du travail
+                                            <p>{{_('Joindre la version finale du travail')}}
                                                 <input type="file" required accept=".pdf" class="mt-2" name="checked_work">
                                                 <input class="deal_id" name="deal_id" required type="hidden">
                                             </p>
@@ -576,7 +576,7 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                      <button type="submit" form="dealView" class="btn-perso">Enregistrer</button>
+                                      <button type="submit" form="dealView" class="btn-perso">{{_('Enregistrer')}}</button>
                                     </div>
                                   </div>
                                 </div> <!-- modal-bialog .// -->
@@ -598,7 +598,7 @@
                                       <tr>
                                           <td class="invert-image" rowspan="2">                                         
                                               <a>
-                                                  <img src="{{ deal.author.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                                  <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
                                               </a>
                                           </td>
                                           <td class="invert">{{deal.motif}}</td>
@@ -646,7 +646,7 @@
                                       <tr>
                                           <td class="invert-image" rowspan="2">                                         
                                               <a>
-                                                  <img src="{{ deal.author.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                                  <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
                                               </a>
                                           </td>
                                           <td class="invert">{{deal.motif}}</td>
@@ -669,7 +669,7 @@
                                                 {% endfor %}
                                               </select>
                                               <input name="deal_id" value="{{deal.id}}" required type="hidden">
-                                              <button type="submit">ok</button>
+                                              <button type="submit">{{_('ok')}}</button>
                                             </form>
                                             
                                           </td>      
@@ -694,7 +694,7 @@
                                       <tr>
                                           <td class="invert-image" rowspan="2">                                         
                                               <a>
-                                                  <img src="{{ deal.author.avatar }}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                                  <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
                                               </a>
                                           </td>
                                           <td class="invert">{{deal.motif}}</td>

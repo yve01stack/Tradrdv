@@ -53,13 +53,13 @@
             <div class="top-header d-none d-sm-flex justify-content-between align-items-center">
                 <div class="contact">
                     <a href="tel:{{config['CALL_CONTACT']}}" class="tel"><i class="fa fa-phone" aria-hidden="true"></i>{{config["CALL_CONTACT"]}}</a>
-                    <a href="mailto:{{config['MAIL_CONTACT']}}"><i class="fa fa-envelope" aria-hidden="true"></i>contactez-nous</a>
+                    <a href="mailto:{{config['MAIL_CONTACT']}}"><i class="fa fa-envelope" aria-hidden="true"></i>{{_('contactez-nous')}}</a>
                 </div>
                 <nav class="d-flex aic">
                     {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('logout', _external=True) }}" class="login"><i class="fa fa-sign-out" aria-hidden="true"></i>Se déconnecter</a>
+                    <a href="{{ url_for('logout', _external=True) }}" class="login"><i class="fa fa-sign-out" aria-hidden="true"></i>{{_('Se déconnecter')}}</a>
                     {% else %}
-                    <a href="{{ url_for('login', _external=True) }}" class="login"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion</a>
+                    <a href="{{ url_for('login', _external=True) }}" class="login"><i class="fa fa-sign-in" aria-hidden="true"></i>{{_('Connexion')}}</a>
                     {% endif %}
                     <ul class="nav social d-none d-md-flex">
                         <li><a href="https://www.facebook.com/tradrdv" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -87,27 +87,27 @@
                 <a class="search-icon d-none d-md-block" href="#"><i class="fa fa-search"></i></a>
                 <div class="collaps d-none navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('accueil', _external=True) }}">Accueil</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('about_us', _external=True) }}">À Propos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('news', _external=True) }}">News</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('traducteur', _external=True) }}">Traducteurs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('accueil', _external=True) }}">{{_('Accueil')}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('about_us', _external=True) }}">{{_('À Propos')}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('news', _external=True) }}">{{_('News')}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('traducteur', _external=True) }}">{{_('Traducteurs')}}</a></li>
                         {% if current_user.is_authenticated %}
                         {% if current_user.statut == 'admin' %}
-                            <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_panel', _external=True) }}">Admin</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_panel', _external=True) }}">{{_('Admin')}}</a></li>
                         {% elif current_user.statut == 'testeur' %}
-                            <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">Gestion</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">{{_('Gestion')}}</a></li>
                         {% elif current_user.statut == 'traducteur' %}
-                            <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">Gestion</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">{{_('Gestion')}}</a></li>
                         {% endif %}
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact_us', _external=True) }}">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact_us', _external=True) }}">{{_('Contact')}}</a></li>
                     </ul>
                     <form class="bg-white search-form" method="get" id="searchform" action="{{ url_for('search_trad', _external=True) }}">
                         <div class="input-group">
-                            <input class="field form-control" required id="s" name="q" type="text" placeholder="Pseudo du traducteur">
+                            <input class="field form-control" required id="s" name="q" type="text" placeholder="{{_('Pseudo du traducteur')}}">
                             <span class="input-group-btn">
                                 <input class="submit btn btn-primary" id="searchsubmit" type="submit"
-                                    value="Rechercher">
+                                    value="{{_('Rechercher')}}">
                             </span>
                         </div>
                     </form>
@@ -163,21 +163,21 @@
                             <div class="media">
                                 <i class="fa fa-envelope-o"></i>
                                 <div class="media-body ml-3">
-                                    <h6>Avez-vous des questions?</h6>
-                                    <a href="mailto:{{ config['MAIL_CONTACT']}}">contactez-nous</a>
+                                    <h6>{{_('Avez-vous des questions?')}}</h6>
+                                    <a href="mailto:{{ config['MAIL_CONTACT']}}">{{_('contactez-nous')}}</a>
                                 </div>
                             </div>
                             <div class="media">
                                 <i class="fa fa-phone"></i>
                                 <div class="media-body ml-3">
-                                    <h6>Appelez-nous</h6>
+                                    <h6>{{_('Appelez-nous')}}</h6>
                                     <a href="tel:{{ config['CALL_CONTACT']}}"> {{ config['CALL_CONTACT']}}</a>
                                 </div>
                             </div>
                             <div class="media">
                                 <i class="fa fa-fax"></i>
                                 <div class="media-body ml-3">
-                                    <h6>Fax</h6>
+                                    <h6>{{_('Fax')}}</h6>
                                     <a href="fax:{{ config['FAX_CONTACT']}}">{{ config['FAX_CONTACT']}}</a>
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                     </div>
                     <div class="col-sm-6 col-lg-4">
                         <div class="single-widget recent-post-widget" data-aos="fade-up" data-aos-delay="400">
-                            <h6 class="widget-tiltle">DERNIERS NEWS</h6>
+                            <h6 class="widget-tiltle">{{_('DERNIERS NEWS')}}</h6>
                             <div class="media">
                                 <a class="rcnt-img" href="#"><img src="{{ url_for('static', filename='assets/images/dev/rcnt-post1.png')}}"
                                         alt="Recent Post"></a>
@@ -222,26 +222,26 @@
                     </div>
                     <div class="col-sm-12 col-lg-4">
                         <div class="single-widget tags-widget" data-aos="fade-up" data-aos-delay="800">
-                            <h6 class="widget-tiltle">LIENS UTILES</h6>
-                            <a href="{{ url_for('traducteur', _external=True) }}">Traducteurs</a>
-                            <a href="{{ url_for('news', _external=True) }}">News</a>
-                            <a href="{{ url_for('contact_us', _external=True) }}">Nous contacter</a>
-                            <a href="{{ url_for('about_us', _external=True) }}">À Propos</a>
-                            <a href="{{ url_for('accueil', _external=True) }}">Accueil</a>
+                            <h6 class="widget-tiltle">{{_('LIENS UTILES')}}</h6>
+                            <a href="{{ url_for('traducteur', _external=True) }}">{{_('Traducteurs')}}</a>
+                            <a href="{{ url_for('news', _external=True) }}">{{_('News')}}</a>
+                            <a href="{{ url_for('contact_us', _external=True) }}">{{_('Nous contacter')}}</a>
+                            <a href="{{ url_for('about_us', _external=True) }}">{{_('À Propos')}}</a>
+                            <a href="{{ url_for('accueil', _external=True) }}">{{_('Accueil')}}</a>
                         </div><br>
                         <div class="single-widget subscribe-widget" id="newsletter" data-aos="fade-up" data-aos-delay="800">
-                            <h6 class="widget-tiltle">Souscrivez-vous</h6>
-                            <p class="mt-n3">Inscrivez-vous à notre liste de diffusion pour recevoir les dernières mises à jour et offres</p>
+                            <h6 class="widget-tiltle">{{_('Souscrivez-vous')}}</h6>
+                            <p class="mt-n3">{{_('Inscrivez-vous à notre liste de diffusion pour recevoir les dernières mises à jour et offres')}}</p>
                             <form action="{{ url_for('newsletter_add', _external=True) }}" class="" method="post">
                                 <div class="input-group">
                                     <input class="field form-control" name="subscribe" type="email"
-                                        placeholder="Adresse Email">
+                                        placeholder="{{_('Adresse Email')}}">
                                     <span class="input-group-btn">
                                         <button type="submit" name="submit-mail"><i class="fa fa-check"></i></button>
                                     </span>
                                 </div>
                             </form>
-                            <p>Nous respectons votre vie privée</p>
+                            <p>{{_('Nous respectons votre vie privée')}}</p>
                             <ul class="nav social-nav">
                                 <li><a href="https://www.facebook.com/tradrdv" target="_blank"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="https://www.instagram.com/traducteurssurrendezvous/"><i class="fa fa-instagram"></i></a></li>
@@ -264,8 +264,8 @@
                         <a href="mailto:yvestack01c@gmail.com" class="fh5-link">Yvestack01c | FreeHTML5.co.</a>
                     </p>
                     <p class="mb-0" data-aos="fade-left" data-aos-offset="0">
-                        <a href="{{ url_for('terms', _external=True) }}">Conditions d'utilisation</a>
-                        <a href="#">Confidentialité et de sécurité</a>
+                        <a href="{{ url_for('terms', _external=True) }}">{{_("Conditions d'utilisation")}}</a>
+                        <a href="#">{{_('Confidentialité et de sécurité')}}</a>
                     </p>
                 </div>
             </div>

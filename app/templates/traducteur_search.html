@@ -9,7 +9,7 @@
                 <!-- Filter -->
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="term-collapse p-0">
-                            <button type="button" class="collapsible">Filtre</button>
+                            <button type="button" class="collapsible">{{_('Filtre')}}</button>
                             <div class="collapsible-content w-100 p-0">
                                 <form class="form-container" method="post" action="{{ url_for('filter_trad', _external=True) }}">
                                     <p>
@@ -42,19 +42,19 @@
                                         </select>
                                     </p>
                                     <p>
-                                        <input name="success_work" required placeholder="Nombre de succès" type="number" class="m-0">
+                                        <input name="success_work" required placeholder="{{_('Points d\'expérience sur TRADRDV')}}" type="number" class="m-0">
                                     </p>
                                     <p>
-                                        <label class="checkbox_container">Disponible
+                                        <label class="checkbox_container">{{_('Disponible')}}
                                             <input type="checkbox" name="dispo">
                                             <span class="checkmark"></span>
                                           </label>
-                                          <label class="checkbox_container">Accepte abonné(e)
+                                          <label class="checkbox_container">{{_('Accepte abonné(e)')}}
                                             <input type="checkbox" name="accept_subscriber">
                                             <span class="checkmark"></span>
                                         </label>
                                     </p>
-                                    <p>Points étoiles
+                                    <p>{{_('Points étoiles')}}
                                         <div class="rate mt-n3"> 
                                             <input type="radio" id="star5" name="rate" value="5" />
                                             <label for="star5" title="text">5 stars</label>
@@ -69,7 +69,7 @@
                                         </div>
                                     </p>
                                     <p>_</p>
-                                    <button type="submit" class="btn-perso">Filtrer</button>
+                                    <button type="submit" class="btn-perso">{{_('Filtrer')}}</button>
                                 </form>
                             </div>
                     </div>
@@ -77,7 +77,7 @@
                 <!-- Traducteurs -->
                 <div class="col-12 col-sm-6 col-md-8 col-lg-9">
                     <div class="container">
-                        <h3 class="title-big text-center mb-sm-5 mb-4">Traducteurs</h3>
+                        <h3 class="title-big text-center mb-sm-5 mb-4">{{_('Traducteurs')}}</h3>
                     </div>
                     <div class="container">
                         <div class="row">
@@ -86,7 +86,7 @@
                                 <div class="flip-card">
                                     <div class="flip-card-inner">
                                         <div class="flip-card-front">
-                                            <img src="{{traducteur.Traducteur.author.avatar}}" alt="Avatar">
+                                            <img src="{{url_for('static', filename=traducteur.Traducteur.author.avatar)}}" alt="Avatar">
                                         </div>
                                         <div class="flip-card-back">
                                             <a href="{{ url_for('traducteur_single', trad_id=traducteur.Traducteur.id, _external=True) }}">
@@ -100,12 +100,12 @@
                                                 </h5>
                                                 <p>{{traducteur.Traducteur.skill_1}}</p>
                                                 <p {% if traducteur.Traducteur.skill_2=='' %} class="d-none" {% endif %}>{{traducteur.Traducteur.skill_2}}</p>
-                                                <p>Pays: {{traducteur.Traducteur.current_country}}</p>
+                                                <p>{{_('Pays:')}} {{traducteur.Traducteur.current_country}}</p>
                                                 <p>
                                                     {% if traducteur.Traducteur.dispo %}
-                                                    <strong class="text-success">Disponible</strong>
+                                                    <strong class="text-success">{{_('Disponible')}}</strong>
                                                     {% else %}
-                                                    <strong class="text-danger">Occupé(e)</strong>
+                                                    <strong class="text-danger">{{_('Occupé(e)')}}</strong>
                                                     {% endif %}
                                                 </p>
                                             </a>

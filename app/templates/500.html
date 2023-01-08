@@ -3,16 +3,16 @@
 {% block main %}
 
 <!-- content -->
-<section class="w3l-error-block">
+<section class="w3l-error-block" style="z-index: 0;">
     <div class="mainw3 form">
         <div class="subscribe wrapper">
             <div class="subscribe-w3lsbottom text-center">
                 <div class="w3l-page">
-                    Oops!
+                    {{_('Oops!')}}
                 </div>
-                <h6>L'administrateur a été prévenu. Désolé pour le dérangement!</h6>
+                <h6>{{_("L'administrateur a été prévenu. Désolé pour le dérangement!")}}</h6>
                 <h2>500
-                    <p class="page-mk">une erreur inattendue est survenue </p>
+                    <p class="page-mk">{{_('une erreur inattendue est survenue')}} </p>
                 </h2>
             </div>
         </div>

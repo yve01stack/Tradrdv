@@ -26,7 +26,7 @@ class Config(object):
 	SITE_NAME = "TRADRDV"
 	SITE_DESCRIPTION = _l("Traducteurs sur Rendez-vous est la première plateforme qui regroupe des traducteurs freelancers algériens, "\
 		 "et bientôt des prestataires des quatre coins du monde !")
-	SITE_ICONE = "https://storage.googleapis.com/tradrdv/dev/favicon.png"
+	SITE_ICONE = os.path.join('assets', 'images', 'dev', 'favicon.png').replace("\\", '/')
 	MAIL_CONTACT = 'traducteurs.contactofficiel@gmail.com'
 	CALL_CONTACT = '+213 658489196'
 	FAX_CONTACT = '---'
@@ -109,7 +109,7 @@ class Config(object):
 		'Russe-anglais', 'Russe-allemand', 'Russe-polonais', 'Russe-turc', 'Russe-ukrainien', 'Russe-chinois', 'Chinois-arabe', 'Chinois-tamazight', 'Chinois-français',
 		'Chinois-espagnol', 'Chinois-portugais', 'Chinois-italien', 'Chinois-anglais', 'Chinois-allemand', 'Chinois-polonais', 'Chinois-turc', 'Chinois-ukrainien', 'Chinois- russe']
  
-	E_PAYMENT_TYPES = ['PayPal', 'Payonner', 'Western Union', 'Compte Bancaire']
+	E_PAYMENT_TYPES = ['Payonner', 'Western Union', 'Compte Bancaire']
 	STATUTS = ['admin', 'testeur', 'traducteur', 'client']
 	NEWSLETTER_GROUPS = ['Groupe particulier', 'Groupe client', 'Groupe traducteur', 'Groupe testeur', 'Groupe admin']
 	PRESTATIONS = ['Interprétation', 'Traduction', 'Transcription', 'Relecture', 'Sous-titrage', 'Voix-off', 'Doublage']
@@ -121,7 +121,7 @@ class Config(object):
 		{'name': 'Payonner', 'desc': 'hananeinterpretingworld@gmail.com'}]
 	TRADUCTEUR_CAUTION = {'price_eur': 80.00, 'price_da': 15000}
 	OFFRE_STATUTS = {'gratuit':{'price_eur': 0.0, 'price_da': 0}, 'standard':{'price_eur': 55.00, 'price_da': 7500}, 'premium':{'price_eur': 80.00, 'price_da': 11000}}
-	COVER_PICTURE = 'https://storage.googleapis.com/tradrdv/dev/OOjs_UI_icon_userAvatar.svg.png'
+	COVER_PICTURE = os.path.join('assets', 'images', 'dev', 'OOjs_UI_icon_userAvatar.svg.png').replace("\\", '/')
 	ORDER_PER_PAGE = 20
 
 	# freelancer payment
@@ -162,4 +162,4 @@ class Config(object):
 
 	ADMINS = ['contact@tradrdv.com', 'admin@tradrdv.com', 'programm01dev@gmail.com']
 	# flask babel translator
-	LANGUAGES = ['fr', 'en']
+	LANGUAGES = ['fr', 'en', 'es']

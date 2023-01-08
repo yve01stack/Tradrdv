@@ -11,7 +11,7 @@ from googletrans import Translator
 
 from app import app, db, client, tasks
 from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, make_payment, get_paid
-from app.utils import get_google_provider_cfg, allowed_image, delete_blob_img, upload_blob_img, upload_blob_file, password_reset_email,\
+from app.utils import get_google_provider_cfg, allowed_image, password_reset_email,\
      email_confirm_email, alert_email, newsletter_email, select_by_random, return_eq_da
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.decorators import check_confirmed, check_admin, check_manager, in_development
@@ -52,10 +52,14 @@ def accueil():
     this_month = Dashbord.query.filter_by(id=1).first()
     this_month.update_dashbord(accueil_view=1)
 
+    #Dashbord of the two months
+    dashbord_this_month = Dashbord.query.filter_by(id=1).first()
+    dashbord_last_month = Dashbord.query.filter_by(id=2).first()
+
     traducteurs_need_ad = Traducteur.query.filter((Traducteur.compte_valid==True) & (Traducteur.need_help_ad=='on')).order_by(select_by_random()).all()
     traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random()).all()
-    return render_template('accueil.html', traducteurs_need_ad=traducteurs_need_ad, traducteurs=traducteurs, title=_('Accueil - ')+app.config['SITE_NAME'])
-
+    return render_template('accueil.html', traducteurs_need_ad=traducteurs_need_ad, traducteurs=traducteurs,
+        dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, title=_('Accueil - %(sitename)s', sitename=app.config['SITE_NAME']))
 
 
 # -------------------------------------------------#
@@ -73,7 +77,7 @@ def register():
         db.session.commit()
         flash(_('Félicitations, vous êtes maintenant un utilisateur enregistré !'), 'success')
         return redirect(url_for('login', _external=True))
-    return render_template('register.html', form=form, title=_('Inscription- ')+app.config['SITE_NAME'])
+    return render_template('register.html', form=form, title=_('Inscription - %(sitename)s', sitename=app.config['SITE_NAME']))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -92,7 +96,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('accueil', _external=True)
         return redirect(next_page)
-    return render_template('login.html', title=_('Connexion- ')+app.config['SITE_NAME'], form=form)  
+    return render_template('login.html', title=_('Connexion - %(sitename)s', sitename=app.config['SITE_NAME']), form=form)  
 
 
 @app.route("/login/google/")
@@ -186,9 +190,8 @@ def upgrade_profile():
         if int(size) <= app.config["MAX_IMAGE_FILESIZE"]:      
             if allowed_image(uploaded_file.filename):
                 uploaded_file.filename = secure_filename(str(datetime.timestamp(datetime.now()))+uploaded_file.filename)
-                Image.open(uploaded_file).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'cloud_img', uploaded_file.filename))
-                delete_blob_img(app.config['CLOUD_STORAGE_BUCKET'], avatar_url)
-                avatar_url = upload_blob_img(app.config['CLOUD_STORAGE_BUCKET'], uploaded_file, 'profile_img')
+                Image.open(uploaded_file).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'profile_img', uploaded_file.filename))
+                avatar_url = os.path.join('assets', 'images', 'profile_img', uploaded_file.filename).replace("\\", '/')
             else:
                 flash(_('Erreur de nom ou d\'extension de l\'image'), 'danger')
                 return redirect(url_for('profile', id=current_user.id, _external=True))
@@ -211,9 +214,9 @@ def upgrade_profile():
     number_deal = Deal.query.filter((Deal.user_id==current_user.id) & (Deal.deal_over==True)).count()
     if number_deal<5:
         if user.sex=='Féminin':
-            user.avatar = 'https://storage.googleapis.com/tradrdv/dev/sex_f.jpg'
+            user.avatar = os.path.join('assets', 'images', 'dev', 'sex_f.jpg').replace("\\", '/')
         elif user.sex=='Masculin':
-            user.avatar = 'https://storage.googleapis.com/tradrdv/dev/sex_m.jpg'
+            user.avatar = os.path.join('assets', 'images', 'dev', 'sex_m.jpg').replace("\\", '/')
         else:
             user.avatar = avatar_url
     else:
@@ -332,11 +335,11 @@ def offer_subscribe(offer_type):
     
     admin = User.query.filter((User.statut=='admin')).order_by(User.last_seen.desc()).first()
     if offer_type == 'standard':
-        motif = 'Souscription à l\'offre standard'
+        motif = _('Souscription à l\'offre standard')
         deal = Deal(type_deal='abon', payment_way='cash', motif=motif, amount=app.config['OFFRE_STATUTS']['standard']['price_da'],\
             devise=app.config['DEVISES'][0]['symbol'], friend_accept=True, friend=admin, author=current_user)
     elif offer_type == 'premium':
-        motif = 'Souscription à l\'offre premium'
+        motif = _('Souscription à l\'offre premium')
         deal = Deal(type_deal='abon', payment_way='cash', motif=motif, amount=app.config['OFFRE_STATUTS']['premium']['price_da'],\
              devise=app.config['DEVISES'][0]['symbol'], friend_accept=True, friend=admin, author=current_user)
     else:
@@ -426,20 +429,20 @@ def traducteur_new_register():
     if id_card:
         if allowed_image(id_card.filename):
             id_card.filename = secure_filename(str(datetime.timestamp(datetime.now()))+id_card.filename)
-            Image.open(id_card).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'cloud_img', id_card.filename))
-            id_card = upload_blob_img(app.config['CLOUD_STORAGE_BUCKET'], id_card, 'id_card_img')
+            Image.open(id_card).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'id_card_img', id_card.filename))
+            id_card = os.path.join('assets', 'images', 'id_card_img', id_card.filename).replace("\\", '/')
         else:
             flash(_('Erreur de nom ou d\'extension du carte identité/passeport'), 'danger')
             return redirect(url_for('traducteur_new_post', _external=True))
     else:
-        id_card = 'https://storage.googleapis.com/tradrdv/dev/88591.png'
+        id_card = os.path.join('assets', 'images', 'dev', '88591.png').replace("\\", '/')
 
     if diploma:
         diploma.filename = secure_filename(str(datetime.timestamp(datetime.now()))+diploma.filename)
-        diploma.save(os.path.join('app', 'static', 'assets', 'images', 'cloud_file', diploma.filename))
-        diploma = upload_blob_file(app.config['CLOUD_STORAGE_BUCKET'], diploma, 'diploma_file')
+        diploma.save(os.path.join('app', 'static', 'assets', 'images', 'diploma_file', diploma.filename))
+        diploma = os.path.join('assets', 'images', 'diploma_file', diploma.filename).replace("\\", '/')
     else:
-        diploma = 'https://storage.googleapis.com/tradrdv/dev/diploma.pdf'
+        diploma = os.path.join('assets', 'images', 'dev', 'diploma.pdf').replace("\\", '/')
 
     new_traducteur = Traducteur(skill_1=skill_1, skill_2=skill_2, skill_3=skill_3, skill_4=skill_4, skill_5=skill_5, skill_6=skill_6, skill_7=skill_7,\
         skill_8=skill_8, skill_9=skill_9, skill_10=skill_10, current_country=country, current_town=town, addr_postale=addr_postale, phone=phone,\
@@ -450,7 +453,7 @@ def traducteur_new_register():
 
     # Setup a deal (type of deal= trad, test, abon)
     testeur = User.query.filter_by(id=testeur_id).first()
-    motif = 'Paiement de caution annuelle de traducteur'
+    motif = _('Paiement de caution annuelle de traducteur')
     deal = Deal(type_deal='test', payment_way='cash', motif=motif, amount=app.config['TRADUCTEUR_CAUTION']['price_da'],\
         devise=app.config['DEVISES'][0]['symbol'], friend=testeur, author=current_user)
     user = User.query.filter_by(id=current_user.id).first()
@@ -463,7 +466,7 @@ def traducteur_new_register():
         chat.last_chat = datetime.utcnow()
     else:
         chat = Chat(receiver_id=testeur.id, author=current_user)
-    message = "Nouveau accord: "+motif
+    message = _("Nouveau accord: ")+motif
     contact = Contact(receiver_id=testeur.id, message=message, file_statut=False, author=current_user)
     db.session.add(contact)
     db.session.commit()
@@ -541,8 +544,8 @@ def traducteur_update():
     if id_card:
         if allowed_image(id_card.filename):
             id_card.filename = secure_filename(str(datetime.timestamp(datetime.now()))+id_card.filename)
-            Image.open(id_card).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'cloud_img', id_card.filename))
-            id_card = upload_blob_img(app.config['CLOUD_STORAGE_BUCKET'], id_card, 'id_card_img')
+            Image.open(id_card).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'id_card_img', id_card.filename))
+            id_card = os.path.join('assets', 'images', 'id_card_img', id_card.filename).replace("\\", '/')
         else:
             flash(_('Erreur de nom ou d\'extension du carte identité/passeport'), 'danger')
             return redirect(url_for('traducteur_new_post', _external=True))
@@ -551,8 +554,8 @@ def traducteur_update():
 
     if diploma:
         diploma.filename = secure_filename(str(datetime.timestamp(datetime.now()))+diploma.filename)
-        diploma.save(os.path.join('app', 'static', 'assets', 'images', 'cloud_file', diploma.filename))
-        diploma = upload_blob_file(app.config['CLOUD_STORAGE_BUCKET'], diploma, 'diploma_file')
+        diploma.save(os.path.join('app', 'static', 'assets', 'images', 'diploma_file', diploma.filename))
+        diploma = os.path.join('assets', 'images', 'diploma_file', diploma.filename).replace("\\", '/')
     else:
         diploma = traducteur_old.diploma
 
@@ -610,7 +613,7 @@ def traducteur_update():
         chat.last_chat = datetime.utcnow()
     else:
         chat = Chat(receiver_id=deal.user_id, author=current_user)
-    message = "Votre profil de traducteur est maintenant disponible auprès des clients. Nous vous souhaitons bienvenu(e) chez "+app.config['SITE_NAME']
+    message = _("Votre profil de traducteur est maintenant disponible auprès des clients. Nous vous souhaitons bienvenu(e) chez %(sitname)s", sitname=app.config['SITE_NAME'])
     contact = Contact(receiver_id=deal.user_id, message=message, file_statut=False, author=current_user)
     db.session.add(contact)
     db.session.commit()
@@ -712,8 +715,8 @@ def submit_work():
 
     if work:
         work.filename = secure_filename(str(datetime.timestamp(datetime.now()))+work.filename)
-        work.save(os.path.join('app', 'static', 'assets', 'images', 'cloud_file', work.filename))
-        work = upload_blob_file(app.config['CLOUD_STORAGE_BUCKET'], work, 'work_file')
+        work.save(os.path.join('app', 'static', 'assets', 'images', 'work_file', work.filename))
+        work = os.path.join('assets', 'images', 'work_file', work.filename).replace("\\", '/')
         deal = Deal.query.filter((Deal.id==deal_id) & (Deal.friend_id==current_user.id)).first_or_404()
 
         if deal.deal_over is True:
@@ -742,7 +745,7 @@ def traducteur():
     prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None
 
     return render_template('traducteur.html', traducteurs=traducteurs.items, next_url=next_url, prev_url=prev_url, page=page, 
-        has_next=traducteurs.has_next, has_prev=traducteurs.has_prev, title=_('Traducteur- ')+app.config['SITE_NAME'])
+        has_next=traducteurs.has_next, has_prev=traducteurs.has_prev, title=_('Traducteur - %(sitename)s', sitename=app.config['SITE_NAME']))
 
 
 @app.route('/search/traducteur', methods=['GET', 'POST'])
@@ -810,7 +813,7 @@ def contact_trad(trad_id):
         chat.last_chat = datetime.utcnow()
     else:
         chat = Chat(receiver_id=traducteur.user_id, author=current_user)
-    message = "Nouveau message, je suis intéressé par votre profil. Etes vous disponible pour me renseigner?"
+    message = _("Nouveau message, je suis intéressé par votre profil. Etes vous disponible pour me renseigner?")
     contact = Contact(receiver_id=traducteur.user_id, message=message, file_statut=False, author=current_user)
     db.session.add(contact)
     db.session.commit()
@@ -900,8 +903,8 @@ def deal_submit_bill():
     if payment_bill:
         if allowed_image(payment_bill.filename):
             payment_bill.filename = secure_filename(str(datetime.timestamp(datetime.now()))+payment_bill.filename)
-            Image.open(payment_bill).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'cloud_img', payment_bill.filename))
-            payment_bill = upload_blob_img(app.config['CLOUD_STORAGE_BUCKET'], payment_bill, 'bill_img')
+            Image.open(payment_bill).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'bill_img', payment_bill.filename))
+            payment_bill = os.path.join('assets', 'images', 'bill_img', payment_bill.filename).replace("\\", '/')
         else:
             flash(_('Erreur de nom ou d\'extension du carte identité/passeport'), 'danger')
             return redirect(url_for('profile', _external=True))
@@ -934,7 +937,7 @@ def contact_us():
             chat.last_chat = datetime.utcnow()
         else:
             chat = Chat(receiver_id=admin.id, author=current_user)
-        message = "Nouveau contact"
+        message = _("Nouveau contact")
         contact = Contact(receiver_id=admin.id, message=message, file_statut=False, author=current_user)
         db.session.add(contact)
         db.session.commit()
@@ -970,8 +973,8 @@ def send_message():
             chat = Chat(receiver_id=user.id, author=current_user)
         if file_statut:
             msg_file.filename = secure_filename(str(datetime.timestamp(datetime.now()))+msg_file.filename)
-            msg_file.save(os.path.join('app', 'static', 'assets', 'images', 'cloud_file', msg_file.filename))
-            msg_file = upload_blob_file(app.config['CLOUD_STORAGE_BUCKET'], msg_file, 'message_file')
+            msg_file.save(os.path.join('app', 'static', 'assets', 'images', 'message_file', msg_file.filename))
+            msg_file = os.path.join('assets', 'images', 'message_file', msg_file.filename).replace("\\", '/')
             
             contact = Contact(receiver_id=receiver_id, file=msg_file, file_statut=file_statut, author=current_user)
             db.session.add(contact)
@@ -1121,8 +1124,8 @@ def submit_checked_work():
 
     if checked_work:
         checked_work.filename = secure_filename(str(datetime.timestamp(datetime.now()))+checked_work.filename)
-        checked_work.save(os.path.join('app', 'static', 'assets', 'images', 'cloud_file', checked_work.filename))
-        checked_work = upload_blob_file(app.config['CLOUD_STORAGE_BUCKET'], checked_work, 'work_file')
+        checked_work.save(os.path.join('app', 'static', 'assets', 'images', 'work_file', checked_work.filename))
+        checked_work = os.path.join('assets', 'images', 'work_file', checked_work.filename).replace("\\", '/')
 
         deal.work_valid = checked_work
         deal.work_score = rate
@@ -1258,7 +1261,7 @@ def attribute_new_trad():
         chat.last_chat = datetime.utcnow()
     else:
         chat = Chat(receiver_id=author.id, author=friend)
-    message = "Bonjour, je suis votre nouveau prestataire sur l'accord: "+deal.motif
+    message = _("Bonjour, je suis votre nouveau prestataire sur l'accord: %(motif)s", motif=deal.motif)
     contact = Contact(receiver_id=author.id, message=message, file_statut=False, author=friend)
     db.session.add(contact)
     db.session.commit()
@@ -1392,7 +1395,7 @@ def get_notification():
 @app.route('/news')
 @in_development
 def news():
-    return render_template('news.html', title=_('Articles-')+app.config['SITE_NAME'])
+    return render_template('news.html', title=_('Articles-%(sitename)s', sitename=app.config['SITE_NAME']))
 
 
 @app.route('/about_us')
