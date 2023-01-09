@@ -84,7 +84,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
         Thread(target=send_async_email, args=(app, msg)).start()
 
 def sendgrid_mail(subject, receiver, html_body):
-    sg = sendgrid.SendGridAPIClient(api_key=app.config['SENDGRID_API_KEY'])
+    sg = sendgrid.SendGridAPIClient(api_key=app.config['SENDGRID_KEY'])
     from_email = Email(app.config['EMAIL_SENDER'])
     to_email = To(receiver)
     subject = subject
