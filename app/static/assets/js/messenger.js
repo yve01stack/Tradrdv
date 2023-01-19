@@ -109,13 +109,13 @@
                     }
                 }
                 $(".contact-container2").html(chats_html);
-
+        
                 var messages_html=''
                 var i
                 for (i = 0; i < data['messages'].length; i++) {
                     var object
                     if(data["messages"][i]["file_statut"]=="True"){
-                        object = '<i><a href="'+data["messages"][i]["file"]+'" download="pièce jointe" target="_blank">pièce jointe</a></i>';
+                        object = '<i><a href="'+window.location.origin+'/static/'+data["messages"][i]["file"]+'" download="pièce jointe" target="_blank">pièce jointe</a></i>';
                     }else{
                         object = data["messages"][i]["message"];
                     }

@@ -150,13 +150,13 @@
                     <div class="col-sm-6">                
                         <p>
                             <label for="id_card"><b>{{_('Carte Identité/Passeport (1mo max)')}} </b>
-                                <i><a href="{{traducteur.id_card}}" download="pièce jointe" target="_blank">{{_('pièce jointe')}}</a></i>
+                                <i><a href="{{url_for('static', filename=traducteur.id_card)}}" download="pièce jointe" target="_blank">{{_('pièce jointe')}}</a></i>
                             </label>
                             <input type="file" accept="image/*" name="id_card" onchange="this.className = ''">
                         </p>
                         <p>
                             <label for="diploma"><b>{{_('Diplomes obtenus (.pdf, 1mo max)')}} </b>
-                                <i><a href="{{traducteur.diploma}}" download="pièce jointe" target="_blank">{{_('pièce jointe')}}</a></i>
+                                <i><a href="{{url_for('static', filename=traducteur.diploma)}}" download="pièce jointe" target="_blank">{{_('pièce jointe')}}</a></i>
                             </label>
                             <input type="file" name="diploma" accept=".pdf" onchange="this.className = ''">
                         </p>

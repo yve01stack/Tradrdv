@@ -464,7 +464,7 @@
                                       <input type="link" placeholder="http://www.tradrdv.com/about_us" name="url" required>
                                       <input type="text" placeholder="Subject" name="subject" required>
                                       <textarea name="message">{{_('Message..')}}</textarea>
-                                      <button type="submit" form="update-profile" class="btn btn-primary">{{_('Envoyer')}}</button>
+                                      <button type="submit" class="btn btn-primary">{{_('Envoyer')}}</button>
                                   </div>
                                 </div>
                               </form>
@@ -513,7 +513,7 @@
                                             <span class="badge badge-primary px-2">{{deal.type_deal}}</span>
                                           </td>
                                           <td>
-                                            <a class="badge badge-primary" href="{{deal.work_did}}" download="pièce jointe" target="_blank">{{_('fichier')}} <i class="fa fa-download"></i></a>
+                                            <a class="badge badge-primary" href="{{url_for('static', filename=deal.work_did)}}" download="pièce jointe" target="_blank">{{_('fichier')}} <i class="fa fa-download"></i></a>
                                           </td>
                                       </tr>
                                       <tr>
@@ -610,7 +610,7 @@
                                             {% endif %}
                                             </td>
                                           <td>
-                                            <a class="badge badge-primary" href="{{deal.payment_bill}}" download="pièce jointe" target="_blank">{{_('fichier')}} <i class="fa fa-download"></i></a>
+                                            <a class="badge badge-primary" href="{{url_for('static', filename=deal.payment_bill)}}" download="pièce jointe" target="_blank">{{_('fichier')}} <i class="fa fa-download"></i></a>
                                           </td>
                                       </tr>
                                       <tr>
@@ -800,7 +800,7 @@
             $('.client_revenu').text(data['data']['revenu']+'Da')
             $('.client_remain_day').text(data['data']['remain_day']+' jour(s)')
             $('.client_offre_statut').text('Offre '+data['data']['offre_statut'])
-            $('.client_avatar').attr('src', data['data']['avatar'])
+            $('.client_avatar').attr('src', window.location.origin+'/static/'+data['data']['avatar'])
             $('.client_fullname').text(data['data']['fullname'])
             $('.client_email').text(data['data']['email'])
             $('.client_sex').text(data['data']['sex'])
@@ -813,7 +813,7 @@
           } else if (data['type_profile']=='traducteur'){  
             $('.traducteur_revenu').text(data['data']['author']['revenu']+'Da')
             $('.traducteur_remain_day').text(data['data']['remain_day'])
-            $('.traducteur_avatar').attr('src', data['data']['author']['avatar'])
+            $('.traducteur_avatar').attr('src', window.location.origin+'/static/'+data['data']['author']['avatar'])
             $('.traducteur_id').val(data['data']['id'])
 
 

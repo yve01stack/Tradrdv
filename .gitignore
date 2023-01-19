@@ -5,7 +5,7 @@ app.db
 .env
 .flaskenv
 __pycache__
-tradrdv-dddcafc55de7.json
-app/static/data_files/tradrdv-dddcafc55de7.json
+tradrdv-94901196e253.json
+app/static/data_files/tradrdv-94901196e253.json
 wsgi.py
 tradrdvapp.sock

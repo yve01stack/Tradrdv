@@ -34,8 +34,6 @@ def before_request():
 #                 output=text #output = ts.translate(text, src='auto', dest=g.locale).text
 #             except Exception as e:
 #                 output = text
-#             except:
-#                 output = text
 #             return output
 #         else:
 #             return text    

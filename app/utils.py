@@ -73,10 +73,17 @@ def send_async_email(app, msg):
     with app.app_context():
         mail.send(msg)
 
+def send_async_sendgrid(app, subject, receiver, html_body):
+    with app.app_context():
+        try:
+            sendgrid_mail(subject, receiver, html_body)
+        except Exception as e:
+            print(e)
+
 def send_email(subject, sender, recipients, text_body, html_body):
     if app.config['SENDGRID_NEED']:
         for receiver in recipients:
-            sendgrid_mail(subject, receiver, html_body)
+            Thread(target=send_async_sendgrid, args=(app, subject, receiver, html_body)).start()
     else:
         msg = Message(subject, sender=sender, recipients=recipients)
         msg.body = text_body

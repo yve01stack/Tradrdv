@@ -152,7 +152,7 @@ class Config(object):
 	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 	
-	SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+	SENDGRID_KEY = os.environ.get('SENDGRID_KEY')
 	EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
 	EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
 	EMAIL_SENDER = os.environ.get('EMAIL_SENDER')
