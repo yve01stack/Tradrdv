@@ -37,6 +37,8 @@ class User(UserMixin, db.Model):
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
     contacts = db.relationship('Contact', backref='author', lazy='dynamic')
     chats = db.relationship('Chat', backref='author', lazy='dynamic')
+    pubs = db.relationship('Pub', backref='author', lazy='dynamic')
+    marketing = db.relationship('Marketing', backref='author', lazy='dynamic')
 
 
     def __repr__(self):
@@ -215,6 +217,71 @@ class Deal(db.Model):
 
     def __repr__(self):
         return '<Deal {}>'.format(self.amount)
+
+class Pub(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), index=True, nullable=False)
+    category = db.Column(db.String(32), nullable=False)
+    detail_1 = db.Column(db.String(255), nullable=False)
+    detail_2 = db.Column(db.String(255), default='')
+    detail_3 = db.Column(db.String(255), default='')
+    ref_link = db.Column(db.String(500), default='')
+    description = db.Column(db.String(1000), nullable=False)
+    image_1 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
+    image_2 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
+    nbr_impression = db.Column(db.Integer, nullable=False, default=0)
+    nbr_clic = db.Column(db.Integer, nullable=False, default=0)
+    valid = db.Column(db.Boolean, nullable=False, default=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '<Pub {}>'.format(self.category)
+    
+    def as_dict(self):
+        return {'id': self.id,
+            'title': self.title,
+            'category': self.category,
+            'detail_1': self.detail_1,
+            'detail_2': self.detail_2,
+            'detail_3': self.detail_3,
+            'ref_link': self.ref_link,
+            'description': self.description,
+            'image_1': self.image_1,
+            'image_2': self.image_2,
+            'author': User.query.filter_by(id=self.user_id).first().as_dict()
+            }
+
+    def end_of_subscription(self):
+        self.valid = False
+        db.session.commit()
+    
+    def add_clic(self):
+        self.nbr_clic += 1
+        db.session.commit()
+
+class Marketing(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    caution_begin = db.Column(db.DateTime, default=datetime.utcnow)
+    caution_end = db.Column(db.DateTime, default=datetime.utcnow)
+    remain_day = db.Column(db.Integer, default=0)
+    nbr_pub = db.Column(db.Integer, nullable=False, default=0)
+    compte_valid = db.Column(db.Boolean, nullable=False, default=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Marketing {}>'.format(self.remain_day)
+    
+    def has_valid_abon(self):
+        remain_day = (self.caution_end - datetime.utcnow()).days
+        self.remain_day = remain_day if remain_day >=0 else 0
+        if remain_day <=0 :
+            self.compte_valid = False
+            pubs = Pub.query.filter_by(user_id=self.user_id).all()
+            for pub in pubs:
+                pub.end_of_subscription()
+        db.session.commit()
 
 
 class Commercial(db.Model):

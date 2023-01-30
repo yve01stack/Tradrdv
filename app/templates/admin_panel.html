@@ -112,6 +112,29 @@
                                 </div>
                               </div>
                             </div>
+
+                            <div class="row">
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-bullhorn text-primary" ></i><h4 class="float-right">{{number_pub_sub}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>{{_('Abonnement Pub')}}</h6>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="wrimagecard wrimagecard-topimage">
+                                  <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                    <i class="fa fa-bookmark text-primary" ></i><h4 class="float-right">{{number_pub}}</h4>
+                                  </div>
+                                  <div class="wrimagecard-topimage_title">
+                                    <h6>{{_('Pub en ligne')}}</h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                 
                             <div class="row">
                               <div class="col-sm-6 col-12">
@@ -601,10 +624,19 @@
                                                   <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
                                               </a>
                                           </td>
-                                          <td class="invert">{{deal.motif}}</td>
+                                          <td class="invert">{{deal.motif}}
+                                            <form id="abon_pub{{deal.id}}" style="display: none;" method="POST" action="{{ url_for('pub_offer', _external=True) }}">
+                                              <label>Pub max:<input type="number" name="nbr_pub" value="10" required style="width: 70px;"></label>
+                                              <label>Jours max:<input type="number" name="days" value="30" required style="width: 70px;"></label>
+                                              <input type="hidden" value="{{deal.id}}" name="deal_id">
+                                              <button type="submit">{{_('Envoyer')}}</button>
+                                            </form>
+                                          </td>
                                           <td class="invert">
                                             {% if deal.type_deal=='abon' %}
                                               <a href="{{ url_for('enroll_offer', deal_id=deal.id, _external=True) }}" class="badge badge-success">{{_('Valider')}}</a>
+                                            {% elif deal.type_deal=='abon_pub' %}
+                                              <a href="#" onclick="document.getElementById('abon_pub{{deal.id}}').style.display='block'" class="badge badge-success">{{_('Valider')}}</a>
                                             {% else %}
                                               <a href="{{ url_for('valid_deal_bill', deal_id=deal.id, _external=True) }}" class="badge badge-success">{{_('Valider')}}</a>
                                             {% endif %}

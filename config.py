@@ -124,6 +124,8 @@ class Config(object):
 	OFFRE_STATUTS = {'gratuit':{'price_eur': 0.0, 'price_da': 0}, 'standard':{'price_eur': 55.00, 'price_da': 7500}, 'premium':{'price_eur': 80.00, 'price_da': 11000}}
 	COVER_PICTURE = os.path.join('assets', 'images', 'dev', 'OOjs_UI_icon_userAvatar.svg.png').replace("\\", '/')
 	ORDER_PER_PAGE = 20
+	PUB_CATEGORIES = ['Sport', 'Produit', 'Cuisine']
+
 
 	# freelancer payment
 	TESTEUR_PART = 2500

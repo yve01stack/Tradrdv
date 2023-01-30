@@ -398,7 +398,7 @@ function fixStepIndicator(n) {
         var testeur_id = document.getElementById("testeur_select_form").value;
 		var url = $('.testeur_select_url').attr('href');
     		$.post(url, { testeur_id: testeur_id }, function(data, status) { 
-                document.getElementById("testeur_avatar").src = data['testeur']['author']['avatar'];
+                document.getElementById("testeur_avatar").src = window.location.origin+'/static/'+data['testeur']['author']['avatar'];
                 document.getElementById("testeur_about_me").innerText = data['testeur']['about_me'];
                 document.getElementById("testeur_username").innerText = data['testeur']['author']['username'];
                 document.getElementById("testeur_current_country").innerText = data['testeur']['current_country'];

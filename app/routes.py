@@ -10,7 +10,7 @@ from googletrans import Translator
 
 
 from app import app, db, client, tasks
-from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, make_payment, get_paid
+from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, Pub, Marketing, make_payment, get_paid
 from app.utils import get_google_provider_cfg, allowed_image, password_reset_email,\
      email_confirm_email, alert_email, newsletter_email, select_by_random, return_eq_da
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
@@ -56,7 +56,8 @@ def accueil():
 
     traducteurs_need_ad = Traducteur.query.filter((Traducteur.compte_valid==True) & (Traducteur.need_help_ad=='on')).order_by(select_by_random()).all()
     traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random()).all()
-    return render_template('accueil.html', traducteurs_need_ad=traducteurs_need_ad, traducteurs=traducteurs,
+    pubs = Pub.query.filter_by(valid=True).order_by(select_by_random()).all()
+    return render_template('accueil.html', traducteurs_need_ad=traducteurs_need_ad, traducteurs=traducteurs, pubs=pubs,
         dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, title=_('Accueil - %(sitename)s', sitename=app.config['SITE_NAME']))
 
 
@@ -358,7 +359,10 @@ def profile():
     subtitle = _("Anonyme") if current_user.username is None else current_user.username
     deals = Deal.query.filter_by(user_id=current_user.id).order_by(Deal.timestamp.desc()).all()
     payments = Payment.query.filter_by(user_id=current_user.id).order_by(Payment.timestamp.desc()).all()
-    return render_template('profile.html', deals=deals, payments=payments, title=_("Profil- %(subtitle)s", subtitle=subtitle))
+    pubAccount = Marketing.query.filter((Marketing.user_id==current_user.id)).first()
+    pubs = Pub.query.filter((Pub.user_id==current_user.id)).all()
+    return render_template('profile.html', deals=deals, payments=payments, pubAccount=pubAccount, pubs=pubs,
+        title=_("Profil- %(subtitle)s", subtitle=subtitle))
 
 
 @app.route('/logout')
@@ -366,6 +370,218 @@ def profile():
 def logout():
     logout_user()
     return redirect(url_for('accueil', _external=True))
+
+
+# -------------------------------------------------#
+#------------------   ADs panel   -----------------#
+#--------------------------------------------------#
+@app.route('/create/pub', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def create_pub():
+    account = Marketing.query.filter((Marketing.user_id==current_user.id)).first()
+    if not account:
+        new_account = Marketing(author=current_user)
+        db.session.add(new_account)
+        db.session.commit()
+    
+    account = Marketing.query.filter((Marketing.user_id==current_user.id)).first()
+    pubs = Pub.query.filter((Pub.user_id==current_user.id))
+    if not account.compte_valid:
+        flash(_('Erreur, vous n\'avez aucun abonnement de marketing en cours'), 'danger')
+        return redirect(url_for('profile', _external=True))
+    elif account.nbr_pub <= pubs.count():
+        flash(_('Erreur, vous avez déjà atteint le nombre maximal d\'article de votre abonnement en cours'), 'danger')
+        return redirect(url_for('profile', _external=True))
+
+    title = request.form.get('title')
+    category = request.form.get('category')
+    detail_1 = request.form.get('detail_1')
+    detail_2 = request.form.get('detail_2')
+    detail_3 = request.form.get('detail_3')
+    ref_link = request.form.get('ref_link')
+    description = request.form.get('description')
+    image_1 = request.files.get("image_1")
+    image_2 = request.files.get("image_2")
+
+    if image_1:
+        if allowed_image(image_1.filename):
+            image_1.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_1.filename)
+            Image.open(image_1).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_1.filename))
+            image_1 = os.path.join('assets', 'images', 'pub_img', image_1.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la première image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_1 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
+
+    if image_2:
+        if allowed_image(image_2.filename):
+            image_2.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_2.filename)
+            Image.open(image_2).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_2.filename))
+            image_2 = os.path.join('assets', 'images', 'pub_img', image_2.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_2 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
+
+    new_pub = Pub(title=title, category=category, detail_1=detail_1, detail_2=detail_2, detail_3=detail_3, ref_link=ref_link,
+        description=description, image_1=image_1, image_2=image_2, valid=True, author=current_user)
+    db.session.add(new_pub)
+    db.session.commit()
+    flash(_('Votre article a été crée avec succès'), 'success')
+    return redirect(url_for('profile', _external=True))
+
+
+@app.route('/pub/account/subscribe', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def pub_subscribe():
+    account = Marketing.query.filter((Marketing.user_id==current_user.id)).first()
+    if not account:
+        new_account = Marketing(author=current_user)
+        db.session.add(new_account)
+        db.session.commit()
+
+    account = Marketing.query.filter((Marketing.user_id==current_user.id)).first_or_404()
+    if account.compte_valid:
+        flash(_('Erreur, vous avez un abonnement de marketing en cours'), 'danger')
+        return redirect(url_for('profile', _external=True))
+    else:
+        subscribe_in_progress = Deal.query.filter((Deal.user_id==current_user.id) & (Deal.type_deal=='abon_pub') & (Deal.deal_over==False)).first()
+        if subscribe_in_progress:
+            flash(_('Désolé, vous avez une demande d\'offre en cours'), 'warning')
+            return redirect(url_for('profile', _external=True))
+    
+        admin = User.query.filter((User.statut=='admin')).order_by(User.last_seen.desc()).first()
+        motif = _('Souscription à l\'abonnement marketing')
+        deal = Deal(type_deal='abon_pub', payment_way='cash', motif=motif, amount=1000,\
+            devise=app.config['DEVISES'][0]['symbol'], friend_accept=True, friend=admin, author=current_user)
+        db.session.add(deal)
+        db.session.commit()
+    flash(_('Veuillez payer la facture, joindre la photo du reçu et ensuite profitez de votre abonnement marketing'), 'success')
+    return redirect(url_for('profile', _external=True))
+      
+
+@app.route('/pub/activate/<pub_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def pub_activate(pub_id):
+    pub = Pub.query.filter((Pub.id==pub_id) & (Marketing.user_id==current_user.id)).first_or_404()
+    account = Marketing.query.filter((Marketing.user_id==current_user.id)).first()
+    
+    pubs = Pub.query.filter((Pub.user_id==current_user.id) & (Pub.valid==True))
+    if not account.compte_valid:
+        flash(_('Erreur, vous n\'avez aucun abonnement de marketing en cours'), 'danger')
+        return redirect(url_for('profile', _external=True))
+    elif account.nbr_pub <= pubs.count():
+        flash(_('Erreur, vous avez déjà atteint le nombre maximal d\'article de votre abonnement en cours'), 'danger')
+        return redirect(url_for('profile', _external=True))
+    else:
+        pub.valid = True
+        db.session.commit()
+        flash(_('Votre article est maintenant en ligne'), 'success')
+    return redirect(url_for('profile', _external=True))
+
+@app.route('/pub/update', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def pub_update():
+    pub_id = request.form.get('pub_id')
+    title = request.form.get('title')
+    category = request.form.get('category')
+    detail_1 = request.form.get('detail_1')
+    detail_2 = request.form.get('detail_2')
+    detail_3 = request.form.get('detail_3')
+    ref_link = request.form.get('ref_link')
+    description = request.form.get('description')
+    image_1 = request.files.get("image_1")
+    image_2 = request.files.get("image_2")
+    pub = Pub.query.filter((Pub.id==pub_id) & (Marketing.user_id==current_user.id)).first_or_404()
+
+    if image_1:
+        if allowed_image(image_1.filename):
+            image_1.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_1.filename)
+            Image.open(image_1).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_1.filename))
+            image_1 = os.path.join('assets', 'images', 'pub_img', image_1.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la première image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_1 = pub.image_1
+
+    if image_2:
+        if allowed_image(image_2.filename):
+            image_2.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_2.filename)
+            Image.open(image_2).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_2.filename))
+            image_2 = os.path.join('assets', 'images', 'pub_img', image_2.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_2 = pub.image_2
+    
+    account = Marketing.query.filter((Marketing.user_id==current_user.id)).first()
+    pubs = Pub.query.filter((Pub.user_id==current_user.id) & (Pub.valid==True))
+    if not account.compte_valid:
+        flash(_('Erreur, vous n\'avez aucun abonnement de marketing en cours'), 'danger')
+        return redirect(url_for('profile', _external=True))
+    elif pubs.count() < account.nbr_pub:
+        pub.title = title
+        pub.category = category
+        pub.detail_1 = detail_1
+        pub.detail_2 = detail_2
+        pub.detail_3 = detail_3
+        pub.ref_link = ref_link
+        pub.description = description        
+        pub.image_1 = image_1
+        pub.image_2 = image_2
+        pub.valid = True
+        db.session.commit()
+        flash(_('Votre article a été modifié et est maintenant en ligne'), 'success')
+        return redirect(url_for('profile', _external=True))
+    elif pubs.count() == account.nbr_pub:
+        if pub.valid:
+            pub.title = title
+            pub.category = category
+            pub.detail_1 = detail_1
+            pub.detail_2 = detail_2
+            pub.detail_3 = detail_3
+            pub.ref_link = ref_link
+            pub.description = description
+            pub.image_1 = image_1
+            pub.image_2 = image_2
+            db.session.commit()
+            flash(_('Votre article a été modifié et est maintenant en ligne'), 'success')
+            return redirect(url_for('profile', _external=True))
+    flash(_('Erreur, vous avez déjà atteint le nombre maximal d\'article de votre abonnement en cours'), 'danger')
+    return redirect(url_for('profile', _external=True))
+
+@app.route('/pub/delete/<pub_id>', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def pub_delete(pub_id):
+    pub = Pub.query.filter((Pub.id==pub_id) & (Marketing.user_id==current_user.id)).first_or_404()
+    db.session.delete(pub) 
+    db.session.commit()
+    flash(_('Votre article est bien été supprimé'), 'success')
+    return redirect(url_for('profile', _external=True))
+
+@app.route('/pub/view/<pub_id>/<category>', methods=['GET', 'POST'])
+def pub_view(pub_id, category):
+    pub = Pub.query.filter((Pub.id==pub_id) & (Pub.valid==True)).first_or_404()
+    pubs = Pub.query.filter((Pub.valid==True) & (Pub.category==category)).order_by(select_by_random()).all()
+    pub.add_clic()
+    return render_template('single_pub.html', pub=pub, pubs=pubs, title=pub.title)
+
+@app.route('/get/pub', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def get_pub():
+    pub_id = request.form.get('pub_id')
+    pub = Pub.query.filter((Pub.id==pub_id)).first()
+    return jsonify({'pub': pub.as_dict()}), 200
 
 
 
@@ -1088,6 +1304,8 @@ def admin_panel():
     number_testeur = User.query.filter_by(statut='testeur').count()
     number_admin = User.query.filter_by(statut='admin').count()
     number_newsletter = Newsletter.query.count()
+    number_pub = Pub.query.filter_by(valid=True).count()
+    number_pub_sub = Marketing.query.filter_by(compte_valid=True).count()
     #List of traducteur to select for reject deal
     list_trad = Traducteur.query.filter((Traducteur.compte_valid==True)).all()
     #Dashbord of the two months
@@ -1102,7 +1320,7 @@ def admin_panel():
         deals_check_bill=deals_check_bill.all(), list_trad=list_trad, number_client=number_client, number_traducteur=number_traducteur, 
         number_testeur=number_testeur, number_admin=number_admin, number_newsletter=number_newsletter, number_dp=deals_progress.count(), number_do=deals_over.count(), 
         number_dr=deals_reject.count(), number_dcb=deals_check_bill.count(), dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, 
-        traducteurs_need_ad=traducteurs_need_ad, clients=clients, traducteurs=traducteurs, title=_("Profil- %(subtitle)s", subtitle=subtitle))
+        traducteurs_need_ad=traducteurs_need_ad, clients=clients, traducteurs=traducteurs, number_pub=number_pub, number_pub_sub=number_pub_sub, title=_("Profil- %(subtitle)s", subtitle=subtitle))
 
 
 @app.route('/admin/submit/checked/work', methods=['GET', 'POST'])
@@ -1280,7 +1498,7 @@ def enroll_offer(deal_id):
     deal = Deal.query.filter((Deal.id==deal_id)).first_or_404()
     if deal.deal_over is True:
         flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
-        return redirect(url_for('manager_panel', _external=True))
+        return redirect(url_for('admin_panel', _external=True))
     deal.admin_confirm_bill = True
     deal.work_score = 5
     deal.deal_over = True
@@ -1298,6 +1516,39 @@ def enroll_offer(deal_id):
         user.offre_begin = datetime.utcnow()
         user.offre_end = datetime.utcnow() + timedelta(days=365)
         db.session.commit()
+    
+    make_payment(motif=deal.motif, amount=-deal.amount, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.author)
+    this_month = Dashbord.query.filter_by(id=1).first()
+    this_month.update_dashbord(revenu_abon=deal.amount, eq_da=return_eq_da(deal.devise))
+
+    flash(_('La conformité et l\'originalité du reçu confirmées'), 'success')
+    return redirect(url_for('admin_panel', _external=True))
+
+
+@app.route('/admin/pub/offer', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def pub_offer():
+    deal_id = request.form.get('deal_id')
+    nbr_pub = request.form.get('nbr_pub')
+    days = request.form.get('days')
+    deal = Deal.query.filter((Deal.id==deal_id)).first_or_404()
+    if deal.deal_over is True:
+        flash(_('Cet accord est terminé le %(date)s', date=deal.deal_over_time.strftime("%m/%d/%Y, %H:%M")), 'warning')
+        return redirect(url_for('admin_panel', _external=True))
+    deal.admin_confirm_bill = True
+    deal.work_score = 5
+    deal.deal_over = True
+    deal.deal_over_time = datetime.utcnow()
+    db.session.commit()
+    
+    account = Marketing.query.filter_by(user_id=deal.user_id).first()  
+    account.caution_begin = datetime.utcnow()
+    account.caution_end = datetime.utcnow() + timedelta(days=int(days))
+    account.nbr_pub = int(nbr_pub)
+    account.compte_valid = True
+    db.session.commit()
     
     make_payment(motif=deal.motif, amount=-deal.amount, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.author)
     this_month = Dashbord.query.filter_by(id=1).first()

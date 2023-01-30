@@ -1,4 +1,4 @@
-from app.models import User, Traducteur, Dashbord
+from app.models import User, Traducteur, Dashbord, Marketing, Pub
 from app import scheduler
 
 
@@ -11,7 +11,12 @@ def scheduled_job():
     # Abonnement annuel des traducteur
     traducteurs = Traducteur.query.filter_by(compte_valid=True).all()
     for traducteur in traducteurs:
-         traducteur.has_valid_abon()
+        traducteur.has_valid_abon()
+    
+    # Abonnement Marketing
+    accounts = Marketing.query.filter_by(compte_valid=True).all()
+    for account in accounts:
+        account.has_valid_abon()
         
     # Abonnement des client
     clients = User.query.filter((User.offre_statut=='standard') | (User.offre_statut=='premium')).all()
