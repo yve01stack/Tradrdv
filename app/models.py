@@ -222,13 +222,19 @@ class Pub(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), index=True, nullable=False)
     category = db.Column(db.String(32), nullable=False)
-    detail_1 = db.Column(db.String(255), nullable=False)
-    detail_2 = db.Column(db.String(255), default='')
-    detail_3 = db.Column(db.String(255), default='')
+    phone = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    address = db.Column(db.String(255), default='')
     ref_link = db.Column(db.String(500), default='')
     description = db.Column(db.String(1000), nullable=False)
     image_1 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
     image_2 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
+    image_3 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
+    image_4 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
+    image_5 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
+    image_6 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
+    image_7 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
+    image_8 = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/'))
     nbr_impression = db.Column(db.Integer, nullable=False, default=0)
     nbr_clic = db.Column(db.Integer, nullable=False, default=0)
     valid = db.Column(db.Boolean, nullable=False, default=False)
@@ -242,13 +248,19 @@ class Pub(db.Model):
         return {'id': self.id,
             'title': self.title,
             'category': self.category,
-            'detail_1': self.detail_1,
-            'detail_2': self.detail_2,
-            'detail_3': self.detail_3,
+            'phone': self.phone,
+            'email': self.email,
+            'address': self.address,
             'ref_link': self.ref_link,
             'description': self.description,
             'image_1': self.image_1,
             'image_2': self.image_2,
+            'image_3': self.image_3,
+            'image_4': self.image_4,
+            'image_5': self.image_5,
+            'image_6': self.image_6,
+            'image_7': self.image_7,
+            'image_8': self.image_8,
             'author': User.query.filter_by(id=self.user_id).first().as_dict()
             }
 

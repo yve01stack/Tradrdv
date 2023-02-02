@@ -396,13 +396,19 @@ def create_pub():
 
     title = request.form.get('title')
     category = request.form.get('category')
-    detail_1 = request.form.get('detail_1')
-    detail_2 = request.form.get('detail_2')
-    detail_3 = request.form.get('detail_3')
+    phone = request.form.get('phone')
+    email = request.form.get('email')
+    address = request.form.get('address')
     ref_link = request.form.get('ref_link')
     description = request.form.get('description')
     image_1 = request.files.get("image_1")
     image_2 = request.files.get("image_2")
+    image_3 = request.files.get("image_3")
+    image_4 = request.files.get("image_4")
+    image_5 = request.files.get("image_5")
+    image_6 = request.files.get("image_6")
+    image_7 = request.files.get("image_7")
+    image_8 = request.files.get("image_8")
 
     if image_1:
         if allowed_image(image_1.filename):
@@ -414,20 +420,87 @@ def create_pub():
             return redirect(url_for('profile', _external=True))
     else:
         image_1 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
-
+    
     if image_2:
         if allowed_image(image_2.filename):
             image_2.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_2.filename)
-            Image.open(image_2).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_2.filename))
+            Image.open(image_2).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_2.filename))
             image_2 = os.path.join('assets', 'images', 'pub_img', image_2.filename).replace("\\", '/')
         else:
             flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
             return redirect(url_for('profile', _external=True))
     else:
         image_2 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
+    
+    if image_3:
+        if allowed_image(image_3.filename):
+            image_3.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_3.filename)
+            Image.open(image_3).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_3.filename))
+            image_3 = os.path.join('assets', 'images', 'pub_img', image_3.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_3 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
+    
+    if image_4:
+        if allowed_image(image_4.filename):
+            image_4.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_4.filename)
+            Image.open(image_4).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_4.filename))
+            image_4 = os.path.join('assets', 'images', 'pub_img', image_4.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_4 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
+    
+    if image_5:
+        if allowed_image(image_5.filename):
+            image_5.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_5.filename)
+            Image.open(image_5).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_5.filename))
+            image_5 = os.path.join('assets', 'images', 'pub_img', image_5.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_5 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
+    
+    if image_6:
+        if allowed_image(image_6.filename):
+            image_6.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_6.filename)
+            Image.open(image_6).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_6.filename))
+            image_6 = os.path.join('assets', 'images', 'pub_img', image_6.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_6 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
 
-    new_pub = Pub(title=title, category=category, detail_1=detail_1, detail_2=detail_2, detail_3=detail_3, ref_link=ref_link,
-        description=description, image_1=image_1, image_2=image_2, valid=True, author=current_user)
+    if image_7:
+        if allowed_image(image_7.filename):
+            image_7.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_7.filename)
+            Image.open(image_7).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_7.filename))
+            image_7 = os.path.join('assets', 'images', 'pub_img', image_7.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_7 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
+    
+    if image_8:
+        if allowed_image(image_8.filename):
+            image_8.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_8.filename)
+            Image.open(image_8).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_8.filename))
+            image_8 = os.path.join('assets', 'images', 'pub_img', image_8.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_8 = os.path.join('assets', 'images', 'dev', '916733.png').replace("\\", '/')
+
+    new_pub = Pub(title=title, category=category, phone=phone, email=email, address=address, ref_link=ref_link, description=description, 
+        image_1=image_1, image_2=image_2, image_3=image_3, image_4=image_4, image_5=image_5, image_6=image_6, image_7=image_7, image_8=image_8, 
+        valid=True, author=current_user)
     db.session.add(new_pub)
     db.session.commit()
     flash(_('Votre article a été crée avec succès'), 'success')
@@ -456,7 +529,7 @@ def pub_subscribe():
     
         admin = User.query.filter((User.statut=='admin')).order_by(User.last_seen.desc()).first()
         motif = _('Souscription à l\'abonnement marketing')
-        deal = Deal(type_deal='abon_pub', payment_way='cash', motif=motif, amount=1000,\
+        deal = Deal(type_deal='abon_pub', payment_way='cash', motif=motif, amount=25000,\
             devise=app.config['DEVISES'][0]['symbol'], friend_accept=True, friend=admin, author=current_user)
         db.session.add(deal)
         db.session.commit()
@@ -491,13 +564,19 @@ def pub_update():
     pub_id = request.form.get('pub_id')
     title = request.form.get('title')
     category = request.form.get('category')
-    detail_1 = request.form.get('detail_1')
-    detail_2 = request.form.get('detail_2')
-    detail_3 = request.form.get('detail_3')
+    phone = request.form.get('phone')
+    email = request.form.get('email')
+    address = request.form.get('address')
     ref_link = request.form.get('ref_link')
     description = request.form.get('description')
     image_1 = request.files.get("image_1")
     image_2 = request.files.get("image_2")
+    image_3 = request.files.get("image_3")
+    image_4 = request.files.get("image_4")
+    image_5 = request.files.get("image_5")
+    image_6 = request.files.get("image_6")
+    image_7 = request.files.get("image_7")
+    image_8 = request.files.get("image_8")
     pub = Pub.query.filter((Pub.id==pub_id) & (Marketing.user_id==current_user.id)).first_or_404()
 
     if image_1:
@@ -514,13 +593,79 @@ def pub_update():
     if image_2:
         if allowed_image(image_2.filename):
             image_2.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_2.filename)
-            Image.open(image_2).resize((500, 500)).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_2.filename))
+            Image.open(image_2).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_2.filename))
             image_2 = os.path.join('assets', 'images', 'pub_img', image_2.filename).replace("\\", '/')
         else:
             flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
             return redirect(url_for('profile', _external=True))
     else:
         image_2 = pub.image_2
+    
+    if image_3:
+        if allowed_image(image_3.filename):
+            image_3.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_3.filename)
+            Image.open(image_3).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_3.filename))
+            image_3 = os.path.join('assets', 'images', 'pub_img', image_3.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_3 = pub.image_3
+    
+    if image_4:
+        if allowed_image(image_4.filename):
+            image_4.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_4.filename)
+            Image.open(image_4).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_4.filename))
+            image_4 = os.path.join('assets', 'images', 'pub_img', image_4.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_4 = pub.image_4
+
+    if image_5:
+        if allowed_image(image_5.filename):
+            image_5.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_5.filename)
+            Image.open(image_5).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_5.filename))
+            image_5 = os.path.join('assets', 'images', 'pub_img', image_5.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_5 = pub.image_5
+    
+    if image_6:
+        if allowed_image(image_6.filename):
+            image_6.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_6.filename)
+            Image.open(image_6).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_6.filename))
+            image_6 = os.path.join('assets', 'images', 'pub_img', image_6.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_6 = pub.image_6
+
+    if image_7:
+        if allowed_image(image_7.filename):
+            image_7.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_7.filename)
+            Image.open(image_7).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_7.filename))
+            image_7 = os.path.join('assets', 'images', 'pub_img', image_7.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_7 = pub.image_7
+    
+    if image_8:
+        if allowed_image(image_8.filename):
+            image_8.filename = secure_filename(str(datetime.timestamp(datetime.now()))+image_8.filename)
+            Image.open(image_8).save(os.path.join('app', 'static', 'assets', 'images', 'pub_img', image_8.filename))
+            image_8 = os.path.join('assets', 'images', 'pub_img', image_8.filename).replace("\\", '/')
+        else:
+            flash(_('Erreur de nom ou d\'extension de la deuxième image'), 'danger')
+            return redirect(url_for('profile', _external=True))
+    else:
+        image_8 = pub.image_8
     
     account = Marketing.query.filter((Marketing.user_id==current_user.id)).first()
     pubs = Pub.query.filter((Pub.user_id==current_user.id) & (Pub.valid==True))
@@ -530,13 +675,19 @@ def pub_update():
     elif pubs.count() < account.nbr_pub:
         pub.title = title
         pub.category = category
-        pub.detail_1 = detail_1
-        pub.detail_2 = detail_2
-        pub.detail_3 = detail_3
+        pub.phone = phone
+        pub.email = email
+        pub.address = address
         pub.ref_link = ref_link
         pub.description = description        
         pub.image_1 = image_1
         pub.image_2 = image_2
+        pub.image_3 = image_3
+        pub.image_4 = image_4
+        pub.image_5 = image_5
+        pub.image_6 = image_6
+        pub.image_7 = image_7
+        pub.image_8 = image_8
         pub.valid = True
         db.session.commit()
         flash(_('Votre article a été modifié et est maintenant en ligne'), 'success')
@@ -544,14 +695,19 @@ def pub_update():
     elif pubs.count() == account.nbr_pub:
         if pub.valid:
             pub.title = title
-            pub.category = category
-            pub.detail_1 = detail_1
-            pub.detail_2 = detail_2
-            pub.detail_3 = detail_3
+            pub.phone = phone
+            pub.email = email
+            pub.address = address
             pub.ref_link = ref_link
-            pub.description = description
+            pub.description = description        
             pub.image_1 = image_1
             pub.image_2 = image_2
+            pub.image_3 = image_3
+            pub.image_4 = image_4
+            pub.image_5 = image_5
+            pub.image_6 = image_6
+            pub.image_7 = image_7
+            pub.image_8 = image_8
             db.session.commit()
             flash(_('Votre article a été modifié et est maintenant en ligne'), 'success')
             return redirect(url_for('profile', _external=True))

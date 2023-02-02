@@ -227,10 +227,37 @@
                                     <img id="output_1" onclick="return document.getElementById('image_1').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
                                         style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden accept="image/*" name="image_1" id="image_1" onchange="loadFile(event, 'output_1')">
-        
+                                    <br>{{_('Affiche de la Page d\'Accueil')}}
+                                </center>
+                                <center class="form-group">
                                     <img id="output_2" onclick="return document.getElementById('image_2').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
                                         style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden name="image_2" accept="image/*" id="image_2" onchange="loadFile(event, 'output_2')">
+
+                                    <img id="output_3" onclick="return document.getElementById('image_3').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
+                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <input type="file" hidden accept="image/*" name="image_3" id="image_3" onchange="loadFile(event, 'output_3')">
+    
+                                    <img id="output_4" onclick="return document.getElementById('image_4').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
+                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <input type="file" hidden accept="image/*" name="image_4" id="image_4" onchange="loadFile(event, 'output_4')">
+        
+                                    <img id="output_5" onclick="return document.getElementById('image_5').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
+                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <input type="file" hidden name="image_5" accept="image/*" id="image_5" onchange="loadFile(event, 'output_5')">
+
+                                    <img id="output_6" onclick="return document.getElementById('image_6').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
+                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <input type="file" hidden name="image_6" accept="image/*" id="image_6" onchange="loadFile(event, 'output_6')">
+                                    
+                                    <img id="output_7" onclick="return document.getElementById('image_7').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
+                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <input type="file" hidden accept="image/*" name="image_7" id="image_7" onchange="loadFile(event, 'output_7')">
+        
+                                    <img id="output_8" onclick="return document.getElementById('image_8').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
+                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <input type="file" hidden name="image_8" accept="image/*" id="image_8" onchange="loadFile(event, 'output_8')">
+                                    <br>{{_('Sept Images du Profil')}}
                                 </center>
                                 <div class="form-container">
                                     <input type="hidden" name="pub_id" id="pub_id">
@@ -241,9 +268,9 @@
                                         <option value="{{ category }}">{{ category }}</option>
                                         {% endfor %}
                                     </select>
-                                    <input type="text" placeholder="{{_('Premier detail')}}" class="m-0 mt-1" name="detail_1" id="pub_detail_1" required maxlength="64">
-                                    <input type="text" placeholder="{{_('Deuxième detail')}}" class="m-0 mt-1" name="detail_2" id="pub_detail_2" maxlength="64">
-                                    <input type="text" placeholder="{{_('Troisième detail')}}" class="m-0 mt-1" name="detail_3" id="pub_detail_3" maxlength="64">
+                                    <input type="tel" placeholder="{{_('Numéro')}}" class="m-0 mt-1" name="phone" id="pub_phone" required maxlength="64">
+                                    <input type="email" placeholder="{{_('E-mail')}}" class="m-0 mt-1" name="email" id="pub_email" required maxlength="64">
+                                    <input type="text" placeholder="{{_('Adresse')}}" class="m-0 mt-1" name="address" id="pub_address" maxlength="64">
                                     <input type="link" placeholder="{{_('Url de référence')}}" class="m-0 mt-1" name="ref_link" id="pub_ref_link" maxlength="255">
                                     <textarea name="description" maxlength="500" required="true" cols="50" class="w-100" id="pub_description">{{_('Description')}}</textarea>
                                 </div>
@@ -283,10 +310,10 @@
                                             <span>[{{pub.category}}]</span>
                                           </td> 
                                         <td class="invert">
-                                            <span><i class="fa fa-signal px-1"></i>{{pub.nbr_clic}}</span>
+                                            <span><i class="fa fa-eye px-1"></i>{{pub.nbr_clic}}</span>
                                         </td>      
                                         <td class="invert">
-                                            {% if pub.valid %}
+                                            {% if pub.valid==True %}
                                                 <span class="badge badge-primary px-2">En ligne</span>
                                             {% else %}
                                                 <a href="{{ url_for('pub_activate', pub_id=pub.id, _external=True) }}" class="badge badge-primary px-2">{{_('Activer')}}</a> 
@@ -326,7 +353,7 @@
                 du versement de 80%(percent)s du total de la somme, ou vous décommander,", percent='%')}} 
                 <ul>
                     <li>{{_("Nous privilégions l’utilisation de l’application BaridiMob en Algérie, pour sa rapidité et son efficacité, et ceci sans déplacements.")}}</li>
-                    <li>{{_("Pour le marché en dehors de l’Algérie, nous n’acceptons que les transferts bancaires et la plateforme Payoneer».")}}</li>
+                    <li>{{_("Pour le marché en dehors de l’Algérie, nous n’acceptons que les transferts Western Union et la plateforme Payoneer».")}}</li>
                     <li>{{_("Les prix pour le marché international différent des prix pour le marché local « algérien).")}}</li>
                 </ul>
                </p>
@@ -424,10 +451,16 @@
                 document.getElementById("pub_action").action = pub_update_url;
                 document.getElementById("output_1").src = window.location.origin+'/static/'+data['pub']['image_1'];
                 document.getElementById("output_2").src = window.location.origin+'/static/'+data['pub']['image_2'];
+                document.getElementById("output_3").src = window.location.origin+'/static/'+data['pub']['image_3'];
+                document.getElementById("output_4").src = window.location.origin+'/static/'+data['pub']['image_4'];
+                document.getElementById("output_5").src = window.location.origin+'/static/'+data['pub']['image_5'];
+                document.getElementById("output_6").src = window.location.origin+'/static/'+data['pub']['image_6'];
+                document.getElementById("output_7").src = window.location.origin+'/static/'+data['pub']['image_7'];
+                document.getElementById("output_8").src = window.location.origin+'/static/'+data['pub']['image_8'];
                 document.getElementById("pub_title").value = data['pub']['title'];
-                document.getElementById("pub_detail_1").value = data['pub']['detail_1'];
-                document.getElementById("pub_detail_2").value = data['pub']['detail_2'];
-                document.getElementById("pub_detail_3").value = data['pub']['detail_3'];
+                document.getElementById("pub_phone").value = data['pub']['phone'];
+                document.getElementById("pub_email").value = data['pub']['email'];
+                document.getElementById("pub_address").value = data['pub']['address'];
                 document.getElementById("pub_ref_link").value = data['pub']['ref_link'];
                 document.getElementById("pub_description").value = data['pub']['description'];
                 document.getElementById("pub_id").value = data['pub']['id'];

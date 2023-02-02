@@ -27,17 +27,21 @@
         <div class="container pb-5">
             <div class="row">
                 <div class="col col-md-4 col-sm-6">
-                    {% for pub in pubs[:5] %}
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
+                            <div class="carousel-item active">      
+                                <img src="{{ url_for('static', filename='assets/images/dev/ad_icon.webp')}}" class="d-block w-100" style="height: 250px;" alt="...">         
+                            </div>
+                            {% for pub in pubs[:5] %}
+                            <div class="carousel-item">
                                 <a href="{{ url_for('pub_view', pub_id=pub.id, category=pub.category, _external=True) }}">
                                     <div class="card-img-overlay text-center d-flex justify-content-center align-items-end">
-                                        <h6><span class="bg-primary text-white">{{ pub.title }}</span></h6>       
+                                        <!-- <h6><span class="text-primary">{{pub.title}}</span></h6> -->
                                     </div>
                                 </a>
-                                <img src="{{ url_for('static', filename=pub.image_1)}}" class="d-block w-100" style="height: 150px;" alt="...">
+                                <img src="{{ url_for('static', filename=pub.image_1)}}" class="d-block w-100" style="height: 250px;" alt="...">         
                             </div>
+                            {% endfor %}
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -48,7 +52,6 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
-                    {% endfor %}
                 </div>
 
                 <div class="col col-md-4 col-sm-6">
@@ -88,17 +91,21 @@
                 </div>
 
                 <div class="col col-md-4 col-sm-6">
-                    {% for pub in pubs[5:] %}
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
+                            <div class="carousel-item active">      
+                                <img src="{{ url_for('static', filename='assets/images/dev/ad_icon.webp')}}" class="d-block w-100" style="height: 250px;" alt="...">         
+                            </div>
+                            {% for pub in pubs[5:] %}
+                            <div class="carousel-item">
                                 <a href="{{ url_for('pub_view', pub_id=pub.id, category=pub.category, _external=True) }}">
                                     <div class="card-img-overlay text-center d-flex justify-content-center align-items-end">
-                                        <h6><span class="bg-primary text-white">{{ pub.title }}</span></h6>       
+                                        <!-- <h6><span class="text-primary">{{pub.title}}</span></h6> -->
                                     </div>
                                 </a>
-                                <img src="{{ url_for('static', filename=pub.image_1)}}" class="d-block w-100" style="height: 150px;" alt="...">
+                                <img src="{{ url_for('static', filename=pub.image_1)}}" class="d-block w-100" style="height: 250px;" alt="...">         
                             </div>
+                            {% endfor %}
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -109,7 +116,6 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
-                    {% endfor %}
                 </div>
             </div>
             <!-- // Pubs -->

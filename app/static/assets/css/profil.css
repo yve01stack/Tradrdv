@@ -193,8 +193,8 @@ span.cursor {
 ------------------------------------*/
 
 /* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password], .form-container input[type=file],
- .form-container input[type=link], .form-container input[type=number], .form-container select, .form-container textarea {
+.form-container input[type=text], .form-container input[type=password], .form-container input[type=file], .form-container input[type=tel], 
+.form-container input[type=email], .form-container input[type=link], .form-container input[type=number], .form-container select, .form-container textarea {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -203,8 +203,8 @@ span.cursor {
 }
 
 /* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container input[type=file]:focus,
-.form-container input[type=link]:focus, .form-container input[type=number]:focus, .form-container select:focus, .form-container textarea:focus {
+.form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container input[type=file]:focus, .form-container input[type=tel]:focus, 
+.form-container input[type=email]:focus, .form-container input[type=link]:focus, .form-container input[type=number]:focus, .form-container select:focus, .form-container textarea:focus {
   background-color: #ddd;
   outline: none;
 }
