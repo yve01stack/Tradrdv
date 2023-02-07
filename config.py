@@ -37,8 +37,8 @@ class Config(object):
 	f.close()
 
 	COUNTRIES = data['countries']
-	TOWNS = data['countries']
-	SKILLS = data['twons']
+	TOWNS = data['twons']
+	SKILLS = data['skills']
 
 	# Site Informations
 	SITE_NAME = "TRADRDV"
@@ -49,7 +49,7 @@ class Config(object):
 	CALL_CONTACT = '+213 658489196'
 	FAX_CONTACT = '---'
 	ADDRESS = '42000, Tipasa, Algérie'
-	
+
 	E_PAYMENT_TYPES = ['Payonner', 'Western Union', 'Compte Bancaire']
 	STATUTS = ['admin', 'testeur', 'traducteur', 'client']
 	NEWSLETTER_GROUPS = ['Groupe particulier', 'Groupe client', 'Groupe traducteur', 'Groupe testeur', 'Groupe admin']

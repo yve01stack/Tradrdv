@@ -56,6 +56,10 @@ def accueil():
 
     traducteurs_need_ad = Traducteur.query.filter((Traducteur.compte_valid==True) & (Traducteur.need_help_ad=='on')).order_by(select_by_random()).all()
     traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random()).all()
+    # Abonnement Marketing 
+    accounts = Marketing.query.filter_by(compte_valid=True).all()
+    for account in accounts:
+        account.has_valid_abon()
     pubs = Pub.query.filter_by(valid=True).order_by(select_by_random()).all()
     return render_template('accueil.html', traducteurs_need_ad=traducteurs_need_ad, traducteurs=traducteurs, pubs=pubs,
         dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, title=_('Accueil - %(sitename)s', sitename=app.config['SITE_NAME']))
