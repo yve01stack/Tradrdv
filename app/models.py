@@ -408,58 +408,33 @@ class Dashbord(db.Model):
     revenu_total = db.Column(db.Integer, nullable=False, default=0)
     accueil_view = db.Column(db.Integer, nullable=False, default=0)
     traducteur_view = db.Column(db.Integer, nullable=False, default=0)
-    remain_day = db.Column(db.Integer, default=0)
     begin = db.Column(db.DateTime, default=datetime.utcnow)
-    end = db.Column(db.DateTime, default=datetime.utcnow)
     
     def __repr__(self):
         return '<Dashbord {}>'.format(self.id)
     
-    def end_valid_month(self):
-        remain_day = (self.end - datetime.utcnow()).days
-        self.remain_day = remain_day if remain_day >=0 else 0
-        if remain_day <=0 :
-            last_month = Dashbord.query.filter_by(id=2).first()
-            last_month.revenu_abon = self.revenu_abon
-            last_month.revenu_test = self.revenu_test
-            last_month.revenu_work = self.revenu_work
-            last_month.freelance_part = self.freelance_part
-            last_month.donation_save = self.donation_save
-            last_month.impot_save = self.impot_save
-            last_month.revenu_total = self.revenu_total
-            last_month.accueil_view = self.accueil_view
-            last_month.traducteur_view = self.traducteur_view
-            last_month.remain_day = self.remain_day
-            last_month.begin = self.begin
-            last_month.end = self.end
-
-            self.revenu_abon = 0
-            self.revenu_test = 0
-            self.revenu_work = 0
-            self.freelance_part = 0
-            self.donation_save = 0
-            self.impot_save = 0
-            self.revenu_total = 0
-            self.accueil_view = 0
-            self.traducteur_view = 0
-            self.remain_day = 0
-            self.begin = datetime.utcnow()
-            self.end = datetime.utcnow() + timedelta(days=30)
+def update_dashbord(revenu_abon=0, revenu_test=0, revenu_work=0, freelance_part=0, eq_da=1, accueil_view=0, traducteur_view=0):
+    if Dashbord.query.count()<=0:
+        db.session.add(Dashbord(begin=datetime.utcnow()))
         db.session.commit()
-
-    def update_dashbord(self, revenu_abon=0, revenu_test=0, revenu_work=0, freelance_part=0, eq_da=1, accueil_view=0, traducteur_view=0):
-        self.revenu_abon += revenu_abon*eq_da
-        self.revenu_test += revenu_test*eq_da
-        self.revenu_work += revenu_work*eq_da
-        self.freelance_part += freelance_part*eq_da
-        self.donation_save = round(((self.revenu_abon + self.revenu_test + self.revenu_work)*app.config['DONATION_PART'])/100, 2)
-        self.impot_save = round(((self.revenu_abon + self.revenu_test + self.revenu_work)*app.config['IMPOT_PART'])/100, 2)
-        self.revenu_total = self.revenu_abon + self.revenu_test + self.revenu_work
-        self.accueil_view += accueil_view
-        self.traducteur_view += traducteur_view
+    dashbords = Dashbord.query.all()
+    current_dashbord = dashbords[Dashbord.query.count()-1]
+    if current_dashbord.begin.month != datetime.utcnow().month:
+        db.session.add(Dashbord(begin=datetime.utcnow()))
         db.session.commit()
-
-
+        dashbords = Dashbord.query.all()
+        current_dashbord = dashbords[Dashbord.query.count()-1]
+    current_dashbord.revenu_abon += revenu_abon*eq_da
+    current_dashbord.revenu_test += revenu_test*eq_da
+    current_dashbord.revenu_work += revenu_work*eq_da
+    current_dashbord.freelance_part += freelance_part*eq_da
+    current_dashbord.donation_save = round(((current_dashbord.revenu_abon + current_dashbord.revenu_test + current_dashbord.revenu_work)*app.config['DONATION_PART'])/100, 2)
+    current_dashbord.impot_save = round(((current_dashbord.revenu_abon + current_dashbord.revenu_test + current_dashbord.revenu_work)*app.config['IMPOT_PART'])/100, 2)
+    current_dashbord.revenu_total = current_dashbord.revenu_abon + current_dashbord.revenu_test + current_dashbord.revenu_work
+    current_dashbord.accueil_view += accueil_view
+    current_dashbord.traducteur_view += traducteur_view
+    db.session.commit()
+  
 
 
 #database initialized
@@ -474,10 +449,6 @@ def init_db():
         phone='+213 658489196', addr_postale='42000, Tipaza, Algérie', caution_annual_end=datetime.utcnow()+timedelta(days=365), compte_valid=True, current_country='Algérie (arabe)', 
         current_town='Tipaza', test_score=4, about_me="Je suis traductrice professionnelle depuis plus de 5ans maintemant, je suis à votre dispotion. Engagez moi!", author=new_user)
     db.session.add(traducteur)
-
-    db.session.add(Dashbord(begin=datetime.utcnow(), end = datetime.utcnow() + timedelta(days=30)))
-    db.session.add(Dashbord())
-
     db.session.commit()
     lg.warning('Database initialized!')
 

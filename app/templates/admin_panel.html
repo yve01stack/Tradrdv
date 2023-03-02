@@ -404,10 +404,16 @@
                                           </p>
                                           <p><input class="m-0" name="amount" required value="0" type="number"></p>
                                         </form>
+                                        <form action="{{ url_for('tradoffer_postpone', _external=True) }}" method="post" class="form-container" id="tradoffer_postpone">
+                                          <input class="traducteur_id" name="trad_id" required type="hidden">
+                                          <p>{{_('Donnez un nombre de jours et cliquer sur prolonger ci-dessous')}}
+                                            <input class="m-0" name="days" required value="0" type="number"></p>
+                                        </form>
                                       </div>
                                       <div class="d-inline">
-                                        <a type="button" target="_blank" href="" class="btn btn-primary login_traducteur_url" onclick="alert('Vous êtes sur le point de vous connecter sur ce compte')">{{_('Connecter')}}</a>
+                                        <a type="button" target="_blank" href="" class="btn-perso login_traducteur_url" onclick="alert('Vous êtes sur le point de vous connecter sur ce compte')">{{_('Connecter')}}</a>
                                         <button type="submit" class="btn-perso" form="traducteur_payment">{{_('Payer')}}</button>
+                                        <button type="submit" class="btn-perso" form="tradoffer_postpone">{{_('Prolonger')}}</button>
                                       </div>
                                   </div>
                                 </div>

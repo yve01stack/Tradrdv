@@ -10,7 +10,7 @@ from googletrans import Translator
 
 
 from app import app, db, client, tasks
-from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, Pub, Marketing, make_payment, get_paid
+from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, Pub, Marketing, make_payment, get_paid, update_dashbord
 from app.utils import get_google_provider_cfg, allowed_image, password_reset_email,\
      email_confirm_email, alert_email, newsletter_email, select_by_random, return_eq_da
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
@@ -47,12 +47,12 @@ def before_request():
 @app.route('/')
 @app.route('/accueil')
 def accueil():
-    this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.update_dashbord(accueil_view=1)
+    update_dashbord(accueil_view=1)
 
     #Dashbord of the two months
-    dashbord_this_month = Dashbord.query.filter_by(id=1).first()
-    dashbord_last_month = Dashbord.query.filter_by(id=2).first()
+    dashbords = Dashbord.query.all()
+    dashbord_this_month = dashbords[len(dashbords)-1]
+    dashbord_last_month = dashbords[len(dashbords)-2 if len(dashbords)>=2 else 0]
 
     traducteurs_need_ad = Traducteur.query.filter((Traducteur.compte_valid==True) & (Traducteur.need_help_ad=='on')).order_by(select_by_random()).all()
     traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random()).all()
@@ -979,8 +979,7 @@ def traducteur_update():
     db.session.commit()
     
     make_payment(motif=deal.motif, amount=app.config['TESTEUR_PART'], devise=app.config['DEVISES'][0]['symbol'], eq_da=app.config['DEVISES'][0]['eq_da'], owner=deal.friend)
-    this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.update_dashbord(freelance_part=app.config['TESTEUR_PART'], eq_da=app.config['DEVISES'][0]['eq_da'])
+    update_dashbord(freelance_part=app.config['TESTEUR_PART'], eq_da=app.config['DEVISES'][0]['eq_da'])
     
     chat = Chat.query.filter(((Chat.user_id==current_user.id) & (Chat.receiver_id==deal.user_id)) | ((Chat.user_id==deal.user_id) & (Chat.receiver_id==current_user.id))).first()
     if chat:
@@ -1108,9 +1107,7 @@ def submit_work():
 
 @app.route('/traducteur')
 def traducteur():
-    this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.update_dashbord(traducteur_view=1)
-
+    update_dashbord(traducteur_view=1)
     page = request.args.get('page', 1, type=int)
 
     traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random())\
@@ -1469,8 +1466,10 @@ def admin_panel():
     #List of traducteur to select for reject deal
     list_trad = Traducteur.query.filter((Traducteur.compte_valid==True)).all()
     #Dashbord of the two months
-    dashbord_this_month = Dashbord.query.filter_by(id=1).first()
-    dashbord_last_month = Dashbord.query.filter_by(id=2).first()
+    dashbords = Dashbord.query.all()
+    dashbord_this_month = dashbords[len(dashbords)-1]
+    dashbord_last_month = dashbords[len(dashbords)-2 if len(dashbords)>=2 else 0]
+
 
     #Profile
     clients = User.query.filter_by(statut='client').all()
@@ -1509,13 +1508,12 @@ def submit_checked_work():
         deal.deal_over_time = datetime.utcnow()
         traducteur.success_work += 1 
     
-        this_month = Dashbord.query.filter_by(id=1).first()
         if deal.payment_way == 'cash':
             make_payment(motif=deal.motif, amount=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.friend)
-            this_month.update_dashbord(freelance_part=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100, eq_da=return_eq_da(deal.devise))
+            update_dashbord(freelance_part=(deal.amount*app.config['TRAD_PART_NO_ABON'])/100, eq_da=return_eq_da(deal.devise))
         elif deal.payment_way == 'abonnement':
             make_payment(motif=deal.motif, amount=app.config['TRAD_PART_ABON'], devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.friend)
-            this_month.update_dashbord(freelance_part=app.config['TRAD_PART_ABON'], eq_da=return_eq_da(deal.devise))
+            update_dashbord(freelance_part=app.config['TRAD_PART_ABON'], eq_da=return_eq_da(deal.devise))
 
         # Deal is over text from traductor to custom
         chat = Chat.query.filter(((Chat.user_id==deal.friend_id) & (Chat.receiver_id==deal.user_id)) |\
@@ -1573,11 +1571,10 @@ def valid_deal_bill(deal_id):
     db.session.commit()
 
     make_payment(motif=deal.motif, amount=-deal.amount, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.author)
-    this_month = Dashbord.query.filter_by(id=1).first()
     if deal.type_deal == 'test':
-        this_month.update_dashbord(revenu_test=deal.amount, eq_da=return_eq_da(deal.devise))
+        update_dashbord(revenu_test=deal.amount, eq_da=return_eq_da(deal.devise))
     elif deal.type_deal == 'trad':
-        this_month.update_dashbord(revenu_work=deal.amount, eq_da=return_eq_da(deal.devise))
+        update_dashbord(revenu_work=deal.amount, eq_da=return_eq_da(deal.devise))
 
     flash(_('La conformité et l\'originalité du reçu confirmées'), 'success')
     return redirect(url_for('admin_panel', _external=True))
@@ -1678,8 +1675,7 @@ def enroll_offer(deal_id):
         db.session.commit()
     
     make_payment(motif=deal.motif, amount=-deal.amount, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.author)
-    this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.update_dashbord(revenu_abon=deal.amount, eq_da=return_eq_da(deal.devise))
+    update_dashbord(revenu_abon=deal.amount, eq_da=return_eq_da(deal.devise))
 
     flash(_('La conformité et l\'originalité du reçu confirmées'), 'success')
     return redirect(url_for('admin_panel', _external=True))
@@ -1710,13 +1706,63 @@ def pub_offer():
     account.compte_valid = True
     db.session.commit()
     
+    chat = Chat.query.filter(((Chat.user_id==current_user.id) & (Chat.receiver_id==deal.user_id)) | 
+        ((Chat.user_id==deal.user_id) & (Chat.receiver_id==current_user.id))).first()
+    if chat:
+        chat.last_chat = datetime.utcnow()
+    else:
+        chat = Chat(receiver_id=deal.user_id, author=current_user)
+    message = _("Bonjour cher client! Nous venons par ce message vous informer que votre abonnement pub démarre dès à present."\
+        " Veuillez profiter de votre espace marketing")
+    contact = Contact(receiver_id=deal.user_id, message=message, file_statut=False, author=current_user)
+    db.session.add(contact)
+    db.session.commit()
+    subject = _('Abonnement Pub')
+    body = _("Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un nouveau message."\
+        "Veuillez consulter votre messagerie.", username=current_user.username) 
+    url = url_for('profile', _external=True)
+    alert_email(subject, body, url, deal.author)
+
     make_payment(motif=deal.motif, amount=-deal.amount, devise=deal.devise, eq_da=return_eq_da(deal.devise), owner=deal.author)
-    this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.update_dashbord(revenu_abon=deal.amount, eq_da=return_eq_da(deal.devise))
+    update_dashbord(revenu_abon=deal.amount, eq_da=return_eq_da(deal.devise))
 
     flash(_('La conformité et l\'originalité du reçu confirmées'), 'success')
     return redirect(url_for('admin_panel', _external=True))
 
+
+@app.route('/admin/tradoffer/postpone', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def tradoffer_postpone():
+    trad_id = request.form.get('trad_id')
+    days = request.form.get('days')
+
+    traducteur_old = Traducteur.query.filter_by(id=trad_id).first_or_404()
+    traducteur_old.caution_annual_end = datetime.utcnow() + timedelta(days=int(days))
+    traducteur_old.compte_valid = True
+    remain_day = (traducteur_old.caution_annual_end - datetime.utcnow()).days
+    traducteur_old.remain_day = remain_day if remain_day >=0 else 0
+    db.session.commit()
+    
+    chat = Chat.query.filter(((Chat.user_id==current_user.id) & (Chat.receiver_id==traducteur_old.user_id)) | 
+        ((Chat.user_id==traducteur_old.user_id) & (Chat.receiver_id==current_user.id))).first()
+    if chat:
+        chat.last_chat = datetime.utcnow()
+    else:
+        chat = Chat(receiver_id=traducteur_old.user_id, author=current_user)
+    message = _("Bonjour cher traducteur! Nous venons par ce message vous informer que votre abonnement traducteur a été prolongé pour"\
+        " quelques jours. N'oubliez pas de renouveler votre forfait aussi tôt que possible. Vous êtes toujours bienvenu(e) chez %(sitname)s", sitname=app.config['SITE_NAME'])
+    contact = Contact(receiver_id=traducteur_old.user_id, message=message, file_statut=False, author=current_user)
+    db.session.add(contact)
+    db.session.commit()
+    subject = _('Abonnement traducteur prolongé')
+    body = _("Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un nouveau message."\
+        "Veuillez consulter votre messagerie.", username=current_user.username) 
+    url = url_for('profile', _external=True)
+    alert_email(subject, body, url, User.query.filter_by(id=traducteur_old.user_id).first())
+    flash(_('Prolongement d\'abonnement traducteur a été fait'), 'success')
+    return redirect(url_for('admin_panel', _external=True))
 
 @app.route('/admin/boost/<trad_id>', methods=['GET', 'POST'])
 @login_required

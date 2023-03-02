@@ -1,4 +1,4 @@
-from app.models import User, Traducteur, Dashbord, Marketing, Pub
+from app.models import User, Traducteur, Dashbord, Marketing, Pub, update_dashbord
 from app import scheduler
 
 
@@ -23,7 +23,5 @@ def scheduled_job():
     for client in clients:
         client.has_valid_abon()
     
-    this_month = Dashbord.query.filter_by(id=1).first()
-    this_month.end_valid_month()
-
+    update_dashbord()
 scheduler.start()
