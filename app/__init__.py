@@ -41,7 +41,6 @@ def init_db():
 def reinit_admin():
     models.reinit_admin()
 
-@babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
