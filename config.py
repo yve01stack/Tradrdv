@@ -86,6 +86,7 @@ class Config(object):
 	
 	# flask mail sender
 	MAIL_SERVER = os.environ.get('MAIL_SERVER')
+	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 	MAIL_PORT = 25
 	MAIL_USE_TLS = 1
