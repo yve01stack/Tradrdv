@@ -92,11 +92,11 @@ class Config(object):
 	
 	USE_EMAIL_API = True
 	SENDER_NAME = "TRADRDV" 
-	SENDER_EMAIL = os.environ.get('SENDER_EMAIL')   
-    REPLY_TO_EMAIL = os.environ.get('REPLY_TO_EMAIL')   
-    ALIEXPRESS_URL = os.environ.get('ALIEXPRESS_URL')
-    RAPIDAPI_KEY = os.environ.get('RAPIDAPI_KEY')
-    FIREBASE_MAILER_URL = os.environ.get('FIREBASE_MAILER_URL')
+	SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+	REPLY_TO_EMAIL = os.environ.get('REPLY_TO_EMAIL')
+	ALIEXPRESS_URL = os.environ.get('ALIEXPRESS_URL')
+	RAPIDAPI_KEY = os.environ.get('RAPIDAPI_KEY')
+	FIREBASE_MAILER_URL = os.environ.get('FIREBASE_MAILER_URL')
 
 	ADMINS = ['contact@tradrdv.com', 'admin@tradrdv.com', 'programm01dev@gmail.com']
 	# flask babel translator
