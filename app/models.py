@@ -204,8 +204,8 @@ class Deal(db.Model):
     payment_bill = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '101671.png').replace("\\", '/'))
     bill_is_added = db.Column(db.Boolean, nullable=False, default=False)
     admin_confirm_bill = db.Column(db.Boolean, nullable=False, default=False)
-    work_did = db.Column(db.String(500))
-    work_valid = db.Column(db.String(500))
+    work_did = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '101671.png').replace("\\", '/'))
+    work_valid = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '101671.png').replace("\\", '/'))
     work_score = db.Column(db.Integer, default=0)
     deal_over = db.Column(db.Boolean, nullable=False, default=False)
     deal_over_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -351,7 +351,7 @@ class Contact(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     receiver_id = db.Column(db.Integer, index=True, nullable=False)
     message = db.Column(db.String(1000))
-    file = db.Column(db.String(500))
+    file = db.Column(db.String(500), default=os.path.join('assets', 'images', 'dev', '101671.png').replace("\\", '/'))
     file_statut = db.Column(db.Boolean, default=False)
     read = db.Column(db.Boolean, default=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
@@ -419,11 +419,11 @@ def update_dashbord(revenu_abon=0, revenu_test=0, revenu_work=0, freelance_part=
         db.session.commit()
     dashbords = Dashbord.query.all()
     current_dashbord = dashbords[Dashbord.query.count()-1]
-    if current_dashbord.begin.month != datetime.utcnow().month:
-        db.session.add(Dashbord(begin=datetime.utcnow()))
-        db.session.commit()
-        dashbords = Dashbord.query.all()
-        current_dashbord = dashbords[Dashbord.query.count()-1]
+    #if current_dashbord.begin.month != datetime.utcnow().month:
+    #    db.session.add(Dashbord(begin=datetime.utcnow()))
+    #    db.session.commit()
+    #    dashbords = Dashbord.query.all()
+    #    current_dashbord = dashbords[Dashbord.query.count()-1]    
     current_dashbord.revenu_abon += revenu_abon*eq_da
     current_dashbord.revenu_test += revenu_test*eq_da
     current_dashbord.revenu_work += revenu_work*eq_da

@@ -124,6 +124,7 @@
                                         {% if deal.admin_confirm_bill %}
                                             {% if deal.deal_over %}
                                             <span class="badge badge-success">{{_('Terminé')}}</span>
+                                            <a class="badge badge-light" href="{{url_for('static', filename=deal.work_valid)}}" download="pièce jointe" target="_blank">{{_('fichier')}} <i class="fa fa-download"></i></a>
                                             {% else %}
                                             <span class="badge badge-info">{{_('En cours..')}}</span>
                                             {% endif %}
@@ -421,7 +422,7 @@
         var username = button.data('parent')
         var payment_way = button.data('draggable')
         var payment_bill = button.data('dropzone')
-        
+        console.log(motif)
         var modal = $(this)
         modal.find('.modal-body .deal_id').val(deal_id)
         
@@ -436,7 +437,9 @@
         document.getElementById(output_payment_bill).src = payment_bill
 
     })
-
+    $('#modal_aside_left').on('hidden.bs.modal', function (e) {
+        $(this).data('bs.modal', null);
+    })
 </script>
 
 <!-- get the correspond arcticle to update -->

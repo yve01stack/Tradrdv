@@ -29,46 +29,28 @@
                                         </select>
                                     </p>
                                     <p>
-                                        <select name="country" id="country_select_form" required onchange="getTown()" class="m-0">
+                                        <select name="country" required  class="m-0">
                                             <option value="">{{_('Pays de résidence')}}</option>
                                             {% for country in config['COUNTRIES'] %}
-                                            <option value="{{ country }}"></option>
+                                            <option value="{{ country }}">{{ country }}</option>
                                             {% endfor %}
                                         </select>
                                     </p>
                                     <p>
-                                        <select name="town" required id="town_select_form" class="m-0">
-                                            <option value=''>{{_('Ville de résidence')}}</option>
+                                        <select name="success_work" class="m-0">
+                                            <option value=0 selected>{{_('Commande Terminée')}}</option>
+                                            <option value=5 selected>{{_('Au moins 5')}}</option>
+                                            <option value=15 selected>{{_('Au moins 15')}}</option>
+                                            <option value=45 selected>{{_('Au moins 45')}}</option>
+                                            <option value=100 selected>{{_('Au moins 100')}}</option>
                                         </select>
                                     </p>
                                     <p>
-                                        <input name="success_work" required placeholder="{{_('Points d\'expérience sur TRADRDV')}}" type="number" class="m-0">
-                                    </p>
-                                    <p>
-                                        <label class="checkbox_container">{{_('Disponible')}}
-                                            <input type="checkbox" name="dispo">
-                                            <span class="checkmark"></span>
-                                          </label>
-                                          <label class="checkbox_container">{{_('Accepte abonné(e)')}}
+                                        <label class="checkbox_container">{{_('Accepte abonné(e)')}}
                                             <input type="checkbox" name="accept_subscriber">
                                             <span class="checkmark"></span>
                                         </label>
                                     </p>
-                                    <p>{{_('Points étoiles')}}
-                                        <div class="rate mt-n3"> 
-                                            <input type="radio" id="star5" name="rate" value="5" />
-                                            <label for="star5" title="text">5 stars</label>
-                                            <input type="radio" id="star4" name="rate" value="4" />
-                                            <label for="star4" title="text">4 stars</label>
-                                            <input type="radio" id="star3" name="rate" value="3" />
-                                            <label for="star3" title="text">3 stars</label>
-                                            <input type="radio" id="star2" name="rate" value="2" />
-                                            <label for="star2" title="text">2 stars</label>
-                                           <input type="radio" id="star1" name="rate" value="1" />
-                                            <label for="star1" title="text">1 star</label>
-                                        </div>
-                                    </p>
-                                    <p>_</p>
                                     <button type="submit" class="btn-perso">{{_('Filtrer')}}</button>
                                 </form>
                             </div>
@@ -128,26 +110,6 @@
             </div>
         </div>
     </section>
-
-
-    <a class="d-none country_select_url" href="{{ url_for('get_town', _external=True) }}"></a>
-    <script>
-        // get the towns that correspond to the selected country
-        function getTown() {
-            var country = document.getElementById("country_select_form").value;
-		    var url = $('.country_select_url').attr('href');
-    		$.post(url, { country: country }, function(data, status) { 
-                var options = "<option value=''>{{_('Ville de résidence')}}</option>";
-                var i
-                for (i = 0; i < data['towns'].length; i++) {
-                    options = options + "<option value='"+data['towns'][i]+"'>"+data['towns'][i]+"</option>";
-                }
-
-                document.getElementById("town_select_form").innerHTML = options
-            });
-        }
-
-    </script>
 
 
 <script>

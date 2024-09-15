@@ -1,3 +1,4 @@
+tradrdv_env
 env
 logs
 migrations
@@ -5,7 +6,13 @@ app.db
 .env
 .flaskenv
 __pycache__
-tradrdv-94901196e253.json
 app/static/data_files/tradrdv-94901196e253.json
+app/static/assets/images/bill_img/*
+app/static/assets/images/diploma_file/*
+app/static/assets/images/work_file/*
+app/static/assets/images/id_card_img/*
+app/static/assets/images/message_file/*
+app/static/assets/images/profile_img/*
+app/static/assets/images/pub_img/*
 wsgi.py
 tradrdvapp.sock

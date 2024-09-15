@@ -10,7 +10,6 @@ class Config(object):
 	SCHEDULER_API_ENABLED = True
 	# Database initialization
 	if os.environ.get('DATABASE_URL') is None:
-		basedir = os.path.abspath(os.path.dirname(__file__))
 		SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 		SQLALCHEMY_TRACK_MODIFICATIONS = False
 	else:
@@ -66,15 +65,12 @@ class Config(object):
 	ORDER_PER_PAGE = 20
 	PUB_CATEGORIES = ['Sport', 'Produit', 'Cuisine']
 
-
 	# freelancer payment
 	TESTEUR_PART = 2500
 	TRAD_PART_ABON = 200
 	TRAD_PART_NO_ABON = 80 #%
 	DONATION_PART = 2 #%
 	IMPOT_PART = 5 #%
-
-
 
 	# Google config
 	GOOGLE_CLIENT_ID =  os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -87,21 +83,20 @@ class Config(object):
 	# Verify picture download
 	ALLOWED_IMAGE_EXTENSIONS = ["JPEG", "JPG", "PNG", "GIF", "SVG", "JFIF"]
 	MAX_IMAGE_FILESIZE = 3 * 1024 * 1024
+	
 	# flask mail sender
 	MAIL_SERVER = os.environ.get('MAIL_SERVER')
-	MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
-	MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') is not None
-	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+	MAIL_PORT = 25
+	MAIL_USE_TLS = 1
 	
-	SENDGRID_KEY = os.environ.get('SENDGRID_KEY')
-	EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
-	EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
-	EMAIL_SENDER = os.environ.get('EMAIL_SENDER')
-	EMAIL_HOST = os.environ.get('EMAIL_HOST')
-	EMAIL_PORT = int(os.environ.get('EMAIL_PORT') or 2525)
-	EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') is not True
-	SENDGRID_NEED = os.environ.get('SENDGRID_NEED')
+	USE_EMAIL_API = True
+	SENDER_NAME = "TRADRDV" 
+	SENDER_EMAIL = os.environ.get('SENDER_EMAIL')   
+    REPLY_TO_EMAIL = os.environ.get('REPLY_TO_EMAIL')   
+    ALIEXPRESS_URL = os.environ.get('ALIEXPRESS_URL')
+    RAPIDAPI_KEY = os.environ.get('RAPIDAPI_KEY')
+    FIREBASE_MAILER_URL = os.environ.get('FIREBASE_MAILER_URL')
 
 	ADMINS = ['contact@tradrdv.com', 'admin@tradrdv.com', 'programm01dev@gmail.com']
 	# flask babel translator

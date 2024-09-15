@@ -829,7 +829,7 @@ def traducteur_new_register():
     testeur = User.query.filter_by(id=testeur_id).first()
     motif = _('Paiement de caution annuelle de traducteur')
     deal = Deal(type_deal='test', payment_way='cash', motif=motif, amount=app.config['TRADUCTEUR_CAUTION']['price_da'],\
-        devise=app.config['DEVISES'][0]['symbol'], friend=testeur, author=current_user)
+        devise=app.config['DEVISES'][0]['symbol'], friend_accept = True, friend=testeur, author=current_user)
     user = User.query.filter_by(id=current_user.id).first()
     user.statut = 'traducteur'
     db.session.add(deal)
@@ -1141,20 +1141,17 @@ def filter_trad():
     prestation = request.form.get('prestation')
     skill = request.form.get('skill')
     country = request.form.get('country')
-    town = request.form.get('town')
     success_work = request.form.get('success_work')
-    dispo = True if request.form.get('dispo') == 'on' else False
     accept_subscriber = True if request.form.get('accept_subscriber') == 'on' else False
-    rate = request.form.get('rate') if not request.form.get('rate') is None else 1
     
     traducteurs = Traducteur.query.filter(
         ((Traducteur.skill_1==skill) | (Traducteur.skill_2==skill) | (Traducteur.skill_3==skill) | (Traducteur.skill_4==skill) |
         (Traducteur.skill_5==skill) | (Traducteur.skill_6==skill) | (Traducteur.skill_7==skill) | (Traducteur.skill_8==skill) |
-        (Traducteur.skill_9==skill) | (Traducteur.skill_10==skill)) & (Traducteur.success_work>=success_work) & (Traducteur.dispo==dispo) & 
-        (Traducteur.accept_subscriber==accept_subscriber) & (Traducteur.test_score>=rate) & ((Traducteur.prestation==prestation) | 
+        (Traducteur.skill_9==skill) | (Traducteur.skill_10==skill)) & (Traducteur.success_work>=int(success_work)) & 
+        (Traducteur.accept_subscriber==accept_subscriber) & ((Traducteur.prestation==prestation) | 
         (Traducteur.prestation_2==prestation) | (Traducteur.prestation_3==prestation) | (Traducteur.prestation_4==prestation) | 
         (Traducteur.prestation_5==prestation) | (Traducteur.prestation_6==prestation) | (Traducteur.prestation_7==prestation)) & 
-        (Traducteur.compte_valid==True) & (Traducteur.current_country==country) & (Traducteur.current_town==town)).paginate(page, app.config['ORDER_PER_PAGE'], False)
+        (Traducteur.compte_valid==True) & (Traducteur.dispo==True) & (Traducteur.current_country==country)).paginate(page, app.config['ORDER_PER_PAGE'], False)
 
     next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
     prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None
