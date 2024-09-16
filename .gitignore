@@ -14,5 +14,3 @@ app/static/assets/images/id_card_img/*
 app/static/assets/images/message_file/*
 app/static/assets/images/profile_img/*
 app/static/assets/images/pub_img/*
-wsgi.py
-tradrdvapp.sock
