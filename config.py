@@ -13,12 +13,6 @@ class Config(object):
 		SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 		SQLALCHEMY_TRACK_MODIFICATIONS = False
 	else:
-		#PASSWORD = os.environ.get("GCP_INSTANCE_PWD", None)
-		#PUBLIC_IP_ADDRESS = os.environ.get("GCP_PUBLIC_IP_ADDRESS", None)
-		#DBNAME = os.environ.get("GCP_DB_NAME", None)
-		#PROJECT_ID = os.environ.get("GCP_PROJECT_ID", None)
-		#INSTANCE_NAME = os.environ.get("GCP_INSTANCE_NAME", None)
-		#SQLALCHEMY_DATABASE_URI = f"mysql+mysqldb://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
 		SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 		SQLALCHEMY_TRACK_MODIFICATIONS = True
 

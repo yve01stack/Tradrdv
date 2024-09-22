@@ -6,7 +6,7 @@ from flask_babel import _
 import requests
 from  sqlalchemy.sql.expression import func, select
 
-from app import app, db, mail, storage_client
+from app import app, db, mail
 
 
 def select_by_random():
@@ -35,37 +35,6 @@ def allowed_image(filename):
         return True
     else:
         return False
-        
-def delete_async_img(app, blob):
-    with app.app_context():
-        blob.delete()
-
-def delete_blob_img(bucket_name, public_url):
-    """Deletes a blob from the bucket."""
-    bucket = storage_client.bucket(bucket_name)
-    if bucket_name in public_url:
-        if not '/dev/' in public_url:
-            blob_name = public_url.replace("https://storage.googleapis.com/"+bucket_name+"/","")
-            blob = bucket.blob(blob_name)
-            Thread(target=delete_async_img, args=(app, blob)).start()
-
-def upload_blob_img(bucket_name, uploaded_file, dossier):
-    """Uploads a file to the bucket."""
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(dossier+'/'+uploaded_file.filename)
-    #blob.upload_from_string(uploaded_file.read(), content_type=uploaded_file.content_type)
-    blob.upload_from_filename(os.path.join('app', 'static', 'assets', 'images' ,'cloud_img', uploaded_file.filename))
-    # The public URL can be used to directly access the uploaded file via HTTP.
-    return blob.public_url
-
-def upload_blob_file(bucket_name, uploaded_file, dossier):
-    """Uploads a file to the bucket."""
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(dossier+'/'+uploaded_file.filename)
-    #blob.upload_from_string(uploaded_file.read(), content_type=uploaded_file.content_type)
-    blob.upload_from_filename(os.path.join('app', 'static', 'assets', 'images' ,'cloud_file', uploaded_file.filename))
-    # The public URL can be used to directly access the uploaded file via HTTP.
-    return blob.public_url
 
 # Flask mail sender
 def send_async_email(self, app, msg):

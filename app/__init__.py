@@ -8,7 +8,6 @@ import logging, os
 from logging.handlers import SMTPHandler
 from logging.handlers import RotatingFileHandler
 from flask_mail import Mail
-from google.cloud import storage
 from flask_moment import Moment
 from flask_babel import Babel, _
 from flask_babel import lazy_gettext as _l 
@@ -25,7 +24,6 @@ client = WebApplicationClient(app.config["GOOGLE_CLIENT_ID"])
 login.login_view = 'login'
 login.login_message = _l('Veuillez vous connecter pour accéder à cette page.')
 mail = Mail(app)
-storage_client = storage.Client()
 moment = Moment(app)
 babel = Babel(app)
 scheduler = APScheduler()
