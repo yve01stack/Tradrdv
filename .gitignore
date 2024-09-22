@@ -4,7 +4,7 @@ logs
 migrations
 app.db
 .env
-.flaskenv
+tradrdv.sock
 __pycache__
 app/static/data_files/tradrdv-94901196e253.json
 app/static/assets/images/bill_img/*
