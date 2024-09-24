@@ -4,7 +4,7 @@
 
     {% include 'banner_lg.html' %}
     <!-- Call To Action Start -->
-    <!--<section class="cta d-md-block d-none" data-aos="fade-up" data-aos-delay="0">
+    <!-- <section class="cta d-md-block d-none" data-aos="fade-up" data-aos-delay="0">
         <div class="container">
             <div class="cta-content d-xl-flex align-items-center justify-content-around text-center text-xl-left">
                 <div class="content" data-aos="fade-right" data-aos-delay="200">
@@ -16,19 +16,19 @@
                 </div>
             </div>
         </div>
-    </section>-->
-    <!-- Call To Action End -->
-    <section class="container">
-        <div class="impressions">
-            <div class="stats">
-                <div class="stat text-center">
+    </section>
+ -->    <!-- Call To Action End -->
+    <section class="w3l-services">
+        <div class="container">
+            <div class="row stats m-1">
+                <div class="col-12 col-sm-6 stat text-center">
                     <i class="fa fa-eye"></i>
-                    <h2><span class="text-info">{{dashbord_last_month.accueil_view}}</span> | {{dashbord_this_month.accueil_view}}</h2>
+                    <h2><span class="text-info d-none d-sm-inline">{{dashbord_last_month.accueil_view}} | </span>{{dashbord_this_month.accueil_view}}</h2>
                     <p>Ads Impressions</p>
                 </div>
-                <div class="stat text-center">
+                <div class="col-12 col-sm-6 stat text-center">
                     <i class="fa fa-area-chart"></i>
-                    <h2><span class="text-info">{{dashbord_last_month.traducteur_view}}</span> | {{dashbord_this_month.traducteur_view}}</h2>
+                    <h2><span class="text-info d-none d-sm-inline">{{dashbord_last_month.traducteur_view}} | </span>{{dashbord_this_month.traducteur_view}}</h2>
                     <p>Traducteurs Impressions</p>
                 </div>
             </div>
