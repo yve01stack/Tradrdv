@@ -1215,6 +1215,63 @@ p.page-mk {
 }
 
 /*-----------------------------------
+    Website Impressions
+------------------------------------*/
+.stats {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+}
+.stat {
+    margin: 5px;
+    padding: 20px 10px;
+    border-radius: 15px;
+    width: 45%;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+.stat:nth-child(1) {
+    background-color: #81d4fa; /* Sky-blue */
+}
+.stat:nth-child(2) {
+    background-color: #ff8a80; /* Pink */
+}
+.stat:hover {
+    transform: translateY(-10px);
+}
+.stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.2);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+.stat h2 {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+}
+.stat p {
+    font-size: 20px;
+    margin: 10px 0 0;
+    color: #fff;
+}
+.stat i {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+
+/*-----------------------------------
     1 - Nos valeurs home Page
 ------------------------------------*/
 :root{

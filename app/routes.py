@@ -1111,7 +1111,7 @@ def traducteur():
     page = request.args.get('page', 1, type=int)
 
     traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random())\
-        .paginate(page, app.config['ORDER_PER_PAGE'], False)
+        .paginate(page=page, per_page=app.config['ORDER_PER_PAGE'])
     next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
     prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None
 
@@ -1126,7 +1126,7 @@ def search_trad():
 
     search = "%{}%".format(search)
     traducteurs = db.session.query(Traducteur, User).filter((User.username.like(search)) & (Traducteur.compte_valid==True))\
-        .join(User, (User.id==Traducteur.user_id)).paginate(page, app.config['ORDER_PER_PAGE'], False)
+        .join(User, (User.id==Traducteur.user_id)).paginate(page=page, per_page=app.config['ORDER_PER_PAGE'])
     next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
     prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None
 
@@ -1151,7 +1151,7 @@ def filter_trad():
         (Traducteur.accept_subscriber==accept_subscriber) & ((Traducteur.prestation==prestation) | 
         (Traducteur.prestation_2==prestation) | (Traducteur.prestation_3==prestation) | (Traducteur.prestation_4==prestation) | 
         (Traducteur.prestation_5==prestation) | (Traducteur.prestation_6==prestation) | (Traducteur.prestation_7==prestation)) & 
-        (Traducteur.compte_valid==True) & (Traducteur.dispo==True) & (Traducteur.current_country==country)).paginate(page, app.config['ORDER_PER_PAGE'], False)
+        (Traducteur.compte_valid==True) & (Traducteur.dispo==True) & (Traducteur.current_country==country)).paginate(page=page, per_page=app.config['ORDER_PER_PAGE'])
 
     next_url = url_for('traducteur', page=traducteurs.next_num, _external=True) if traducteurs.has_next else None
     prev_url = url_for('traducteur', page=traducteurs.prev_num, _external=True) if traducteurs.has_prev else None

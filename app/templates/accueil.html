@@ -4,7 +4,7 @@
 
     {% include 'banner_lg.html' %}
     <!-- Call To Action Start -->
-    <section class="cta d-md-block d-none" data-aos="fade-up" data-aos-delay="0">
+    <!--<section class="cta d-md-block d-none" data-aos="fade-up" data-aos-delay="0">
         <div class="container">
             <div class="cta-content d-xl-flex align-items-center justify-content-around text-center text-xl-left">
                 <div class="content" data-aos="fade-right" data-aos-delay="200">
@@ -16,8 +16,24 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- Call To Action End -->
+    <section class="container">
+        <div class="impressions">
+            <div class="stats">
+                <div class="stat text-center">
+                    <i class="fa fa-eye"></i>
+                    <h2><span class="text-info">{{dashbord_last_month.accueil_view}}</span> | {{dashbord_this_month.accueil_view}}</h2>
+                    <p>Ads Impressions</p>
+                </div>
+                <div class="stat text-center">
+                    <i class="fa fa-area-chart"></i>
+                    <h2><span class="text-info">{{dashbord_last_month.traducteur_view}}</span> | {{dashbord_this_month.traducteur_view}}</h2>
+                    <p>Traducteurs Impressions</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- à la une -->
     <section class="w3l-services">
@@ -219,36 +235,6 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                  <div class="wrimagecard wrimagecard-topimage">
-                    <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
-                      <i class="fa fa-area-chart text-primary" ></i><h4 class="float-right">{{dashbord_last_month.accueil_view}}</h4>
-                    </div>
-                    <div class="wrimagecard-topimage_title">
-                      <h6>{{_('Page Acceuil')}}</h6>
-                      <div class="progress mt-1 mb-0" style="height: 7px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: {% print((dashbord_this_month.accueil_view*100)/(dashbord_last_month.accueil_view+1)) %}%" 
-                          aria-valuenow="{% print((dashbord_this_month.accueil_view*100)/(dashbord_last_month.accueil_view+1)) %}" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                  <div class="wrimagecard wrimagecard-topimage">
-                    <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
-                      <i class="fa fa-area-chart text-warning" ></i><h4 class="float-right">{{dashbord_last_month.traducteur_view}}</h4>
-                    </div>
-                    <div class="wrimagecard-topimage_title">
-                      <h6>{{_('Page Traducteur')}}</h6>
-                      <div class="progress mt-1 mb-0" style="height: 7px;">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: {% print((dashbord_this_month.traducteur_view*100)/(dashbord_last_month.traducteur_view+1)) %}%" 
-                          aria-valuenow="{% print((dashbord_this_month.traducteur_view*100)/(dashbord_last_month.traducteur_view+1)) %}" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div> 
         </div>
     </section>
     <!-- Traducteurs End -->
