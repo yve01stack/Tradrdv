@@ -88,7 +88,7 @@ msgstr ""
 #: app/routes.py:65
 #, python-format
 msgid "Accueil - %(sitename)s"
-msgstr ""
+msgstr "Home - %(sitename)s"
 
 #: app/routes.py:81
 msgid "Félicitations, vous êtes maintenant un utilisateur enregistré !"
@@ -1295,7 +1295,7 @@ msgstr ""
 
 #: app/templates/header_footer.html:91 app/templates/header_footer.html:229
 msgid "À Propos"
-msgstr ""
+msgstr "About"
 
 #: app/templates/header_footer.html:92 app/templates/header_footer.html:227
 msgid "News"
