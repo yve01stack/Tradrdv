@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, g, session
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -39,8 +39,10 @@ def init_db():
 def reinit_admin():
     models.reinit_admin()
 
+@babel.localeselector
 def get_locale():
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return getattr(g, 'locale', request.accept_languages.best_match(app.config['BABEL_SUPPORTED_LOCALES']))
+
 
 if not app.debug:
     if app.config['MAIL_SERVER']:

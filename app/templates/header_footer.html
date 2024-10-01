@@ -57,9 +57,9 @@
                 </div>
                 <nav class="d-flex aic">
                     {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('logout', _external=True) }}" class="login"><i class="fa fa-sign-out" aria-hidden="true"></i>{{_('Se déconnecter')}}</a>
+                    <a href="{{ url_for('logout', _external=True) }}" class="login">{{_('Se déconnecter')}}</a>
                     {% else %}
-                    <a href="{{ url_for('login', _external=True) }}" class="login"><i class="fa fa-sign-in" aria-hidden="true"></i>{{_('Connexion')}}</a>
+                    <a href="{{ url_for('login', _external=True) }}" class="login">{{_('Se Connecter')}}</a>
                     {% endif %}
                     <ul class="nav social d-none d-md-flex">
                         <li><a href="https://www.facebook.com/tradrdv" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -73,15 +73,14 @@
 					<img src="{{ url_for('static', filename='assets/images/dev/logo.png')}}" style="width: 200px; height: 32px;" alt="{{config['SITE_NAME']}}">
 				</a>
                 <div class="group d-flex align-items-center">
-                    <button class="navbar-toggler" type="button" data-toggle="collaps" onclick="menuToggle()"
+                    <a class="navbar-toggler" type="button" data-toggle="collaps" onclick="menuToggle()"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation"><span
-                            class="navbar-toggler-icon"></span></button>
+                            class="navbar-toggler-icon"></span></a>
                     {% if current_user.is_authenticated %}
-                    <a class="login-icon d-sm-none" href="{{ url_for('logout', _external=True) }}"><i class="fa fa-sign-out"></i></a>
                     <a class="client-profile" href="{{ url_for('profile', _external=True) }}"><i class="fa fa-user"></i></a>
                     {% else %}
-                    <a class="login-icon d-sm-none" href="{{ url_for('login', _external=True) }}"><i class="fa fa-sign-in"></i></a>
+                    <a class="login-icon d-sm-none" href="{{ url_for('login', _external=True) }}"><i class="fa fa-user"></i></a>
                     {% endif %}
                 </div>
                 <a class="search-icon d-none d-md-block" href="#"><i class="fa fa-search"></i></a>
@@ -89,7 +88,6 @@
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('accueil', _external=True) }}">{{_('Accueil')}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('about_us', _external=True) }}">{{_('À Propos')}}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('news', _external=True) }}">{{_('News')}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('traducteur', _external=True) }}">{{_('Traducteurs')}}</a></li>
                         {% if current_user.is_authenticated %}
                         {% if current_user.statut == 'admin' %}
@@ -100,7 +98,21 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('manager_panel', _external=True) }}">{{_('Gestion')}}</a></li>
                         {% endif %}
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact_us', _external=True) }}">{{_('Contact')}}</a></li>
+
+                        <li class="nav-item">
+                            <form method="get" action="{{ url_for('accueil') }}">
+                                <select class="nav-link" style="background-color: transparent; border-color: transparent; margin-left: -4px" name="locale" onchange="this.form.submit()">
+                                    <option style="background-color: skyblue;" value="fr" {% if g.locale == 'fr' %}selected{% endif %}>Français</option>
+                                    <option style="background-color: skyblue;" value="en" {% if g.locale == 'en' %}selected{% endif %}>English</option>
+                                    <option style="background-color: skyblue;" value="ar" {% if g.locale == 'ar' %}selected{% endif %}>Arabic</option>
+                                </select>
+                            </form>
+                        </li>
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item d-sm-none">
+                            <a class="nav-link" href="{{ url_for('logout', _external=True) }}">{{_('Déconnecter')}}</a>
+                        </li>
+                        {% endif %}
                     </ul>
                     <form class="bg-white search-form" method="get" id="searchform" action="{{ url_for('search_trad', _external=True) }}">
                         <div class="input-group">
@@ -149,14 +161,14 @@
         <div class="footer-widgets">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 col-lg-4">
+                    <div class="col-sm-12 col-lg-6">
                         <div class="single-widget contact-widget" data-aos="fade-up" data-aos-delay="0">
-                            <h6 class="widget-tiltle">&nbsp;</h6>
+                            <!-- <h6 class="widget-tiltle">&nbsp;</h6> -->
                             <p>{{ config['SITE_DESCRIPTION']}}</p>
                             <div class="media">
                                 <i class="fa fa-map-marker"></i>
                                 <div class="media-body ml-3">
-                                    <h6>Adresse</h6>
+                                    <h6>{{_('Adresse')}}</h6>
                                     {{ config['ADDRESS']}}
                                 </div>
                             </div>
@@ -183,7 +195,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-4">
+                    <!-- <div class="col-sm-6 col-lg-4">
                         <div class="single-widget recent-post-widget" data-aos="fade-up" data-aos-delay="400">
                             <h6 class="widget-tiltle">{{_('DERNIERS NEWS')}}</h6>
                             <div class="media">
@@ -219,13 +231,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-lg-4">
+                    </div> -->
+                    <div class="col-sm-12 col-lg-6">
                         <div class="single-widget tags-widget" data-aos="fade-up" data-aos-delay="800">
                             <h6 class="widget-tiltle">{{_('LIENS UTILES')}}</h6>
                             <a href="{{ url_for('traducteur', _external=True) }}">{{_('Traducteurs')}}</a>
                             <a href="{{ url_for('news', _external=True) }}">{{_('News')}}</a>
-                            <a href="{{ url_for('contact_us', _external=True) }}">{{_('Nous contacter')}}</a>
                             <a href="{{ url_for('about_us', _external=True) }}">{{_('À Propos')}}</a>
                             <a href="{{ url_for('accueil', _external=True) }}">{{_('Accueil')}}</a>
                         </div><br>

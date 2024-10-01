@@ -1,4 +1,4 @@
-from flask import render_template, make_response, url_for, redirect, flash, request, jsonify, g
+from flask import render_template, make_response, url_for, redirect, flash, request, jsonify, g, session
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from werkzeug.utils import secure_filename
@@ -22,9 +22,16 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
-    #   g.locale = str(get_locale())
-    g.locale = 'en'
 
+    # set language 
+    # g.locale str(get_locale())
+    locale = request.args.get('locale')
+    if locale:
+        print(locale)
+        session['locale'] = locale
+    locale = session.get('locale', app.config['BABEL_DEFAULT_LOCALE'])  # Default to 'fr'
+    g.locale = locale
+    
 # @app.context_processor
 # def my_utility_processor(): 
 #     def translate(text=''): 
@@ -44,8 +51,8 @@ def before_request():
 # -------------------------------------------------#
 #--------------Home treatement program-------------#
 #--------------------------------------------------#
-@app.route('/')
-@app.route('/accueil')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/accueil', methods=['GET', 'POST'])
 def accueil():
     update_dashbord(accueil_view=1)
 

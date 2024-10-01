@@ -95,4 +95,5 @@ class Config(object):
 
 	ADMINS = ['contact@tradrdv.com', 'admin@tradrdv.com', 'programm01dev@gmail.com']
 	# flask babel translator
-	LANGUAGES = ['fr', 'en', 'es']
+	BABEL_DEFAULT_LOCALE = 'fr'
+	BABEL_SUPPORTED_LOCALES = ['fr', 'en', 'ar']

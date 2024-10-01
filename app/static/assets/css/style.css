@@ -744,7 +744,7 @@ footer {
   font-size: 17px;
   text-transform: uppercase;
   color: #fff;
-  margin-bottom: 45px;
+  margin-bottom: 15px;
 }
 
 .single-widget i {
@@ -1230,6 +1230,7 @@ p.page-mk {
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease;
+    scale: 0.98;
 }
 .stat:nth-child(1) {
     background-color: #81d4fa; 
@@ -1238,7 +1239,7 @@ p.page-mk {
     background-color: #ff8a80; 
 }
 .stat:hover {
-    transform: translateY(-10px);
+    transform: scale(0.94);
 }
 .stat::before {
     content: '';
