@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 import requests, json, os 
 from datetime import datetime, timedelta
-from flask_babel import _, get_locale
+from flask_babel import _
 from googletrans import Translator
 
 
@@ -24,7 +24,6 @@ def before_request():
         db.session.commit()
 
     # set language 
-    # g.locale str(get_locale())
     locale = request.args.get('locale')
     if locale:
         print(locale)

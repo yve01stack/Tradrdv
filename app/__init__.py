@@ -25,9 +25,14 @@ login.login_view = 'login'
 login.login_message = _l('Veuillez vous connecter pour accéder à cette page.')
 mail = Mail(app)
 moment = Moment(app)
-babel = Babel(app)
 scheduler = APScheduler()
 scheduler.init_app(app)
+
+def get_locale():
+    return getattr(g, 'locale', request.accept_languages.best_match(app.config['BABEL_SUPPORTED_LOCALES']))
+babel = Babel(app, locale_selector=get_locale)
+
+
 
 from app import routes, models
 
@@ -38,11 +43,6 @@ def init_db():
 @app.cli.command("reinit_admin")
 def reinit_admin():
     models.reinit_admin()
-
-@babel.localeselector
-def get_locale():
-    return getattr(g, 'locale', request.accept_languages.best_match(app.config['BABEL_SUPPORTED_LOCALES']))
-
 
 if not app.debug:
     if app.config['MAIL_SERVER']:
