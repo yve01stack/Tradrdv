@@ -50,8 +50,8 @@ class Config(object):
 	SEX = ['Féminin', 'Masculin']
 	PAYMENT_WAY = ['cash', 'abonnement']
 	DEVISES = [{'name': 'DZD', 'symbol': 'DA', 'eq_da': 1}, {'name': 'POUND', 'symbol': '£', 'eq_da': 162}, {'name': 'EURO', 'symbol': '€', 'eq_da': 140}, {'name': 'DOLLAR', 'symbol': '$', 'eq_da': 139}]
-	PAYMENT_METHOD = [{'name': 'CCP', 'desc': 'GHEDIRI Hanane -  0002054044 clé 96 - adresse : Tipaza'},
-		{'name': 'MaridiMob', 'desc': '00799999000205404496'}, {'name': 'Western Union', 'desc': 'Nom: GHEDIRI, Prénom: Hanane, Pays: Algérie, Ville: Tipaza, Code postal: 42000'},
+	PAYMENT_METHOD = [{'name': 'CCP', 'desc': 'BELFAR AOUAOUCHE -  0000283769 clé 74 - adresse : Tipaza'},
+		{'name': 'MaridiMob', 'desc': '00799999000028376974'}, {'name': 'Western Union', 'desc': 'Nom: GHEDIRI, Prénom: Hanane, Pays: Algérie, Ville: Tipaza, Code postal: 42000'},
 		{'name': 'Payonner', 'desc': 'hananeinterpretingworld@gmail.com'}]
 	TRADUCTEUR_CAUTION = {'price_eur': 80.00, 'price_da': 15000}
 	OFFRE_STATUTS = {'gratuit':{'price_eur': 0.0, 'price_da': 0}, 'standard':{'price_eur': 55.00, 'price_da': 7500}, 'premium':{'price_eur': 80.00, 'price_da': 11000}}

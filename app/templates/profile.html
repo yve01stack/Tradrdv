@@ -9,29 +9,27 @@
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
-                        <i class="fa fa-user"></i>
-                        {{_('Profil')}}
+                        <i class="fa fa-user pr-1"></i><strong>{{_('Profil')}}</strong>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
-                        <i class="fa fa-copy"></i>
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" data-toggle="tooltip" title="{{_('Activités')}}">
+                      <i class="fa fa-folder-open-o pr-1"></i><strong class="d-none d-md-inline">{{_('Activités')}}</strong>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">
-                        <i class="fa fa-credit-card"></i>
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" data-toggle="tooltip" title="{{_('Paiements')}}">
+                      <i class="fa fa-credit-card pr-1"></i><strong class="d-none d-md-inline">{{_('Paiements')}}</strong>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-message-tab" data-toggle="pill" href="#pills-message" role="tab" aria-controls="pills-message" aria-selected="false">
-                        <i class="fa fa-envelope"></i>
+                    <a class="nav-link" id="pills-message-tab" data-toggle="pill" href="#pills-message" role="tab" aria-controls="pills-message" aria-selected="false" data-toggle="tooltip" title="{{_('Messagerie')}}">
+                      <i class="fa fa-envelope pr-1"></i><strong class="d-none d-md-inline">{{_('Messagerie')}}</strong>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-ads-tab" data-toggle="pill" href="#pills-ads" role="tab" aria-controls="pills-ads" aria-selected="false">
-                        <i class="fa fa-bullhorn"></i>
-                        {{_('Pub')}}
+                    <a class="nav-link" id="pills-ads-tab" data-toggle="pill" href="#pills-ads" role="tab" aria-controls="pills-ads" aria-selected="false" data-toggle="tooltip" title="{{_('Publicités')}}">
+                      <i class="fa fa-bullhorn pr-1"></i><strong class="d-none d-md-inline">{{_('Publicités')}}</strong>
                     </a>
                 </li>
             </ul>
@@ -102,61 +100,51 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>{{_('Photo')}}</th>
-                                <th class="d-none d-md-block">{{_('Détails')}}</th>
-                                <th>{{_('Statut')}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for deal in deals[:10] %}
-                            <tr>
-                                <td class="invert-image" rowspan="2">                                         
-                                    <a>
-                                        <img src="{{url_for('static', filename=deal.friend.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
-                                    </a>
-                                </td>
-                                <td class="invert d-none d-md-block">{{deal.motif}}</td>
-                                <td>
-                                    {% if deal.friend_accept %}
-                                        {% if deal.admin_confirm_bill %}
-                                            {% if deal.deal_over %}
-                                            <span class="badge badge-success">{{_('Terminé')}}</span>
-                                            <a class="badge badge-light" href="{{url_for('static', filename=deal.work_valid)}}" download="pièce jointe" target="_blank">{{_('fichier')}} <i class="fa fa-download"></i></a>
+                    <div class="row">
+                        {% for deal in deals[:10] %}
+                        <div class="col-md-6">
+                            <div class="single-widget recent-post-widget" data-aos="fade-up" data-aos-delay="400">
+                                <div class="media">
+                                    <a class="rcnt-img" href="#"><img src="{{url_for('static', filename=deal.friend.avatar)}}" alt="Recent Post"></a>
+                                    <div class="media-body ml-3">
+                                        <span style="font-size: 14px">{{deal.motif}}</span>
+                                        <div style="font-size: 14px">
+                                            {{ moment(deal.timestamp).format("LL") }}<span {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</span>
+                                        </div>
+                                        <p>
+                                            {% if deal.friend_accept %}
+                                                {% if deal.admin_confirm_bill %}
+                                                    {% if deal.deal_over %}
+                                                    <span class="badge badge-success">{{_('Terminé')}}</span>
+                                                    <a class="badge badge-secondary" href="{{url_for('static', filename=deal.work_valid)}}" download="pièce jointe" target="_blank">{{_('Fichier')}}</a>
+                                                    {% else %}
+                                                    <span class="badge badge-info">{{_('En cours..')}}</span>
+                                                    {% endif %}
+                                                {% else %}
+                                                <span class="badge badge-warning">{{_('Paiement..')}}</span>
+                                                {% endif %}
                                             {% else %}
-                                            <span class="badge badge-info">{{_('En cours..')}}</span>
+                                                <span class="badge badge-primary">{{_('Attente..')}}</span>
                                             {% endif %}
-                                        {% else %}
-                                        <span class="badge badge-warning">{{_('Paiement..')}}</span>
-                                        {% endif %}
-                                    {% else %}
-                                        <span class="badge badge-primary">{{_('Attente..')}}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="invert d-none d-md-block">
-                                    <i>{{ moment(deal.timestamp).format("LL") }} </i>
-                                    <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
-                                </td>       
-                                <td class="invert">
-                                    <span type="button" class="badge badge-primary px-2" data-toggle="modal" data-target="#modal_aside_left" 
-                                        data-itemid="{{deal.id}}" 
-                                        data-whatever="{{deal.motif}}"
-                                        data-columns="{{deal.amount}}"
-                                        data-bind="{{deal.devise}}"
-                                        data-parent="{{deal.friend.username}}"
-                                        data-draggable="{{deal.payment_way}}"
-                                        data-dropzone="{{ deal.payment_bill }}">{{_('Aperçu')}}
-                                    </span>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
 
+                                            <span type="button" class="badge badge-primary px-2" 
+                                            data-toggle="modal" 
+                                            data-target="#modal_aside_left" 
+                                            data-itemid="{{deal.id}}" 
+                                            data-whatever="{{deal.motif}}"
+                                            data-columns="{{deal.amount}}"
+                                            data-bind="{{deal.devise}}"
+                                            data-parent="{{deal.friend.username}}"
+                                            data-draggable="{{deal.payment_way}}"
+                                            data-dropzone="{{ deal.payment_bill }}">{{_('Aperçu')}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <!-- Payment -->
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
@@ -222,43 +210,32 @@
                 <!-- ADs -->
                 <div class="tab-pane fade" id="pills-ads" role="tabpanel" aria-labelledby="pills-ads-tab">
                     <div class="row">
-                        <div class="col-sm-6 col-md-4">
+                        <div class="col-sm-6">
                             <form method="POST" id="pub_action" action="{{ url_for('create_pub', _external=True) }}" enctype="multipart/form-data">
                                 <center class="form-group">
-                                    <img id="output_1" onclick="return document.getElementById('image_1').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
-                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <img id="output_1" onclick="return document.getElementById('image_1').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" data-toggle="tooltip" title="{{_('Image principale')}}" style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden accept="image/*" name="image_1" id="image_1" onchange="loadFile(event, 'output_1')">
-                                    <br>{{_('Affiche de la Page d\'Accueil')}}
-                                </center>
-                                <center class="form-group">
-                                    <img id="output_2" onclick="return document.getElementById('image_2').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
-                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+
+                                    <img id="output_2" onclick="return document.getElementById('image_2').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" data-toggle="tooltip" title="{{_('Autre image')}}" style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden name="image_2" accept="image/*" id="image_2" onchange="loadFile(event, 'output_2')">
 
-                                    <img id="output_3" onclick="return document.getElementById('image_3').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
-                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <img id="output_3" onclick="return document.getElementById('image_3').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" data-toggle="tooltip" title="{{_('Autre image')}}" style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden accept="image/*" name="image_3" id="image_3" onchange="loadFile(event, 'output_3')">
     
-                                    <img id="output_4" onclick="return document.getElementById('image_4').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
-                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <img id="output_4" onclick="return document.getElementById('image_4').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" data-toggle="tooltip" title="{{_('Autre image')}}" style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden accept="image/*" name="image_4" id="image_4" onchange="loadFile(event, 'output_4')">
         
-                                    <img id="output_5" onclick="return document.getElementById('image_5').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
-                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <img id="output_5" onclick="return document.getElementById('image_5').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" data-toggle="tooltip" title="{{_('Autre image')}}" style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden name="image_5" accept="image/*" id="image_5" onchange="loadFile(event, 'output_5')">
 
-                                    <img id="output_6" onclick="return document.getElementById('image_6').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
-                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <img id="output_6" onclick="return document.getElementById('image_6').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" data-toggle="tooltip" title="{{_('Autre image')}}" style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden name="image_6" accept="image/*" id="image_6" onchange="loadFile(event, 'output_6')">
                                     
-                                    <img id="output_7" onclick="return document.getElementById('image_7').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
-                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <img id="output_7" onclick="return document.getElementById('image_7').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}"data-toggle="tooltip" title="{{_('Autre image')}}" style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden accept="image/*" name="image_7" id="image_7" onchange="loadFile(event, 'output_7')">
         
-                                    <img id="output_8" onclick="return document.getElementById('image_8').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" 
-                                        style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
+                                    <img id="output_8" onclick="return document.getElementById('image_8').click();" src="{{url_for('static', filename='assets/images/dev/916733.png')}}" data-toggle="tooltip" title="{{_('Autre image')}}" style="width: 80px; height: 80px; border: 5px solid #eee;" alt="choose a picture">
                                     <input type="file" hidden name="image_8" accept="image/*" id="image_8" onchange="loadFile(event, 'output_8')">
-                                    <br>{{_('Sept Images du Profil')}}
                                 </center>
                                 <div class="form-container">
                                     <input type="hidden" name="pub_id" id="pub_id">
@@ -279,12 +256,12 @@
                             </form>
                             
                          </div>
-                         <div class="col-sm-6 col-md-8">
+                         <div class="col-sm-6">
+
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>{{_('Photo')}}</th>
-                                        <th>{{_('Abonnement Pub: %(remain_day)s jour(s)', remain_day=pubAccount.remain_day)}}</th>
+                                        <th>{{_('Expire en: %(remain_day)s jour(s)', remain_day=pubAccount.remain_day)}}</th>
                                         <th>{{_('Max: %(max)s', max=pubAccount.nbr_pub)}}</th>
                                         <th>
                                             {% if pubAccount.compte_valid %}
@@ -295,38 +272,30 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {% for pub in pubs %}
-                                    <tr>
-                                        <td class="invert-image" rowspan="2">                                         
-                                            <a>
-                                                <img src="{{url_for('static', filename=pub.image_1)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
-                                            </a>
-                                        </td>
-                                        <td class="invert" colspan="3">{{pub.title}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="invert">
-                                            <i>{{ moment(pub.timestamp).format("LL") }} </i>
-                                            <span>[{{pub.category}}]</span>
-                                          </td> 
-                                        <td class="invert">
-                                            <span><i class="fa fa-eye px-1"></i>{{pub.nbr_clic}}</span>
-                                        </td>      
-                                        <td class="invert">
+                                <tbody></tbody>
+                            </table>
+                            {% for pub in pubs %}
+                            <div class="single-widget recent-post-widget" data-aos="fade-up" data-aos-delay="400">
+                                <div class="media">
+                                    <a class="rcnt-img" href="#"><img src="{{url_for('static', filename=pub.image_1)}}" alt="Recent Post"></a>
+                                    <div class="media-body ml-3">
+                                        <span style="font-size: 14px">{{pub.title}}, {{ moment(pub.timestamp).format("LL") }}</span>
+                                        <p>
+                                            {{pub.nbr_clic}} {{_("Vue(s)")}}
+
                                             {% if pub.valid==True %}
-                                                <span class="badge badge-primary px-2">En ligne</span>
+                                            <span class="badge badge-primary">{{_("En ligne")}}</span>
                                             {% else %}
-                                                <a href="{{ url_for('pub_activate', pub_id=pub.id, _external=True) }}" class="badge badge-primary px-2">{{_('Activer')}}</a> 
+                                            <a href="{{ url_for('pub_activate', pub_id=pub.id, _external=True) }}" class="badge badge-primary px-2">{{_('Activer')}}</a> 
                                             {% endif %}
-                                            <a href="#" onclick="pub_update('{{pub.id}}')" class="badge badge-primary px-2"><i class="fa fa-edit"></i></a>
+                                            <button style="border: none;" class="badge badge-primary px-2" onclick="pub_update('{{pub.id}}')">{{_("Modifier")}}</button>
                                             <a href="{{ url_for('pub_delete', pub_id=pub.id, _external=True) }}" onclick="alert('Vous êtes sur le point de supprimer cet article')"
-                                                class="badge badge-danger px-2"><i class="fa fa-remove"></i></a>
-                                        </td>
-                                      </tr>
-                                    {% endfor %}
-                                </tbody>
-                              </table>
+                                                class="badge badge-danger px-2">{{_("Supprimer")}}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
                          </div>
                     </div>
                 </div>

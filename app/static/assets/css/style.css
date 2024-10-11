@@ -1520,7 +1520,22 @@ p.page-mk {
 
 .owl-carousel .owl-item img.owl-lazy {
   transform-style: preserve-3d; }
-/*
+
+.owl-carousel .owl-dots {
+  text-align: center;
+}
+
+.owl-carousel .owl-dots .owl-dot {
+  padding: 2px 14px 2px 14px;
+}
+
+.owl-carousel .owl-dots .active {
+  background-color: black;
+}
+
+ 
+
+/*zfregthrdjhtgref*/
 .owl-carousel .owl-video-wrapper {
   position: relative;
   height: 100%;
@@ -1564,4 +1579,4 @@ p.page-mk {
 @media (max-width: 568px) {
   .owl-carousel .owl-dots.disabled,
   .owl-carousel .owl-nav.disabled {
-    display: none; } } */
+    display: none; } } 

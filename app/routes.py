@@ -1,6 +1,6 @@
 from flask import render_template, make_response, url_for, redirect, flash, request, jsonify, g, session
 from flask_login import current_user, login_user, logout_user, login_required
-from werkzeug.urls import url_parse
+from urllib.parse import urlparse
 from werkzeug.utils import secure_filename
 from PIL import Image
 import requests, json, os 
@@ -102,7 +102,7 @@ def login():
             #form.remember_me.data
         login_user(user, remember=False)
         next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
+        if not next_page or urlparse(next_page).netloc != '':
             next_page = url_for('accueil', _external=True)
         return redirect(next_page)
     return render_template('login.html', title=_('Connexion - %(sitename)s', sitename=app.config['SITE_NAME']), form=form)  
@@ -173,13 +173,13 @@ def google_callback():
         flash(_('Inscription avec votre compte google réussie'), 'success')
         # Send user back to homepage
         next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
+        if not next_page or urlparse(next_page).netloc != '':
             next_page = url_for('accueil', _external=True)
         return redirect(next_page)
     login_user(User.query.filter_by(email=user_email).first(), remember=False)
     flash(_('Connexion avec votre compte google réussie'), 'success')
     next_page = request.args.get('next')
-    if not next_page or url_parse(next_page).netloc != '':
+    if not next_page or urlparse(next_page).netloc != '':
         next_page = url_for('accueil', _external=True)
     return redirect(next_page)
 
@@ -872,7 +872,7 @@ def trad_test_update(deal_id):
 
     traducteur = Traducteur.query.filter_by(user_id=deal.user_id).first_or_404()
     testeurs = User.query.filter((User.statut=='testeur')).order_by(User.last_seen.asc()).all()
-    return render_template('update_traducteur.html', traducteur=traducteur, testeurs=testeurs, deal=deal, title=_('Mise à du compte traducteur'))
+    return render_template('update_traducteur.html', traducteur=traducteur, testeurs=testeurs, deal=deal, title=_('Mise à jour du compte traducteur'))
 
 
 @app.route('/traducteur/update', methods=['GET', 'POST'])
@@ -881,7 +881,7 @@ def trad_test_update(deal_id):
 @check_manager
 def traducteur_update():
     if current_user.statut == "traducteur" or current_user.statut == "admin":
-        flash(_('Vous êtes déjà souscrire à cette offre ou vous n\'êtes autorisés'), 'warning')
+        flash(_('Vous êtes déjà souscrire à cette offre ou vous n\'êtes autorisé'), 'warning')
         return redirect(url_for('profile', _external=True))
 
     skill_1 = request.form.get('skill_1')

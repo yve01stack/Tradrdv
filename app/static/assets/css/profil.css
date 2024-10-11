@@ -218,10 +218,10 @@ span.cursor {
 .checkbox_container {
   display: block;
   position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
+  padding-left: 30px;
+  margin-bottom: 10px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -242,8 +242,8 @@ span.cursor {
   position: absolute;
   top: 0;
   left: 0;
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
   background-color: #eee;
 }
 
@@ -470,50 +470,45 @@ span.cursor {
 /*-----------------------------------
     1 - custumize collapsible
 ------------------------------------*/
+.term-collapse {
+  box-shadow: 0 0 1px rgba(0,0,0,0.1);
+}
 
-/* Style the button that is used to open and close the collapsible content */
-.term-collapse .collapsible {
-  background-color: #eee;
-  color: #444;
+.term-collapse .collapse-btn {
   cursor: pointer;
-  padding: 18px;
-  width: 100%;
   border: none;
-  text-align: left;
   outline: none;
-  font-size: 15px;
-  border-bottom: 1px solid white;
+  background-color: transparent;
 }
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.term-collapse .active, .term-collapse .collapsible:hover {
-  background-color: #ccc;
+.term-collapse .card,
+.term-collapse .card:last-child .card-header {
+  border: none;
 }
 
-.term-collapse .active, .term-collapse .collapsible:focus {
-  border: 0 solid #ccc;
-  outline-style: none;
+.term-collapse .card-header {
+  border-bottom-color: #EDEFF0;
+  background: transparent;
 }
 
-/* Style the collapsible content. Note: hidden by default */
-.term-collapse .collapsible-content {
-  padding: 0 18px;
-  background-color: white;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
+.term-collapse .fa-stack {
+  font-size: 18px;
 }
 
-.term-collapse .collapsible:after {
-  content: '\02795'; /* Unicode character for "plus" sign (+) */
-  font-size: 13px;
-  color: white;
-  float: right;
-  margin-left: 5px;
+.term-collapse .collapse-btn {
+  width: 100%;
+  font-weight: bold;
+  color: #004987;
+  padding: 0;
 }
 
- .term-collapse .active:after {
-  content: "\2796"; /* Unicode character for "minus" sign (-) */
+.term-collapse .collapse-btn-link:hover,
+.term-collapse .collapse-btn-link:focus {
+  text-decoration: none;
+}
+
+.term-collapse li + li {
+  margin-top: 10px;
 }
 
 
@@ -549,11 +544,11 @@ span.cursor {
 ------------------------------------*/
 .wrimagecard{	
 	margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   text-align: left;
   position: relative;
   background: #fff;
-  box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+  box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.15);
   border-radius: 4px;
   transition: all 0.3s ease;
 }
@@ -562,13 +557,13 @@ span.cursor {
   font-size: 20px;
 }
 .wrimagecard-topimage_header{
-  padding: 10px;
+  padding: 5px;
 }
 .wrimagecard-topimage:hover {
-  box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+  box-shadow: 1px 2px 4px 0px rgba(46,61,73,0.2);
 }
 
 .wrimagecard-topimage_title {
-  padding: 10px 12px;
+  padding: 6px 6px;
   position: relative;
 }

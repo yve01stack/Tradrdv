@@ -67,6 +67,5 @@ SQLAlchemy==2.0.35
 typing_extensions==4.12.2
 tzlocal==5.2
 urllib3==2.2.3
-Werkzeug==2.2.2
 wheel==0.44.0
 WTForms==3.1.2

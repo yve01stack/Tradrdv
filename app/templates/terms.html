@@ -3,102 +3,148 @@
 {% block main %}
 
 <!-- content -->
-<section style="padding-top: 150px; padding-bottom: 50px">
-    <div class="term-collapse">
-        <div class="container">
-            <button type="button" class="collapsible">{{_("Que faut-il pour rejoindre notre communauté en tant que traducteur/Interprète ?")}}</button>
-            <div class="collapsible-content">
-                {{_("Pour rejoindre notre communauté, il vous suffit de payer un abonnement annuel de 15000 Da/118 Euros si vous êtes un(e) algérien(e) 
-                    résident à l’étranger, sauf en cas de promotions, et respecter quelques engagements")}} 
-                <ol>
-                    <li>{{_("Tous les clients payent directement le site, et à l'avance.")}}</li>
-                    <li>{{_("Les clients payent à l’avance pour une mission de prestation sauf en cas de convention agréée par la direction de 
-                        la plateforme, où le traducteur n’est pas obligé de l’accepter, et est parfaitement admissible aux missions payées à 
-                        l’avance s’il privilégie celles-ci uniquement.")}}</li>
-                    <li>{{_("Les traducteurs acceptent que la plateforme garde 15%(percent)s des paiements de leurs travaux, et leur verse 85%(percent2)s sur leurs 
-                        comptes respectifs. S’il y a une relecture à faire, la plateforme prend au maximum 5%(percent3)s comme frais de relecture du total 
-                        du paiement du client, parfois moins, selon le volume nécessaire de celle-ci, pas un centime de plus.", percent='%', percent2='%', percent3='%')}}</li>
-                    <li>{{_("Ne pas dépasser la somme fixée, en donnant leurs tarifs aux clients. Il faut préserver le rapport qualité prix.")}}</li>
-                    <li>{{_("Ils ne communiquent pas leurs coordonnées aux clients.")}}</li>
-                    <li>{{_("Ils respectent les délais et la confidentialité.")}}</li>
-                    <li>{{_("Ils passeront tous un test après abonnement fait.")}}</li>
-                    <li>{{_("Le traducteur ne prend pas deux clients à la fois.")}}</li>
-                    <li>{{_("Le traducteur ne revient pas sur un engagement fait.")}}</li>
-                </ol>
-            </div>
+<section class="container" style="padding-top: 150px; padding-bottom: 50px">
 
-            <button type="button" class="collapsible">{{_("Concernant les prix. (Les tarifs à ne pas dépasser pour le marché algérien)")}}</button>
-            <div class="collapsible-content">
-                <ul>
-                    <li>{{_("Les documents écrits à traduire: pas plus de 1600 Da la page, même si elle est bien remplie. (La page standard 
-                        chez Traducteurs sur Rendez-vous est de 350 mots).")}}</li>
-                    <li>{{_("Relecture \"Proofreading\" : pas plus de 850 Da la page, même si elle est bien remplie.")}}</li>
-                    <li>{{_("Les interprétations: il est à savoir qu'en général les sociétés qui sollicitent les interprètes se chargeront 
-                        des frais de transport, d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 18000 Da la journée.")}}</li>
-                    <li>{{_("La transcription de fichiers audio. 10000 Da au maximum pour une heure.")}}</li>
-                    <li>{{_("Les sous-titres pour vidéo. 5000 Da les 20 minutes. Donc 15000 Da l'heure.")}}</li>
-                    <li>{{_("Traduction avec voix-off d'une vidéo, ne pas dépasser les 20000 Da l'heure.")}}</li>
-                </ul>
-            </div>
-
-            <button type="button" class="collapsible">{{_("Concernant les prix. (Les tarifs à ne pas dépasser pour le marché étranger)")}}</button>
-            <div class="collapsible-content">
-                <ul>
-                    <li>{{_("Les documents écrits à traduire: entre 13 et 18 Euros la page, même si elle est bien remplie. (La page standard 
-                        chez Traducteurs sur Rendez-vous est de 350 mots).")}}</li>
-                    <li>{{_("Relecture \"Proofreading\" : entre 7 et 10 Euros la page, même si elle est bien remplie.")}}</li>
-                    <li>{{_("Les interprétations: il est à savoir qu'en général les sociétés qui sollicitent les interprètes se chargeront des 
-                        frais de transport, d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 170 Euros la journée.")}}</li>
-                    <li>{{_("La transcription de fichiers audio. 110 Euros au maximum pour une heure.")}}</li>
-                    <li>{{_("Les sous-titres pour vidéo. 60 Euros les 20 minutes. Donc 180 Euros l'heure")}}.</li>
-                    <li>{{_("Traduction avec voix-off d'une vidéo, ne pas dépasser les 190 Euros l'heure.")}}</li>
-                </ul>
-            </div>
-
-            <button type="button" class="collapsible">{{_("Petites pénalités")}}</button>
-            <div class="collapsible-content">
-                <ul class="list-unstyled">
-                    <li>{{_("Pour garantir un travail de qualité, et pour assurer aux clients une haute satisfaction, des mesures ont 
-                        été entreprises, sans pour autant, qu’elles soient faites par manque de confiance en le traducteur, ou diminuer de sa personne. 
-                        Si le traducteur dépasse les délais impartis, un badge rouge sera affiché sur son profil pour une période de 15 jours, et 
-                        le client pourra le bloquer, en ayant une réduction comme dédommagement. Point positif : le badge rouge disparaitra après 15 jours,
-                        et d’autres clients pourront le contacter au futur. Si le traducteur ne respecte pas la confidentialité, il sera radié du site. 
-                        La dernière n’est pas vraiment une pénalité, toutefois nous tenons à signaler, que si le traducteur donne des tarifs supérieurs 
-                        aux sommes fixées, ceux là seront changés automatiquement, ou manuellement par les administrateurs du site. 
-                        Confer Les tarifs à ne pas dépasser… ")}}</li>
-                </ul>
-            </div>
-
-            <button type="button" class="collapsible">{{_("Ce que nous exigeons au client vis-à-vis du traducteur")}}</button>
-            <div class="collapsible-content">
-                <ul>
-                    <li>{{_("Après s’être mis d’accord avec la direction de la plateforme ou un traducteur, il payera le montant à l’avance 
-                        sur le compte du site, et ne se désistera pas alors que le traducteur a commencé le travail.")}}</li>
-                    <li>{{_("Prévenir le traducteur avant paiement en cas d’annulation avant 24h, le temps écoulé, et donc le délai dépassé 
-                        le traducteur passera naturellement vers une autre commande, sauf si celui-ci convienne d’attendre et ne pas 
-                        prendre une autre mission jusqu’à ce que le client paye.")}}</li>
-                </ul>
-            </div>
+    <div id="accordion" class="term-collapse">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+            <button class="d-flex align-items-center justify-content-between collapse-btn collapse-btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              {{_("Que faut-il pour rejoindre notre communauté en tant que traducteur/Interprète ?")}}
+              <span class="fa-stack fa-sm">
+                <i class="fa fa-minus"></i>
+              </span>
+            </button>
         </div>
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            {{_("Pour rejoindre notre communauté, il vous suffit de payer un abonnement annuel de 15000 Da/118 Euros si vous êtes un(e) algérien(e) résident à l’étranger, sauf en cas de promotions, et respecter quelques engagements")}} 
+            <ol>
+                <li>{{_("Tous les clients payent directement le site, et à l'avance.")}}</li>
+                <li>{{_("Les clients payent à l’avance pour une mission de prestation sauf en cas de convention agréée par la direction de la plateforme, où le traducteur n’est pas obligé de l’accepter, et est parfaitement admissible aux missions payées à l’avance s’il privilégie celles-ci uniquement.")}}</li>
+                <li>{{_("Les traducteurs acceptent que la plateforme garde 15%(percent)s des paiements de leurs travaux, et leur verse 85%(percent2)s sur leurs comptes respectifs. S’il y a une relecture à faire, la plateforme prend au maximum 5%(percent3)s comme frais de relecture du total du paiement du client, parfois moins, selon le volume nécessaire de celle-ci, pas un centime de plus.", percent='%', percent2='%', percent3='%')}}</li>
+                <li>{{_("Ne pas dépasser la somme fixée, en donnant leurs tarifs aux clients. Il faut préserver le rapport qualité prix.")}}</li>
+                <li>{{_("Ils ne communiquent pas leurs coordonnées aux clients.")}}</li>
+                <li>{{_("Ils respectent les délais et la confidentialité.")}}</li>
+                <li>{{_("Ils passeront tous un test après abonnement fait.")}}</li>
+                <li>{{_("Le traducteur ne prend pas deux clients à la fois.")}}</li>
+                <li>{{_("Le traducteur ne revient pas sur un engagement fait.")}}</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+            <button class="d-flex align-items-center justify-content-between collapse-btn collapse-btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              {{_("Concernant les prix. (Les tarifs à ne pas dépasser pour le marché algérien)")}}
+              <span class="fa-stack fa-sm">
+                <i class="fa fa-plus"></i>
+              </span>
+            </button>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            <ul>
+                <li>{{_("Les documents écrits à traduire: pas plus de 1600 Da la page, même si elle est bien remplie. (La page standard chez Traducteurs sur Rendez-vous est de 350 mots).")}}</li>
+                <li>{{_("Relecture \"Proofreading\" : pas plus de 850 Da la page, même si elle est bien remplie.")}}</li>
+                <li>{{_("Les interprétations: il est à savoir qu'en général les sociétés qui sollicitent les interprètes se chargeront des frais de transport, d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 20000 Da la journée.")}}</li>
+                <li>{{_("La transcription de fichiers audio. 10000 Da au maximum pour une heure.")}}</li>
+                <li>{{_("Les sous-titres pour vidéo. 5000 Da les 20 minutes. Donc 15000 Da l'heure.")}}</li>
+                <li>{{_("Traduction avec voix-off d'une vidéo, ne pas dépasser les 20000 Da l'heure.")}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingThree">
+            <button class="d-flex align-items-center justify-content-between collapse-btn collapse-btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              {{_("Concernant les prix. (Les tarifs à ne pas dépasser pour le marché étranger)")}}
+              <span class="fa-stack fa-sm">
+                <i class="fa fa-plus"></i>
+              </span>
+            </button>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+            <ul>
+                <li>{{_("Les documents écrits à traduire: entre 13 et 18 Euros la page, même si elle est bien remplie. (La page standard chez Traducteurs sur Rendez-vous est de 350 mots).")}}</li>
+                <li>{{_("Relecture \"Proofreading\" : entre 7 et 10 Euros la page, même si elle est bien remplie.")}}</li>
+                <li>{{_("Les interprétations: il est à savoir qu'en général les sociétés qui sollicitent les interprètes se chargeront des frais de transport, d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 170 Euros la journée.")}}</li>
+                <li>{{_("La transcription de fichiers audio. 110 Euros au maximum pour une heure.")}}</li>
+                <li>{{_("Les sous-titres pour vidéo. 60 Euros les 20 minutes. Donc 180 Euros l'heure")}}.</li>
+                <li>{{_("Traduction avec voix-off d'une vidéo, ne pas dépasser les 190 Euros l'heure.")}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingFour">
+            <button class="d-flex align-items-center justify-content-between collapse-btn collapse-btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              {{_("Petites pénalités")}}
+              <span class="fa-stack fa-sm">
+                <i class="fa fa-plus"></i>
+              </span>
+            </button>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+          <div class="card-body">
+            <ul class="list-unstyled">
+                <li>{{_("Pour garantir un travail de qualité, et pour assurer aux clients une haute satisfaction, des mesures ont 
+                    été entreprises, sans pour autant, qu’elles soient faites par manque de confiance en le traducteur, ou diminuer de sa personne. Si le traducteur dépasse les délais impartis, un badge rouge sera affiché sur son profil pour une période de 15 jours, et le client pourra le bloquer, en ayant une réduction comme dédommagement. Point positif : le badge rouge disparaitra après 15 jours, et d’autres clients pourront le contacter au futur. Si le traducteur ne respecte pas la confidentialité, il sera radié du site. La dernière n’est pas vraiment une pénalité, toutefois nous tenons à signaler, que si le traducteur donne des tarifs supérieurs aux sommes fixées, ceux là seront changés automatiquement, ou manuellement par les administrateurs du site. Confer Les tarifs à ne pas dépasser… ")}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingFive">
+            <button class="d-flex align-items-center justify-content-between collapse-btn collapse-btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              {{_("Ce que nous exigeons au client vis-à-vis du traducteur")}}
+              <span class="fa-stack fa-sm">
+                <i class="fa fa-plus"></i>
+              </span>
+            </button>
+        </div>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+          <div class="card-body">
+            <ul>
+                <li>{{_("Après s’être mis d’accord avec la direction de la plateforme ou un traducteur, il payera le montant à l’avance sur le compte du site, et ne se désistera pas alors que le traducteur a commencé le travail.")}}</li>
+                <li>{{_("Prévenir le traducteur avant paiement en cas d’annulation avant 24h, le temps écoulé, et donc le délai dépassé le traducteur passera naturellement vers une autre commande, sauf si celui-ci convienne d’attendre et ne pas prendre une autre mission jusqu’à ce que le client paye.")}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingSix">
+            <button class="d-flex align-items-center justify-content-between collapse-btn collapse-btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+              {{_("Autres Détails Importants")}}
+              <span class="fa-stack fa-sm">
+                <i class="fa fa-plus"></i>
+              </span>
+            </button>
+        </div>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+          <div class="card-body">
+            <p>{{_("Avoir un profil avec un système filtre qui va faciliter aux clients dénicheurs de perles de vous trouver : filtre à étoiles (les points du test), filtre à points de travaux sur le site (qui augmente en fonction de vos travaux faits et validés), localisation (pour les déplacements nécessaires à des travaux d’interprétation), langues de spécialité, et disponibilité, sans oublier que les clients qui viennent vers le site, cherchent uniquement les traducteurs et/ou interprètes…")}}</p>
+            <p>{{_("Vos droits seront préservés, et vous serez protégés sous la couverture d’un registre de commerce légal, tout en restant indépendants.")}}</p>
+            <p>{{_("Le test que vous fera passer un ancien traducteur/Interprète professionnel et très sollicité argumentera votre crédibilité.")}}</p>
+            <p>{{_("Vous cumulez des points d’expérience qui s’ajouteront à votre profil à chaque travail effectué et finalisé sur la plateforme, ce qui favorisera le choix de votre espace personnel par rapport aux clients.")}}</p>
+            <p>{{_("Vous pourrez évoluer au milieu professionnel, et sentir enfin la belle sensation qu’est de ne pas avoir fait ses études pour rien…")}}</p>
+            <p>{{_("Nous boosterons votre profil occasionnellement, pour en faire une ruche d’abeilles, qui attirera les adorateurs de miel…")}}</p>
+            <p>{{_("Avoir une semaine de bonus, après la fin de l’abonnement annuel avant de pouvoir le renouveler.")}}</p>
+            <p>{{_("D’autres offres suivront, qui seront gratuites, et qui vont sans nul doute vous émerveiller !")}}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- //content -->
+
 </section>
 
 <script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
-    }
+    $("#accordion").on("hide.bs.collapse show.bs.collapse", e => {
+      $(e.target)
+        .prev()
+        .find("i:last-child")
+        .toggleClass("fa-minus fa-plus");
+    });
 </script>
 
 {% endblock %}

@@ -100,7 +100,7 @@
                         {% endif %}
 
                         <li class="nav-item">
-                            <form method="get" action="{{ url_for('accueil') }}">
+                            <form method="get" onsubmit="this.action=window.location.href;"> 
                                 <select class="nav-link" style="background-color: transparent; border-color: transparent; margin-left: -4px" name="locale" onchange="this.form.submit()">
                                     <option style="background-color: skyblue;" value="fr" {% if g.locale == 'fr' %}selected{% endif %}>Français</option>
                                     <option style="background-color: skyblue;" value="en" {% if g.locale == 'en' %}selected{% endif %}>English</option>

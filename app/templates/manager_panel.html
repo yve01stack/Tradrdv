@@ -6,325 +6,328 @@
     <section class="services bg-light">
         <div class="container mt-sm-5 pt-sm-5">
             <div class="container">
-                <div class="row">
-                    <div class="col-3">
-                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true">{{_('Dashboard')}}</a>
-                            <a class="nav-link" id="v-pills-dealInProgress-tab" data-toggle="pill" href="#v-pills-dealInProgress" role="tab" aria-controls="v-pills-dealInProgress" aria-selected="false">{{_('Accords en Cours')}}</a>
-                            <a class="nav-link" id="v-pills-dealOver-tab" data-toggle="pill" href="#v-pills-dealOver" role="tab" aria-controls="v-pills-dealOver" aria-selected="false">{{_('Accords Terminés')}}</a>
-                            <a class="nav-link" id="v-pills-renouveller-tab" data-toggle="pill" href="#v-pills-renouveller" role="tab" aria-controls="v-pills-renouveller" aria-selected="false">{{_('Renouveller')}}</a>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
-                              <div class="row">
-                                <div class="col-md-6 mb-3">
-                                     <div class="contact-box shadow-sm bg-white">
-                                         <div class="contact-head text-center"><h3>{{_('Message')}}</h3></div>
-                                         <div class="contact-nav shadow-sm bg-white">
-                                             <strong>
-                                                 <i type="button" class="fa fa-envelope text-center contact-tab" 
-                                                     style="border-right: 1px solid #eee; width: 50%;" onclick="openMsg()"></i>
-                                                 <i type="button" class="fa fa-users text-center contact-tab" onclick="closeMsg()" style="width: 48%;"></i>
-                                             </strong>
-                                         </div>
-                                         <div class="contact-container1" id="scroll" style="display: none;">
-                     
-                                         </div>
-                                         <div class="contact-container2">
-                     
-                                         </div>
-                                         <form method="post" action="{{ url_for('send_message', _external=True) }}" enctype="multipart/form-data" id="msgForm">
-                                             <div class="input-container shadow-sm bg-white">
-                                                 <textarea id="msgText" class="contact-form" onkeyup="check_message()"></textarea>
-                                                 <input type="hidden" class="get_message_url" href="{{ url_for('get_message', _external=True) }}">
-                                                 <input type="hidden" value="" class="receiver_id">
-                                                 <input type="file" class="d-none" name="msgFile" id="msgFile" oninput="sendfile(this);">
-                                                 <i type="button" class="fa fa-paperclip icon" onclick="return document.getElementById('msgFile').click();" 
-                                                     id="file_input" style="transform: rotate(43deg)"></i>
-                         
-                                                 <i type="button" id="text_input" onclick="sendtext()" class="fa fa-check icon"></i>
-                                             </div>
-                                         </form>
-                                     </div>
+                <div class="nav nav-pills nav-justified mb-2" id="v-pills-tab" role="tablist" aria-orientation="horizontal">
+                    <a class="nav-link active" id="v-pills-dashboard-tab" data-toggle="pill" href="#v-pills-dashboard" role="tab" aria-controls="v-pills-dashboard" aria-selected="true" data-toggle="tooltip" title="{{_('Dashboard')}}">
+                      <i class="fa fa-pie-chart pr-1"></i><strong class="d-none d-md-inline">{{_('Dashboard')}}</strong>
+                    </a>
+                    <a class="nav-link" id="v-pills-dealInProgress-tab" data-toggle="pill" href="#v-pills-dealInProgress" role="tab" aria-controls="v-pills-dealInProgress" aria-selected="false" data-toggle="tooltip" title="{{_('Accords en Cours')}}">
+                      <i class="fa fa-folder-open-o pr-1"></i><strong class="d-none d-md-inline">{{_('Accords en Cours')}}</strong>
+                  </a>
+                    <a class="nav-link" id="v-pills-dealOver-tab" data-toggle="pill" href="#v-pills-dealOver" role="tab" aria-controls="v-pills-dealOver" aria-selected="false" data-toggle="tooltip" title="{{_('Accords Terminés')}}">
+                      <i class="fa fa-folder-o pr-1"></i><strong class="d-none d-md-inline">{{_('Accords Terminés')}}</strong>
+                  </a>
+                    <a class="nav-link" id="v-pills-renouveller-tab" data-toggle="pill" href="#v-pills-renouveller" role="tab" aria-controls="v-pills-renouveller" aria-selected="false" data-toggle="tooltip" title="{{_('Renouveller')}}">
+                      <i class="fa fa-refresh pr-1"></i><strong class="d-none d-md-inline">{{_('Renouveller')}}</strong>
+                  </a>
+                </div>
+                    
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                             <div class="contact-box shadow-sm bg-white">
+                                 <div class="contact-head text-center"><h3>{{_('Message')}}</h3></div>
+                                 <div class="contact-nav shadow-sm bg-white">
+                                     <strong>
+                                         <i type="button" class="fa fa-envelope text-center contact-tab" 
+                                             style="border-right: 1px solid #eee; width: 50%;" onclick="openMsg()"></i>
+                                         <i type="button" class="fa fa-users text-center contact-tab" onclick="closeMsg()" style="width: 48%;"></i>
+                                     </strong>
                                  </div>
-                                 <div class="col-md-6">
-                                  <div class="contact-box shadow-sm bg-white" style="height: 588px;">
-                                    <div class="form-container">
-                                      <div class="contact-head text-center"><h3>{{_('Dashboard')}}</h3></div>
-                                      <div class="p-3">
-                                        <div class="row">
-                                          <div class="col-sm-6 col-12">
-                                            <div class="wrimagecard wrimagecard-topimage">
-                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
-                                                <i class="fa fa-credit-card text-primary" ></i><h4 class="float-right">{{current_user.revenu}}Da</h4>
-                                              </div>
-                                              <div class="wrimagecard-topimage_title">
-                                                <h6>{{_('Revenu')}}</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-sm-6 col-12">
-                                            <div class="wrimagecard wrimagecard-topimage">
-                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
-                                                <i class="fa fa-hourglass-2 text-warning" ></i><h4 class="float-right">{{_('%(remain_day)s jour(s)', remain_day=traducteur.remain_day)}}</h4>
-                                              </div>
-                                              <div class="wrimagecard-topimage_title">
-                                                <h6>{{_('Jour Restant')}}</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-
-                                        <div class="row">
-                                          <div class="col-sm-6 col-12">
-                                            <div class="wrimagecard wrimagecard-topimage">
-                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
-                                                <i class="fa fa-rocket text-secondary" ></i><h4 class="float-right">{{number_dp}}</h4>
-                                              </div>
-                                              <div class="wrimagecard-topimage_title">
-                                                <h6>{{_('Accords en Cours')}}</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-sm-6 col-12">
-                                            <div class="wrimagecard wrimagecard-topimage">
-                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
-                                                <i class="fa fa-archive text-success" ></i><h4 class="float-right">{{number_do}}</h4>
-                                              </div>
-                                              <div class="wrimagecard-topimage_title">
-                                                <h6>{{_('Accords terminés')}}</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-
-                                        <div class="row">
-                                          <div class="col-sm-6 col-12">
-                                            <div class="wrimagecard wrimagecard-topimage">
-                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
-                                                <i class="fa fa-mouse-pointer text-info" ></i><h4 class="float-right">{{traducteur.profile_view}}</h4>
-                                              </div>
-                                              <div class="wrimagecard-topimage_title">
-                                                <h6>{{_('Profil Visite')}}</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="col-sm-6 col-12">
-                                            <div class="wrimagecard wrimagecard-topimage">
-                                              <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
-                                                <i class="fa fa-tag text-warning" ></i>
-                                                <h4 class="float-right">{% if traducteur.compte_valid %} {{_('valide')}} {% else %} {{_('invalide')}} {% endif %}</h4>
-                                              </div>
-                                              <div class="wrimagecard-topimage_title">
-                                                <h6>{{_('Profil Statut')}}</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row p-3">
-                                          <form action="{{ url_for('manager_action', trad_id=traducteur.id, _external=True) }}" method="post" class="form-container tradAction">
-                                            <p>
-                                              <label class="checkbox_container">{{_('Disponible')}}
-                                                <input type="checkbox" {% if traducteur.dispo %} checked="checked" {% endif %} onchange="tradAction(this, 'dispo')">
-                                                <span class="checkmark"></span>
-                                              </label>
-                                            </p>
-                                            <p>
-                                              <label class="checkbox_container">{{_('Accepte abonné(e)')}}
-                                                <input type="checkbox" {% if traducteur.accept_subscriber %} checked="checked" {% endif %} onchange="tradAction(this, 'accept_subscriber')">
-                                                <span class="checkmark"></span>
-                                              </label>
-                                            </p>
-                                            <p>
-                                              <label class="checkbox_container">{{_("Besoin d'aide")}} <i class="fa fa-bell text-warning"></i>
-                                                <input type="checkbox" {% if not need_help_required %} disabled {% endif %} onchange="tradAction(this, 'need_help_ad')"
-                                                {% if traducteur.need_help_ad=="ask" or traducteur.need_help_ad=="on" %} checked="checked" {% endif %}>
-                                                <span class="checkmark"></span>
-                                              </label>
-                                            </p>
-                                          </form>
-                                        </div>
-
-                                                                      
+                                 <div class="contact-container1" id="scroll" style="display: none;">
+             
+                                 </div>
+                                 <div class="contact-container2">
+             
+                                 </div>
+                                 <form method="post" action="{{ url_for('send_message', _external=True) }}" enctype="multipart/form-data" id="msgForm">
+                                     <div class="input-container shadow-sm bg-white">
+                                         <textarea id="msgText" class="contact-form" onkeyup="check_message()"></textarea>
+                                         <input type="hidden" class="get_message_url" href="{{ url_for('get_message', _external=True) }}">
+                                         <input type="hidden" value="" class="receiver_id">
+                                         <input type="file" class="d-none" name="msgFile" id="msgFile" oninput="sendfile(this);">
+                                         <i type="button" class="fa fa-paperclip icon" onclick="return document.getElementById('msgFile').click();" 
+                                             id="file_input" style="transform: rotate(43deg)"></i>
+                 
+                                         <i type="button" id="text_input" onclick="sendtext()" class="fa fa-check icon"></i>
+                                     </div>
+                                 </form>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                          <div class="contact-box shadow-sm bg-white" style="height: 588px;">
+                            <div class="form-container">
+                              <div class="contact-head text-center"><h3>{{_('Dashboard')}}</h3></div>
+                              <div class="p-3">
+                                <div class="row">
+                                  <div class="col-6">
+                                    <div class="wrimagecard wrimagecard-topimage">
+                                      <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                        <i class="fa fa-credit-card text-primary" ></i><h4 class="float-right">{{current_user.revenu}}Da</h4>
+                                      </div>
+                                      <div class="wrimagecard-topimage_title">
+                                        <h6>{{_('Revenu')}}</h6>
                                       </div>
                                     </div>
                                   </div>
-                                 </div>
-                              </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="v-pills-dealInProgress" role="tabpanel" aria-labelledby="v-pills-dealInProgress-tab">
-                              <table class="table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>{{_('Photo')}}</th>
-                                        <th>{{_('Détails')}}</th>
-                                        <th>{{_('Action')}}</th>
-                                        <th>{{_('Statut')}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for deal in deals_progress %}
-                                    <tr>
-                                        <td class="invert-image" rowspan="2">                                         
-                                            <a>
-                                                <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
-                                            </a>
-                                        </td>
-                                        <td class="invert">{{deal.motif}}</td>
-                                        <td class="invert">
-                                          {% if deal.friend_accept %}
-                                          <span class="badge badge-success">{{_('Accepté')}}</span>
-                                          {% else %}
-                                          <a href="{{ url_for('accept_deal', deal_id=deal.id, _external=True) }}" class="badge badge-success">{{_('Accepter')}}</a>
-                                          {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if deal.friend_accept %}
-                                                {% if deal.admin_confirm_bill %}
-                                                    {% if deal.deal_over %}
-                                                    <span class="badge badge-success">{{_('Terminé')}}</span>
-                                                    {% else %}
-                                                    <span class="badge badge-info">{{_('En cours..')}}</span>
-                                                    {% endif %}
-                                                {% else %}
-                                                <span class="badge badge-warning">{{_('Paiement..')}}</span>
-                                                {% endif %}
-                                            {% else %}
-                                                <span class="badge badge-primary">{{_('Attente..')}}</span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="invert">
-                                            <i>{{ moment(deal.timestamp).format("LL") }} </i>
-                                            <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
-                                        </td> 
-                                        <td class="invert">
-                                          {% if deal.friend_reject %}
-                                          <span class="badge badge-danger px-2">{{_('Rejeté')}}</span>
-                                          {% else %}
-                                          <a href="{{ url_for('reject_deal', deal_id=deal.id, _external=True) }}" class="badge badge-danger px-2">{{_('Rejeter')}}</a>
-                                          {% endif %}
-                                        </td>      
-                                        <td class="invert">
-                                            {% if deal.type_deal=="test" %}
-                                              {% if deal.admin_confirm_bill %}
-                                                <a href="{{ url_for('trad_test_update', deal_id=deal.id, _external=True) }}" class="badge badge-primary px-2"> {{_('Aperçu')}}</a>
-                                              {% else %}
-                                                <span class="badge badge-primary px-2"> {{_('Aperçu')}}</span>
-                                              {% endif %}
-                                            {% elif deal.type_deal=="trad" %}
-                                                {% if deal.admin_confirm_bill %}
-                                                  <span type="button" class="badge badge-primary px-2" data-toggle="modal" data-target="#modal_aside_left" 
-                                                    data-itemid="{{deal.id}}" 
-                                                    data-whatever="{{deal.motif}}"
-                                                    data-columns="{{deal.amount}}{{deal.devise}}"
-                                                    data-parent="{{deal.author.username}}"
-                                                    data-draggable="{{deal.payment_way}}"
-                                                    data-dropzone="{{ deal.payment_bill }}">{{_('Aperçu')}}
-                                                  </span>
-                                                {% else %}
-                                                  <span class="badge badge-primary px-2"> {{_('Aperçu')}}</span>
-                                                {% endif %}
-                                             {% endif %}
-                                          </td>
-                                      </tr>
-                                    {% endfor %}
-                                </tbody>
-                              </table>
-                              <!-- deal modal -->
-                              <div id="modal_aside_left" class="modal fixed-left fade" tabindex="-1" role="dialog">
-                                <div class="modal-dialog modal-dialog-aside" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title">{{_('Joindre une pièce')}} </h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p><strong>{{_('motif:')}} </strong><i class="motif"></i></p>
-                                        <p><strong>{{_('Coût:')}} </strong><i class="amount"></i></p>
-                                        <p><strong>{{_('Client:')}} </strong><i class="username"></i></p>
-                                        <p><strong>{{_('Type de paiement:')}} </strong><i class="payment_way"></i></p>
-                                        
-                                        <form class="form-container" method="post" action="{{ url_for('submit_work', _external=True) }}" 
-                                          enctype="multipart/form-data" id="dealView">
-                                            <p>{{_('Joindre votre travail')}}
-                                                <input type="file" required accept=".pdf" class="mt-2" name="work">
-                                                <input class="deal_id" name="deal_id" required type="hidden">
-                                            </p>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="submit" form="dealView" class="btn-perso">{{_('Enregistrer')}}</button>
+                                  <div class="col-6">
+                                    <div class="wrimagecard wrimagecard-topimage">
+                                      <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                        <i class="fa fa-hourglass-2 text-warning" ></i><h4 class="float-right">{{_('%(remain_day)s jour(s)', remain_day=traducteur.remain_day)}}</h4>
+                                      </div>
+                                      <div class="wrimagecard-topimage_title">
+                                        <h6>{{_('Jour Restant')}}</h6>
+                                      </div>
                                     </div>
                                   </div>
-                                </div> <!-- modal-bialog .// -->
-                              </div> <!-- modal.// -->
-                            </div>
+                                </div>
 
-                            <div class="tab-pane fade" id="v-pills-dealOver" role="tabpanel" aria-labelledby="v-pills-dealOver-tab">
-                              <table class="table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>{{_('Photo')}}</th>
-                                        <th>{{_('Détails')}}</th>
-                                        <th>{{_('Client')}}</th>
-                                        <th>{{_('Statut')}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for deal in deals_over %}
-                                    <tr>
-                                        <td class="invert-image" rowspan="2">                                         
-                                            <a>
-                                                <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
-                                            </a>
-                                        </td>
-                                        <td class="invert">{{deal.motif}}</td>
-                                        <td class="invert">{{deal.author.username}}</td>
-                                        <td>
-                                            {% if deal.friend_accept %}
-                                                {% if deal.admin_confirm_bill %}
-                                                    {% if deal.deal_over %}
-                                                    <span class="badge badge-success">{{_('Terminé')}}</span>
-                                                    {% else %}
-                                                    <span class="badge badge-info">{{_('En cours..')}}</span>
-                                                    {% endif %}
-                                                {% else %}
-                                                <span class="badge badge-warning">{{_('Paiement..')}}</span>
-                                                {% endif %}
+                                <div class="row">
+                                  <div class="col-6">
+                                    <div class="wrimagecard wrimagecard-topimage">
+                                      <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                        <i class="fa fa-rocket text-secondary" ></i><h4 class="float-right">{{number_dp}}</h4>
+                                      </div>
+                                      <div class="wrimagecard-topimage_title">
+                                        <h6>{{_('Accords en Cours')}}</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div class="wrimagecard wrimagecard-topimage">
+                                      <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                        <i class="fa fa-archive text-success" ></i><h4 class="float-right">{{number_do}}</h4>
+                                      </div>
+                                      <div class="wrimagecard-topimage_title">
+                                        <h6>{{_('Accords terminés')}}</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-6">
+                                    <div class="wrimagecard wrimagecard-topimage">
+                                      <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                        <i class="fa fa-mouse-pointer text-info" ></i><h4 class="float-right">{{traducteur.profile_view}}</h4>
+                                      </div>
+                                      <div class="wrimagecard-topimage_title">
+                                        <h6>{{_('Profil Visite')}}</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div class="wrimagecard wrimagecard-topimage">
+                                      <div class="wrimagecard-topimage_header" style="background-color:rgba(187, 120, 36, 0.1) ">
+                                        <i class="fa fa-tag text-warning" ></i>
+                                        <h4 class="float-right">{% if traducteur.compte_valid %} {{_('valide')}} {% else %} {{_('invalide')}} {% endif %}</h4>
+                                      </div>
+                                      <div class="wrimagecard-topimage_title">
+                                        <h6>{{_('Profil Statut')}}</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row p-3">
+                                  <form action="{{ url_for('manager_action', trad_id=traducteur.id, _external=True) }}" method="post" class="form-container tradAction">
+                                    <p>
+                                      <label class="checkbox_container">{{_('Disponible')}}
+                                        <input type="checkbox" {% if traducteur.dispo %} checked="checked" {% endif %} onchange="tradAction(this, 'dispo')">
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </p>
+                                    <p>
+                                      <label class="checkbox_container">{{_('Accepte abonné(e)')}}
+                                        <input type="checkbox" {% if traducteur.accept_subscriber %} checked="checked" {% endif %} onchange="tradAction(this, 'accept_subscriber')">
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </p>
+                                    <p>
+                                      <label class="checkbox_container">{{_("Besoin d'aide")}} <i class="fa fa-bell text-warning"></i>
+                                        <input type="checkbox" {% if not need_help_required %} disabled {% endif %} onchange="tradAction(this, 'need_help_ad')"
+                                        {% if traducteur.need_help_ad=="ask" or traducteur.need_help_ad=="on" %} checked="checked" {% endif %}>
+                                        <span class="checkmark"></span>
+                                      </label>
+                                    </p>
+                                  </form>
+                                </div>
+
+                                                              
+                              </div>
+                            </div>
+                          </div>
+                         </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-dealInProgress" role="tabpanel" aria-labelledby="v-pills-dealInProgress-tab">
+                      <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>{{_('Photo')}}</th>
+                                <th>{{_('Détails')}}</th>
+                                <th>{{_('Action')}}</th>
+                                <th>{{_('Statut')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for deal in deals_progress %}
+                            <tr>
+                                <td class="invert-image" rowspan="2">                                         
+                                    <a>
+                                        <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                    </a>
+                                </td>
+                                <td class="invert">{{deal.motif}}</td>
+                                <td class="invert">
+                                  {% if deal.friend_accept %}
+                                  <span class="badge badge-success">{{_('Accepté')}}</span>
+                                  {% else %}
+                                  <a href="{{ url_for('accept_deal', deal_id=deal.id, _external=True) }}" class="badge badge-success">{{_('Accepter')}}</a>
+                                  {% endif %}
+                                </td>
+                                <td>
+                                    {% if deal.friend_accept %}
+                                        {% if deal.admin_confirm_bill %}
+                                            {% if deal.deal_over %}
+                                            <span class="badge badge-success">{{_('Terminé')}}</span>
                                             {% else %}
-                                                <span class="badge badge-primary">{{_('Attente..')}}</span>
+                                            <span class="badge badge-info">{{_('En cours..')}}</span>
                                             {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="invert">
-                                            <i>{{ moment(deal.timestamp).format("LL") }} </i>
-                                            <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
-                                        </td> 
-                                        <td class="invert">{{ deal.amount }}{{deal.devise}}</td>      
-                                        <td class="invert">
-                                          <span class="fa fa-star" {% if deal.work_score>= 1 %} style="color: orange;" {% endif %}></span>
-                                          <span class="fa fa-star" {% if deal.work_score>= 2 %} style="color: orange;" {% endif %}></span>
-                                          <span class="fa fa-star" {% if deal.work_score>= 3 %} style="color: orange;" {% endif %}></span>
-                                          <span class="fa fa-star" {% if deal.work_score>= 4 %} style="color: orange;" {% endif %}></span>
-                                          <span class="fa fa-star" {% if deal.work_score>= 5 %} style="color: orange;" {% endif %}></span>
-                                        </td>
-                                      </tr>
-                                    {% endfor %}
-                                </tbody>
-                              </table>
+                                        {% else %}
+                                        <span class="badge badge-warning">{{_('Paiement..')}}</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="badge badge-primary">{{_('Attente..')}}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="invert">
+                                    <i>{{ moment(deal.timestamp).format("LL") }} </i>
+                                    <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
+                                </td> 
+                                <td class="invert">
+                                  {% if deal.friend_reject %}
+                                  <span class="badge badge-danger px-2">{{_('Rejeté')}}</span>
+                                  {% else %}
+                                  <a href="{{ url_for('reject_deal', deal_id=deal.id, _external=True) }}" class="badge badge-danger px-2">{{_('Rejeter')}}</a>
+                                  {% endif %}
+                                </td>      
+                                <td class="invert">
+                                    {% if deal.type_deal=="test" %}
+                                      {% if deal.admin_confirm_bill %}
+                                        <a href="{{ url_for('trad_test_update', deal_id=deal.id, _external=True) }}" class="badge badge-primary px-2"> {{_('Aperçu')}}</a>
+                                      {% else %}
+                                        <span class="badge badge-primary px-2"> {{_('Aperçu')}}</span>
+                                      {% endif %}
+                                    {% elif deal.type_deal=="trad" %}
+                                        {% if deal.admin_confirm_bill %}
+                                          <span type="button" class="badge badge-primary px-2" data-toggle="modal" data-target="#modal_aside_left" 
+                                            data-itemid="{{deal.id}}" 
+                                            data-whatever="{{deal.motif}}"
+                                            data-columns="{{deal.amount}}{{deal.devise}}"
+                                            data-parent="{{deal.author.username}}"
+                                            data-draggable="{{deal.payment_way}}"
+                                            data-dropzone="{{ deal.payment_bill }}">{{_('Aperçu')}}
+                                          </span>
+                                        {% else %}
+                                          <span class="badge badge-primary px-2"> {{_('Aperçu')}}</span>
+                                        {% endif %}
+                                     {% endif %}
+                                  </td>
+                              </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                      <!-- deal modal -->
+                      <div id="modal_aside_left" class="modal fixed-left fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-dialog-aside" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">{{_('Joindre une pièce')}} </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-renouveller" role="tabpanel" aria-labelledby="v-pills-renouveller-tab">
-                              ...
+                            <div class="modal-body">
+                                <p><strong>{{_('motif:')}} </strong><i class="motif"></i></p>
+                                <p><strong>{{_('Coût:')}} </strong><i class="amount"></i></p>
+                                <p><strong>{{_('Client:')}} </strong><i class="username"></i></p>
+                                <p><strong>{{_('Type de paiement:')}} </strong><i class="payment_way"></i></p>
+                                
+                                <form class="form-container" method="post" action="{{ url_for('submit_work', _external=True) }}" 
+                                  enctype="multipart/form-data" id="dealView">
+                                    <p>{{_('Joindre votre travail')}}
+                                        <input type="file" required accept=".pdf" class="mt-2" name="work">
+                                        <input class="deal_id" name="deal_id" required type="hidden">
+                                    </p>
+                                </form>
                             </div>
-                        </div>
+                            <div class="modal-footer">
+                              <button type="submit" form="dealView" class="btn-perso">{{_('Enregistrer')}}</button>
+                            </div>
+                          </div>
+                        </div> <!-- modal-bialog .// -->
+                      </div> <!-- modal.// -->
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-dealOver" role="tabpanel" aria-labelledby="v-pills-dealOver-tab">
+                      <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>{{_('Photo')}}</th>
+                                <th>{{_('Détails')}}</th>
+                                <th>{{_('Client')}}</th>
+                                <th>{{_('Statut')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for deal in deals_over %}
+                            <tr>
+                                <td class="invert-image" rowspan="2">                                         
+                                    <a>
+                                        <img src="{{url_for('static', filename=deal.author.avatar)}}" alt=" " class="img-responsive" style="width: 80px; height: 80px">
+                                    </a>
+                                </td>
+                                <td class="invert">{{deal.motif}}</td>
+                                <td class="invert">{{deal.author.username}}</td>
+                                <td>
+                                    {% if deal.friend_accept %}
+                                        {% if deal.admin_confirm_bill %}
+                                            {% if deal.deal_over %}
+                                            <span class="badge badge-success">{{_('Terminé')}}</span>
+                                            {% else %}
+                                            <span class="badge badge-info">{{_('En cours..')}}</span>
+                                            {% endif %}
+                                        {% else %}
+                                        <span class="badge badge-warning">{{_('Paiement..')}}</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="badge badge-primary">{{_('Attente..')}}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="invert">
+                                    <i>{{ moment(deal.timestamp).format("LL") }} </i>
+                                    <i {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</i>
+                                </td> 
+                                <td class="invert">{{ deal.amount }}{{deal.devise}}</td>      
+                                <td class="invert">
+                                  <span class="fa fa-star" {% if deal.work_score>= 1 %} style="color: orange;" {% endif %}></span>
+                                  <span class="fa fa-star" {% if deal.work_score>= 2 %} style="color: orange;" {% endif %}></span>
+                                  <span class="fa fa-star" {% if deal.work_score>= 3 %} style="color: orange;" {% endif %}></span>
+                                  <span class="fa fa-star" {% if deal.work_score>= 4 %} style="color: orange;" {% endif %}></span>
+                                  <span class="fa fa-star" {% if deal.work_score>= 5 %} style="color: orange;" {% endif %}></span>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-renouveller" role="tabpanel" aria-labelledby="v-pills-renouveller-tab">
+                      ...
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-30 23:21+0800\n"
+"POT-Creation-Date: 2024-10-11 23:28+0800\n"
 "PO-Revision-Date: 2024-09-30 23:22+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -17,231 +17,231 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Generated-By: Babel 2.16.0\n"
 
-#: app/routes.py:69
+#: app/routes.py:71
 #, python-format
 msgid "Accueil - %(sitename)s"
 msgstr ""
 
-#: app/routes.py:85
+#: app/routes.py:87
 msgid "Félicitations, vous êtes maintenant un utilisateur enregistré !"
 msgstr ""
 
-#: app/routes.py:87
+#: app/routes.py:89
 #, python-format
 msgid "Inscription - %(sitename)s"
 msgstr ""
 
-#: app/routes.py:98
+#: app/routes.py:100
 msgid "E-mail ou mot de passe invalide"
 msgstr ""
 
-#: app/routes.py:106
+#: app/routes.py:108
 #, python-format
 msgid "Connexion - %(sitename)s"
 msgstr ""
 
-#: app/routes.py:161
+#: app/routes.py:163
 msgid "Une erreur s'est produite, veuillez réessayer avec un autre compte gmail"
 msgstr ""
 
-#: app/routes.py:171
+#: app/routes.py:173
 msgid "Inscription avec votre compte google réussie"
 msgstr ""
 
-#: app/routes.py:178
+#: app/routes.py:180
 msgid "Connexion avec votre compte google réussie"
 msgstr ""
 
-#: app/routes.py:203
+#: app/routes.py:205
 msgid "Erreur de nom ou d'extension de l'image"
 msgstr ""
 
-#: app/routes.py:206
+#: app/routes.py:208
 msgid "Veuillez choisir une image de taille inférieur à 3Mo."
 msgstr ""
 
-#: app/routes.py:212
+#: app/routes.py:214
 msgid "Veuillez fournir un nom d'utilisateur correct"
 msgstr ""
 
-#: app/routes.py:232
+#: app/routes.py:234
 msgid "Votre profil a bien été modifié"
 msgstr ""
 
-#: app/routes.py:245
+#: app/routes.py:247
 msgid "Ancien mot de passe incorrect"
 msgstr ""
 
-#: app/routes.py:249
+#: app/routes.py:251
 msgid "Votre mot de passe a bien été modifié"
 msgstr ""
 
-#: app/routes.py:251
+#: app/routes.py:253
 msgid ""
 "Vous ne pouvez pas changer votre mot de passe car vous utilisez google "
 "login"
 msgstr ""
 
-#: app/routes.py:266 app/routes.py:273
+#: app/routes.py:268 app/routes.py:275
 msgid "Pseudo du parrain fournit est incorrect"
 msgstr ""
 
-#: app/routes.py:271
+#: app/routes.py:273
 msgid "Parrain est ajouté"
 msgstr ""
 
-#: app/routes.py:283
+#: app/routes.py:285
 msgid ""
 "Vérifiez votre e-mail (ou spam) pour obtenir les instructions pour "
 "confirmer votre adresse mail"
 msgstr ""
 
-#: app/routes.py:291 app/routes.py:319
+#: app/routes.py:293 app/routes.py:321
 msgid "Le lien est expiré, veuillez réessayer !"
 msgstr ""
 
-#: app/routes.py:295
+#: app/routes.py:297
 msgid "Votre adresse mail a bien été vérifié"
 msgstr ""
 
-#: app/routes.py:308
+#: app/routes.py:310
 msgid ""
 "Vérifiez votre e-mail (ou spam) pour obtenir les instructions pour "
 "réinitialiser votre mot de passe"
 msgstr ""
 
-#: app/routes.py:310 app/routes.py:327
+#: app/routes.py:312 app/routes.py:329
 msgid "Réinitialiser votre mot de passe"
 msgstr ""
 
-#: app/routes.py:325
+#: app/routes.py:327
 msgid "Votre mot de passe a bien été réinitialisé, connectez-vous !"
 msgstr ""
 
-#: app/routes.py:337
+#: app/routes.py:339
 msgid "Désolé, vous avez un offre en cours"
 msgstr ""
 
-#: app/routes.py:340 app/routes.py:535
+#: app/routes.py:342 app/routes.py:537
 msgid "Désolé, vous avez une demande d'offre en cours"
 msgstr ""
 
-#: app/routes.py:345
+#: app/routes.py:347
 msgid "Souscription à l'offre standard"
 msgstr ""
 
-#: app/routes.py:349
+#: app/routes.py:351
 msgid "Souscription à l'offre premium"
 msgstr ""
 
-#: app/routes.py:353 app/routes.py:1232 app/routes.py:1879
+#: app/routes.py:355 app/routes.py:1234 app/routes.py:1881
 msgid "404 Erreur"
 msgstr ""
 
-#: app/routes.py:357
+#: app/routes.py:359
 msgid ""
 "Veuillez payer la facture, joindre la photo du reçu et ensuite profitez "
 "de votre offre"
 msgstr ""
 
-#: app/routes.py:366
+#: app/routes.py:368
 #, python-format
 msgid "Veuillez complèter votre profil et profiter pleinement de %(sitename)s"
 msgstr ""
 
-#: app/routes.py:367 app/routes.py:1013 app/routes.py:1450
+#: app/routes.py:369 app/routes.py:1015 app/routes.py:1452
 msgid "Anonyme"
 msgstr ""
 
-#: app/routes.py:373 app/routes.py:1025 app/routes.py:1483
+#: app/routes.py:375 app/routes.py:1027 app/routes.py:1485
 #, python-format
 msgid "Profil- %(subtitle)s"
 msgstr ""
 
-#: app/routes.py:399 app/routes.py:557 app/routes.py:681
+#: app/routes.py:401 app/routes.py:559 app/routes.py:683
 msgid "Erreur, vous n'avez aucun abonnement de marketing en cours"
 msgstr ""
 
-#: app/routes.py:402 app/routes.py:560 app/routes.py:722
+#: app/routes.py:404 app/routes.py:562 app/routes.py:724
 msgid ""
 "Erreur, vous avez déjà atteint le nombre maximal d'article de votre "
 "abonnement en cours"
 msgstr ""
 
-#: app/routes.py:427 app/routes.py:596
+#: app/routes.py:429 app/routes.py:598
 msgid "Erreur de nom ou d'extension de la première image"
 msgstr ""
 
-#: app/routes.py:438 app/routes.py:449 app/routes.py:460 app/routes.py:471
-#: app/routes.py:482 app/routes.py:493 app/routes.py:504 app/routes.py:607
-#: app/routes.py:618 app/routes.py:629 app/routes.py:640 app/routes.py:651
-#: app/routes.py:662 app/routes.py:673
+#: app/routes.py:440 app/routes.py:451 app/routes.py:462 app/routes.py:473
+#: app/routes.py:484 app/routes.py:495 app/routes.py:506 app/routes.py:609
+#: app/routes.py:620 app/routes.py:631 app/routes.py:642 app/routes.py:653
+#: app/routes.py:664 app/routes.py:675
 msgid "Erreur de nom ou d'extension de la deuxième image"
 msgstr ""
 
-#: app/routes.py:514
+#: app/routes.py:516
 msgid "Votre article a été crée avec succès"
 msgstr ""
 
-#: app/routes.py:530
+#: app/routes.py:532
 msgid "Erreur, vous avez un abonnement de marketing en cours"
 msgstr ""
 
-#: app/routes.py:539
+#: app/routes.py:541
 msgid "Souscription à l'abonnement marketing"
 msgstr ""
 
-#: app/routes.py:544
+#: app/routes.py:546
 msgid ""
 "Veuillez payer la facture, joindre la photo du reçu et ensuite profitez "
 "de votre abonnement marketing"
 msgstr ""
 
-#: app/routes.py:565
+#: app/routes.py:567
 msgid "Votre article est maintenant en ligne"
 msgstr ""
 
-#: app/routes.py:701 app/routes.py:720
+#: app/routes.py:703 app/routes.py:722
 msgid "Votre article a été modifié et est maintenant en ligne"
 msgstr ""
 
-#: app/routes.py:732
+#: app/routes.py:734
 msgid "Votre article est bien été supprimé"
 msgstr ""
 
-#: app/routes.py:760
+#: app/routes.py:762
 msgid "Vous êtes déjà souscrire à cette offre ou vous n'êtes pas autorisé"
 msgstr ""
 
-#: app/routes.py:764
+#: app/routes.py:766
 msgid "Devenir traducteur"
 msgstr ""
 
-#: app/routes.py:772
+#: app/routes.py:774 app/routes.py:884
 msgid "Vous êtes déjà souscrire à cette offre ou vous n'êtes autorisé"
 msgstr ""
 
-#: app/routes.py:813 app/routes.py:928 app/routes.py:1281
+#: app/routes.py:815 app/routes.py:930 app/routes.py:1283
 msgid "Erreur de nom ou d'extension du carte identité/passeport"
 msgstr ""
 
-#: app/routes.py:834
+#: app/routes.py:836
 msgid "Paiement de caution annuelle de traducteur"
 msgstr ""
 
-#: app/routes.py:847
+#: app/routes.py:849
 msgid "Nouveau accord: "
 msgstr ""
 
-#: app/routes.py:852 app/routes.py:998 app/routes.py:1193 app/routes.py:1317
-#: app/routes.py:1359 app/routes.py:1531 app/routes.py:1549 app/routes.py:1605
-#: app/routes.py:1643
+#: app/routes.py:854 app/routes.py:1000 app/routes.py:1195 app/routes.py:1319
+#: app/routes.py:1361 app/routes.py:1533 app/routes.py:1551 app/routes.py:1607
+#: app/routes.py:1645
 msgid "Un nouveau message"
 msgstr ""
 
-#: app/routes.py:853
+#: app/routes.py:855
 #, python-format
 msgid ""
 "Depuis votre dernière visite sur TRADRDV, %(username)s un nouveau "
@@ -249,204 +249,200 @@ msgid ""
 "consulter votre messagerie."
 msgstr ""
 
-#: app/routes.py:857
+#: app/routes.py:859
 msgid ""
 "Veuillez payer la facture, joindre la photo du reçu et ensuite passez le "
 "test auprès du testeur"
 msgstr ""
 
-#: app/routes.py:868 app/routes.py:1058 app/routes.py:1074 app/routes.py:1100
-#: app/routes.py:1269 app/routes.py:1498 app/routes.py:1569 app/routes.py:1591
-#: app/routes.py:1658 app/routes.py:1695
+#: app/routes.py:870 app/routes.py:1060 app/routes.py:1076 app/routes.py:1102
+#: app/routes.py:1271 app/routes.py:1500 app/routes.py:1571 app/routes.py:1593
+#: app/routes.py:1660 app/routes.py:1697
 #, python-format
 msgid "Cet accord est terminé le %(date)s"
 msgstr ""
 
-#: app/routes.py:873
-msgid "Mise à du compte traducteur"
+#: app/routes.py:875
+msgid "Mise à jour du compte traducteur"
 msgstr ""
 
-#: app/routes.py:882
-msgid "Vous êtes déjà souscrire à cette offre ou vous n'êtes autorisés"
-msgstr ""
-
-#: app/routes.py:993
+#: app/routes.py:995
 #, python-format
 msgid ""
 "Votre profil de traducteur est maintenant disponible auprès des clients. "
 "Nous vous souhaitons bienvenu(e) chez %(sitname)s"
 msgstr ""
 
-#: app/routes.py:999 app/routes.py:1722 app/routes.py:1761
+#: app/routes.py:1001 app/routes.py:1724 app/routes.py:1763
 #, python-format
 msgid ""
 "Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un "
 "nouveau message.Veuillez consulter votre messagerie."
 msgstr ""
 
-#: app/routes.py:1012 app/routes.py:1449
+#: app/routes.py:1014 app/routes.py:1451
 #, python-format
 msgid "Veuillez complèter et profiter pleinement de %(sitename)s"
 msgstr ""
 
-#: app/routes.py:1063
+#: app/routes.py:1065
 msgid ""
 "Vous venez d'accepter une nouvelle commande, le temps vous est désormais "
 "compté"
 msgstr ""
 
-#: app/routes.py:1081
+#: app/routes.py:1083
 msgid ""
 "Vous venez de rejeter une commande, votre statut d'accomplissement se "
 "dégrade"
 msgstr ""
 
-#: app/routes.py:1105
+#: app/routes.py:1107
 msgid ""
 "Félicitations, vous venez de mentionner une commande accomplie, "
 "vérification en cours"
 msgstr ""
 
-#: app/routes.py:1108
+#: app/routes.py:1110
 msgid "Veuillez joindre votre travail"
 msgstr ""
 
-#: app/routes.py:1123
+#: app/routes.py:1125
 #, python-format
 msgid "Traducteur - %(sitename)s"
 msgstr ""
 
-#: app/routes.py:1138
+#: app/routes.py:1140
 #, python-format
 msgid "Traducteur- search %(search)s"
 msgstr ""
 
-#: app/routes.py:1164
+#: app/routes.py:1166
 #, python-format
 msgid "Traducteur- filter %(skill)s"
 msgstr ""
 
-#: app/routes.py:1171
+#: app/routes.py:1173
 #, python-format
 msgid "Traducteur profil- %(username)s"
 msgstr ""
 
-#: app/routes.py:1180
+#: app/routes.py:1182
 msgid "Vous ne pouvez pas contacter vous même"
 msgstr ""
 
-#: app/routes.py:1188
+#: app/routes.py:1190
 msgid ""
 "Nouveau message, je suis intéressé par votre profil. Etes vous disponible"
 " pour me renseigner?"
 msgstr ""
 
-#: app/routes.py:1194 app/routes.py:1318
+#: app/routes.py:1196 app/routes.py:1320
 #, python-format
 msgid ""
 "Depuis votre dernière visite sur TRADRDV, %(username)s aimerait entrer en"
 " contact avec vous.                Veuillez consulter votre messagerie."
 msgstr ""
 
-#: app/routes.py:1199
+#: app/routes.py:1201
 msgid ""
 "Veuillez cliquer sur le pseudo du prestataire dans la discussion pour "
 "entamer la conversation"
 msgstr ""
 
-#: app/routes.py:1215
+#: app/routes.py:1217
 msgid ""
 "Vous n'avez aucune offre active. Veuillez vous abonner avant d'utiliser "
 "cette option"
 msgstr ""
 
-#: app/routes.py:1218
+#: app/routes.py:1220
 msgid ""
 "Vous avez déjà utilisé l'offre journalière de votre abonnement. Veuillez "
 "payer cash ou attendez le prochain 00 heure"
 msgstr ""
 
-#: app/routes.py:1223
+#: app/routes.py:1225
 msgid "Vous ne pouvez pas engager vous même"
 msgstr ""
 
-#: app/routes.py:1272
+#: app/routes.py:1274
 msgid "Attendez l'avis du prestataire avant de joindre le reçu"
 msgstr ""
 
-#: app/routes.py:1312
+#: app/routes.py:1314
 msgid "Nouveau contact"
 msgstr ""
 
-#: app/routes.py:1323
+#: app/routes.py:1325
 msgid "Vous n'être pas autorisés à effectuer cette opération"
 msgstr ""
 
-#: app/routes.py:1360
+#: app/routes.py:1362
 #, python-format
 msgid ""
 "Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un "
 "message.                Veuillez consulter votre messagerie."
 msgstr ""
 
-#: app/routes.py:1392
+#: app/routes.py:1394
 msgid "Cette adresse mail a déjà été enregistrée"
 msgstr ""
 
-#: app/routes.py:1397
+#: app/routes.py:1399
 msgid "Merci pour la souscription"
 msgstr ""
 
-#: app/routes.py:1436
+#: app/routes.py:1438
 msgid "Le broadcast est envoyé"
 msgstr ""
 
-#: app/routes.py:1526
+#: app/routes.py:1528
 #, python-format
 msgid "ACCORD TERMINE: merci d'avoir choisi %(site_name)s"
 msgstr ""
 
-#: app/routes.py:1532 app/routes.py:1550 app/routes.py:1606
+#: app/routes.py:1534 app/routes.py:1552 app/routes.py:1608
 #, python-format
 msgid ""
 "Depuis votre dernière visite sur TRADRDV, %(username)s vous a laissé(e) "
 "un message.                Veuillez consulter votre messagerie."
 msgstr ""
 
-#: app/routes.py:1544
+#: app/routes.py:1546
 msgid ""
 "Félicitations pour votre nouveau point d’expérience, continuez de gravir "
 "les échelons, y’en aura encore !"
 msgstr ""
 
-#: app/routes.py:1555
+#: app/routes.py:1557
 msgid "Commande terminée"
 msgstr ""
 
-#: app/routes.py:1558
+#: app/routes.py:1560
 msgid "Veuillez joindre un fichier"
 msgstr ""
 
-#: app/routes.py:1580 app/routes.py:1681 app/routes.py:1730
+#: app/routes.py:1582 app/routes.py:1683 app/routes.py:1732
 msgid "La conformité et l'originalité du reçu confirmées"
 msgstr ""
 
-#: app/routes.py:1600
+#: app/routes.py:1602
 msgid ""
 "Désolé, votre reçu n'est pas vérifié. Veuillez nous envoyer plus de "
 "détails par la discussion"
 msgstr ""
 
-#: app/routes.py:1611
+#: app/routes.py:1613
 msgid "La conformité et l'originalité du reçu rejetées"
 msgstr ""
 
-#: app/routes.py:1638
+#: app/routes.py:1640
 #, python-format
 msgid "Bonjour, je suis votre nouveau prestataire sur l'accord: %(motif)s"
 msgstr ""
 
-#: app/routes.py:1644
+#: app/routes.py:1646
 #, python-format
 msgid ""
 "Depuis votre dernière visite sur TRADRDV, %(username)s un nouveau "
@@ -454,18 +450,18 @@ msgid ""
 "consulter votre messagerie."
 msgstr ""
 
-#: app/routes.py:1716
+#: app/routes.py:1718
 msgid ""
 "Bonjour cher client! Nous venons par ce message vous informer que votre "
 "abonnement pub démarre dès à present. Veuillez profiter de votre espace "
 "marketing"
 msgstr ""
 
-#: app/routes.py:1721 app/templates/admin_panel.html:123
+#: app/routes.py:1723 app/templates/admin_panel.html:123
 msgid "Abonnement Pub"
 msgstr ""
 
-#: app/routes.py:1755
+#: app/routes.py:1757
 #, python-format
 msgid ""
 "Bonjour cher traducteur! Nous venons par ce message vous informer que "
@@ -474,15 +470,15 @@ msgid ""
 "toujours bienvenu(e) chez %(sitname)s"
 msgstr ""
 
-#: app/routes.py:1760
+#: app/routes.py:1762
 msgid "Abonnement traducteur prolongé"
 msgstr ""
 
-#: app/routes.py:1765
+#: app/routes.py:1767
 msgid "Prolongement d'abonnement traducteur a été fait"
 msgstr ""
 
-#: app/routes.py:1830
+#: app/routes.py:1832
 #, python-format
 msgid ""
 "Depuis votre dernière visite sur TRADRDV, vous avez reçu un salaire "
@@ -490,32 +486,32 @@ msgid ""
 "consulter votre compte en banque."
 msgstr ""
 
-#: app/routes.py:1834
+#: app/routes.py:1836
 msgid "Paiement effectué"
 msgstr ""
 
-#: app/routes.py:1836
+#: app/routes.py:1838
 msgid "Erreur de paiement, le revenu du traducteur est insuffisant"
 msgstr ""
 
-#: app/routes.py:1854
+#: app/routes.py:1856
 #, python-format
 msgid "Articles-%(sitename)s"
 msgstr ""
 
-#: app/routes.py:1859
+#: app/routes.py:1861
 msgid "À Propos de nous"
 msgstr ""
 
-#: app/routes.py:1864 app/templates/header_footer.html:278
+#: app/routes.py:1866 app/templates/header_footer.html:278
 msgid "Conditions d'utilisation"
 msgstr ""
 
-#: app/routes.py:1870
+#: app/routes.py:1872
 msgid "Politique de Confidentialité"
 msgstr ""
 
-#: app/routes.py:1884
+#: app/routes.py:1886
 msgid "500 Erreur"
 msgstr ""
 
@@ -628,82 +624,88 @@ msgstr ""
 msgid "Octroie d'Espace Publicitaire"
 msgstr ""
 
-#: app/templates/about.html:233 app/templates/accueil.html:11
+#: app/templates/about.html:233
 msgid "SOUSCRIVEZ-VOUS À NOTRE JOURNAL"
 msgstr ""
 
-#: app/templates/about.html:234 app/templates/accueil.html:12
+#: app/templates/about.html:234
 msgid ""
 "En vous inscrivant à notre liste de diffusion, vous serez toujours au "
 "courant des dernières nouvelles"
 msgstr ""
 
-#: app/templates/about.html:237 app/templates/accueil.html:15
+#: app/templates/about.html:237
 msgid "Souscrire"
 msgstr ""
 
-#: app/templates/accueil.html:41
+#: app/templates/accueil.html:28
 msgid "À la Une"
 msgstr ""
 
-#: app/templates/accueil.html:93 app/templates/accueil.html:223
+#: app/templates/accueil.html:80 app/templates/accueil.html:212
 #, python-format
 msgid "Pays: %(country)s"
 msgstr ""
 
-#: app/templates/accueil.html:96 app/templates/accueil.html:226
-#: app/templates/manager_panel.html:129 app/templates/single_traducteur.html:62
+#: app/templates/accueil.html:83 app/templates/accueil.html:215
+#: app/templates/manager_panel.html:134 app/templates/single_traducteur.html:62
 #: app/templates/traducteur.html:88 app/templates/traducteur_search.html:88
 msgid "Disponible"
 msgstr ""
 
-#: app/templates/accueil.html:98 app/templates/accueil.html:228
+#: app/templates/accueil.html:85 app/templates/accueil.html:217
 #: app/templates/single_traducteur.html:64 app/templates/traducteur.html:90
 #: app/templates/traducteur_search.html:90
 msgid "Occupé(e)"
 msgstr ""
 
-#: app/templates/accueil.html:145
+#: app/templates/accueil.html:132
 msgid "Nos valeurs"
 msgstr ""
 
-#: app/templates/accueil.html:156
+#: app/templates/accueil.html:133 app/templates/accueil.html:181
+msgid ""
+"Celles-ci sont nos valeurs mères, et à chacun qui place en nous sa "
+"confiance, nous lui garantissons qu'il aura de quoi être fier!"
+msgstr ""
+
+#: app/templates/accueil.html:144
 msgid "Honesty is the best policy"
 msgstr ""
 
-#: app/templates/accueil.html:157
+#: app/templates/accueil.html:145
 msgid ""
 "En français \"L'honnêteté est la meilleure des stratégies à adopter\", "
 "ceci constitue notre devise première"
 msgstr ""
 
-#: app/templates/accueil.html:158 app/templates/accueil.html:172
-#: app/templates/accueil.html:186
+#: app/templates/accueil.html:146 app/templates/accueil.html:160
+#: app/templates/accueil.html:174
 msgid "Voir plus"
 msgstr ""
 
-#: app/templates/accueil.html:169
+#: app/templates/accueil.html:157
 msgid "Notre satisfaction personnelle, être à la hauteur de tout chalenge"
 msgstr ""
 
-#: app/templates/accueil.html:170
+#: app/templates/accueil.html:158
 msgid ""
 "et être les meilleurs pour réserver un travail parfait à nos clients, "
 "c'est ce que nous savons le mieux faire, tout en œuvrant\n"
 "                                        constamment pour nous parfaire!"
 msgstr ""
 
-#: app/templates/accueil.html:184
+#: app/templates/accueil.html:172
 msgid "Un travail de qualité dans le délais"
 msgstr ""
 
-#: app/templates/accueil.html:185
+#: app/templates/accueil.html:173
 msgid ""
 "à chaque fois nous surpasser, sont nos meilleurs atouts et spots "
 "publicitaires"
 msgstr ""
 
-#: app/templates/accueil.html:200 app/templates/admin_panel.html:14
+#: app/templates/accueil.html:189 app/templates/admin_panel.html:14
 #: app/templates/admin_panel.html:47 app/templates/banner_lg.html:10
 #: app/templates/banner_lg.html:31 app/templates/banner_lg.html:52
 #: app/templates/header_footer.html:91 app/templates/header_footer.html:238
@@ -711,86 +713,86 @@ msgstr ""
 msgid "Traducteurs"
 msgstr ""
 
-#: app/templates/accueil.html:246
+#: app/templates/accueil.html:235
 msgid "Demo devenir traducteur"
 msgstr ""
 
-#: app/templates/accueil.html:260
+#: app/templates/accueil.html:249
 msgid "Nos offres"
 msgstr ""
 
-#: app/templates/accueil.html:261
+#: app/templates/accueil.html:250
 msgid "Table Des Clients"
 msgstr ""
 
-#: app/templates/accueil.html:267 app/templates/profile.html:52
+#: app/templates/accueil.html:256 app/templates/profile.html:50
 msgid "Illimité"
 msgstr ""
 
-#: app/templates/accueil.html:268
+#: app/templates/accueil.html:257
 msgid "Basique"
 msgstr ""
 
-#: app/templates/accueil.html:269
+#: app/templates/accueil.html:258
 msgid "Vous payez uniquement pour les services"
 msgstr ""
 
-#: app/templates/accueil.html:271
+#: app/templates/accueil.html:260
 msgid ""
 "Cette offre par défaut vous autorise à engager des prestataires pour vos "
 "besoins en traduction ou interprètation"
 msgstr ""
 
-#: app/templates/accueil.html:272
+#: app/templates/accueil.html:261
 msgid "Défaut"
 msgstr ""
 
-#: app/templates/accueil.html:282
+#: app/templates/accueil.html:271
 msgid "12 Mois"
 msgstr ""
 
-#: app/templates/accueil.html:283
+#: app/templates/accueil.html:272
 msgid "Premium"
 msgstr ""
 
-#: app/templates/accueil.html:284
+#: app/templates/accueil.html:273
 msgid "Bénéficiez de cette offre durant 12 mois"
 msgstr ""
 
-#: app/templates/accueil.html:287
+#: app/templates/accueil.html:276
 msgid "70 mots par jour"
 msgstr ""
 
-#: app/templates/accueil.html:288
+#: app/templates/accueil.html:277
 msgid "Traduction en deux Langues différentes si besoin est"
 msgstr ""
 
-#: app/templates/accueil.html:290 app/templates/accueil.html:292
-#: app/templates/accueil.html:310 app/templates/accueil.html:312
-#: app/templates/profile.html:293
+#: app/templates/accueil.html:279 app/templates/accueil.html:281
+#: app/templates/accueil.html:299 app/templates/accueil.html:301
+#: app/templates/profile.html:270
 msgid "Abonner"
 msgstr ""
 
-#: app/templates/accueil.html:303
+#: app/templates/accueil.html:292
 msgid "6 Mois"
 msgstr ""
 
-#: app/templates/accueil.html:304
+#: app/templates/accueil.html:293
 msgid "Standard"
 msgstr ""
 
-#: app/templates/accueil.html:305
+#: app/templates/accueil.html:294
 msgid "Bénéficiez de cette offre durant 6 mois"
 msgstr ""
 
-#: app/templates/accueil.html:307
+#: app/templates/accueil.html:296
 msgid ""
 "Cette offre moyenne vous permet de profiter des mêmes avantages que "
 "l'offre premium mais sur une durée de six mois"
 msgstr ""
 
-#: app/templates/admin_panel.html:12 app/templates/manager_panel.html:12
-#: app/templates/manager_panel.html:55
+#: app/templates/admin_panel.html:12 app/templates/manager_panel.html:10
+#: app/templates/manager_panel.html:11 app/templates/manager_panel.html:60
 msgid "Dashboard"
 msgstr ""
 
@@ -802,7 +804,8 @@ msgstr ""
 msgid "Booster"
 msgstr ""
 
-#: app/templates/admin_panel.html:16
+#: app/templates/admin_panel.html:16 app/templates/profile.html:26
+#: app/templates/profile.html:27
 msgid "Messagerie"
 msgstr ""
 
@@ -827,7 +830,7 @@ msgid "Accords Rejetés"
 msgstr ""
 
 #: app/templates/admin_panel.html:90 app/templates/manager_panel.html:13
-#: app/templates/manager_panel.html:87
+#: app/templates/manager_panel.html:14 app/templates/manager_panel.html:92
 msgid "Accords en Cours"
 msgstr ""
 
@@ -835,7 +838,8 @@ msgstr ""
 msgid "Paiement Reçu"
 msgstr ""
 
-#: app/templates/admin_panel.html:110 app/templates/manager_panel.html:14
+#: app/templates/admin_panel.html:110 app/templates/manager_panel.html:16
+#: app/templates/manager_panel.html:17
 msgid "Accords Terminés"
 msgstr ""
 
@@ -894,22 +898,22 @@ msgid "CA Total"
 msgstr ""
 
 #: app/templates/admin_panel.html:289 app/templates/admin_panel.html:356
-#: app/templates/profile.html:13
+#: app/templates/profile.html:12
 msgid "Profil"
 msgstr ""
 
 #: app/templates/admin_panel.html:298 app/templates/admin_panel.html:365
-#: app/templates/manager_panel.html:64
+#: app/templates/manager_panel.html:69
 msgid "Revenu"
 msgstr ""
 
 #: app/templates/admin_panel.html:317 app/templates/admin_panel.html:382
-#: app/templates/profile.html:98
+#: app/templates/profile.html:96
 msgid "Nom complet:"
 msgstr ""
 
 #: app/templates/admin_panel.html:318 app/templates/admin_panel.html:383
-#: app/templates/profile.html:99
+#: app/templates/profile.html:97
 msgid "E-mail:"
 msgstr ""
 
@@ -928,7 +932,7 @@ msgid "En ligne:"
 msgstr ""
 
 #: app/templates/admin_panel.html:322 app/templates/admin_panel.html:388
-#: app/templates/profile.html:100
+#: app/templates/profile.html:98
 msgid "Membre depuis:"
 msgstr ""
 
@@ -980,8 +984,8 @@ msgstr ""
 msgid "Prolonger"
 msgstr ""
 
-#: app/templates/admin_panel.html:454 app/templates/manager_panel.html:24
-#: app/templates/profile.html:188
+#: app/templates/admin_panel.html:454 app/templates/manager_panel.html:29
+#: app/templates/profile.html:176
 msgid "Message"
 msgstr ""
 
@@ -1019,15 +1023,13 @@ msgstr ""
 
 #: app/templates/admin_panel.html:526 app/templates/admin_panel.html:619
 #: app/templates/admin_panel.html:676 app/templates/admin_panel.html:724
-#: app/templates/manager_panel.html:162 app/templates/manager_panel.html:274
-#: app/templates/profile.html:108 app/templates/profile.html:286
+#: app/templates/manager_panel.html:167 app/templates/manager_panel.html:279
 msgid "Photo"
 msgstr ""
 
 #: app/templates/admin_panel.html:527 app/templates/admin_panel.html:620
 #: app/templates/admin_panel.html:677 app/templates/admin_panel.html:725
-#: app/templates/manager_panel.html:163 app/templates/manager_panel.html:275
-#: app/templates/profile.html:109
+#: app/templates/manager_panel.html:168 app/templates/manager_panel.html:280
 msgid "Détails"
 msgstr ""
 
@@ -1036,18 +1038,17 @@ msgid "Service"
 msgstr ""
 
 #: app/templates/admin_panel.html:529 app/templates/admin_panel.html:621
-#: app/templates/manager_panel.html:164
+#: app/templates/manager_panel.html:169
 msgid "Action"
 msgstr ""
 
 #: app/templates/admin_panel.html:545 app/templates/admin_panel.html:651
-#: app/templates/profile.html:127
 msgid "fichier"
 msgstr ""
 
-#: app/templates/admin_panel.html:562 app/templates/manager_panel.html:215
-#: app/templates/manager_panel.html:217 app/templates/manager_panel.html:227
-#: app/templates/manager_panel.html:230 app/templates/profile.html:152
+#: app/templates/admin_panel.html:562 app/templates/manager_panel.html:220
+#: app/templates/manager_panel.html:222 app/templates/manager_panel.html:232
+#: app/templates/manager_panel.html:235 app/templates/profile.html:139
 msgid "Aperçu"
 msgstr ""
 
@@ -1055,17 +1056,17 @@ msgstr ""
 msgid "Notez le travail"
 msgstr ""
 
-#: app/templates/admin_panel.html:580 app/templates/manager_panel.html:249
-#: app/templates/profile.html:361
+#: app/templates/admin_panel.html:580 app/templates/manager_panel.html:254
+#: app/templates/profile.html:330
 msgid "motif:"
 msgstr ""
 
-#: app/templates/admin_panel.html:581 app/templates/manager_panel.html:250
-#: app/templates/profile.html:362
+#: app/templates/admin_panel.html:581 app/templates/manager_panel.html:255
+#: app/templates/profile.html:331
 msgid "Coût:"
 msgstr ""
 
-#: app/templates/admin_panel.html:582 app/templates/manager_panel.html:251
+#: app/templates/admin_panel.html:582 app/templates/manager_panel.html:256
 msgid "Client:"
 msgstr ""
 
@@ -1073,8 +1074,8 @@ msgstr ""
 msgid "Prestateur:"
 msgstr ""
 
-#: app/templates/admin_panel.html:584 app/templates/manager_panel.html:252
-#: app/templates/profile.html:364
+#: app/templates/admin_panel.html:584 app/templates/manager_panel.html:257
+#: app/templates/profile.html:333
 msgid "Type de paiement:"
 msgstr ""
 
@@ -1086,9 +1087,9 @@ msgstr ""
 msgid "Donnez une note:"
 msgstr ""
 
-#: app/templates/admin_panel.html:608 app/templates/manager_panel.html:263
-#: app/templates/profile.html:75 app/templates/profile.html:278
-#: app/templates/profile.html:392 app/templates/single_traducteur.html:132
+#: app/templates/admin_panel.html:608 app/templates/manager_panel.html:268
+#: app/templates/profile.html:73 app/templates/profile.html:255
+#: app/templates/profile.html:361 app/templates/single_traducteur.html:132
 msgid "Enregistrer"
 msgstr ""
 
@@ -1101,12 +1102,12 @@ msgstr ""
 msgid "Valider"
 msgstr ""
 
-#: app/templates/admin_panel.html:661 app/templates/manager_panel.html:209
+#: app/templates/admin_panel.html:661 app/templates/manager_panel.html:214
 msgid "Rejeter"
 msgstr ""
 
 #: app/templates/admin_panel.html:679 app/templates/admin_panel.html:726
-#: app/templates/manager_panel.html:276
+#: app/templates/manager_panel.html:281
 msgid "Client"
 msgstr ""
 
@@ -1118,28 +1119,28 @@ msgstr ""
 msgid "ok"
 msgstr ""
 
-#: app/templates/admin_panel.html:727 app/templates/manager_panel.html:165
-#: app/templates/manager_panel.html:277 app/templates/profile.html:110
+#: app/templates/admin_panel.html:727 app/templates/manager_panel.html:170
+#: app/templates/manager_panel.html:282
 msgid "Statut"
 msgstr ""
 
-#: app/templates/admin_panel.html:744 app/templates/manager_panel.html:188
-#: app/templates/manager_panel.html:294 app/templates/profile.html:126
+#: app/templates/admin_panel.html:744 app/templates/manager_panel.html:193
+#: app/templates/manager_panel.html:299 app/templates/profile.html:118
 msgid "Terminé"
 msgstr ""
 
-#: app/templates/admin_panel.html:746 app/templates/manager_panel.html:190
-#: app/templates/manager_panel.html:296 app/templates/profile.html:129
+#: app/templates/admin_panel.html:746 app/templates/manager_panel.html:195
+#: app/templates/manager_panel.html:301 app/templates/profile.html:121
 msgid "En cours.."
 msgstr ""
 
-#: app/templates/admin_panel.html:749 app/templates/manager_panel.html:193
-#: app/templates/manager_panel.html:299 app/templates/profile.html:132
+#: app/templates/admin_panel.html:749 app/templates/manager_panel.html:198
+#: app/templates/manager_panel.html:304 app/templates/profile.html:124
 msgid "Paiement.."
 msgstr ""
 
-#: app/templates/admin_panel.html:752 app/templates/manager_panel.html:196
-#: app/templates/manager_panel.html:302 app/templates/profile.html:135
+#: app/templates/admin_panel.html:752 app/templates/manager_panel.html:201
+#: app/templates/manager_panel.html:307 app/templates/profile.html:127
 msgid "Attente.."
 msgstr ""
 
@@ -1253,7 +1254,7 @@ msgstr ""
 msgid "Rechercher"
 msgstr ""
 
-#: app/templates/header_footer.html:171 app/templates/profile.html:274
+#: app/templates/header_footer.html:171 app/templates/profile.html:251
 #: app/templates/single_pub.html:35
 msgid "Adresse"
 msgstr ""
@@ -1300,7 +1301,7 @@ msgstr ""
 msgid "Confidentialité et de sécurité"
 msgstr ""
 
-#: app/templates/login.html:19 app/templates/profile.html:273
+#: app/templates/login.html:19 app/templates/profile.html:250
 #: app/templates/register.html:33 app/templates/single_pub.html:26
 msgid "E-mail"
 msgstr ""
@@ -1344,65 +1345,65 @@ msgstr ""
 msgid "réinitialisez"
 msgstr ""
 
-#: app/templates/manager_panel.html:15
+#: app/templates/manager_panel.html:19 app/templates/manager_panel.html:20
 msgid "Renouveller"
 msgstr ""
 
-#: app/templates/manager_panel.html:71 app/templates/profile.html:54
+#: app/templates/manager_panel.html:76 app/templates/profile.html:52
 #, python-format
 msgid "%(remain_day)s jour(s)"
 msgstr ""
 
-#: app/templates/manager_panel.html:74
+#: app/templates/manager_panel.html:79
 msgid "Jour Restant"
 msgstr ""
 
-#: app/templates/manager_panel.html:97
+#: app/templates/manager_panel.html:102
 msgid "Accords terminés"
 msgstr ""
 
-#: app/templates/manager_panel.html:110
+#: app/templates/manager_panel.html:115
 msgid "Profil Visite"
 msgstr ""
 
-#: app/templates/manager_panel.html:118
+#: app/templates/manager_panel.html:123
 msgid "valide"
 msgstr ""
 
-#: app/templates/manager_panel.html:118
+#: app/templates/manager_panel.html:123
 msgid "invalide"
 msgstr ""
 
-#: app/templates/manager_panel.html:121
+#: app/templates/manager_panel.html:126
 msgid "Profil Statut"
 msgstr ""
 
-#: app/templates/manager_panel.html:135 app/templates/traducteur.html:49
+#: app/templates/manager_panel.html:140 app/templates/traducteur.html:49
 #: app/templates/traducteur_search.html:49
 msgid "Accepte abonné(e)"
 msgstr ""
 
-#: app/templates/manager_panel.html:141
+#: app/templates/manager_panel.html:146
 msgid "Besoin d'aide"
 msgstr ""
 
-#: app/templates/manager_panel.html:179
+#: app/templates/manager_panel.html:184
 msgid "Accepté"
 msgstr ""
 
-#: app/templates/manager_panel.html:181
+#: app/templates/manager_panel.html:186
 msgid "Accepter"
 msgstr ""
 
-#: app/templates/manager_panel.html:207
+#: app/templates/manager_panel.html:212
 msgid "Rejeté"
 msgstr ""
 
-#: app/templates/manager_panel.html:243
+#: app/templates/manager_panel.html:248
 msgid "Joindre une pièce"
 msgstr ""
 
-#: app/templates/manager_panel.html:256
+#: app/templates/manager_panel.html:261
 msgid "Joindre votre travail"
 msgstr ""
 
@@ -1593,110 +1594,137 @@ msgstr ""
 msgid "Suivant"
 msgstr ""
 
-#: app/templates/profile.html:34
-msgid "Pub"
+#: app/templates/profile.html:16 app/templates/profile.html:17
+msgid "Activités"
 msgstr ""
 
-#: app/templates/profile.html:56
+#: app/templates/profile.html:21 app/templates/profile.html:22
+msgid "Paiements"
+msgstr ""
+
+#: app/templates/profile.html:31 app/templates/profile.html:32
+msgid "Publicités"
+msgstr ""
+
+#: app/templates/profile.html:54
 #, python-format
 msgid "Revenu: %(amount)sDa"
 msgstr ""
 
-#: app/templates/profile.html:60
+#: app/templates/profile.html:58
 msgid "Sexe"
 msgstr ""
 
-#: app/templates/profile.html:67 app/templates/register.html:19
+#: app/templates/profile.html:65 app/templates/register.html:19
 msgid "Nom d'utilisateur"
 msgstr ""
 
-#: app/templates/profile.html:69
+#: app/templates/profile.html:67
 msgid "Pays"
 msgstr ""
 
-#: app/templates/profile.html:83
+#: app/templates/profile.html:81
 msgid "Pseudo du parrain (optionnel)"
 msgstr ""
 
-#: app/templates/profile.html:84
+#: app/templates/profile.html:82
 msgid "Email du parrain"
 msgstr ""
 
-#: app/templates/profile.html:86
+#: app/templates/profile.html:84
 msgid "Définir"
 msgstr ""
 
-#: app/templates/profile.html:92
+#: app/templates/profile.html:90
 msgid "Ancien mot de passe"
 msgstr ""
 
-#: app/templates/profile.html:94
+#: app/templates/profile.html:92
 msgid "Nouveau mot de passe"
 msgstr ""
 
-#: app/templates/profile.html:95
+#: app/templates/profile.html:93 app/templates/profile.html:291
 msgid "Modifier"
 msgstr ""
 
-#: app/templates/profile.html:166 app/templates/single_traducteur.html:114
+#: app/templates/profile.html:119
+msgid "Fichier"
+msgstr ""
+
+#: app/templates/profile.html:154 app/templates/single_traducteur.html:114
 msgid "Motif"
 msgstr ""
 
-#: app/templates/profile.html:167
+#: app/templates/profile.html:155
 msgid "Montant"
 msgstr ""
 
-#: app/templates/profile.html:168
+#: app/templates/profile.html:156
 msgid "Date"
 msgstr ""
 
-#: app/templates/profile.html:231
-msgid "Affiche de la Page d'Accueil"
+#: app/templates/profile.html:216
+msgid "Image principale"
 msgstr ""
 
-#: app/templates/profile.html:261
-msgid "Sept Images du Profil"
+#: app/templates/profile.html:219 app/templates/profile.html:222
+#: app/templates/profile.html:225 app/templates/profile.html:228
+#: app/templates/profile.html:231 app/templates/profile.html:234
+#: app/templates/profile.html:237
+msgid "Autre image"
 msgstr ""
 
-#: app/templates/profile.html:265
+#: app/templates/profile.html:242
 msgid "Titre"
 msgstr ""
 
-#: app/templates/profile.html:267
+#: app/templates/profile.html:244
 msgid "Catégorie"
 msgstr ""
 
-#: app/templates/profile.html:272
+#: app/templates/profile.html:249
 msgid "Numéro"
 msgstr ""
 
-#: app/templates/profile.html:275
+#: app/templates/profile.html:252
 msgid "Url de référence"
 msgstr ""
 
-#: app/templates/profile.html:276
+#: app/templates/profile.html:253
 msgid "Description"
 msgstr ""
 
-#: app/templates/profile.html:287
+#: app/templates/profile.html:264
 #, python-format
-msgid "Abonnement Pub: %(remain_day)s jour(s)"
+msgid "Expire en: %(remain_day)s jour(s)"
 msgstr ""
 
-#: app/templates/profile.html:288
+#: app/templates/profile.html:265
 #, python-format
 msgid "Max: %(max)s"
 msgstr ""
 
-#: app/templates/profile.html:320
+#: app/templates/profile.html:284
+msgid "Vue(s)"
+msgstr ""
+
+#: app/templates/profile.html:287
+msgid "En ligne"
+msgstr ""
+
+#: app/templates/profile.html:289
 msgid "Activer"
 msgstr ""
 
-#: app/templates/profile.html:347
+#: app/templates/profile.html:293
+msgid "Supprimer"
+msgstr ""
+
+#: app/templates/profile.html:316
 msgid "Editer ou joindre une pièce"
 msgstr ""
 
-#: app/templates/profile.html:353
+#: app/templates/profile.html:322
 #, python-format
 msgid ""
 "Pour vous réserver votre traducteur et lancer votre travail, vous avez "
@@ -1705,41 +1733,41 @@ msgid ""
 "vous décommander,"
 msgstr ""
 
-#: app/templates/profile.html:356
+#: app/templates/profile.html:325
 msgid ""
 "Nous privilégions l’utilisation de l’application BaridiMob en Algérie, "
 "pour sa rapidité et son efficacité, et ceci sans déplacements."
 msgstr ""
 
-#: app/templates/profile.html:357
+#: app/templates/profile.html:326
 msgid ""
 "Pour le marché en dehors de l’Algérie, nous n’acceptons que les "
 "transferts Western Union et la plateforme Payoneer»."
 msgstr ""
 
-#: app/templates/profile.html:358
+#: app/templates/profile.html:327
 msgid ""
 "Les prix pour le marché international différent des prix pour le marché "
 "local « algérien)."
 msgstr ""
 
-#: app/templates/profile.html:363
+#: app/templates/profile.html:332
 msgid "Prestataire:"
 msgstr ""
 
-#: app/templates/profile.html:369 app/templates/single_traducteur.html:107
+#: app/templates/profile.html:338 app/templates/single_traducteur.html:107
 msgid "Méthode de paiement"
 msgstr ""
 
-#: app/templates/profile.html:376
+#: app/templates/profile.html:345
 msgid "Modifiez le motif (optionnel)"
 msgstr ""
 
-#: app/templates/profile.html:379
+#: app/templates/profile.html:348
 msgid "Modifiez le budget (optionnel)"
 msgstr ""
 
-#: app/templates/profile.html:382
+#: app/templates/profile.html:351
 msgid "Joindre le reçu de paiement"
 msgstr ""
 
@@ -1859,203 +1887,250 @@ msgstr ""
 msgid "Budget du client"
 msgstr ""
 
-#: app/templates/terms.html:9
+#: app/templates/terms.html:12
 msgid ""
 "Que faut-il pour rejoindre notre communauté en tant que "
 "traducteur/Interprète ?"
 msgstr ""
 
-#: app/templates/terms.html:11
+#: app/templates/terms.html:20
 msgid ""
 "Pour rejoindre notre communauté, il vous suffit de payer un abonnement "
-"annuel de 15000 Da/118 Euros si vous êtes un(e) algérien(e) \n"
-"                    résident à l’étranger, sauf en cas de promotions, et "
-"respecter quelques engagements"
+"annuel de 15000 Da/118 Euros si vous êtes un(e) algérien(e) résident à "
+"l’étranger, sauf en cas de promotions, et respecter quelques engagements"
 msgstr ""
 
-#: app/templates/terms.html:14
+#: app/templates/terms.html:22
 msgid "Tous les clients payent directement le site, et à l'avance."
 msgstr ""
 
-#: app/templates/terms.html:15
+#: app/templates/terms.html:23
 msgid ""
 "Les clients payent à l’avance pour une mission de prestation sauf en cas "
-"de convention agréée par la direction de \n"
-"                        la plateforme, où le traducteur n’est pas obligé "
-"de l’accepter, et est parfaitement admissible aux missions payées à \n"
-"                        l’avance s’il privilégie celles-ci uniquement."
+"de convention agréée par la direction de la plateforme, où le traducteur "
+"n’est pas obligé de l’accepter, et est parfaitement admissible aux "
+"missions payées à l’avance s’il privilégie celles-ci uniquement."
 msgstr ""
 
-#: app/templates/terms.html:18
+#: app/templates/terms.html:24
 #, python-format
 msgid ""
 "Les traducteurs acceptent que la plateforme garde 15%(percent)s des "
-"paiements de leurs travaux, et leur verse 85%(percent2)s sur leurs \n"
-"                        comptes respectifs. S’il y a une relecture à "
-"faire, la plateforme prend au maximum 5%(percent3)s comme frais de "
-"relecture du total \n"
-"                        du paiement du client, parfois moins, selon le "
-"volume nécessaire de celle-ci, pas un centime de plus."
+"paiements de leurs travaux, et leur verse 85%(percent2)s sur leurs "
+"comptes respectifs. S’il y a une relecture à faire, la plateforme prend "
+"au maximum 5%(percent3)s comme frais de relecture du total du paiement du"
+" client, parfois moins, selon le volume nécessaire de celle-ci, pas un "
+"centime de plus."
 msgstr ""
 
-#: app/templates/terms.html:21
+#: app/templates/terms.html:25
 msgid ""
 "Ne pas dépasser la somme fixée, en donnant leurs tarifs aux clients. Il "
 "faut préserver le rapport qualité prix."
 msgstr ""
 
-#: app/templates/terms.html:22
+#: app/templates/terms.html:26
 msgid "Ils ne communiquent pas leurs coordonnées aux clients."
 msgstr ""
 
-#: app/templates/terms.html:23
+#: app/templates/terms.html:27
 msgid "Ils respectent les délais et la confidentialité."
 msgstr ""
 
-#: app/templates/terms.html:24
+#: app/templates/terms.html:28
 msgid "Ils passeront tous un test après abonnement fait."
 msgstr ""
 
-#: app/templates/terms.html:25
+#: app/templates/terms.html:29
 msgid "Le traducteur ne prend pas deux clients à la fois."
 msgstr ""
 
-#: app/templates/terms.html:26
+#: app/templates/terms.html:30
 msgid "Le traducteur ne revient pas sur un engagement fait."
 msgstr ""
 
-#: app/templates/terms.html:30
+#: app/templates/terms.html:38
 msgid ""
 "Concernant les prix. (Les tarifs à ne pas dépasser pour le marché "
 "algérien)"
 msgstr ""
 
-#: app/templates/terms.html:33
+#: app/templates/terms.html:47
 msgid ""
 "Les documents écrits à traduire: pas plus de 1600 Da la page, même si "
-"elle est bien remplie. (La page standard \n"
-"                        chez Traducteurs sur Rendez-vous est de 350 mots)."
+"elle est bien remplie. (La page standard chez Traducteurs sur Rendez-vous"
+" est de 350 mots)."
 msgstr ""
 
-#: app/templates/terms.html:35
+#: app/templates/terms.html:48
 msgid ""
 "Relecture \"Proofreading\" : pas plus de 850 Da la page, même si elle est"
 " bien remplie."
 msgstr ""
 
-#: app/templates/terms.html:36
+#: app/templates/terms.html:49
 msgid ""
 "Les interprétations: il est à savoir qu'en général les sociétés qui "
-"sollicitent les interprètes se chargeront \n"
-"                        des frais de transport, d'hébergement, et "
-"d'alimentation. Le prix à ne pas dépasser est de 18000 Da la journée."
+"sollicitent les interprètes se chargeront des frais de transport, "
+"d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 20000 "
+"Da la journée."
 msgstr ""
 
-#: app/templates/terms.html:38
+#: app/templates/terms.html:50
 msgid "La transcription de fichiers audio. 10000 Da au maximum pour une heure."
 msgstr ""
 
-#: app/templates/terms.html:39
+#: app/templates/terms.html:51
 msgid "Les sous-titres pour vidéo. 5000 Da les 20 minutes. Donc 15000 Da l'heure."
 msgstr ""
 
-#: app/templates/terms.html:40
+#: app/templates/terms.html:52
 msgid ""
 "Traduction avec voix-off d'une vidéo, ne pas dépasser les 20000 Da "
 "l'heure."
 msgstr ""
 
-#: app/templates/terms.html:44
+#: app/templates/terms.html:60
 msgid ""
 "Concernant les prix. (Les tarifs à ne pas dépasser pour le marché "
 "étranger)"
 msgstr ""
 
-#: app/templates/terms.html:47
+#: app/templates/terms.html:69
 msgid ""
 "Les documents écrits à traduire: entre 13 et 18 Euros la page, même si "
-"elle est bien remplie. (La page standard \n"
-"                        chez Traducteurs sur Rendez-vous est de 350 mots)."
+"elle est bien remplie. (La page standard chez Traducteurs sur Rendez-vous"
+" est de 350 mots)."
 msgstr ""
 
-#: app/templates/terms.html:49
+#: app/templates/terms.html:70
 msgid ""
 "Relecture \"Proofreading\" : entre 7 et 10 Euros la page, même si elle "
 "est bien remplie."
 msgstr ""
 
-#: app/templates/terms.html:50
+#: app/templates/terms.html:71
 msgid ""
 "Les interprétations: il est à savoir qu'en général les sociétés qui "
-"sollicitent les interprètes se chargeront des \n"
-"                        frais de transport, d'hébergement, et "
-"d'alimentation. Le prix à ne pas dépasser est de 170 Euros la journée."
+"sollicitent les interprètes se chargeront des frais de transport, "
+"d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 170 "
+"Euros la journée."
 msgstr ""
 
-#: app/templates/terms.html:52
+#: app/templates/terms.html:72
 msgid "La transcription de fichiers audio. 110 Euros au maximum pour une heure."
 msgstr ""
 
-#: app/templates/terms.html:53
+#: app/templates/terms.html:73
 msgid ""
 "Les sous-titres pour vidéo. 60 Euros les 20 minutes. Donc 180 Euros "
 "l'heure"
 msgstr ""
 
-#: app/templates/terms.html:54
+#: app/templates/terms.html:74
 msgid ""
 "Traduction avec voix-off d'une vidéo, ne pas dépasser les 190 Euros "
 "l'heure."
 msgstr ""
 
-#: app/templates/terms.html:58
+#: app/templates/terms.html:82
 msgid "Petites pénalités"
 msgstr ""
 
-#: app/templates/terms.html:61
+#: app/templates/terms.html:91
 msgid ""
 "Pour garantir un travail de qualité, et pour assurer aux clients une "
 "haute satisfaction, des mesures ont \n"
-"                        été entreprises, sans pour autant, qu’elles "
-"soient faites par manque de confiance en le traducteur, ou diminuer de sa"
-" personne. \n"
-"                        Si le traducteur dépasse les délais impartis, un "
-"badge rouge sera affiché sur son profil pour une période de 15 jours, et"
-" \n"
-"                        le client pourra le bloquer, en ayant une "
-"réduction comme dédommagement. Point positif : le badge rouge disparaitra"
-" après 15 jours,\n"
-"                        et d’autres clients pourront le contacter au "
-"futur. Si le traducteur ne respecte pas la confidentialité, il sera radié"
-" du site. \n"
-"                        La dernière n’est pas vraiment une pénalité, "
-"toutefois nous tenons à signaler, que si le traducteur donne des tarifs "
-"supérieurs \n"
-"                        aux sommes fixées, ceux là seront changés "
-"automatiquement, ou manuellement par les administrateurs du site. \n"
-"                        Confer Les tarifs à ne pas dépasser… "
+"                    été entreprises, sans pour autant, qu’elles soient "
+"faites par manque de confiance en le traducteur, ou diminuer de sa "
+"personne. Si le traducteur dépasse les délais impartis, un badge rouge "
+"sera affiché sur son profil pour une période de 15 jours, et le client "
+"pourra le bloquer, en ayant une réduction comme dédommagement. Point "
+"positif : le badge rouge disparaitra après 15 jours, et d’autres clients "
+"pourront le contacter au futur. Si le traducteur ne respecte pas la "
+"confidentialité, il sera radié du site. La dernière n’est pas vraiment "
+"une pénalité, toutefois nous tenons à signaler, que si le traducteur "
+"donne des tarifs supérieurs aux sommes fixées, ceux là seront changés "
+"automatiquement, ou manuellement par les administrateurs du site. Confer "
+"Les tarifs à ne pas dépasser… "
 msgstr ""
 
-#: app/templates/terms.html:72
+#: app/templates/terms.html:100
 msgid "Ce que nous exigeons au client vis-à-vis du traducteur"
 msgstr ""
 
-#: app/templates/terms.html:75
+#: app/templates/terms.html:109
 msgid ""
 "Après s’être mis d’accord avec la direction de la plateforme ou un "
-"traducteur, il payera le montant à l’avance \n"
-"                        sur le compte du site, et ne se désistera pas "
-"alors que le traducteur a commencé le travail."
+"traducteur, il payera le montant à l’avance sur le compte du site, et ne "
+"se désistera pas alors que le traducteur a commencé le travail."
 msgstr ""
 
-#: app/templates/terms.html:77
+#: app/templates/terms.html:110
 msgid ""
 "Prévenir le traducteur avant paiement en cas d’annulation avant 24h, le "
-"temps écoulé, et donc le délai dépassé \n"
-"                        le traducteur passera naturellement vers une "
-"autre commande, sauf si celui-ci convienne d’attendre et ne pas \n"
-"                        prendre une autre mission jusqu’à ce que le "
-"client paye."
+"temps écoulé, et donc le délai dépassé le traducteur passera "
+"naturellement vers une autre commande, sauf si celui-ci convienne "
+"d’attendre et ne pas prendre une autre mission jusqu’à ce que le client "
+"paye."
+msgstr ""
+
+#: app/templates/terms.html:118
+msgid "Autres Détails Importants"
+msgstr ""
+
+#: app/templates/terms.html:126
+msgid ""
+"Avoir un profil avec un système filtre qui va faciliter aux clients "
+"dénicheurs de perles de vous trouver : filtre à étoiles (les points du "
+"test), filtre à points de travaux sur le site (qui augmente en fonction "
+"de vos travaux faits et validés), localisation (pour les déplacements "
+"nécessaires à des travaux d’interprétation), langues de spécialité, et "
+"disponibilité, sans oublier que les clients qui viennent vers le site, "
+"cherchent uniquement les traducteurs et/ou interprètes…"
+msgstr ""
+
+#: app/templates/terms.html:127
+msgid ""
+"Vos droits seront préservés, et vous serez protégés sous la couverture "
+"d’un registre de commerce légal, tout en restant indépendants."
+msgstr ""
+
+#: app/templates/terms.html:128
+msgid ""
+"Le test que vous fera passer un ancien traducteur/Interprète "
+"professionnel et très sollicité argumentera votre crédibilité."
+msgstr ""
+
+#: app/templates/terms.html:129
+msgid ""
+"Vous cumulez des points d’expérience qui s’ajouteront à votre profil à "
+"chaque travail effectué et finalisé sur la plateforme, ce qui favorisera "
+"le choix de votre espace personnel par rapport aux clients."
+msgstr ""
+
+#: app/templates/terms.html:130
+msgid ""
+"Vous pourrez évoluer au milieu professionnel, et sentir enfin la belle "
+"sensation qu’est de ne pas avoir fait ses études pour rien…"
+msgstr ""
+
+#: app/templates/terms.html:131
+msgid ""
+"Nous boosterons votre profil occasionnellement, pour en faire une ruche "
+"d’abeilles, qui attirera les adorateurs de miel…"
+msgstr ""
+
+#: app/templates/terms.html:132
+msgid ""
+"Avoir une semaine de bonus, après la fin de l’abonnement annuel avant de "
+"pouvoir le renouveler."
+msgstr ""
+
+#: app/templates/terms.html:133
+msgid ""
+"D’autres offres suivront, qui seront gratuites, et qui vont sans nul "
+"doute vous émerveiller !"
 msgstr ""
 
 #: app/templates/traducteur.html:12 app/templates/traducteur_search.html:12
@@ -2179,4 +2254,161 @@ msgid ""
 "Si vous n'avez pas demandé la réinitialisation du mot de passe, ignorez "
 "simplement ce message."
 msgstr ""
+
+#~ msgid ""
+#~ "Pour rejoindre notre communauté, il vous"
+#~ " suffit de payer un abonnement annuel"
+#~ " de 15000 Da/118 Euros si vous "
+#~ "êtes un(e) algérien(e) \n"
+#~ "                    résident à l’étranger, "
+#~ "sauf en cas de promotions, et "
+#~ "respecter quelques engagements"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Les clients payent à l’avance pour "
+#~ "une mission de prestation sauf en "
+#~ "cas de convention agréée par la "
+#~ "direction de \n"
+#~ "                        la plateforme, où le"
+#~ " traducteur n’est pas obligé de "
+#~ "l’accepter, et est parfaitement admissible "
+#~ "aux missions payées à \n"
+#~ "                        l’avance s’il privilégie celles-ci uniquement."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Les traducteurs acceptent que la "
+#~ "plateforme garde 15%(percent)s des paiements"
+#~ " de leurs travaux, et leur verse "
+#~ "85%(percent2)s sur leurs \n"
+#~ "                        comptes respectifs. S’il "
+#~ "y a une relecture à faire, la "
+#~ "plateforme prend au maximum 5%(percent3)s "
+#~ "comme frais de relecture du total \n"
+#~ ""
+#~ "                        du paiement du client,"
+#~ " parfois moins, selon le volume "
+#~ "nécessaire de celle-ci, pas un "
+#~ "centime de plus."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Les documents écrits à traduire: pas "
+#~ "plus de 1600 Da la page, même "
+#~ "si elle est bien remplie. (La page"
+#~ " standard \n"
+#~ "                        chez Traducteurs sur "
+#~ "Rendez-vous est de 350 mots)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Les interprétations: il est à savoir "
+#~ "qu'en général les sociétés qui "
+#~ "sollicitent les interprètes se chargeront"
+#~ " \n"
+#~ "                        des frais de "
+#~ "transport, d'hébergement, et d'alimentation. "
+#~ "Le prix à ne pas dépasser est "
+#~ "de 18000 Da la journée."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Les documents écrits à traduire: entre"
+#~ " 13 et 18 Euros la page, même"
+#~ " si elle est bien remplie. (La "
+#~ "page standard \n"
+#~ "                        chez Traducteurs sur "
+#~ "Rendez-vous est de 350 mots)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Les interprétations: il est à savoir "
+#~ "qu'en général les sociétés qui "
+#~ "sollicitent les interprètes se chargeront "
+#~ "des \n"
+#~ "                        frais de transport, "
+#~ "d'hébergement, et d'alimentation. Le prix "
+#~ "à ne pas dépasser est de 170 "
+#~ "Euros la journée."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Pour garantir un travail de qualité, "
+#~ "et pour assurer aux clients une "
+#~ "haute satisfaction, des mesures ont \n"
+#~ "                        été entreprises, sans "
+#~ "pour autant, qu’elles soient faites par"
+#~ " manque de confiance en le "
+#~ "traducteur, ou diminuer de sa personne."
+#~ " \n"
+#~ "                        Si le traducteur "
+#~ "dépasse les délais impartis, un badge"
+#~ " rouge sera affiché sur son profil"
+#~ " pour une période de 15 jours, "
+#~ "et \n"
+#~ "                        le client pourra le"
+#~ " bloquer, en ayant une réduction "
+#~ "comme dédommagement. Point positif : le"
+#~ " badge rouge disparaitra après 15 "
+#~ "jours,\n"
+#~ "                        et d’autres clients "
+#~ "pourront le contacter au futur. Si "
+#~ "le traducteur ne respecte pas la "
+#~ "confidentialité, il sera radié du site."
+#~ " \n"
+#~ "                        La dernière n’est pas"
+#~ " vraiment une pénalité, toutefois nous "
+#~ "tenons à signaler, que si le "
+#~ "traducteur donne des tarifs supérieurs \n"
+#~ ""
+#~ "                        aux sommes fixées, "
+#~ "ceux là seront changés automatiquement, "
+#~ "ou manuellement par les administrateurs "
+#~ "du site. \n"
+#~ "                        Confer Les tarifs à ne pas dépasser… "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Après s’être mis d’accord avec la "
+#~ "direction de la plateforme ou un "
+#~ "traducteur, il payera le montant à "
+#~ "l’avance \n"
+#~ "                        sur le compte du "
+#~ "site, et ne se désistera pas alors"
+#~ " que le traducteur a commencé le "
+#~ "travail."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Prévenir le traducteur avant paiement en"
+#~ " cas d’annulation avant 24h, le temps"
+#~ " écoulé, et donc le délai dépassé"
+#~ " \n"
+#~ "                        le traducteur passera "
+#~ "naturellement vers une autre commande, "
+#~ "sauf si celui-ci convienne d’attendre"
+#~ " et ne pas \n"
+#~ "                        prendre une autre "
+#~ "mission jusqu’à ce que le client "
+#~ "paye."
+#~ msgstr ""
+
+#~ msgid "Mise à du compte traducteur"
+#~ msgstr ""
+
+#~ msgid "Vous êtes déjà souscrire à cette offre ou vous n'êtes autorisés"
+#~ msgstr ""
+
+#~ msgid "Pub"
+#~ msgstr ""
+
+#~ msgid "Affiche de la Page d'Accueil"
+#~ msgstr ""
+
+#~ msgid "Sept Images du Profil"
+#~ msgstr ""
+
+#~ msgid "Abonnement Pub: %(remain_day)s jour(s)"
+#~ msgstr ""
 
