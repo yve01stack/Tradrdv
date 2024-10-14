@@ -1,4 +1,5 @@
 from flask_babel import lazy_gettext as _l
+from flask_babel import _
 import os, json
 from dotenv import load_dotenv
 
@@ -35,8 +36,7 @@ class Config(object):
 
 	# Site Informations
 	SITE_NAME = "TRADRDV"
-	SITE_DESCRIPTION = _l("Traducteurs sur Rendez-vous est la première plateforme qui regroupe des traducteurs freelancers algériens, "\
-		 "et bientôt des prestataires des quatre coins du monde !")
+	SITE_DESCRIPTION = _("Traducteurs sur Rendez-vous est la première plateforme qui regroupe des traducteurs freelancers algériens, et bientôt des prestataires des quatre coins du monde !")
 	SITE_ICONE = os.path.join('assets', 'images', 'dev', 'favicon.png').replace("\\", '/')
 	MAIL_CONTACT = 'traducteurs.contactofficiel@gmail.com'
 	CALL_CONTACT = '+213 658489196'

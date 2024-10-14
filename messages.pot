@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-10-11 23:28+0800\n"
+"POT-Creation-Date: 2024-10-14 23:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -640,18 +640,18 @@ msgstr ""
 msgid "À la Une"
 msgstr ""
 
-#: app/templates/accueil.html:80 app/templates/accueil.html:212
+#: app/templates/accueil.html:80 app/templates/accueil.html:211
 #, python-format
 msgid "Pays: %(country)s"
 msgstr ""
 
-#: app/templates/accueil.html:83 app/templates/accueil.html:215
+#: app/templates/accueil.html:83 app/templates/accueil.html:214
 #: app/templates/manager_panel.html:134 app/templates/single_traducteur.html:62
 #: app/templates/traducteur.html:88 app/templates/traducteur_search.html:88
 msgid "Disponible"
 msgstr ""
 
-#: app/templates/accueil.html:85 app/templates/accueil.html:217
+#: app/templates/accueil.html:85 app/templates/accueil.html:216
 #: app/templates/single_traducteur.html:64 app/templates/traducteur.html:90
 #: app/templates/traducteur_search.html:90
 msgid "Occupé(e)"
@@ -661,7 +661,7 @@ msgstr ""
 msgid "Nos valeurs"
 msgstr ""
 
-#: app/templates/accueil.html:133 app/templates/accueil.html:181
+#: app/templates/accueil.html:133
 msgid ""
 "Celles-ci sont nos valeurs mères, et à chacun qui place en nous sa "
 "confiance, nous lui garantissons qu'il aura de quoi être fier!"
@@ -703,7 +703,7 @@ msgid ""
 "publicitaires"
 msgstr ""
 
-#: app/templates/accueil.html:189 app/templates/admin_panel.html:14
+#: app/templates/accueil.html:188 app/templates/admin_panel.html:14
 #: app/templates/admin_panel.html:47 app/templates/banner_lg.html:10
 #: app/templates/banner_lg.html:31 app/templates/banner_lg.html:52
 #: app/templates/header_footer.html:91 app/templates/header_footer.html:238
@@ -711,79 +711,79 @@ msgstr ""
 msgid "Traducteurs"
 msgstr ""
 
-#: app/templates/accueil.html:235
+#: app/templates/accueil.html:234
 msgid "Demo devenir traducteur"
 msgstr ""
 
-#: app/templates/accueil.html:249
+#: app/templates/accueil.html:248
 msgid "Nos offres"
 msgstr ""
 
-#: app/templates/accueil.html:250
+#: app/templates/accueil.html:249
 msgid "Table Des Clients"
 msgstr ""
 
-#: app/templates/accueil.html:256 app/templates/profile.html:50
+#: app/templates/accueil.html:255 app/templates/profile.html:50
 msgid "Illimité"
 msgstr ""
 
-#: app/templates/accueil.html:257
+#: app/templates/accueil.html:256
 msgid "Basique"
 msgstr ""
 
-#: app/templates/accueil.html:258
+#: app/templates/accueil.html:257
 msgid "Vous payez uniquement pour les services"
 msgstr ""
 
-#: app/templates/accueil.html:260
+#: app/templates/accueil.html:259
 msgid ""
 "Cette offre par défaut vous autorise à engager des prestataires pour vos "
 "besoins en traduction ou interprètation"
 msgstr ""
 
-#: app/templates/accueil.html:261
+#: app/templates/accueil.html:260
 msgid "Défaut"
 msgstr ""
 
-#: app/templates/accueil.html:271
+#: app/templates/accueil.html:270
 msgid "12 Mois"
 msgstr ""
 
-#: app/templates/accueil.html:272
+#: app/templates/accueil.html:271
 msgid "Premium"
 msgstr ""
 
-#: app/templates/accueil.html:273
+#: app/templates/accueil.html:272
 msgid "Bénéficiez de cette offre durant 12 mois"
 msgstr ""
 
-#: app/templates/accueil.html:276
+#: app/templates/accueil.html:275
 msgid "70 mots par jour"
 msgstr ""
 
-#: app/templates/accueil.html:277
+#: app/templates/accueil.html:276
 msgid "Traduction en deux Langues différentes si besoin est"
 msgstr ""
 
-#: app/templates/accueil.html:279 app/templates/accueil.html:281
-#: app/templates/accueil.html:299 app/templates/accueil.html:301
+#: app/templates/accueil.html:278 app/templates/accueil.html:280
+#: app/templates/accueil.html:298 app/templates/accueil.html:300
 #: app/templates/profile.html:270
 msgid "Abonner"
 msgstr ""
 
-#: app/templates/accueil.html:292
+#: app/templates/accueil.html:291
 msgid "6 Mois"
 msgstr ""
 
-#: app/templates/accueil.html:293
+#: app/templates/accueil.html:292
 msgid "Standard"
 msgstr ""
 
-#: app/templates/accueil.html:294
+#: app/templates/accueil.html:293
 msgid "Bénéficiez de cette offre durant 6 mois"
 msgstr ""
 
-#: app/templates/accueil.html:296
+#: app/templates/accueil.html:295
 msgid ""
 "Cette offre moyenne vous permet de profiter des mêmes avantages que "
 "l'offre premium mais sur une durée de six mois"
@@ -1894,8 +1894,9 @@ msgstr ""
 #: app/templates/terms.html:20
 msgid ""
 "Pour rejoindre notre communauté, il vous suffit de payer un abonnement "
-"annuel de 15000 Da/118 Euros si vous êtes un(e) algérien(e) résident à "
-"l’étranger, sauf en cas de promotions, et respecter quelques engagements"
+"annuel de 15000 Da si vous êtes en Algérie ou 118 Euros si vous êtes "
+"un(e) algérien(e) résident à l’étranger ou un étranger, sauf en cas de "
+"promotions, et respecter quelques engagements"
 msgstr ""
 
 #: app/templates/terms.html:22
@@ -1947,26 +1948,26 @@ msgstr ""
 msgid "Le traducteur ne revient pas sur un engagement fait."
 msgstr ""
 
-#: app/templates/terms.html:38
+#: app/templates/terms.html:39
 msgid ""
 "Concernant les prix. (Les tarifs à ne pas dépasser pour le marché "
 "algérien)"
 msgstr ""
 
-#: app/templates/terms.html:47
+#: app/templates/terms.html:48
 msgid ""
 "Les documents écrits à traduire: pas plus de 1600 Da la page, même si "
 "elle est bien remplie. (La page standard chez Traducteurs sur Rendez-vous"
 " est de 350 mots)."
 msgstr ""
 
-#: app/templates/terms.html:48
+#: app/templates/terms.html:49
 msgid ""
 "Relecture \"Proofreading\" : pas plus de 850 Da la page, même si elle est"
 " bien remplie."
 msgstr ""
 
-#: app/templates/terms.html:49
+#: app/templates/terms.html:50
 msgid ""
 "Les interprétations: il est à savoir qu'en général les sociétés qui "
 "sollicitent les interprètes se chargeront des frais de transport, "
@@ -1974,40 +1975,40 @@ msgid ""
 "Da la journée."
 msgstr ""
 
-#: app/templates/terms.html:50
+#: app/templates/terms.html:51
 msgid "La transcription de fichiers audio. 10000 Da au maximum pour une heure."
 msgstr ""
 
-#: app/templates/terms.html:51
+#: app/templates/terms.html:52
 msgid "Les sous-titres pour vidéo. 5000 Da les 20 minutes. Donc 15000 Da l'heure."
 msgstr ""
 
-#: app/templates/terms.html:52
+#: app/templates/terms.html:53
 msgid ""
 "Traduction avec voix-off d'une vidéo, ne pas dépasser les 20000 Da "
 "l'heure."
 msgstr ""
 
-#: app/templates/terms.html:60
+#: app/templates/terms.html:61
 msgid ""
 "Concernant les prix. (Les tarifs à ne pas dépasser pour le marché "
 "étranger)"
 msgstr ""
 
-#: app/templates/terms.html:69
+#: app/templates/terms.html:70
 msgid ""
 "Les documents écrits à traduire: entre 13 et 18 Euros la page, même si "
 "elle est bien remplie. (La page standard chez Traducteurs sur Rendez-vous"
 " est de 350 mots)."
 msgstr ""
 
-#: app/templates/terms.html:70
+#: app/templates/terms.html:71
 msgid ""
 "Relecture \"Proofreading\" : entre 7 et 10 Euros la page, même si elle "
 "est bien remplie."
 msgstr ""
 
-#: app/templates/terms.html:71
+#: app/templates/terms.html:72
 msgid ""
 "Les interprétations: il est à savoir qu'en général les sociétés qui "
 "sollicitent les interprètes se chargeront des frais de transport, "
@@ -2015,27 +2016,27 @@ msgid ""
 "Euros la journée."
 msgstr ""
 
-#: app/templates/terms.html:72
+#: app/templates/terms.html:73
 msgid "La transcription de fichiers audio. 110 Euros au maximum pour une heure."
 msgstr ""
 
-#: app/templates/terms.html:73
+#: app/templates/terms.html:74
 msgid ""
 "Les sous-titres pour vidéo. 60 Euros les 20 minutes. Donc 180 Euros "
 "l'heure"
 msgstr ""
 
-#: app/templates/terms.html:74
+#: app/templates/terms.html:75
 msgid ""
 "Traduction avec voix-off d'une vidéo, ne pas dépasser les 190 Euros "
 "l'heure."
 msgstr ""
 
-#: app/templates/terms.html:82
+#: app/templates/terms.html:83
 msgid "Petites pénalités"
 msgstr ""
 
-#: app/templates/terms.html:91
+#: app/templates/terms.html:92
 msgid ""
 "Pour garantir un travail de qualité, et pour assurer aux clients une "
 "haute satisfaction, des mesures ont \n"
@@ -2053,18 +2054,18 @@ msgid ""
 "Les tarifs à ne pas dépasser… "
 msgstr ""
 
-#: app/templates/terms.html:100
+#: app/templates/terms.html:101
 msgid "Ce que nous exigeons au client vis-à-vis du traducteur"
 msgstr ""
 
-#: app/templates/terms.html:109
+#: app/templates/terms.html:110
 msgid ""
 "Après s’être mis d’accord avec la direction de la plateforme ou un "
 "traducteur, il payera le montant à l’avance sur le compte du site, et ne "
 "se désistera pas alors que le traducteur a commencé le travail."
 msgstr ""
 
-#: app/templates/terms.html:110
+#: app/templates/terms.html:111
 msgid ""
 "Prévenir le traducteur avant paiement en cas d’annulation avant 24h, le "
 "temps écoulé, et donc le délai dépassé le traducteur passera "
@@ -2073,11 +2074,11 @@ msgid ""
 "paye."
 msgstr ""
 
-#: app/templates/terms.html:118
+#: app/templates/terms.html:119
 msgid "Autres Détails Importants"
 msgstr ""
 
-#: app/templates/terms.html:126
+#: app/templates/terms.html:127
 msgid ""
 "Avoir un profil avec un système filtre qui va faciliter aux clients "
 "dénicheurs de perles de vous trouver : filtre à étoiles (les points du "
@@ -2088,44 +2089,44 @@ msgid ""
 "cherchent uniquement les traducteurs et/ou interprètes…"
 msgstr ""
 
-#: app/templates/terms.html:127
+#: app/templates/terms.html:128
 msgid ""
 "Vos droits seront préservés, et vous serez protégés sous la couverture "
 "d’un registre de commerce légal, tout en restant indépendants."
 msgstr ""
 
-#: app/templates/terms.html:128
+#: app/templates/terms.html:129
 msgid ""
 "Le test que vous fera passer un ancien traducteur/Interprète "
 "professionnel et très sollicité argumentera votre crédibilité."
 msgstr ""
 
-#: app/templates/terms.html:129
+#: app/templates/terms.html:130
 msgid ""
 "Vous cumulez des points d’expérience qui s’ajouteront à votre profil à "
 "chaque travail effectué et finalisé sur la plateforme, ce qui favorisera "
 "le choix de votre espace personnel par rapport aux clients."
 msgstr ""
 
-#: app/templates/terms.html:130
+#: app/templates/terms.html:131
 msgid ""
 "Vous pourrez évoluer au milieu professionnel, et sentir enfin la belle "
 "sensation qu’est de ne pas avoir fait ses études pour rien…"
 msgstr ""
 
-#: app/templates/terms.html:131
+#: app/templates/terms.html:132
 msgid ""
 "Nous boosterons votre profil occasionnellement, pour en faire une ruche "
 "d’abeilles, qui attirera les adorateurs de miel…"
 msgstr ""
 
-#: app/templates/terms.html:132
+#: app/templates/terms.html:133
 msgid ""
 "Avoir une semaine de bonus, après la fin de l’abonnement annuel avant de "
 "pouvoir le renouveler."
 msgstr ""
 
-#: app/templates/terms.html:133
+#: app/templates/terms.html:134
 msgid ""
 "D’autres offres suivront, qui seront gratuites, et qui vont sans nul "
 "doute vous émerveiller !"
