@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-10-14 23:02+0800\n"
+"POT-Creation-Date: 2024-10-17 13:19+0800\n"
 "PO-Revision-Date: 2024-09-30 23:22+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -1948,6 +1948,10 @@ msgstr ""
 
 #: app/templates/terms.html:30
 msgid "Le traducteur ne revient pas sur un engagement fait."
+msgstr ""
+
+#: app/templates/terms.html:31
+msgid "Le contrat ne peut être résilié avant la fin de la période officielle."
 msgstr ""
 
 #: app/templates/terms.html:39
