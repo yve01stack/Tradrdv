@@ -1,0 +1,142 @@
+{% extends 'header_footer.html' %}
+
+{% block main %} 
+
+<!-- content -->
+
+
+
+<!-- deal modal -->
+<div id="modal_aside_left" class="modal fixed-left fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-aside" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{_('Editer ou joindre une pièce')}} </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>{{_("Pour vous réserver votre traducteur et lancer votre travail, vous avez 24h pour pouvoir confirmer votre commande à travers un reçu 
+                du versement de 80%(percent)s du total de la somme, ou vous décommander,", percent='%')}} 
+                <ul>
+                    <li>{{_("Nous privilégions l’utilisation de l’application BaridiMob en Algérie, pour sa rapidité et son efficacité, et ceci sans déplacements.")}}</li>
+                    <li>{{_("Pour le marché en dehors de l’Algérie, nous n’acceptons que les transferts Western Union et la plateforme Payoneer».")}}</li>
+                    <li>{{_("Les prix pour le marché international différent des prix pour le marché local « algérien).")}}</li>
+                </ul>
+               </p>
+            <p><strong>{{_('motif:')}} </strong><i class="motif"></i></p>
+            <p><strong>{{_('Coût:')}} </strong><i class="amount"></i></p>
+            <p><strong>{{_('Prestataire:')}} </strong><i class="username"></i></p>
+            <p><strong>{{_('Type de paiement:')}} </strong><i class="payment_way"></i></p>
+            
+            <form class="form-container" method="post" action="{{ url_for('deal_submit_bill', _external=True) }}" enctype="multipart/form-data" id="dealView">
+                <p>
+                    <select onchange="document.getElementById('payment_desc').innerText=this.value">
+                        <option>{{_('Méthode de paiement')}}</option>
+                        {% for method in config['PAYMENT_METHOD'] %}
+                        <option value="{{ method.desc }}">{{ method.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <span  id="payment_desc"></span>
+                </p>
+                <p>{{_('Modifiez le motif (optionnel)')}}
+                    <input class="motif_update" name="motif_update" required type="text" maxlength="30">
+                </p>
+                <p>{{_('Modifiez le budget (optionnel)')}}
+                    <input class="amount_update" name="amount_update" required type="number" maxlength="30">
+                </p>
+                <p>{{_('Joindre le reçu de paiement')}}
+                    <img id="output_payment_bill" onclick="return document.getElementById('payment_bill').click();" src="https://storage.googleapis.com/tradrdv/dev/101671.png" 
+                    style="width: 90%; height: 200px; border: 5px solid #eee;">
+                    <input accept="image/*" type="file" class="custom-file-input hidden" name="payment_bill" id="payment_bill" onchange="loadFile(event, 'output_payment_bill')">
+                    <input class="deal_id" name="deal_id" required type="hidden">
+                </p>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" form="dealView" class="btn-perso">{{_('Enregistrer')}}</button>
+        </div>
+      </div>
+    </div> <!-- modal-bialog .// -->
+</div> <!-- modal.// -->
+
+                            
+<!-- //content -->
+
+<script>
+    function filesize(elem){
+        document.getElementById("size").value = `${elem.files[0].size}`
+    }
+    
+    var loadFile = function(event, output) {
+        var image = document.getElementById(output);
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+
+<script src="{{ url_for('static', filename='assets/js/messenger.js')}}"></script>
+
+<script>
+
+    $('#modal_aside_left').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var deal_id = button.data('itemid') // Extract info from data-* attributes
+        var motif = button.data('whatever')
+        var amount = button.data('columns')
+        var devise = button.data('bind')
+        var username = button.data('parent')
+        var payment_way = button.data('draggable')
+        var payment_bill = button.data('dropzone')
+        console.log(motif)
+        var modal = $(this)
+        modal.find('.modal-body .deal_id').val(deal_id)
+        
+        modal.find('.modal-body .motif').text(motif)
+        modal.find('.modal-body .motif_update').val(motif)
+
+        modal.find('.modal-body .amount').text(amount+''+devise)
+        modal.find('.modal-body .amount_update').val(amount)
+
+        modal.find('.modal-body .username').text(username)
+        modal.find('.modal-body .payment_way').text(payment_way)
+        document.getElementById(output_payment_bill).src = payment_bill
+
+    })
+    $('#modal_aside_left').on('hidden.bs.modal', function (e) {
+        $(this).data('bs.modal', null);
+    })
+</script>
+
+<!-- get the correspond arcticle to update -->
+<a class="get_pub_url d-none" href="{{ url_for('get_pub', _external=True) }}"></a>
+<a class="pub_update_url d-none" href="{{ url_for('pub_update', _external=True) }}"></a>
+
+<script>
+    function pub_update(pub_id) {
+        var pub_update_url = $('.pub_update_url').attr('href');
+        var url = $('.get_pub_url').attr('href');
+            $.post(url, { pub_id: pub_id }, function(data, status) { 
+                document.getElementById("pub_action").action = pub_update_url;
+                document.getElementById("output_1").src = window.location.origin+'/static/'+data['pub']['image_1'];
+                document.getElementById("output_2").src = window.location.origin+'/static/'+data['pub']['image_2'];
+                document.getElementById("output_3").src = window.location.origin+'/static/'+data['pub']['image_3'];
+                document.getElementById("output_4").src = window.location.origin+'/static/'+data['pub']['image_4'];
+                document.getElementById("output_5").src = window.location.origin+'/static/'+data['pub']['image_5'];
+                document.getElementById("output_6").src = window.location.origin+'/static/'+data['pub']['image_6'];
+                document.getElementById("output_7").src = window.location.origin+'/static/'+data['pub']['image_7'];
+                document.getElementById("output_8").src = window.location.origin+'/static/'+data['pub']['image_8'];
+                document.getElementById("pub_title").value = data['pub']['title'];
+                document.getElementById("pub_phone").value = data['pub']['phone'];
+                document.getElementById("pub_email").value = data['pub']['email'];
+                document.getElementById("pub_address").value = data['pub']['address'];
+                document.getElementById("pub_ref_link").value = data['pub']['ref_link'];
+                document.getElementById("pub_description").value = data['pub']['description'];
+                document.getElementById("pub_id").value = data['pub']['id'];
+            });
+        }
+
+</script>
+
+{% endblock %}
