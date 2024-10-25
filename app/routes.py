@@ -359,7 +359,7 @@ def offer_subscribe(offer_type):
     flash(_('Veuillez payer la facture, joindre la photo du reçu et ensuite profitez de votre offre'), 'success')
     return redirect(url_for('accueil', _external=True))
    
-
+ 
 @app.route('/profile/')
 @login_required 
 @check_confirmed
