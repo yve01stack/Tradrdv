@@ -116,7 +116,7 @@
                                                 {% if deal.admin_confirm_bill %}
                                                     {% if deal.deal_over %}
                                                     <span class="badge badge-success">{{_('Terminé')}}</span>
-                                                    <a class="badge badge-secondary" href="{{url_for('static', filename=deal.work_valid)}}" download="pièce jointe" target="_blank">{{_('Fichier')}}</a>
+                                                    <a class="badge badge-secondary" href="{{url_for('static', filename=deal.work_valid or 'assets/images/dev/diploma.pdf')}}" download="pièce jointe" target="_blank">{{_('Fichier')}}</a>
                                                     {% else %}
                                                     <span class="badge badge-info">{{_('En cours..')}}</span>
                                                     {% endif %}
