@@ -100,7 +100,51 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    
+                    <div class="row">
+                        {% for deal in deals[:10] %}
+                        <div class="col-md-6">
+                            <div class="single-widget recent-post-widget" data-aos="fade-up" data-aos-delay="400">
+                                <div class="media">
+                                    <a class="rcnt-img" href="#"><img src="{{url_for('static', filename=deal.friend.avatar)}}" alt="Recent Post"></a>
+                                    <div class="media-body ml-3">
+                                        <span style="font-size: 14px">{{deal.motif}}</span>
+                                        <div style="font-size: 14px">
+                                            {{ moment(deal.timestamp).format("LL") }}<span {% if deal.deal_over %} class="" {% else %} class="d-none" {% endif %}> - {{ moment(deal.deal_over_time).format("LL")  }}</span>
+                                        </div>
+                                        <p>
+                                            {% if deal.friend_accept %}
+                                                {% if deal.admin_confirm_bill %}
+                                                    {% if deal.deal_over %}
+                                                    <span class="badge badge-success">{{_('Terminé')}}</span>
+                                                    <!-- Downmoad file -->
+                                                    {% else %}
+                                                    <span class="badge badge-info">{{_('En cours..')}}</span>
+                                                    {% endif %}
+                                                {% else %}
+                                                <span class="badge badge-warning">{{_('Paiement..')}}</span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span class="badge badge-primary">{{_('Attente..')}}</span>
+                                            {% endif %}
+
+                                            <span type="button" class="badge badge-primary px-2" 
+                                            data-toggle="modal" 
+                                            data-target="#modal_aside_left" 
+                                            data-itemid="{{deal.id}}" 
+                                            data-whatever="{{deal.motif}}"
+                                            data-columns="{{deal.amount}}"
+                                            data-bind="{{deal.devise}}"
+                                            data-parent="{{deal.friend.username}}"
+                                            data-draggable="{{deal.payment_way}}"
+                                            data-dropzone="{{ deal.payment_bill }}">{{_('Aperçu')}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <!-- Payment -->
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
