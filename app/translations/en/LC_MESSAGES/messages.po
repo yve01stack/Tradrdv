@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-10-17 13:19+0800\n"
-"PO-Revision-Date: 2024-10-21 19:29+0800\n"
+"POT-Creation-Date: 2024-11-16 20:59+0800\n"
+"PO-Revision-Date: 2024-11-16 21:01+0800\n"
 "Last-Translator: \n"
 "Language-Team: en <LL@li.org>\n"
 "Language: en\n"
@@ -18,6 +18,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.16.0\n"
 "X-Generator: Poedit 3.1.1\n"
+
+#: app/templates/banner_lg.html:12 config.py:39
+#, fuzzy
+msgid ""
+"Traducteurs sur Rendez-vous est la première plateforme qui regroupe des "
+"traducteurs freelancers algériens, et bientôt des prestataires des quatre coins "
+"du monde !"
+msgstr ""
+"brings together Algerian freelance translators, and soon providers from all "
+"corners of the world!"
 
 #: app/routes.py:71
 #, python-format
@@ -736,7 +746,6 @@ msgid ""
 "En français \"L'honnêteté est la meilleure des stratégies à adopter\", ceci "
 "constitue notre devise première"
 msgstr ""
-"Translated as\n"
 " Honesty is the Best Policy “Honesty is the Best Policy”, not our unique moto, "
 "but the first."
 
@@ -769,10 +778,9 @@ msgid ""
 msgstr "Surpassing ourselves each time is our greatest asset and advertisement. "
 
 #: app/templates/accueil.html:188 app/templates/admin_panel.html:14
-#: app/templates/admin_panel.html:47 app/templates/banner_lg.html:10
-#: app/templates/banner_lg.html:31 app/templates/banner_lg.html:52
-#: app/templates/header_footer.html:91 app/templates/header_footer.html:238
-#: app/templates/traducteur.html:62 app/templates/traducteur_search.html:62
+#: app/templates/admin_panel.html:47 app/templates/header_footer.html:91
+#: app/templates/header_footer.html:238 app/templates/traducteur.html:62
+#: app/templates/traducteur_search.html:62
 msgid "Traducteurs"
 msgstr "Translators"
 
@@ -1212,66 +1220,51 @@ msgid "Attente.."
 msgstr "Waiting.."
 
 #: app/templates/banner_lg.html:10
-msgid "sur rendez-vous en ligne"
+#, fuzzy
+msgid "Traducteurs sur rendez-vous en ligne"
 msgstr "by online appointment"
 
-#: app/templates/banner_lg.html:12
-msgid "Traducteurs sur Rendez-vous est la première plateforme qui"
-msgstr "Traducteurs sur Rendez-vous is the first platform that"
-
-#: app/templates/banner_lg.html:13
-msgid ""
-"regroupe des traducteurs freelancers algériens, et bientôt des prestataires des "
-"quatre coins du monde !"
-msgstr ""
-"brings together Algerian freelance translators, and soon providers from all "
-"corners of the world!"
-
-#: app/templates/banner_lg.html:18 app/templates/banner_lg.html:24
-#: app/templates/banner_lg.html:39 app/templates/banner_lg.html:45
-#: app/templates/banner_lg.html:59 app/templates/banner_lg.html:65
+#: app/templates/banner_lg.html:17 app/templates/banner_lg.html:23
+#: app/templates/banner_lg.html:37 app/templates/banner_lg.html:43
+#: app/templates/banner_lg.html:57 app/templates/banner_lg.html:63
 #: app/templates/new_traducteur.html:11
 msgid "Devenir Traducteur"
 msgstr "Become a Translator"
 
-#: app/templates/banner_lg.html:19 app/templates/banner_lg.html:26
-#: app/templates/banner_lg.html:40 app/templates/banner_lg.html:47
-#: app/templates/banner_lg.html:60 app/templates/banner_lg.html:67
+#: app/templates/banner_lg.html:18 app/templates/banner_lg.html:25
+#: app/templates/banner_lg.html:38 app/templates/banner_lg.html:45
+#: app/templates/banner_lg.html:58 app/templates/banner_lg.html:65
 msgid "Trouver un Traducteur"
 msgstr "Find a Translator"
 
-#: app/templates/banner_lg.html:31
-msgid "comment ça marche ?"
+#: app/templates/banner_lg.html:30
+#, fuzzy
+msgid "Traducteurs comment ça marche ?"
 msgstr "how does it work?"
 
-#: app/templates/banner_lg.html:33
-msgid "Le principe premier, est que le client prenne rendez-vous auprès"
-msgstr "The main concept is that the client books an appointment"
-
-#: app/templates/banner_lg.html:34
+#: app/templates/banner_lg.html:32
+#, fuzzy
 msgid ""
-"d'un traducteur qu'il aura choisi, lequel se consacrera après entente, "
-"totalement à lui..."
+"Le principe premier, est que le client prenne rendez-vous auprès d'un "
+"traducteur qu'il aura choisi, lequel se consacrera après entente, totalement à "
+"lui..."
 msgstr ""
 "with a translator of his choice, the latter, after mutual agreement, will "
 "dedicate himself to the fulfillment of his client's"
 
-#: app/templates/banner_lg.html:52
-msgid "oeuvre caritative"
+#: app/templates/banner_lg.html:50
+#, fuzzy
+msgid "Traducteurs oeuvres caritatives"
 msgstr "for charity"
 
-#: app/templates/banner_lg.html:54
-#, python-format
+#: app/templates/banner_lg.html:52
+#, fuzzy, python-format
 msgid ""
 "La plateforme s'engage, et perpétuellement; à allouer 2%(percent)s de vos "
-"paiements à des œuvres"
+"paiements à des œuvres caritatives."
 msgstr ""
 "This Platform commits, and eternally, to dedicate 2%(percent)s out of your "
 "payments for charity matters."
-
-#: app/templates/banner_lg.html:54
-msgid "caritatives."
-msgstr "charities."
 
 #: app/templates/forgot_password.html:11 app/templates/reset_password.html:11
 msgid "Mot de passe oublié"
@@ -2001,17 +1994,9 @@ msgstr ""
 #: app/templates/terms.html:24
 #, python-format
 msgid ""
-"Les traducteurs acceptent que la plateforme garde 15%(percent)s des paiements "
-"de leurs travaux, et leur verse 85%(percent2)s sur leurs comptes respectifs. "
-"S’il y a une relecture à faire, la plateforme prend au maximum 5%(percent3)s "
-"comme frais de relecture du total du paiement du client, parfois moins, selon "
-"le volume nécessaire de celle-ci, pas un centime de plus."
+"Les traducteurs acceptent que la plateforme garde 20%(percent)s des paiements "
+"de leurs travaux, et leur verse 80%(percent1)s sur leurs comptes respectifs."
 msgstr ""
-"Translators agree that the platform keeps 15%(percent)s of the payments for "
-"their work and pays them 85%(percent2)s into their respective accounts. If "
-"there is a proofreading to be done, the platform takes at most 5%(percent3)s as "
-"proofreading fees from the total client payment, sometimes less, depending on "
-"the necessary volume of it, not a cent more. "
 
 #: app/templates/terms.html:25
 msgid ""
@@ -2116,9 +2101,9 @@ msgid ""
 "les interprètes se chargeront des frais de transport, d'hébergement, et "
 "d'alimentation. Le prix à ne pas dépasser est de 170 Euros la journée."
 msgstr ""
-"Interpretations: it is known that in general, companies requesting interpreters "
-"will cover transport, accommodation, and food expenses. The price not to exceed "
-"is 170 Euros per day. "
+"Interpreting provisions: it is known that in general, companies requesting "
+"interpreters will cover transport, accommodation, and food expenses. The price "
+"not to exceed is 170 Euros per day. "
 
 #: app/templates/terms.html:73
 msgid "La transcription de fichiers audio. 110 Euros au maximum pour une heure."
@@ -2154,19 +2139,19 @@ msgid ""
 "changés automatiquement, ou manuellement par les administrateurs du site. "
 "Confer Les tarifs à ne pas dépasser… "
 msgstr ""
-"To ensure quality work and to guarantee clients high satisfaction, measures n "
-"ve been taken, not because of a lack of trust in the translator, or to diminish "
-"them as a person. \n"
+"To ensure quality work and to guarantee clients high satisfaction, measures "
+"nave been taken, not because of a lack of trust in the translator, or to "
+"diminish them as a person. \n"
 " the translator exceeds the given deadlines, a red badge will be displayed on "
 "their profile for a period of 15 days, \n"
-"  the client will be able to block them, receiving a discount as compensation. "
+" the client will be able to block them, receiving a discount as compensation. "
 "Positive point: the red badge will disappear after 15 days, \n"
-"  other clients will be able to contact them in the future. If the translator "
+" other clients will be able to contact them in the future. If the translator "
 "does not respect confidentiality, they will be removed from the site. \n"
-"  last one is not really a penalty; however, we want to point out that if the "
+" last one is not really a penalty; however, we want to point out that if the "
 "translator gives rates higher than the set amounts, \n"
-" y will be changed automatically or manually by the site's administrators. \n"
-" fer rates not to be exceeded…  "
+"it will be changed automatically or manually by the site's administrators. \n"
+" CF rates not to be exceeded…  "
 
 #: app/templates/terms.html:101
 msgid "Ce que nous exigeons au client vis-à-vis du traducteur"
@@ -2193,7 +2178,7 @@ msgstr ""
 "if the time has passed,\n"
 "  thus the deadline exceeded, the translator will naturally move on to another "
 "order, unless they agree to wait \n"
-"  not take another assignment until the client pays. "
+"  nor take another assignment until the client pays. "
 
 #: app/templates/terms.html:119
 msgid "Autres Détails Importants"
@@ -2398,3 +2383,26 @@ msgstr "If you did not request a password reset, simply ignore this message."
 
 #~ msgid "Abonnement Pub: %(remain_day)s jour(s)"
 #~ msgstr "Ad Subscription: %(remain_day)s day(s)"
+
+#~ msgid "Traducteurs sur Rendez-vous est la première plateforme qui"
+#~ msgstr "Traducteurs sur Rendez-vous is the first platform that"
+
+#~ msgid "Le principe premier, est que le client prenne rendez-vous auprès"
+#~ msgstr "The main concept is that the client books an appointment"
+
+#~ msgid "caritatives."
+#~ msgstr "charities."
+
+#~ msgid ""
+#~ "Les traducteurs acceptent que la plateforme garde 15%(percent)s des "
+#~ "paiements de leurs travaux, et leur verse 85%(percent2)s sur leurs comptes "
+#~ "respectifs. S’il y a une relecture à faire, la plateforme prend au maximum "
+#~ "5%(percent3)s comme frais de relecture du total du paiement du client, "
+#~ "parfois moins, selon le volume nécessaire de celle-ci, pas un centime de "
+#~ "plus."
+#~ msgstr ""
+#~ "Translators agree that the platform keeps 15%(percent)s of the payments for "
+#~ "their work and pays them 85%(percent2)s into their respective accounts. If "
+#~ "there is a proofreading to be done, the platform takes at most 5%(percent3)s "
+#~ "as proofreading fees from the total client payment, sometimes less, "
+#~ "depending on the necessary volume of it, not a cent more. \n"

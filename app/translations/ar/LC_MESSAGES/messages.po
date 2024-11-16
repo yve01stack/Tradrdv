@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-10-17 13:19+0800\n"
+"POT-Creation-Date: 2024-11-16 20:59+0800\n"
 "PO-Revision-Date: 2024-09-30 23:22+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -18,6 +18,13 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
+
+#: app/templates/banner_lg.html:12 config.py:39
+msgid ""
+"Traducteurs sur Rendez-vous est la première plateforme qui regroupe des "
+"traducteurs freelancers algériens, et bientôt des prestataires des quatre"
+" coins du monde !"
+msgstr ""
 
 #: app/routes.py:71
 #, python-format
@@ -706,10 +713,9 @@ msgid ""
 msgstr ""
 
 #: app/templates/accueil.html:188 app/templates/admin_panel.html:14
-#: app/templates/admin_panel.html:47 app/templates/banner_lg.html:10
-#: app/templates/banner_lg.html:31 app/templates/banner_lg.html:52
-#: app/templates/header_footer.html:91 app/templates/header_footer.html:238
-#: app/templates/traducteur.html:62 app/templates/traducteur_search.html:62
+#: app/templates/admin_panel.html:47 app/templates/header_footer.html:91
+#: app/templates/header_footer.html:238 app/templates/traducteur.html:62
+#: app/templates/traducteur_search.html:62
 msgid "Traducteurs"
 msgstr ""
 
@@ -1145,59 +1151,42 @@ msgid "Attente.."
 msgstr ""
 
 #: app/templates/banner_lg.html:10
-msgid "sur rendez-vous en ligne"
+msgid "Traducteurs sur rendez-vous en ligne"
 msgstr ""
 
-#: app/templates/banner_lg.html:12
-msgid "Traducteurs sur Rendez-vous est la première plateforme qui"
-msgstr ""
-
-#: app/templates/banner_lg.html:13
-msgid ""
-"regroupe des traducteurs freelancers algériens, et bientôt des "
-"prestataires des quatre coins du monde !"
-msgstr ""
-
-#: app/templates/banner_lg.html:18 app/templates/banner_lg.html:24
-#: app/templates/banner_lg.html:39 app/templates/banner_lg.html:45
-#: app/templates/banner_lg.html:59 app/templates/banner_lg.html:65
+#: app/templates/banner_lg.html:17 app/templates/banner_lg.html:23
+#: app/templates/banner_lg.html:37 app/templates/banner_lg.html:43
+#: app/templates/banner_lg.html:57 app/templates/banner_lg.html:63
 #: app/templates/new_traducteur.html:11
 msgid "Devenir Traducteur"
 msgstr ""
 
-#: app/templates/banner_lg.html:19 app/templates/banner_lg.html:26
-#: app/templates/banner_lg.html:40 app/templates/banner_lg.html:47
-#: app/templates/banner_lg.html:60 app/templates/banner_lg.html:67
+#: app/templates/banner_lg.html:18 app/templates/banner_lg.html:25
+#: app/templates/banner_lg.html:38 app/templates/banner_lg.html:45
+#: app/templates/banner_lg.html:58 app/templates/banner_lg.html:65
 msgid "Trouver un Traducteur"
 msgstr ""
 
-#: app/templates/banner_lg.html:31
-msgid "comment ça marche ?"
+#: app/templates/banner_lg.html:30
+msgid "Traducteurs comment ça marche ?"
 msgstr ""
 
-#: app/templates/banner_lg.html:33
-msgid "Le principe premier, est que le client prenne rendez-vous auprès"
-msgstr ""
-
-#: app/templates/banner_lg.html:34
+#: app/templates/banner_lg.html:32
 msgid ""
-"d'un traducteur qu'il aura choisi, lequel se consacrera après entente, "
+"Le principe premier, est que le client prenne rendez-vous auprès d'un "
+"traducteur qu'il aura choisi, lequel se consacrera après entente, "
 "totalement à lui..."
 msgstr ""
 
-#: app/templates/banner_lg.html:52
-msgid "oeuvre caritative"
+#: app/templates/banner_lg.html:50
+msgid "Traducteurs oeuvres caritatives"
 msgstr ""
 
-#: app/templates/banner_lg.html:54
+#: app/templates/banner_lg.html:52
 #, python-format
 msgid ""
 "La plateforme s'engage, et perpétuellement; à allouer 2%(percent)s de vos"
-" paiements à des œuvres"
-msgstr ""
-
-#: app/templates/banner_lg.html:54
-msgid "caritatives."
+" paiements à des œuvres caritatives."
 msgstr ""
 
 #: app/templates/forgot_password.html:11 app/templates/reset_password.html:11
@@ -1916,12 +1905,9 @@ msgstr ""
 #: app/templates/terms.html:24
 #, python-format
 msgid ""
-"Les traducteurs acceptent que la plateforme garde 15%(percent)s des "
-"paiements de leurs travaux, et leur verse 85%(percent2)s sur leurs "
-"comptes respectifs. S’il y a une relecture à faire, la plateforme prend "
-"au maximum 5%(percent3)s comme frais de relecture du total du paiement du"
-" client, parfois moins, selon le volume nécessaire de celle-ci, pas un "
-"centime de plus."
+"Les traducteurs acceptent que la plateforme garde 20%(percent)s des "
+"paiements de leurs travaux, et leur verse 80%(percent1)s sur leurs "
+"comptes respectifs."
 msgstr ""
 
 #: app/templates/terms.html:25
@@ -2424,5 +2410,55 @@ msgstr ""
 #~ "êtes un(e) algérien(e) résident à "
 #~ "l’étranger, sauf en cas de promotions,"
 #~ " et respecter quelques engagements"
+#~ msgstr ""
+
+#~ msgid "sur rendez-vous en ligne"
+#~ msgstr ""
+
+#~ msgid "Traducteurs sur Rendez-vous est la première plateforme qui"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "regroupe des traducteurs freelancers "
+#~ "algériens, et bientôt des prestataires "
+#~ "des quatre coins du monde !"
+#~ msgstr ""
+
+#~ msgid "comment ça marche ?"
+#~ msgstr ""
+
+#~ msgid "Le principe premier, est que le client prenne rendez-vous auprès"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "d'un traducteur qu'il aura choisi, "
+#~ "lequel se consacrera après entente, "
+#~ "totalement à lui..."
+#~ msgstr ""
+
+#~ msgid "oeuvre caritative"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "La plateforme s'engage, et perpétuellement;"
+#~ " à allouer 2%(percent)s de vos "
+#~ "paiements à des œuvres"
+#~ msgstr ""
+
+#~ msgid "caritatives."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Les traducteurs acceptent que la "
+#~ "plateforme garde 15%(percent)s des paiements"
+#~ " de leurs travaux, et leur verse "
+#~ "85%(percent2)s sur leurs comptes respectifs."
+#~ " S’il y a une relecture à "
+#~ "faire, la plateforme prend au maximum"
+#~ " 5%(percent3)s comme frais de relecture "
+#~ "du total du paiement du client, "
+#~ "parfois moins, selon le volume "
+#~ "nécessaire de celle-ci, pas un "
+#~ "centime de plus."
 #~ msgstr ""
 
