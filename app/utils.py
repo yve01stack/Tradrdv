@@ -37,13 +37,13 @@ def allowed_image(filename):
         return False
 
 # Flask mail sender
-def send_async_email(self, app, msg):
+def send_async_email(app, msg):
     with app.app_context():
         try:
             if app.config['USE_EMAIL_API']:
                 headers = {
-                    "x-rapidapi-key": current_app.config['RAPIDAPI_KEY'],
-                    "x-rapidapi-host": current_app.config['FIREBASE_MAILER_URL'],
+                    "x-rapidapi-key": app.config['RAPIDAPI_KEY'],
+                    "x-rapidapi-host": app.config['FIREBASE_MAILER_URL'],
                     "Content-Type": "application/json"
                 }
                 url = "https://send-mail-serverless.p.rapidapi.com/send"
@@ -93,7 +93,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
             Thread(target=send_async_email, args=(app, msg)).start()
         
     else:
-        msg = Message(subject, sender=sender, recipients=recipients)
+        msg = Message(subject, sender=app.config['MAIL_USERNAME'], recipients=recipients)
         msg.body = text_body
         msg.html = html_body
         Thread(target=send_async_email, args=(app, msg)).start()

@@ -80,16 +80,16 @@ class Config(object):
 	
 	# flask mail sender
 	MAIL_SERVER = os.environ.get('MAIL_SERVER')
+	MAIL_PORT = 465
+	MAIL_USE_TLS = False
+	MAIL_USE_SSL = True
 	MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-	MAIL_PORT = 25
-	MAIL_USE_TLS = 1
 	
-	USE_EMAIL_API = True
+	USE_EMAIL_API = False
 	SENDER_NAME = "TRADRDV" 
 	SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
 	REPLY_TO_EMAIL = os.environ.get('REPLY_TO_EMAIL')
-	ALIEXPRESS_URL = os.environ.get('ALIEXPRESS_URL')
 	RAPIDAPI_KEY = os.environ.get('RAPIDAPI_KEY')
 	FIREBASE_MAILER_URL = os.environ.get('FIREBASE_MAILER_URL')
 

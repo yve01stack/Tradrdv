@@ -23,7 +23,8 @@ login.session_protection = "strong"
 client = WebApplicationClient(app.config["GOOGLE_CLIENT_ID"])
 login.login_view = 'login'
 login.login_message = _l('Veuillez vous connecter pour accéder à cette page.')
-mail = Mail(app)
+mail = Mail()
+mail.init_app(app)
 moment = Moment(app)
 scheduler = APScheduler()
 scheduler.init_app(app)
