@@ -7,27 +7,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-11-16 20:59+0800\n"
-"PO-Revision-Date: 2024-11-16 21:01+0800\n"
+"POT-Creation-Date: 2024-11-20 19:04+0800\n"
+"PO-Revision-Date: 2024-11-20 18:38+0800\n"
 "Last-Translator: \n"
-"Language-Team: en <LL@li.org>\n"
 "Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.16.0\n"
-"X-Generator: Poedit 3.1.1\n"
 
-#: app/templates/banner_lg.html:12 config.py:39
-#, fuzzy
+#: app/templates/banner_lg.html:12 app/templates/header_footer.html:167
+#: config.py:39
 msgid ""
 "Traducteurs sur Rendez-vous est la première plateforme qui regroupe des "
-"traducteurs freelancers algériens, et bientôt des prestataires des quatre coins "
-"du monde !"
+"traducteurs freelancers algériens, et bientôt des prestataires des quatre"
+" coins du monde !"
 msgstr ""
-"brings together Algerian freelance translators, and soon providers from all "
-"corners of the world!"
+"Traducteurs sur Rendez-vous  is the first platform that brings together "
+"Algerian freelance translators, and soon providers from all corners of "
+"the world!"
 
 #: app/routes.py:71
 #, python-format
@@ -90,7 +90,8 @@ msgstr "Your password has been successfully changed"
 
 #: app/routes.py:253
 msgid ""
-"Vous ne pouvez pas changer votre mot de passe car vous utilisez google login"
+"Vous ne pouvez pas changer votre mot de passe car vous utilisez google "
+"login"
 msgstr "You cannot change your password because you are using Google login"
 
 #: app/routes.py:268 app/routes.py:275
@@ -103,8 +104,8 @@ msgstr "Sponsor added"
 
 #: app/routes.py:285
 msgid ""
-"Vérifiez votre e-mail (ou spam) pour obtenir les instructions pour confirmer "
-"votre adresse mail"
+"Vérifiez votre e-mail (ou spam) pour obtenir les instructions pour "
+"confirmer votre adresse mail"
 msgstr "Check your email (or spam) for instructions to confirm your email address"
 
 #: app/routes.py:293 app/routes.py:321
@@ -151,10 +152,11 @@ msgstr "404 Error"
 
 #: app/routes.py:359
 msgid ""
-"Veuillez payer la facture, joindre la photo du reçu et ensuite profitez de "
-"votre offre"
+"Veuillez payer la facture, joindre la photo du reçu et ensuite profitez "
+"de votre offre"
 msgstr ""
-"Please pay the invoice, attach a photo of the receipt, and then enjoy your offer"
+"Please pay the invoice, attach a photo of the receipt, and then enjoy "
+"your offer"
 
 #: app/routes.py:368
 #, python-format
@@ -176,11 +178,11 @@ msgstr "Error, you have no ongoing marketing subscription"
 
 #: app/routes.py:404 app/routes.py:562 app/routes.py:724
 msgid ""
-"Erreur, vous avez déjà atteint le nombre maximal d'article de votre abonnement "
-"en cours"
+"Erreur, vous avez déjà atteint le nombre maximal d'article de votre "
+"abonnement en cours"
 msgstr ""
-"Error, you have already reached the maximum number of items for your current "
-"subscription"
+"Error, you have already reached the maximum number of items for your "
+"current subscription"
 
 #: app/routes.py:429 app/routes.py:598
 msgid "Erreur de nom ou d'extension de la première image"
@@ -207,11 +209,11 @@ msgstr "Subscription to the marketing plan"
 
 #: app/routes.py:546
 msgid ""
-"Veuillez payer la facture, joindre la photo du reçu et ensuite profitez de "
-"votre abonnement marketing"
+"Veuillez payer la facture, joindre la photo du reçu et ensuite profitez "
+"de votre abonnement marketing"
 msgstr ""
-"Please pay the invoice, attach a photo of the receipt, and then enjoy your "
-"marketing subscription"
+"Please pay the invoice, attach a photo of the receipt, and then enjoy "
+"your marketing subscription"
 
 #: app/routes.py:567
 msgid "Votre article est maintenant en ligne"
@@ -258,20 +260,20 @@ msgstr "A new message"
 #: app/routes.py:855
 #, python-format
 msgid ""
-"Depuis votre dernière visite sur TRADRDV, %(username)s un nouveau traducteur "
-"aimerait passer son test d'attitude auprès de vous.Veuillez consulter votre "
-"messagerie."
+"Depuis votre dernière visite sur TRADRDV, %(username)s un nouveau "
+"traducteur aimerait passer son test d'attitude auprès de vous.Veuillez "
+"consulter votre messagerie."
 msgstr ""
-"Since your last visit on TRADRDV, %(username)s, a new translator would like to "
-"take their assessment test with you. Please check your inbox."
+"Since your last visit on TRADRDV, %(username)s, a new translator would "
+"like to take their assessment test with you. Please check your inbox."
 
 #: app/routes.py:859
 msgid ""
-"Veuillez payer la facture, joindre la photo du reçu et ensuite passez le test "
-"auprès du testeur"
+"Veuillez payer la facture, joindre la photo du reçu et ensuite passez le "
+"test auprès du testeur"
 msgstr ""
-"Please pay the invoice, attach a photo of the receipt, and then take the test "
-"with the examiner."
+"Please pay the invoice, attach a photo of the receipt, and then take the "
+"test with the examiner."
 
 #: app/routes.py:870 app/routes.py:1060 app/routes.py:1076 app/routes.py:1102
 #: app/routes.py:1271 app/routes.py:1500 app/routes.py:1571 app/routes.py:1593
@@ -287,19 +289,20 @@ msgstr "Translator account update "
 #: app/routes.py:995
 #, python-format
 msgid ""
-"Votre profil de traducteur est maintenant disponible auprès des clients. Nous "
-"vous souhaitons bienvenu(e) chez %(sitname)s"
+"Votre profil de traducteur est maintenant disponible auprès des clients. "
+"Nous vous souhaitons bienvenu(e) chez %(sitname)s"
 msgstr ""
-"Your translator profile is now available to clients. Welcome to %(sitname)s"
+"Your translator profile is now available to clients. Welcome to "
+"%(sitname)s"
 
 #: app/routes.py:1001 app/routes.py:1724 app/routes.py:1763
 #, python-format
 msgid ""
-"Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un nouveau "
-"message.Veuillez consulter votre messagerie."
+"Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un "
+"nouveau message.Veuillez consulter votre messagerie."
 msgstr ""
-"Since your last visit on TRADRDV, %(username)s  a new message has been sent to "
-"you. Please check your inbox."
+"Since your last visit on TRADRDV, %(username)s  a new message has been "
+"sent to you. Please check your inbox."
 
 #: app/routes.py:1014 app/routes.py:1451
 #, python-format
@@ -308,20 +311,23 @@ msgstr "Please complete your information and fully enjoy %(sitename)s "
 
 #: app/routes.py:1065
 msgid ""
-"Vous venez d'accepter une nouvelle commande, le temps vous est désormais compté"
+"Vous venez d'accepter une nouvelle commande, le temps vous est désormais "
+"compté"
 msgstr "You have just accepted a new order, time is now ticking for you"
 
 #: app/routes.py:1083
 msgid ""
-"Vous venez de rejeter une commande, votre statut d'accomplissement se dégrade"
+"Vous venez de rejeter une commande, votre statut d'accomplissement se "
+"dégrade"
 msgstr "You have just rejected an order, your completion status is decreasing"
 
 #: app/routes.py:1107
 msgid ""
-"Félicitations, vous venez de mentionner une commande accomplie, vérification en "
-"cours"
+"Félicitations, vous venez de mentionner une commande accomplie, "
+"vérification en cours"
 msgstr ""
-"Congratulations, you just marked an order as completed, verification in progress"
+"Congratulations, you just marked an order as completed, verification in "
+"progress"
 
 #: app/routes.py:1110
 msgid "Veuillez joindre votre travail"
@@ -353,42 +359,42 @@ msgstr "You cannot contact yourself"
 
 #: app/routes.py:1190
 msgid ""
-"Nouveau message, je suis intéressé par votre profil. Etes vous disponible pour "
-"me renseigner?"
+"Nouveau message, je suis intéressé par votre profil. Etes vous disponible"
+" pour me renseigner?"
 msgstr ""
-"New message, I am interested in your profile. Are you available to give me more "
-"information?"
+"New message, I am interested in your profile. Are you available to give "
+"me more information?"
 
 #: app/routes.py:1196 app/routes.py:1320
 #, python-format
 msgid ""
-"Depuis votre dernière visite sur TRADRDV, %(username)s aimerait entrer en "
-"contact avec vous.                Veuillez consulter votre messagerie."
+"Depuis votre dernière visite sur TRADRDV, %(username)s aimerait entrer en"
+" contact avec vous.                Veuillez consulter votre messagerie."
 msgstr ""
-"Since your last visit on TRADRDV, %(username)s would like to get in touch with "
-"you. Please check your inbox."
+"Since your last visit on TRADRDV, %(username)s would like to get in touch"
+" with you. Please check your inbox."
 
 #: app/routes.py:1201
 msgid ""
-"Veuillez cliquer sur le pseudo du prestataire dans la discussion pour entamer "
-"la conversation"
+"Veuillez cliquer sur le pseudo du prestataire dans la discussion pour "
+"entamer la conversation"
 msgstr ""
 "Please click on the provider's username in the discussion to start the "
 "conversation"
 
 #: app/routes.py:1217
 msgid ""
-"Vous n'avez aucune offre active. Veuillez vous abonner avant d'utiliser cette "
-"option"
+"Vous n'avez aucune offre active. Veuillez vous abonner avant d'utiliser "
+"cette option"
 msgstr "You have no active offers. Please subscribe before using this option"
 
 #: app/routes.py:1220
 msgid ""
-"Vous avez déjà utilisé l'offre journalière de votre abonnement. Veuillez payer "
-"cash ou attendez le prochain 00 heure"
+"Vous avez déjà utilisé l'offre journalière de votre abonnement. Veuillez "
+"payer cash ou attendez le prochain 00 heure"
 msgstr ""
-"You have already used the daily offer of your subscription. Please pay cash or "
-"wait until the next 00:00 hour"
+"You have already used the daily offer of your subscription. Please pay "
+"cash or wait until the next 00:00 hour"
 
 #: app/routes.py:1225
 msgid "Vous ne pouvez pas engager vous même"
@@ -412,8 +418,8 @@ msgid ""
 "Depuis votre dernière visite sur TRADRDV, %(username)s vous a envoyé un "
 "message.                Veuillez consulter votre messagerie."
 msgstr ""
-"Since your last visit on TRADRDV, %(username)s has sent you a message. Please "
-"check your inbox."
+"Since your last visit on TRADRDV, %(username)s has sent you a message. "
+"Please check your inbox."
 
 #: app/routes.py:1394
 msgid "Cette adresse mail a déjà été enregistrée"
@@ -435,19 +441,19 @@ msgstr "AGREEMENT ENDED: thank you for choosing %(site_name)s"
 #: app/routes.py:1534 app/routes.py:1552 app/routes.py:1608
 #, python-format
 msgid ""
-"Depuis votre dernière visite sur TRADRDV, %(username)s vous a laissé(e) un "
-"message.                Veuillez consulter votre messagerie."
+"Depuis votre dernière visite sur TRADRDV, %(username)s vous a laissé(e) "
+"un message.                Veuillez consulter votre messagerie."
 msgstr ""
-"Since your last visit on TRADRDV, %(username)s has left you a message. Please "
-"check your inbox."
+"Since your last visit on TRADRDV, %(username)s has left you a message. "
+"Please check your inbox."
 
 #: app/routes.py:1546
 msgid ""
-"Félicitations pour votre nouveau point d’expérience, continuez de gravir les "
-"échelons, y’en aura encore !"
+"Félicitations pour votre nouveau point d’expérience, continuez de gravir "
+"les échelons, y’en aura encore !"
 msgstr ""
-"Congratulations on your new experience point, keep climbing the ranks, there's "
-"more to come!"
+"Congratulations on your new experience point, keep climbing the ranks, "
+"there's more to come!"
 
 #: app/routes.py:1557
 msgid "Commande terminée"
@@ -463,8 +469,8 @@ msgstr "The receipt’s compliance and originality have been confirmed"
 
 #: app/routes.py:1602
 msgid ""
-"Désolé, votre reçu n'est pas vérifié. Veuillez nous envoyer plus de détails par "
-"la discussion"
+"Désolé, votre reçu n'est pas vérifié. Veuillez nous envoyer plus de "
+"détails par la discussion"
 msgstr ""
 "Sorry, your receipt is not verified. Please send us more details via the "
 "discussion"
@@ -481,12 +487,13 @@ msgstr "Hello, I am your new provider on the agreement: %(motif)s"
 #: app/routes.py:1646
 #, python-format
 msgid ""
-"Depuis votre dernière visite sur TRADRDV, %(username)s un nouveau prestataire a "
-"repris votre accord suite au refus de l'autre. Veuillez consulter votre "
-"messagerie."
+"Depuis votre dernière visite sur TRADRDV, %(username)s un nouveau "
+"prestataire a repris votre accord suite au refus de l'autre. Veuillez "
+"consulter votre messagerie."
 msgstr ""
-"Since your last visit on TRADRDV, %(username)s, a new provider has taken over "
-"your agreement following the other’s refusal. Please check your inbox."
+"Since your last visit on TRADRDV, %(username)s, a new provider has taken "
+"over your agreement following the other’s refusal. Please check your "
+"inbox."
 
 #: app/routes.py:1718
 msgid ""
@@ -494,8 +501,8 @@ msgid ""
 "abonnement pub démarre dès à present. Veuillez profiter de votre espace "
 "marketing"
 msgstr ""
-"Hello dear client! We are informing you that your advertising subscription "
-"starts now. Please enjoy your marketing space"
+"Hello dear client! We are informing you that your advertising "
+"subscription starts now. Please enjoy your marketing space"
 
 #: app/routes.py:1723 app/templates/admin_panel.html:123
 msgid "Abonnement Pub"
@@ -504,14 +511,14 @@ msgstr "Advertising Subscription"
 #: app/routes.py:1757
 #, python-format
 msgid ""
-"Bonjour cher traducteur! Nous venons par ce message vous informer que votre "
-"abonnement traducteur a été prolongé pour quelques jours. N'oubliez pas de "
-"renouveler votre forfait aussi tôt que possible. Vous êtes toujours bienvenu(e) "
-"chez %(sitname)s"
+"Bonjour cher traducteur! Nous venons par ce message vous informer que "
+"votre abonnement traducteur a été prolongé pour quelques jours. N'oubliez"
+" pas de renouveler votre forfait aussi tôt que possible. Vous êtes "
+"toujours bienvenu(e) chez %(sitname)s"
 msgstr ""
-"Hello dear translator! We are informing you that your translator subscription "
-"has been extended for a few days. Don’t forget to renew your package as soon as "
-"possible. You are always welcome at %(sitname)s"
+"Hello dear translator! We are informing you that your translator "
+"subscription has been extended for a few days. Don’t forget to renew your"
+" package as soon as possible. You are always welcome at %(sitname)s"
 
 #: app/routes.py:1762
 msgid "Abonnement traducteur prolongé"
@@ -524,9 +531,9 @@ msgstr "Translator subscription extension has been done"
 #: app/routes.py:1832
 #, python-format
 msgid ""
-"Depuis votre dernière visite sur TRADRDV, vous avez reçu un salaire mensuel de "
-"%(amount)s %(devise)s de la part de TRADRDV. Veuillez consulter votre compte en "
-"banque."
+"Depuis votre dernière visite sur TRADRDV, vous avez reçu un salaire "
+"mensuel de %(amount)s %(devise)s de la part de TRADRDV. Veuillez "
+"consulter votre compte en banque."
 msgstr ""
 "Since your last visit on TRADRDV, you have received a monthly salary of "
 "%(amount)s %(devise)s from TRADRDV. Please check your bank account."
@@ -610,48 +617,49 @@ msgstr "Translation, Interpretation, and ad or advertising by appointment."
 
 #: app/templates/about.html:82
 msgid ""
-"G. Hanane, Cheffe de projet, créatrice de l'idée et du concept, propriétaire de "
-"la plateforme et rédactrice du contenu, \n"
-"                        diplômée de la faculté centrale d'Alger, promotion "
-"2010, a eu l'idée de créer une plateforme web qui regroupe les traducteurs/"
-"interprètes \n"
+"G. Hanane, Cheffe de projet, créatrice de l'idée et du concept, "
+"propriétaire de la plateforme et rédactrice du contenu, \n"
+"                        diplômée de la faculté centrale d'Alger, "
+"promotion 2010, a eu l'idée de créer une plateforme web qui regroupe les "
+"traducteurs/interprètes \n"
 "                        freelancers de l'Algérie, n'ayant pas la liberté "
-"d'exercer la traduction en freelance dans le pays, et où les posts de travail "
-"deviennent \n"
-"                        une denrée rare qui sont du surcroit, accessibles "
-"uniquement à une minorité devant un nombre gigantesque et croissant de gradués, "
-"ceux-ci \n"
-"                        trouvent souvent face à des difficultés à arborer leur "
-"insigne dans leur domaine d'études universitaires. Traducteurs sur RDV, n'est "
-"pas \n"
-"                        seulement une plateforme pour fournir les meilleures "
-"prestations en traduction et interprétation, mais le principe est que chaque "
-"client \n"
-"                        puisse prendre un rendez-vous auprès du profil du "
-"traducteur qu'il aura choisi, lequel après entente, se consacrera totalement "
-"et \n"
+"d'exercer la traduction en freelance dans le pays, et où les posts de "
+"travail deviennent \n"
+"                        une denrée rare qui sont du surcroit, accessibles"
+" uniquement à une minorité devant un nombre gigantesque et croissant de "
+"gradués, ceux-ci \n"
+"                        trouvent souvent face à des difficultés à arborer"
+" leur insigne dans leur domaine d'études universitaires. Traducteurs sur "
+"RDV, n'est pas \n"
+"                        seulement une plateforme pour fournir les "
+"meilleures prestations en traduction et interprétation, mais le principe "
+"est que chaque client \n"
+"                        puisse prendre un rendez-vous auprès du profil du"
+" traducteur qu'il aura choisi, lequel après entente, se consacrera "
+"totalement et \n"
 "                        exclusivement à lui."
 msgstr ""
-"G. Hanane, Project Manager, creator of the idea and concept, owner of the "
-"platform, and content writer, \n"
+"G. Hanane, Project Manager, creator of the idea and concept, owner of the"
+" platform, and content writer, \n"
 "                        graduated from the Central Faculty of Algiers, \n"
-"                        Class of 2010, had the idea to create a web platform \n"
-"                        that brings together freelance translators/interpreters "
-"from Algeria, \n"
+"                        Class of 2010, had the idea to create a web "
+"platform \n"
+"                        that brings together freelance "
+"translators/interpreters from Algeria, \n"
 "                        who do not have the freedom to work as freelance "
 "translators in the country, \n"
-"                        and where job posts have become a rare commodity, "
-"accessible only to a minority, \n"
-"                        despite the enormous and growing number of graduates. "
-"These graduates \n"
-"                        often face difficulties in practicing their expertise "
-"in their field of university studies. \n"
-"                        'Translators by Appointment' is not just a platform to "
-"offer the best translation and interpretation services, \n"
-"                        but the principle is that each client can make an "
-"appointment with the translator's profile of their choice, \n"
-"                        who will dedicate themselves exclusively to the client "
-"after an agreement."
+"                        and where job posts have become a rare commodity,"
+" accessible only to a minority, \n"
+"                        despite the enormous and growing number of "
+"graduates. These graduates \n"
+"                        often face difficulties in practicing their "
+"expertise in their field of university studies. \n"
+"                        'Translators by Appointment' is not just a "
+"platform to offer the best translation and interpretation services, \n"
+"                        but the principle is that each client can make an"
+" appointment with the translator's profile of their choice, \n"
+"                        who will dedicate themselves exclusively to the "
+"client after an agreement."
 
 #: app/templates/about.html:91
 msgid "Compétences & Dévéloppement"
@@ -695,11 +703,11 @@ msgstr "SUBSCRIBE TO OUR NEWSLETTER"
 
 #: app/templates/about.html:234
 msgid ""
-"En vous inscrivant à notre liste de diffusion, vous serez toujours au courant "
-"des dernières nouvelles"
+"En vous inscrivant à notre liste de diffusion, vous serez toujours au "
+"courant des dernières nouvelles"
 msgstr ""
-"By subscribing to our Newsletter, you will always be up-to-date on our latest "
-"news"
+"By subscribing to our Newsletter, you will always be up-to-date on our "
+"latest news"
 
 #: app/templates/about.html:237
 msgid "Souscrire"
@@ -732,10 +740,11 @@ msgstr "Our Values"
 
 #: app/templates/accueil.html:133
 msgid ""
-"Celles-ci sont nos valeurs mères, et à chacun qui place en nous sa confiance, "
-"nous lui garantissons qu'il aura de quoi être fier!"
+"Celles-ci sont nos valeurs mères, et à chacun qui place en nous sa "
+"confiance, nous lui garantissons qu'il aura de quoi être fier!"
 msgstr ""
-"Below are our core values. Place your trust in us and we will live up to it!"
+"Below are our core values. Place your trust in us and we will live up to "
+"it!"
 
 #: app/templates/accueil.html:144
 msgid "Honesty is the best policy"
@@ -743,11 +752,11 @@ msgstr "L'honnêteté est la meilleure des politiques"
 
 #: app/templates/accueil.html:145
 msgid ""
-"En français \"L'honnêteté est la meilleure des stratégies à adopter\", ceci "
-"constitue notre devise première"
+"En français \"L'honnêteté est la meilleure des stratégies à adopter\", "
+"ceci constitue notre devise première"
 msgstr ""
-" Honesty is the Best Policy “Honesty is the Best Policy”, not our unique moto, "
-"but the first."
+" Honesty is the Best Policy “Honesty is the Best Policy”, not our unique "
+"moto, but the first."
 
 #: app/templates/accueil.html:146 app/templates/accueil.html:160
 #: app/templates/accueil.html:174
@@ -760,13 +769,13 @@ msgstr "Our personal satisfaction lies in: being up to any challenge."
 
 #: app/templates/accueil.html:158
 msgid ""
-"et être les meilleurs pour réserver un travail parfait à nos clients, c'est ce "
-"que nous savons le mieux faire, tout en œuvrant\n"
+"et être les meilleurs pour réserver un travail parfait à nos clients, "
+"c'est ce que nous savons le mieux faire, tout en œuvrant\n"
 "                                        constamment pour nous parfaire!"
 msgstr ""
-"Our paramount objective is to indulge our clients with our impeccable services, "
-"this is what we do best, while still aiming for perfection, which is our "
-"ultimate quest!"
+"Our paramount objective is to indulge our clients with our impeccable "
+"services, this is what we do best, while still aiming for perfection, "
+"which is our ultimate quest!"
 
 #: app/templates/accueil.html:172
 msgid "Un travail de qualité dans le délais"
@@ -774,7 +783,8 @@ msgstr "High Quality Work Delivered on Time!"
 
 #: app/templates/accueil.html:173
 msgid ""
-"à chaque fois nous surpasser, sont nos meilleurs atouts et spots publicitaires"
+"à chaque fois nous surpasser, sont nos meilleurs atouts et spots "
+"publicitaires"
 msgstr "Surpassing ourselves each time is our greatest asset and advertisement. "
 
 #: app/templates/accueil.html:188 app/templates/admin_panel.html:14
@@ -813,8 +823,8 @@ msgid ""
 "Cette offre par défaut vous autorise à engager des prestataires pour vos "
 "besoins en traduction ou interprètation"
 msgstr ""
-"This default offer allows you to hire Freelancers for your needs in Translation "
-"and interpreting matters"
+"This default offer allows you to hire Freelancers for your needs in "
+"Translation and interpreting matters"
 
 #: app/templates/accueil.html:260
 msgid "Défaut"
@@ -860,11 +870,11 @@ msgstr "Rip the benefits of this offer for 6 months"
 
 #: app/templates/accueil.html:295
 msgid ""
-"Cette offre moyenne vous permet de profiter des mêmes avantages que l'offre "
-"premium mais sur une durée de six mois"
+"Cette offre moyenne vous permet de profiter des mêmes avantages que "
+"l'offre premium mais sur une durée de six mois"
 msgstr ""
-"This medium offer enables you to benefit the same way as for the Premium offer, "
-"but within a 6 months period"
+"This medium offer enables you to benefit the same way as for the Premium "
+"offer, but within a 6 months period"
 
 #: app/templates/admin_panel.html:12 app/templates/manager_panel.html:10
 #: app/templates/manager_panel.html:11 app/templates/manager_panel.html:60
@@ -1220,9 +1230,8 @@ msgid "Attente.."
 msgstr "Waiting.."
 
 #: app/templates/banner_lg.html:10
-#, fuzzy
 msgid "Traducteurs sur rendez-vous en ligne"
-msgstr "by online appointment"
+msgstr "Traducteurs sur rendez-vous en ligne"
 
 #: app/templates/banner_lg.html:17 app/templates/banner_lg.html:23
 #: app/templates/banner_lg.html:37 app/templates/banner_lg.html:43
@@ -1238,33 +1247,31 @@ msgid "Trouver un Traducteur"
 msgstr "Find a Translator"
 
 #: app/templates/banner_lg.html:30
-#, fuzzy
 msgid "Traducteurs comment ça marche ?"
-msgstr "how does it work?"
+msgstr "Traducteurs how does it work?"
 
 #: app/templates/banner_lg.html:32
-#, fuzzy
 msgid ""
 "Le principe premier, est que le client prenne rendez-vous auprès d'un "
-"traducteur qu'il aura choisi, lequel se consacrera après entente, totalement à "
-"lui..."
+"traducteur qu'il aura choisi, lequel se consacrera après entente, "
+"totalement à lui..."
 msgstr ""
-"with a translator of his choice, the latter, after mutual agreement, will "
-"dedicate himself to the fulfillment of his client's"
+" The primary principle is that the client schedules an appointment with a"
+" translator of their choice, who will then, after mutual agreement, "
+"dedicate themselves entirely to the client."
 
 #: app/templates/banner_lg.html:50
-#, fuzzy
 msgid "Traducteurs oeuvres caritatives"
-msgstr "for charity"
+msgstr "Traducteurs for charity"
 
 #: app/templates/banner_lg.html:52
 #, fuzzy, python-format
 msgid ""
-"La plateforme s'engage, et perpétuellement; à allouer 2%(percent)s de vos "
-"paiements à des œuvres caritatives."
+"La plateforme s'engage, et perpétuellement; à allouer 2%(percent)s de vos"
+" paiements à des œuvres caritatives."
 msgstr ""
-"This Platform commits, and eternally, to dedicate 2%(percent)s out of your "
-"payments for charity matters."
+"This Platform commits, and eternally, to dedicate 2%(percent)s out of "
+"your payments for charity matters."
 
 #: app/templates/forgot_password.html:11 app/templates/reset_password.html:11
 msgid "Mot de passe oublié"
@@ -1272,10 +1279,11 @@ msgstr "Forgot password"
 
 #: app/templates/forgot_password.html:12 app/templates/reset_password.html:12
 msgid ""
-"Suivez la proceduire et un mail vous sera envoyé pour réinitialiser le mot de "
-"passe"
+"Suivez la proceduire et un mail vous sera envoyé pour réinitialiser le "
+"mot de passe"
 msgstr ""
-"Follow the procedure and an email will be sent to you to reset the password "
+"Follow the procedure and an email will be sent to you to reset the "
+"password "
 
 #: app/templates/forgot_password.html:19 app/templates/header_footer.html:249
 msgid "Adresse Email"
@@ -1356,11 +1364,11 @@ msgstr "Register"
 
 #: app/templates/header_footer.html:245
 msgid ""
-"Inscrivez-vous à notre liste de diffusion pour recevoir les dernières mises à "
-"jour et offres"
+"Inscrivez-vous à notre liste de diffusion pour recevoir les dernières "
+"mises à jour et offres"
 msgstr ""
-"Register to our Newsletter so you always be up-to-date on our latest updates "
-"and offers"
+"Register to our Newsletter so you always be up-to-date on our latest "
+"updates and offers"
 
 #: app/templates/header_footer.html:255
 msgid "Nous respectons votre vie privée"
@@ -1399,7 +1407,8 @@ msgstr "Not registered yet?"
 msgid "inscrivez-vous"
 msgstr "sign up"
 
-#: app/templates/email/confirm_email.html:4 app/templates/email/info_email.html:4
+#: app/templates/email/confirm_email.html:4
+#: app/templates/email/info_email.html:4
 #: app/templates/email/reset_password.html:4 app/templates/login.html:45
 #: app/templates/login.html:46 app/templates/register.html:61
 msgid "ici"
@@ -1477,37 +1486,38 @@ msgstr "Attach your work"
 
 #: app/templates/new_traducteur.html:15
 msgid ""
-"Vous résidez en Algérie ou même outre-mer, et avez une licence en traduction ou "
-"un diplôme équivalent ? \n"
+"Vous résidez en Algérie ou même outre-mer, et avez une licence en "
+"traduction ou un diplôme équivalent ? \n"
 "                    Ou bien vous êtes titulaire d’une licence en langues "
 "étrangères, en plus d’un master en traduction ? \n"
 "                    Ou peut-être vous êtes ingénieur en une toute autre "
 "filière, mais avez une maîtrise parfaite des langues, \n"
-"                    et possédez en tout ce qui est technique, un très bon "
-"jargon ? Vous désirez avoir à faire à de multitudes de clients, \n"
+"                    et possédez en tout ce qui est technique, un très bon"
+" jargon ? Vous désirez avoir à faire à de multitudes de clients, \n"
 "                    acquérir de l’expérience, et faire exploser votre "
 "Portefeuille d’argent ? \n"
-"                    Traducteurs sur Rendez-vous est le monde qu’il vous faut ! "
-"N’attendez plus et engagez-vous dés maintenant ! "
+"                    Traducteurs sur Rendez-vous est le monde qu’il vous "
+"faut ! N’attendez plus et engagez-vous dés maintenant ! "
 msgstr ""
-"Do you reside in Algeria or even overseas, and have a degree in translation or "
-"an equivalent diploma? \n"
-"                    Or perhaps you have a degree in foreign languages, in "
-"addition to a master's in translation? \n"
-"                    Or maybe you are an engineer in a completely different "
-"field, but have a perfect command of languages, \n"
-"                    and possess a very good technical jargon? Do you want to "
-"engage with a multitude of clients, \n"
+"Do you reside in Algeria or even overseas, and have a degree in "
+"translation or an equivalent diploma? \n"
+"                    Or perhaps you have a degree in foreign languages, in"
+" addition to a master's in translation? \n"
+"                    Or maybe you are an engineer in a completely "
+"different field, but have a perfect command of languages, \n"
+"                    and possess a very good technical jargon? Do you want"
+" to engage with a multitude of clients, \n"
 "                    gain experience, and boost your income? \n"
-"                    Traducteur sur Rendez-vous is the world you need! Don't "
-"wait any longer, get involved now! "
+"                    Traducteur sur Rendez-vous is the world you need! "
+"Don't wait any longer, get involved now! "
 
 #: app/templates/new_traducteur.html:21 app/templates/update_traducteur.html:21
 msgid ""
-"Classer vos compétences par ordre de maîtrise à partir de la gauche de haut en "
-"bas."
+"Classer vos compétences par ordre de maîtrise à partir de la gauche de "
+"haut en bas."
 msgstr ""
-"Rank your skills in order of proficiency from left to right, top to bottom."
+"Rank your skills in order of proficiency from left to right, top to "
+"bottom."
 
 #: app/templates/new_traducteur.html:24 app/templates/update_traducteur.html:24
 msgid "Compétences"
@@ -1535,14 +1545,17 @@ msgstr "Passable level"
 
 #: app/templates/new_traducteur.html:71 app/templates/new_traducteur.html:79
 #: app/templates/new_traducteur.html:87 app/templates/new_traducteur.html:95
-#: app/templates/new_traducteur.html:103 app/templates/update_traducteur.html:71
-#: app/templates/update_traducteur.html:79 app/templates/update_traducteur.html:87
+#: app/templates/new_traducteur.html:103
+#: app/templates/update_traducteur.html:71
+#: app/templates/update_traducteur.html:79
+#: app/templates/update_traducteur.html:87
 #: app/templates/update_traducteur.html:95
 #: app/templates/update_traducteur.html:103
 msgid "Autre"
 msgstr "Other"
 
-#: app/templates/new_traducteur.html:113 app/templates/update_traducteur.html:113
+#: app/templates/new_traducteur.html:113
+#: app/templates/update_traducteur.html:113
 msgid "Personnel Informations"
 msgstr "Personal Information"
 
@@ -1557,35 +1570,43 @@ msgstr "Country of residence"
 msgid "Ville de résidence"
 msgstr "City of residence"
 
-#: app/templates/new_traducteur.html:129 app/templates/update_traducteur.html:129
+#: app/templates/new_traducteur.html:129
+#: app/templates/update_traducteur.html:129
 msgid "code postal, rue, bâtiment"
 msgstr "postal code, street, building"
 
-#: app/templates/new_traducteur.html:133 app/templates/update_traducteur.html:133
+#: app/templates/new_traducteur.html:133
+#: app/templates/update_traducteur.html:133
 msgid "Numéro de compte CCP"
 msgstr "CCP account number"
 
-#: app/templates/new_traducteur.html:134 app/templates/update_traducteur.html:134
+#: app/templates/new_traducteur.html:134
+#: app/templates/update_traducteur.html:134
 msgid "BaridiMob RIP"
 msgstr "BaridiMob RIP"
 
-#: app/templates/new_traducteur.html:137 app/templates/update_traducteur.html:137
+#: app/templates/new_traducteur.html:137
+#: app/templates/update_traducteur.html:137
 msgid "Paiement électronique"
 msgstr "Electronic payment"
 
-#: app/templates/new_traducteur.html:143 app/templates/update_traducteur.html:143
+#: app/templates/new_traducteur.html:143
+#: app/templates/update_traducteur.html:143
 msgid "Identifiant ePaiement"
 msgstr "ePayment Identifier "
 
-#: app/templates/new_traducteur.html:148 app/templates/update_traducteur.html:148
+#: app/templates/new_traducteur.html:148
+#: app/templates/update_traducteur.html:148
 msgid "Identité"
 msgstr "Identity"
 
-#: app/templates/new_traducteur.html:152 app/templates/update_traducteur.html:152
+#: app/templates/new_traducteur.html:152
+#: app/templates/update_traducteur.html:152
 msgid "Carte Identité/Passeport (1mo max)"
 msgstr "Identity card/Passport (1MB max)"
 
-#: app/templates/new_traducteur.html:156 app/templates/update_traducteur.html:158
+#: app/templates/new_traducteur.html:156
+#: app/templates/update_traducteur.html:158
 msgid "Diplomes obtenus (.pdf, 1mo max)"
 msgstr "Obtained diplomas (.pdf, 1MB max)"
 
@@ -1604,54 +1625,65 @@ msgstr "Obtained diplomas (.pdf, 1MB max)"
 msgid "Prestation"
 msgstr "Service"
 
-#: app/templates/new_traducteur.html:217 app/templates/update_traducteur.html:221
+#: app/templates/new_traducteur.html:217
+#: app/templates/update_traducteur.html:221
 msgid "Bio (pas de contact personnel, 3 lignes max)"
 msgstr "Bio (no personal contact, 3 lines max)"
 
-#: app/templates/new_traducteur.html:222 app/templates/update_traducteur.html:228
+#: app/templates/new_traducteur.html:222
+#: app/templates/update_traducteur.html:228
 msgid "Testeur"
 msgstr "Tester"
 
-#: app/templates/new_traducteur.html:225 app/templates/update_traducteur.html:231
+#: app/templates/new_traducteur.html:225
+#: app/templates/update_traducteur.html:231
 msgid ""
-"Veuillez selectionner un testeur qui vous passera le test d'attitude pour "
-"devenir traducteur chez \n"
-"                            Traducteur sur Rendez-vous quand vous aurez payé "
-"les frais d'abonnement annuel"
+"Veuillez selectionner un testeur qui vous passera le test d'attitude pour"
+" devenir traducteur chez \n"
+"                            Traducteur sur Rendez-vous quand vous aurez "
+"payé les frais d'abonnement annuel"
 msgstr ""
-"Please select a tester who will administer the attitude test to you to become a "
-"translator at \"Traducteur sur Rendez-vous\" when you have paid the annual "
-"subscription fee. "
+"Please select a tester who will administer the attitude test to you to "
+"become a translator at \"Traducteur sur Rendez-vous\" when you have paid "
+"the annual subscription fee. "
 
-#: app/templates/new_traducteur.html:228 app/templates/update_traducteur.html:234
+#: app/templates/new_traducteur.html:228
+#: app/templates/update_traducteur.html:234
 msgid "Chosissez un testeur"
 msgstr "Choose a tester"
 
-#: app/templates/new_traducteur.html:235 app/templates/update_traducteur.html:241
+#: app/templates/new_traducteur.html:235
+#: app/templates/update_traducteur.html:241
 msgid "Nom d'utilisateur:"
 msgstr "Username:"
 
-#: app/templates/new_traducteur.html:236 app/templates/update_traducteur.html:242
+#: app/templates/new_traducteur.html:236
+#: app/templates/update_traducteur.html:242
 msgid "Pays de résidence:"
 msgstr "Country of residence:"
 
-#: app/templates/new_traducteur.html:237 app/templates/update_traducteur.html:243
+#: app/templates/new_traducteur.html:237
+#: app/templates/update_traducteur.html:243
 msgid "Ville de résidence:"
 msgstr "City of residence:"
 
-#: app/templates/new_traducteur.html:238 app/templates/update_traducteur.html:244
+#: app/templates/new_traducteur.html:238
+#: app/templates/update_traducteur.html:244
 msgid "Adresse postale:"
 msgstr "Postal address:"
 
-#: app/templates/new_traducteur.html:245 app/templates/update_traducteur.html:251
+#: app/templates/new_traducteur.html:245
+#: app/templates/update_traducteur.html:251
 msgid "Points d'expérience sur TRADRDV:"
 msgstr "Experience points on TRADRDV:"
 
-#: app/templates/new_traducteur.html:253 app/templates/update_traducteur.html:273
+#: app/templates/new_traducteur.html:253
+#: app/templates/update_traducteur.html:273
 msgid "Précédent"
 msgstr "Previous"
 
-#: app/templates/new_traducteur.html:254 app/templates/update_traducteur.html:274
+#: app/templates/new_traducteur.html:254
+#: app/templates/update_traducteur.html:274
 msgid "Suivant"
 msgstr "Next"
 
@@ -1788,35 +1820,35 @@ msgstr "Edit or attach a file"
 #: app/templates/profile.html:322
 #, python-format
 msgid ""
-"Pour vous réserver votre traducteur et lancer votre travail, vous avez 24h pour "
-"pouvoir confirmer votre commande à travers un reçu \n"
-"                du versement de 80%(percent)s du total de la somme, ou vous "
-"décommander,"
+"Pour vous réserver votre traducteur et lancer votre travail, vous avez "
+"24h pour pouvoir confirmer votre commande à travers un reçu \n"
+"                du versement de 80%(percent)s du total de la somme, ou "
+"vous décommander,"
 msgstr ""
-"To reserve your translator and start your work, you have 24 hours to confirm "
-"your order through a receipt of 80%(percent)s of the total amount, or you can "
-"cancel it,"
+"To reserve your translator and start your work, you have 24 hours to "
+"confirm your order through a receipt of 80%(percent)s of the total "
+"amount, or you can cancel it,"
 
 #: app/templates/profile.html:325
 msgid ""
-"Nous privilégions l’utilisation de l’application BaridiMob en Algérie, pour sa "
-"rapidité et son efficacité, et ceci sans déplacements."
+"Nous privilégions l’utilisation de l’application BaridiMob en Algérie, "
+"pour sa rapidité et son efficacité, et ceci sans déplacements."
 msgstr ""
 "We prefer using the BaridiMob application in Algeria for its speed and "
 "efficiency, and this without having to travel."
 
 #: app/templates/profile.html:326
 msgid ""
-"Pour le marché en dehors de l’Algérie, nous n’acceptons que les transferts "
-"Western Union et la plateforme Payoneer»."
+"Pour le marché en dehors de l’Algérie, nous n’acceptons que les "
+"transferts Western Union et la plateforme Payoneer»."
 msgstr ""
-"For the market outside Algeria, we only accept Western Union transfers and the "
-"Payoneer platform."
+"For the market outside Algeria, we only accept Western Union transfers "
+"and the Payoneer platform."
 
 #: app/templates/profile.html:327
 msgid ""
-"Les prix pour le marché international différent des prix pour le marché local « "
-"algérien)."
+"Les prix pour le marché international différent des prix pour le marché "
+"local « algérien)."
 msgstr ""
 "The prices for the international market differ from those for the local "
 "Algerian market."
@@ -1933,11 +1965,11 @@ msgstr "Address:"
 #: app/templates/single_traducteur.html:76
 #: app/templates/single_traducteur.html:101
 msgid ""
-"Il est recommandé de contacter le prestataire et de discuter des détails avant "
-"de l'engager"
+"Il est recommandé de contacter le prestataire et de discuter des détails "
+"avant de l'engager"
 msgstr ""
-"It is recommended to contact the provider and discuss the details before hiring "
-"them. "
+"It is recommended to contact the provider and discuss the details before "
+"hiring them. "
 
 #: app/templates/single_traducteur.html:78
 msgid "Engagez-moi"
@@ -1961,19 +1993,21 @@ msgstr "Client's Budget"
 
 #: app/templates/terms.html:12
 msgid ""
-"Que faut-il pour rejoindre notre communauté en tant que traducteur/Interprète ?"
+"Que faut-il pour rejoindre notre communauté en tant que "
+"traducteur/Interprète ?"
 msgstr "What does it take to join our community as a translator/ interpreter?"
 
 #: app/templates/terms.html:20
 msgid ""
-"Pour rejoindre notre communauté, il vous suffit de payer un abonnement annuel "
-"de 15000 Da si vous êtes en Algérie ou 118 Euros si vous êtes un(e) algérien(e) "
-"résident à l’étranger ou un étranger, sauf en cas de promotions, et respecter "
-"quelques engagements"
+"Pour rejoindre notre communauté, il vous suffit de payer un abonnement "
+"annuel de 15000 Da si vous êtes en Algérie ou 118 Euros si vous êtes "
+"un(e) algérien(e) résident à l’étranger ou un étranger, sauf en cas de "
+"promotions, et respecter quelques engagements"
 msgstr ""
-"To join our community, you just need to pay an annual subscription of 15000 Da "
-"if you are in Algeria or 118 Euros if you are an Algerian residing abroad or "
-"foreigner, unless there are promotions, and to comply with a few commitments. "
+"To join our community, you just need to pay an annual subscription of "
+"15000 Da if you are in Algeria or 118 Euros if you are an Algerian "
+"residing abroad or foreigner, unless there are promotions, and to comply "
+"with a few commitments. "
 
 #: app/templates/terms.html:22
 msgid "Tous les clients payent directement le site, et à l'avance."
@@ -1981,30 +2015,34 @@ msgstr "All clients pay the site directly, and in advance."
 
 #: app/templates/terms.html:23
 msgid ""
-"Les clients payent à l’avance pour une mission de prestation sauf en cas de "
-"convention agréée par la direction de la plateforme, où le traducteur n’est pas "
-"obligé de l’accepter, et est parfaitement admissible aux missions payées à "
-"l’avance s’il privilégie celles-ci uniquement."
+"Les clients payent à l’avance pour une mission de prestation sauf en cas "
+"de convention agréée par la direction de la plateforme, où le traducteur "
+"n’est pas obligé de l’accepter, et est parfaitement admissible aux "
+"missions payées à l’avance s’il privilégie celles-ci uniquement."
 msgstr ""
-"Clients pay in advance for a service mission unless there is an agreement "
-"approved by the platform's management, where the translator is not obliged to "
-"accept it, and is perfectly eligible for missions paid in advance if they "
-"prefer these only. "
+"Clients pay in advance for a service mission unless there is an agreement"
+" approved by the platform's management, where the translator is not "
+"obliged to accept it, and is perfectly eligible for missions paid in "
+"advance if they prefer these only. "
 
 #: app/templates/terms.html:24
 #, python-format
 msgid ""
-"Les traducteurs acceptent que la plateforme garde 20%(percent)s des paiements "
-"de leurs travaux, et leur verse 80%(percent1)s sur leurs comptes respectifs."
+"Les traducteurs acceptent que la plateforme garde 20%(percent)s des "
+"paiements de leurs travaux, et leur verse 80%(percent1)s sur leurs "
+"comptes respectifs."
 msgstr ""
+"The translators agree that the platform retains 20%(percent)s of the "
+"payments for their work and transfers 80%(percent1)s to their respective "
+"accounts."
 
 #: app/templates/terms.html:25
 msgid ""
-"Ne pas dépasser la somme fixée, en donnant leurs tarifs aux clients. Il faut "
-"préserver le rapport qualité prix."
+"Ne pas dépasser la somme fixée, en donnant leurs tarifs aux clients. Il "
+"faut préserver le rapport qualité prix."
 msgstr ""
-"Do not exceed the set amount by giving their rates to clients. It is important "
-"to maintain a balance between quality and price"
+"Do not exceed the set amount by giving their rates to clients. It is "
+"important to maintain a balance between quality and price"
 
 #: app/templates/terms.html:26
 msgid "Ils ne communiquent pas leurs coordonnées aux clients."
@@ -2032,34 +2070,36 @@ msgstr "The contract cannot be terminated before due time."
 
 #: app/templates/terms.html:39
 msgid ""
-"Concernant les prix. (Les tarifs à ne pas dépasser pour le marché algérien)"
+"Concernant les prix. (Les tarifs à ne pas dépasser pour le marché "
+"algérien)"
 msgstr "Regarding prices. (Rates not to be exceeded for the Algerian market)"
 
 #: app/templates/terms.html:48
 msgid ""
-"Les documents écrits à traduire: pas plus de 1600 Da la page, même si elle est "
-"bien remplie. (La page standard chez Traducteurs sur Rendez-vous est de 350 "
-"mots)."
+"Les documents écrits à traduire: pas plus de 1600 Da la page, même si "
+"elle est bien remplie. (La page standard chez Traducteurs sur Rendez-vous"
+" est de 350 mots)."
 msgstr ""
-"Written documents to be translated: no more than 1600 Da per page, even if it "
-"is well filled. (The standard page at Traducteurs sur Rendez-vous  is 350 "
-"words)."
+"Written documents to be translated: no more than 1600 Da per page, even "
+"if it is well filled. (The standard page at Traducteurs sur Rendez-vous  "
+"is 350 words)."
 
 #: app/templates/terms.html:49
 msgid ""
-"Relecture \"Proofreading\" : pas plus de 850 Da la page, même si elle est bien "
-"remplie."
+"Relecture \"Proofreading\" : pas plus de 850 Da la page, même si elle est"
+" bien remplie."
 msgstr "Proofreading: no more than 850 Da per page, even if it is well filled."
 
 #: app/templates/terms.html:50
 msgid ""
-"Les interprétations: il est à savoir qu'en général les sociétés qui sollicitent "
-"les interprètes se chargeront des frais de transport, d'hébergement, et "
-"d'alimentation. Le prix à ne pas dépasser est de 20000 Da la journée."
+"Les interprétations: il est à savoir qu'en général les sociétés qui "
+"sollicitent les interprètes se chargeront des frais de transport, "
+"d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 20000 "
+"Da la journée."
 msgstr ""
-"Interpreting provisions : it is necessary to know that in general, companies "
-"requesting interpreters will cover transport, accommodation, and food expenses. "
-"The price not to exceed is 20000 Da per day."
+"Interpreting provisions : it is necessary to know that in general, "
+"companies requesting interpreters will cover transport, accommodation, "
+"and food expenses. The price not to exceed is 20000 Da per day."
 
 #: app/templates/terms.html:51
 msgid "La transcription de fichiers audio. 10000 Da au maximum pour une heure."
@@ -2071,39 +2111,42 @@ msgstr "Subtitles for video: 5000 Da for 20 minutes. Thus, 15000 Da per hour."
 
 #: app/templates/terms.html:53
 msgid ""
-"Traduction avec voix-off d'une vidéo, ne pas dépasser les 20000 Da l'heure."
+"Traduction avec voix-off d'une vidéo, ne pas dépasser les 20000 Da "
+"l'heure."
 msgstr "Translation with voice-over of a video, not to exceed 20000 Da per hour."
 
 #: app/templates/terms.html:61
 msgid ""
-"Concernant les prix. (Les tarifs à ne pas dépasser pour le marché étranger)"
+"Concernant les prix. (Les tarifs à ne pas dépasser pour le marché "
+"étranger)"
 msgstr "Regarding prices. (Rates not to be exceeded for the foreign market)"
 
 #: app/templates/terms.html:70
 msgid ""
-"Les documents écrits à traduire: entre 13 et 18 Euros la page, même si elle est "
-"bien remplie. (La page standard chez Traducteurs sur Rendez-vous est de 350 "
-"mots)."
+"Les documents écrits à traduire: entre 13 et 18 Euros la page, même si "
+"elle est bien remplie. (La page standard chez Traducteurs sur Rendez-vous"
+" est de 350 mots)."
 msgstr ""
-"Written documents to be translated: between 13 and 18 Euros per page, even if "
-"it is well filled. (The standard page at Traducteurs sur Rendez-vous  is 350 "
-"words)."
+"Written documents to be translated: between 13 and 18 Euros per page, "
+"even if it is well filled. (The standard page at Traducteurs sur Rendez-"
+"vous  is 350 words)."
 
 #: app/templates/terms.html:71
 msgid ""
-"Relecture \"Proofreading\" : entre 7 et 10 Euros la page, même si elle est bien "
-"remplie."
+"Relecture \"Proofreading\" : entre 7 et 10 Euros la page, même si elle "
+"est bien remplie."
 msgstr "Proofreading: between 7 and 10 Euros per page, even if it is well filled."
 
 #: app/templates/terms.html:72
 msgid ""
-"Les interprétations: il est à savoir qu'en général les sociétés qui sollicitent "
-"les interprètes se chargeront des frais de transport, d'hébergement, et "
-"d'alimentation. Le prix à ne pas dépasser est de 170 Euros la journée."
+"Les interprétations: il est à savoir qu'en général les sociétés qui "
+"sollicitent les interprètes se chargeront des frais de transport, "
+"d'hébergement, et d'alimentation. Le prix à ne pas dépasser est de 170 "
+"Euros la journée."
 msgstr ""
-"Interpreting provisions: it is known that in general, companies requesting "
-"interpreters will cover transport, accommodation, and food expenses. The price "
-"not to exceed is 170 Euros per day. "
+"Interpreting provisions: it is known that in general, companies "
+"requesting interpreters will cover transport, accommodation, and food "
+"expenses. The price not to exceed is 170 Euros per day. "
 
 #: app/templates/terms.html:73
 msgid "La transcription de fichiers audio. 110 Euros au maximum pour une heure."
@@ -2111,12 +2154,14 @@ msgstr "Transcription of audio files: 110 Euros maximum for one hour."
 
 #: app/templates/terms.html:74
 msgid ""
-"Les sous-titres pour vidéo. 60 Euros les 20 minutes. Donc 180 Euros l'heure"
+"Les sous-titres pour vidéo. 60 Euros les 20 minutes. Donc 180 Euros "
+"l'heure"
 msgstr "Subtitles for video: 60 Euros for 20 minutes. Thus, 180 Euros per hour. "
 
 #: app/templates/terms.html:75
 msgid ""
-"Traduction avec voix-off d'une vidéo, ne pas dépasser les 190 Euros l'heure."
+"Traduction avec voix-off d'une vidéo, ne pas dépasser les 190 Euros "
+"l'heure."
 msgstr "Translation with voice-over of a video, not to exceed 190 Euros per hour."
 
 #: app/templates/terms.html:83
@@ -2125,32 +2170,36 @@ msgstr "Minor penalties"
 
 #: app/templates/terms.html:92
 msgid ""
-"Pour garantir un travail de qualité, et pour assurer aux clients une haute "
-"satisfaction, des mesures ont \n"
-"                    été entreprises, sans pour autant, qu’elles soient faites "
-"par manque de confiance en le traducteur, ou diminuer de sa personne. Si le "
-"traducteur dépasse les délais impartis, un badge rouge sera affiché sur son "
-"profil pour une période de 15 jours, et le client pourra le bloquer, en ayant "
-"une réduction comme dédommagement. Point positif : le badge rouge disparaitra "
-"après 15 jours, et d’autres clients pourront le contacter au futur. Si le "
-"traducteur ne respecte pas la confidentialité, il sera radié du site. La "
-"dernière n’est pas vraiment une pénalité, toutefois nous tenons à signaler, que "
-"si le traducteur donne des tarifs supérieurs aux sommes fixées, ceux là seront "
-"changés automatiquement, ou manuellement par les administrateurs du site. "
-"Confer Les tarifs à ne pas dépasser… "
+"Pour garantir un travail de qualité, et pour assurer aux clients une "
+"haute satisfaction, des mesures ont \n"
+"                    été entreprises, sans pour autant, qu’elles soient "
+"faites par manque de confiance en le traducteur, ou diminuer de sa "
+"personne. Si le traducteur dépasse les délais impartis, un badge rouge "
+"sera affiché sur son profil pour une période de 15 jours, et le client "
+"pourra le bloquer, en ayant une réduction comme dédommagement. Point "
+"positif : le badge rouge disparaitra après 15 jours, et d’autres clients "
+"pourront le contacter au futur. Si le traducteur ne respecte pas la "
+"confidentialité, il sera radié du site. La dernière n’est pas vraiment "
+"une pénalité, toutefois nous tenons à signaler, que si le traducteur "
+"donne des tarifs supérieurs aux sommes fixées, ceux là seront changés "
+"automatiquement, ou manuellement par les administrateurs du site. Confer "
+"Les tarifs à ne pas dépasser… "
 msgstr ""
-"To ensure quality work and to guarantee clients high satisfaction, measures "
-"nave been taken, not because of a lack of trust in the translator, or to "
-"diminish them as a person. \n"
-" the translator exceeds the given deadlines, a red badge will be displayed on "
-"their profile for a period of 15 days, \n"
-" the client will be able to block them, receiving a discount as compensation. "
-"Positive point: the red badge will disappear after 15 days, \n"
-" other clients will be able to contact them in the future. If the translator "
-"does not respect confidentiality, they will be removed from the site. \n"
-" last one is not really a penalty; however, we want to point out that if the "
-"translator gives rates higher than the set amounts, \n"
-"it will be changed automatically or manually by the site's administrators. \n"
+"To ensure quality work and to guarantee clients high satisfaction, "
+"measures nave been taken, not because of a lack of trust in the "
+"translator, or to diminish them as a person. \n"
+" the translator exceeds the given deadlines, a red badge will be "
+"displayed on their profile for a period of 15 days, \n"
+" the client will be able to block them, receiving a discount as "
+"compensation. Positive point: the red badge will disappear after 15 days,"
+" \n"
+" other clients will be able to contact them in the future. If the "
+"translator does not respect confidentiality, they will be removed from "
+"the site. \n"
+" last one is not really a penalty; however, we want to point out that if "
+"the translator gives rates higher than the set amounts, \n"
+"it will be changed automatically or manually by the site's "
+"administrators. \n"
 " CF rates not to be exceeded…  "
 
 #: app/templates/terms.html:101
@@ -2159,25 +2208,26 @@ msgstr "What we require from the client regarding the translator"
 
 #: app/templates/terms.html:110
 msgid ""
-"Après s’être mis d’accord avec la direction de la plateforme ou un traducteur, "
-"il payera le montant à l’avance sur le compte du site, et ne se désistera pas "
-"alors que le traducteur a commencé le travail."
+"Après s’être mis d’accord avec la direction de la plateforme ou un "
+"traducteur, il payera le montant à l’avance sur le compte du site, et ne "
+"se désistera pas alors que le traducteur a commencé le travail."
 msgstr ""
-"After agreeing with the platform management or a translator, he will pay the "
-"amount in advance on the site account and will not withdraw after the "
-"translator has started the work. "
+"After agreeing with the platform management or a translator, he will pay "
+"the amount in advance on the site account and will not withdraw after the"
+" translator has started the work. "
 
 #: app/templates/terms.html:111
 msgid ""
-"Prévenir le traducteur avant paiement en cas d’annulation avant 24h, le temps "
-"écoulé, et donc le délai dépassé le traducteur passera naturellement vers une "
-"autre commande, sauf si celui-ci convienne d’attendre et ne pas prendre une "
-"autre mission jusqu’à ce que le client paye."
+"Prévenir le traducteur avant paiement en cas d’annulation avant 24h, le "
+"temps écoulé, et donc le délai dépassé le traducteur passera "
+"naturellement vers une autre commande, sauf si celui-ci convienne "
+"d’attendre et ne pas prendre une autre mission jusqu’à ce que le client "
+"paye."
 msgstr ""
-"Notify the translator before payment in case of cancellation within 24 hours; "
-"if the time has passed,\n"
-"  thus the deadline exceeded, the translator will naturally move on to another "
-"order, unless they agree to wait \n"
+"Notify the translator before payment in case of cancellation within 24 "
+"hours; if the time has passed,\n"
+"  thus the deadline exceeded, the translator will naturally move on to "
+"another order, unless they agree to wait \n"
 "  nor take another assignment until the client pays. "
 
 #: app/templates/terms.html:119
@@ -2186,32 +2236,32 @@ msgstr ""
 
 #: app/templates/terms.html:127
 msgid ""
-"Avoir un profil avec un système filtre qui va faciliter aux clients dénicheurs "
-"de perles de vous trouver : filtre à étoiles (les points du test), filtre à "
-"points de travaux sur le site (qui augmente en fonction de vos travaux faits et "
-"validés), localisation (pour les déplacements nécessaires à des travaux "
-"d’interprétation), langues de spécialité, et disponibilité, sans oublier que "
-"les clients qui viennent vers le site, cherchent uniquement les traducteurs et/"
-"ou interprètes…"
+"Avoir un profil avec un système filtre qui va faciliter aux clients "
+"dénicheurs de perles de vous trouver : filtre à étoiles (les points du "
+"test), filtre à points de travaux sur le site (qui augmente en fonction "
+"de vos travaux faits et validés), localisation (pour les déplacements "
+"nécessaires à des travaux d’interprétation), langues de spécialité, et "
+"disponibilité, sans oublier que les clients qui viennent vers le site, "
+"cherchent uniquement les traducteurs et/ou interprètes…"
 msgstr ""
 
 #: app/templates/terms.html:128
 msgid ""
-"Vos droits seront préservés, et vous serez protégés sous la couverture d’un "
-"registre de commerce légal, tout en restant indépendants."
+"Vos droits seront préservés, et vous serez protégés sous la couverture "
+"d’un registre de commerce légal, tout en restant indépendants."
 msgstr ""
 
 #: app/templates/terms.html:129
 msgid ""
-"Le test que vous fera passer un ancien traducteur/Interprète professionnel et "
-"très sollicité argumentera votre crédibilité."
+"Le test que vous fera passer un ancien traducteur/Interprète "
+"professionnel et très sollicité argumentera votre crédibilité."
 msgstr ""
 
 #: app/templates/terms.html:130
 msgid ""
-"Vous cumulez des points d’expérience qui s’ajouteront à votre profil à chaque "
-"travail effectué et finalisé sur la plateforme, ce qui favorisera le choix de "
-"votre espace personnel par rapport aux clients."
+"Vous cumulez des points d’expérience qui s’ajouteront à votre profil à "
+"chaque travail effectué et finalisé sur la plateforme, ce qui favorisera "
+"le choix de votre espace personnel par rapport aux clients."
 msgstr ""
 
 #: app/templates/terms.html:131
@@ -2234,8 +2284,8 @@ msgstr ""
 
 #: app/templates/terms.html:134
 msgid ""
-"D’autres offres suivront, qui seront gratuites, et qui vont sans nul doute vous "
-"émerveiller !"
+"D’autres offres suivront, qui seront gratuites, et qui vont sans nul "
+"doute vous émerveiller !"
 msgstr ""
 
 #: app/templates/traducteur.html:12 app/templates/traducteur_search.html:12
@@ -2277,30 +2327,30 @@ msgstr "Updating %(username)s"
 
 #: app/templates/update_traducteur.html:15
 msgid ""
-"Vous résidez en Algérie ou même outre-mer, et avez une licence en traduction ou "
-"un diplôme équivalent ? \n"
+"Vous résidez en Algérie ou même outre-mer, et avez une licence en "
+"traduction ou un diplôme équivalent ? \n"
 "                    Ou bien vous êtes titulaire d’une licence en langues "
 "étrangères, en plus d’un master en traduction ? \n"
 "                    Ou peut-être vous êtes ingénieur en une toute autre "
 "filière, mais avez une maîtrise parfaite des langues, \n"
-"                    et possédez en tout ce qui est technique, un très bon "
-"jargon ? Vous désirez avoir à faire à de multitudes de clients, \n"
+"                    et possédez en tout ce qui est technique, un très bon"
+" jargon ? Vous désirez avoir à faire à de multitudes de clients, \n"
 "                    acquérir de l’expérience, et faire exploser votre "
 "Portefeuille d’argent ? \n"
-"                    Traducteurs sur Rendez-vous est le monde qu’il vous faut ! "
-"N’attendez plus et engagez-vous dés maintenant !"
+"                    Traducteurs sur Rendez-vous est le monde qu’il vous "
+"faut ! N’attendez plus et engagez-vous dés maintenant !"
 msgstr ""
-"Do you reside in Algeria or even overseas, and have a degree in translation or "
-"an equivalent diploma?\n"
-"  do you hold a degree in foreign languages, in addition to a master's in "
-"translation? \n"
+"Do you reside in Algeria or even overseas, and have a degree in "
+"translation or an equivalent diploma?\n"
+"  do you hold a degree in foreign languages, in addition to a master's in"
+" translation? \n"
 " perhaps you are an engineer in a completely different field, but have a "
 "perfect command of languages,\n"
-" d possess a very good technical jargon? Do you want to deal with numerous "
-"clients,\n"
+" d possess a very good technical jargon? Do you want to deal with "
+"numerous clients,\n"
 " in experience, and boost your income?\n"
-"Taducteurs sur Rendez-vous is the world you need! Don't wait any longer and get "
-"involved right now!"
+"Taducteurs sur Rendez-vous is the world you need! Don't wait any longer "
+"and get involved right now!"
 
 #: app/templates/update_traducteur.html:153
 #: app/templates/update_traducteur.html:159
@@ -2317,41 +2367,47 @@ msgid "Pour confirmer votre adresse mail, cliquez"
 msgstr "To confirm your email address, click"
 
 #: app/templates/email/confirm_email.html:6
-#: app/templates/email/contact_email.html:6 app/templates/email/info_email.html:6
+#: app/templates/email/contact_email.html:6
+#: app/templates/email/info_email.html:6
 #: app/templates/email/reset_password.html:6
 msgid ""
-"Vous pouvez également coller le lien suivant dans la barre d'adresse de votre "
-"navigateur :"
+"Vous pouvez également coller le lien suivant dans la barre d'adresse de "
+"votre navigateur :"
 msgstr ""
-"You can also paste the following link into the address bar of your browser:"
+"You can also paste the following link into the address bar of your "
+"browser:"
 
 #: app/templates/email/confirm_email.html:8
 msgid ""
-"Si vous n'avez pas demandé la vérification d'identité sur Traducteurs sur "
-"rendez-vous, ignorez simplement ce message."
+"Si vous n'avez pas demandé la vérification d'identité sur Traducteurs sur"
+" rendez-vous, ignorez simplement ce message."
 msgstr ""
-"If you did not request identity verification on Traducteurs sur rendez-vous, "
-"simply ignore this message."
+"If you did not request identity verification on Traducteurs sur rendez-"
+"vous, simply ignore this message."
 
 #: app/templates/email/confirm_email.html:9
-#: app/templates/email/contact_email.html:8 app/templates/email/info_email.html:8
+#: app/templates/email/contact_email.html:8
+#: app/templates/email/info_email.html:8
 #: app/templates/email/reset_password.html:9
 msgid "Cordialement,"
 msgstr "Sincerely,"
 
 #: app/templates/email/confirm_email.html:10
-#: app/templates/email/contact_email.html:9 app/templates/email/info_email.html:9
+#: app/templates/email/contact_email.html:9
+#: app/templates/email/info_email.html:9
 #: app/templates/email/reset_password.html:10
 msgid "L'équipe TRADRDV"
 msgstr "Team TRADRDV "
 
-#: app/templates/email/contact_email.html:1 app/templates/email/info_email.html:1
+#: app/templates/email/contact_email.html:1
+#: app/templates/email/info_email.html:1
 #: app/templates/email/reset_password.html:1
 #, python-format
 msgid "Bonjour %(username)s ,"
 msgstr "Hello %(username)s,"
 
-#: app/templates/email/contact_email.html:4 app/templates/email/info_email.html:4
+#: app/templates/email/contact_email.html:4
+#: app/templates/email/info_email.html:4
 msgid "Cliquez"
 msgstr "Click"
 
@@ -2394,15 +2450,27 @@ msgstr "If you did not request a password reset, simply ignore this message."
 #~ msgstr "charities."
 
 #~ msgid ""
-#~ "Les traducteurs acceptent que la plateforme garde 15%(percent)s des "
-#~ "paiements de leurs travaux, et leur verse 85%(percent2)s sur leurs comptes "
-#~ "respectifs. S’il y a une relecture à faire, la plateforme prend au maximum "
-#~ "5%(percent3)s comme frais de relecture du total du paiement du client, "
-#~ "parfois moins, selon le volume nécessaire de celle-ci, pas un centime de "
-#~ "plus."
+#~ "Les traducteurs acceptent que la "
+#~ "plateforme garde 15%(percent)s des paiements"
+#~ " de leurs travaux, et leur verse "
+#~ "85%(percent2)s sur leurs comptes respectifs."
+#~ " S’il y a une relecture à "
+#~ "faire, la plateforme prend au maximum"
+#~ " 5%(percent3)s comme frais de relecture "
+#~ "du total du paiement du client, "
+#~ "parfois moins, selon le volume "
+#~ "nécessaire de celle-ci, pas un "
+#~ "centime de plus."
 #~ msgstr ""
-#~ "Translators agree that the platform keeps 15%(percent)s of the payments for "
-#~ "their work and pays them 85%(percent2)s into their respective accounts. If "
-#~ "there is a proofreading to be done, the platform takes at most 5%(percent3)s "
-#~ "as proofreading fees from the total client payment, sometimes less, "
-#~ "depending on the necessary volume of it, not a cent more. \n"
+#~ "Translators agree that the platform "
+#~ "keeps 15%(percent)s of the payments for"
+#~ " their work and pays them "
+#~ "85%(percent2)s into their respective accounts."
+#~ " If there is a proofreading to "
+#~ "be done, the platform takes at "
+#~ "most 5%(percent3)s as proofreading fees "
+#~ "from the total client payment, sometimes"
+#~ " less, depending on the necessary "
+#~ "volume of it, not a cent more."
+#~ " \n"
+
