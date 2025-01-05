@@ -10,7 +10,8 @@ from googletrans import Translator
 
 
 from app import app, db, client, tasks
-from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, Dashbord, Pub, Marketing, make_payment, get_paid, update_dashbord
+from app.models import Chat, Deal, Payment, User, Traducteur, Contact, Newsletter, \
+    Dashbord, Pub, Marketing, make_payment, get_paid, update_dashbord, View
 from app.utils import get_google_provider_cfg, allowed_image, password_reset_email,\
      email_confirm_email, alert_email, newsletter_email, select_by_random, return_eq_da
 from app.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
@@ -53,13 +54,20 @@ def before_request():
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/accueil', methods=['GET', 'POST'])
 def accueil():
-    update_dashbord(accueil_view=1)
-
-    #Dashbord of the two months
-    dashbords = Dashbord.query.all()
-    dashbord_this_month = dashbords[len(dashbords)-1]
-    dashbord_last_month = dashbords[len(dashbords)-2 if len(dashbords)>=2 else 0]
-
+    View.add_view(type="Page", name="HomePage")
+    viewsHomePage = View.get_monthly_views(view_type="Page", view_name="HomePage")
+    viewsTraducteurPage = View.get_monthly_views(view_type="Page", view_name="TraducteurPage")
+    dashbord_views={
+        'current_month':{
+            'HomePage': viewsHomePage['current_month'],
+            'TraducteurPage': viewsTraducteurPage['current_month']
+        },
+        'previous_month':{
+            'HomePage': viewsHomePage['previous_month'],
+            'TraducteurPage': viewsTraducteurPage['previous_month']
+        }
+    }
+   
     traducteurs_need_ad = Traducteur.query.filter((Traducteur.compte_valid==True) & (Traducteur.need_help_ad=='on')).order_by(select_by_random()).all()
     traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random()).all()
     # Abonnement Marketing 
@@ -68,7 +76,7 @@ def accueil():
         account.has_valid_abon()
     pubs = Pub.query.filter_by(valid=True).order_by(select_by_random()).all()
     return render_template('accueil.html', traducteurs_need_ad=traducteurs_need_ad, traducteurs=traducteurs, pubs=pubs,
-        dashbord_this_month=dashbord_this_month, dashbord_last_month=dashbord_last_month, title=_('Accueil - %(sitename)s', sitename=app.config['SITE_NAME']))
+        dashbord_views=dashbord_views, title=_('Accueil - %(sitename)s', sitename=app.config['SITE_NAME']))
 
 
 # -------------------------------------------------#
@@ -1113,7 +1121,7 @@ def submit_work():
 
 @app.route('/traducteur')
 def traducteur():
-    update_dashbord(traducteur_view=1)
+    View.add_view(type="Page", name="TraducteurPage")
     page = request.args.get('page', 1, type=int)
 
     traducteurs = Traducteur.query.filter((Traducteur.compte_valid==True)).order_by(select_by_random())\

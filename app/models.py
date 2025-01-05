@@ -3,6 +3,8 @@ from flask_login import UserMixin
 from time import time
 import jwt
 from datetime import datetime, timedelta
+from sqlalchemy import extract, func
+
 import os, logging as lg
 
 from app import db, login, app, moment
@@ -396,6 +398,47 @@ class Newsletter(db.Model):
     def __repr__(self):
         return '<Newsletter {}>'.format(self.email)
 
+class View(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(100), index=True, nullable=False) # "Page", 
+    name = db.Column(db.String(100), index=True, nullable=False)
+    counter = db.Column(db.Integer, nullable=False, default=1)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<View {}>'.format(self.name)
+
+    @staticmethod
+    def add_view(type, name, counter=1):
+        db.session.add(View(type=type, name=name, counter=counter, date=datetime.utcnow()))
+        db.session.commit()
+
+    def get_monthly_views(view_type, view_name):
+        now = datetime.utcnow()
+        current_month_start = datetime(now.year, now.month, 1)
+        previous_month_start = (current_month_start - timedelta(days=1)).replace(day=1)
+        next_month_start = (current_month_start + timedelta(days=31)).replace(day=1)
+
+        # Query for the current month
+        current_month_views = db.session.query(func.sum(View.counter))\
+            .filter(View.type == view_type)\
+            .filter(View.name == view_name)\
+            .filter(View.date >= current_month_start)\
+            .filter(View.date < next_month_start)\
+            .scalar() or 0
+
+        # Query for the previous month
+        previous_month_views = db.session.query(func.sum(View.counter))\
+            .filter(View.type == view_type)\
+            .filter(View.name == view_name)\
+            .filter(View.date >= previous_month_start)\
+            .filter(View.date < current_month_start)\
+            .scalar() or 0
+
+        return {
+            "current_month": current_month_views,
+            "previous_month": previous_month_views
+        }
 
 class Dashbord(db.Model):
     id = db.Column(db.Integer, primary_key=True)

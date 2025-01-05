@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-11-20 19:04+0800\n"
+"POT-Creation-Date: 2025-01-05 08:28+0800\n"
 "PO-Revision-Date: 2024-09-30 23:22+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -1165,7 +1165,7 @@ msgstr ""
 #: app/templates/banner_lg.html:18 app/templates/banner_lg.html:25
 #: app/templates/banner_lg.html:38 app/templates/banner_lg.html:45
 #: app/templates/banner_lg.html:58 app/templates/banner_lg.html:65
-msgid "Trouver un Traducteur"
+msgid "Réserver un Traducteur"
 msgstr ""
 
 #: app/templates/banner_lg.html:30
@@ -1304,12 +1304,12 @@ msgstr ""
 msgid "Ou connectez-vous avec"
 msgstr ""
 
-#: app/templates/login.html:40
-msgid "Se connecter avec Facebook"
+#: app/templates/login.html:40 app/templates/register.html:56
+msgid "Facebook"
 msgstr ""
 
-#: app/templates/login.html:42
-msgid "Se connecter avec Google"
+#: app/templates/login.html:42 app/templates/register.html:58
+msgid "Google"
 msgstr ""
 
 #: app/templates/login.html:45
@@ -1771,14 +1771,6 @@ msgstr ""
 
 #: app/templates/register.html:54
 msgid "Ou inscrivez-vous avec"
-msgstr ""
-
-#: app/templates/register.html:56
-msgid "S'inscrire avec Facebook"
-msgstr ""
-
-#: app/templates/register.html:58
-msgid "S'inscrire avec Google"
 msgstr ""
 
 #: app/templates/register.html:61
@@ -2461,5 +2453,20 @@ msgstr ""
 #~ "parfois moins, selon le volume "
 #~ "nécessaire de celle-ci, pas un "
 #~ "centime de plus."
+#~ msgstr ""
+
+#~ msgid "Trouver un Traducteur"
+#~ msgstr ""
+
+#~ msgid "Se connecter avec Facebook"
+#~ msgstr ""
+
+#~ msgid "Se connecter avec Google"
+#~ msgstr ""
+
+#~ msgid "S'inscrire avec Facebook"
+#~ msgstr ""
+
+#~ msgid "S'inscrire avec Google"
 #~ msgstr ""
 
