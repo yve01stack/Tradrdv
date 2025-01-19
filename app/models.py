@@ -18,7 +18,7 @@ class User(UserMixin, db.Model):
     fullname = db.Column(db.String(64), index=True)
     sex = db.Column(db.String(16), index=True)
     email = db.Column(db.String(100), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+    password_hash = db.Column(db.String(512))
     statut = db.Column(db.String(16), default='client')
     ad_statut = db.Column(db.Boolean, nullable=False, default=False)
     offre_statut = db.Column(db.String(16), default='gratuit')
