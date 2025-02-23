@@ -386,6 +386,26 @@
                                         <div><strong>{{_('Ville:')}}</strong> <i class="traducteur_town">...</i></div>
                                         <div><strong>{{_('En ligne:')}}</strong> <i class="traducteur_last_seen">...</i></div>
                                         <div><strong>{{_('Membre depuis:')}}</strong> <i class="traducteur_timestamp">...</i></div>
+
+                                        <div>
+                                          <form action="{{ url_for('tradoffer_updateReview', _external=True) }}" method="post" class="form-container" id="tradoffer_updateReview">
+                                            <input class="traducteur_id" name="trad_id" required type="hidden">
+                                            <div class="rate mt-n3">
+                                                <input type="radio" id="star5" name="rate" value="5" checked />
+                                                <label for="star5" title="text">5 stars</label>
+                                                <input type="radio" id="star4" name="rate" value="4" />
+                                                <label for="star4" title="text">4 stars</label>
+                                                <input type="radio" id="star3" name="rate" value="3" />
+                                                <label for="star3" title="text">3 stars</label>
+                                                <input type="radio" id="star2" name="rate" value="2" />
+                                                <label for="star2" title="text">2 stars</label>
+                                                <input type="radio" id="star1" name="rate" value="1" />
+                                                <label for="star1" title="text">1 star</label>
+                                            </div>
+                                            <button type="submit" class="btn-perso" form="tradoffer_updateReview"><i class="fa fa-save"></i></button>
+                                          </form>
+                                        </div>
+
                                         <h3 class="text-center">Jour de Paye</h3>
                                         <div><strong>{{_('CCP:')}}</strong> <i class="traducteur_ccp">...</i></div>
                                         <div><strong>{{_('BaridiMob:')}}</strong> <i class="traducteur_baridimob">...</i></div>
@@ -862,6 +882,26 @@
             $('.traducteur_town').text(data['data']['current_town'])
             $('.traducteur_last_seen').text(data['data']['author']['last_seen'])
             $('.traducteur_timestamp').text(data['data']['author']['timestamp'])
+
+            switch (data['data']['test_score']) {
+              case 5:
+                $(".rate #star5").prop("checked", true);
+                break;
+              case 4:
+                $(".rate #star4").prop("checked", true);
+                break;
+              case 3:
+                $(".rate #star3").prop("checked", true);
+                break;
+              case 2:
+                $(".rate #star2").prop("checked", true);
+                break;
+              case 1:
+                $(".rate #star1").prop("checked", true);
+                break;
+              default:
+                
+            }
             
             $('.traducteur_ccp').text(data['data']['CCP_number'])
             $('.traducteur_baridimob').text(data['data']['BaridiMob_RIP'])

@@ -172,6 +172,7 @@ class Traducteur(db.Model):
             'about_me': self.about_me,
             'prestation': self.prestation,
             'addr_postale': self.addr_postale,
+            'test_score': self.test_score,
             'success_work': self.success_work,
             'current_country': self.current_country,
             'current_town': self.current_town,

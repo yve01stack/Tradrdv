@@ -1775,6 +1775,28 @@ def tradoffer_postpone():
     flash(_('Prolongement d\'abonnement traducteur a été fait'), 'success')
     return redirect(url_for('admin_panel', _external=True))
 
+
+@app.route('/admin/tradoffer/update_review', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_admin
+def tradoffer_updateReview():
+    trad_id = request.form.get('trad_id')
+
+    traducteur_old = Traducteur.query.filter_by(id=trad_id).first_or_404()
+    rate = request.form.get('rate') if not request.form.get('rate') is None else traducteur_old.test_score
+    traducteur_old.test_score = rate
+    db.session.commit()
+    
+    subject = _('Compte de traducteur mis à jour')
+    body = _("Depuis votre dernière visite sur TRADRDV, votre statut de traducteur a été révisé."\
+        "Veuillez consulter votre profile.") 
+    url = url_for('profile', _external=True)
+    alert_email(subject, body, url, User.query.filter_by(id=traducteur_old.user_id).first())
+    flash(_('Compte de traducteur mis à jour'), 'success')
+    return redirect(url_for('admin_panel', _external=True))
+
+
 @app.route('/admin/boost/<trad_id>', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
